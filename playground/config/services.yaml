@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Playground\:
+        resource: '../src/'
+        exclude: ['../src/Kernel.php']

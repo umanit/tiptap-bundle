@@ -1,0 +1,11 @@
+{% set title = 'Webpack Encore' %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ title }}</title>
+    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_script_tags('app') }}
+</head>
+<body>{% block body %}{% endblock %}</body>
+</html>

@@ -12,3 +12,11 @@
 /.php-cs-fixer.cache
 /var
 /.twig-cs-fixer.cache
+/playground/vendor
+/playground/node_modules
+/playground/var
+/playground/composer.lock
+/playground/public/assets
+/playground/public/build
+/playground/assets/vendor
+/playground/config/reference.php

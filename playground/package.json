@@ -1,0 +1,18 @@
+{
+  "name": "umanit-tiptap-bundle-playground",
+  "private": true,
+  "license": "MIT",
+  "devDependencies": {
+    "@hotwired/stimulus": "^3.2.2",
+    "@symfony/stimulus-bridge": "^4.0.1",
+    "@symfony/webpack-encore": "^6.0.0",
+    "@umanit/tiptap-bundle": "file:vendor/umanit/tiptap-bundle/assets",
+    "css-loader": "^7.1.2",
+    "mini-css-extract-plugin": "^2.9.0",
+    "webpack": "^5.95.0",
+    "webpack-cli": "^6.0.1"
+  },
+  "scripts": {
+    "build": "encore dev"
+  }
+}

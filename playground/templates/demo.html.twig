@@ -1,0 +1,17 @@
+{% extends layout %}
+
+{% block body %}
+    <h1>{{ title }}</h1>
+
+    {{ form_start(form) }}
+        {{ form_row(form.body) }}
+        {{ form_row(form.save) }}
+    {{ form_end(form) }}
+
+    {% if submitted is not null %}
+        <pre id="submitted">{{ submitted }}</pre>
+    {% endif %}
+
+    <h2>Standalone component</h2>
+    <twig:Umanit:Tiptap:Editor id="standalone" name="standalone" content="<p>Standalone</p>" toolbar="default" />
+{% endblock %}

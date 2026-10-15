@@ -1,0 +1,18 @@
+{
+    "controllers": {
+        "@umanit/tiptap-bundle": {
+            "editor": {
+                "enabled": true,
+                "fetch": "eager",
+                "autoimport": {
+                    "@umanit/tiptap-bundle/dist/css/tiptap-editor.css": true,
+                    "@umanit/tiptap-bundle/dist/css/tiptap-content.css": true
+                }
+            },
+            "dropdown": { "enabled": true, "fetch": "lazy" },
+            "modal": { "enabled": true, "fetch": "lazy" },
+            "image": { "enabled": true, "fetch": "lazy" }
+        }
+    },
+    "entrypoints": []
+}

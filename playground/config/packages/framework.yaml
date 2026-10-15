@@ -1,0 +1,11 @@
+framework:
+    secret: playground
+    default_locale: en
+    translator: { default_path: '%kernel.project_dir%/translations' }
+    form: true
+    http_method_override: false
+    handle_all_throwables: true
+    php_errors: { log: true }
+    asset_mapper:
+        paths:
+            - assets/
