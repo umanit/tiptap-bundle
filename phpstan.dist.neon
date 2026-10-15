@@ -1,5 +1,7 @@
 includes:
     - vendor/phpstan/phpstan-deprecation-rules/rules.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+    - vendor/phpstan/phpstan-phpunit/rules.neon
     - vendor/phpstan/phpstan-symfony/extension.neon
     - vendor/phpstan/phpstan-symfony/rules.neon
 
@@ -11,3 +13,8 @@ parameters:
     paths:
         - src/
         - tests/
+    ignoreErrors:
+        # Supports both Symfony 7.4 (HttpKernel BundleInterface) and 8.x (where it is deprecated)
+        -
+            identifier: return.deprecatedInterface
+            path: tests/Fixtures/TestKernel.php

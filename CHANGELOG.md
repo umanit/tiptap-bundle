@@ -10,3 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Initial repository skeleton and static analysis tooling.
+- Toolbar, styles, colors and templates builders/providers, with neutral default builders.
+- `Umanit:Tiptap:*` Twig components and `TiptapType` form type.
+- Embedded Lucide icons (`umanit-tiptap:*` icon set) and `UmanitTiptapBundle` translations (en, fr).

@@ -1,0 +1,24 @@
+<div class="umanit-tiptap__dropdown" title="{{ title }}"
+     {{ stimulus_controller('umanit/dropdown') }} {{ attributes }}>
+  <button type="button" class="umanit-tiptap__btn"
+          {{ stimulus_action('umanit/dropdown', 'toggle') }} aria-expanded="false">
+    <twig:ux:icon name="umanit-tiptap:a-large-small" width="{{ iconSize }}" height="{{ iconSize }}" />
+  </button>
+  <ul class="umanit-tiptap__dropdown-menu">
+    {% for size in sizes %}
+      <li>
+        <twig:Umanit:Tiptap:CommandTool
+            :hideLabel="false" title="{{ title }}" label="{{ size }}px"
+            class="umanit-tiptap__dropdown-item u-fs-{{ size }}" command="setTextSize" args="u-fs-{{ size }}" />
+      </li>
+    {% endfor %}
+    <li>
+      <hr class="umanit-tiptap__dropdown-divider">
+    </li>
+    <li>
+      <twig:Umanit:Tiptap:CommandTool
+          :hideLabel="false" title="{{ title }}" label="{{ 'wysiwyg.font_size.reset'|trans({}, 'UmanitTiptapBundle') }}"
+          class="umanit-tiptap__dropdown-item" command="unsetTextSize" />
+    </li>
+  </ul>
+</div>

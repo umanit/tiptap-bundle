@@ -1,0 +1,42 @@
+{% embed '@UmanitTiptap/components/Modal/base.html.twig' with {id: 'templateModal-' ~ id} %}
+  {% block title %}{{ 'wysiwyg.modal.template.title'|trans({}, 'UmanitTiptapBundle') }}{% endblock %}
+
+  {% block content %}
+    <form {{ stimulus_target('umanit/wysiwyg', 'templateForm') }}>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="replaceContentCheck-{{ id }}" name="replaceContent">
+        <label class="form-check-label" for="replaceContentCheck-{{ id }}">
+          {{ 'wysiwyg.modal.template.replace'|trans({}, 'UmanitTiptapBundle') }}
+        </label>
+      </div>
+
+      <p class="text-muted mb-2">{{ 'wysiwyg.modal.template.select_helper'|trans({}, 'UmanitTiptapBundle') }}</p>
+
+      <div class="list-group">
+        {% for template in this.templates %}
+          <button type="button" class="list-group-item list-group-item-action"
+              {{ stimulus_action('umanit/wysiwyg', 'run', 'click', {
+                command: 'template.insert',
+                args: template.content,
+              }) }}>
+            <div class="ut-flex ut-w-full ut-justify-between">
+              <h6 class="mb-1 fw-bold">{{ template.name|trans({}, 'UmanitTiptapBundle') }}</h6>
+            </div>
+            {% if template.description is not null %}
+              <small class="text-muted">{{ template.description|trans({}, 'UmanitTiptapBundle') }}</small>
+            {% endif %}
+          </button>
+        {% endfor %}
+      </div>
+    </form>
+  {% endblock %}
+
+  {% block footer %}
+    <div class="umanit-tiptap__modal-footer">
+      <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
+              {{ stimulus_action('umanit/modal', 'close') }}>
+        {{ 'modal.cancel'|trans({}, 'UmanitTiptapBundle') }}
+      </button>
+    </div>
+  {% endblock %}
+{% endembed %}

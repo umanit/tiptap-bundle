@@ -24,4 +24,5 @@ grumphp:
             use_grumphp_paths: false
         phpcs:
             standard: [phpcs.xml.dist]
+            ignore_patterns: ['config/reference.php']
             report_width: 120

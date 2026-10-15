@@ -1,0 +1,15 @@
+{% block umanit_tiptap_widget %}
+  {{ component('Umanit:Tiptap:Editor', {
+    id: id,
+    name: full_name,
+    content: value ?? '',
+    toolbar: toolbar,
+    stylesSet: styles_set,
+    colorsSet: colors_set,
+    backgroundColorsSet: background_colors_set,
+    cellBackgroundColorsSet: cell_background_colors_set,
+    templatesSet: templates_set,
+    fileManagerUrl: file_manager_url,
+    fileManagerAdapter: file_manager_adapter,
+  }) }}
+{% endblock %}

@@ -1,0 +1,209 @@
+{% set tools = {
+  undo: {
+    title: 'wysiwyg.toolbar.undo'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:undo',
+    command: 'undo',
+    label: 'wysiwyg.toolbar.undo_text'|trans({}, 'UmanitTiptapBundle'),
+  },
+  redo: {
+    title: 'wysiwyg.toolbar.redo'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:redo',
+    command: 'redo',
+    label: 'wysiwyg.toolbar.redo_text'|trans({}, 'UmanitTiptapBundle'),
+  },
+  cut: {
+    title: 'wysiwyg.toolbar.cut'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:scissors',
+    command: 'clipboard.cut',
+  },
+  copy: {
+    title: 'wysiwyg.toolbar.copy'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:copy',
+    command: 'clipboard.copy',
+  },
+  paste: {
+    title: 'wysiwyg.toolbar.paste'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:clipboard-paste',
+    command: 'clipboard.paste',
+  },
+  paragraph: {
+    title: 'wysiwyg.toolbar.paragraph'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:pilcrow',
+    command: 'setParagraph',
+  },
+  heading1: {
+    title: 'wysiwyg.toolbar.h1'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:heading-1',
+    command: 'toggleHeading',
+    args: {level: 1},
+  },
+  heading2: {
+    title: 'wysiwyg.toolbar.h2'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:heading-2',
+    command: 'toggleHeading',
+    args: {level: 2},
+  },
+  heading3: {
+    title: 'wysiwyg.toolbar.h3'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:heading-3',
+    command: 'toggleHeading',
+    args: {level: 3},
+  },
+  styles: {
+    title: 'wysiwyg.style.main_title'|trans({}, 'UmanitTiptapBundle'),
+    label: 'wysiwyg.style.button_label'|trans({}, 'UmanitTiptapBundle'),
+  },
+  bold: {
+    title: 'wysiwyg.toolbar.bold'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:bold',
+    command: 'toggleBold',
+  },
+  italic: {
+    title: 'wysiwyg.toolbar.italic'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:italic',
+    command: 'toggleItalic',
+  },
+  underline: {
+    title: 'wysiwyg.toolbar.underline'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:underline',
+    command: 'toggleUnderline',
+  },
+  strike: {
+    title: 'wysiwyg.toolbar.strike'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:strikethrough',
+    command: 'toggleStrike',
+  },
+  subscript: {
+    title: 'wysiwyg.toolbar.subscript'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:subscript',
+    command: 'toggleSubscript',
+  },
+  superscript: {
+    title: 'wysiwyg.toolbar.superscript'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:superscript',
+    command: 'toggleSuperscript',
+  },
+  alignLeft: {
+    title: 'wysiwyg.toolbar.align_left'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:align-left',
+    command: 'toggleTextAlign',
+    args: 'left',
+  },
+  alignCenter: {
+    title: 'wysiwyg.toolbar.align_center'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:align-center',
+    command: 'toggleTextAlign',
+    args: 'center',
+  },
+  alignRight: {
+    title: 'wysiwyg.toolbar.align_right'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:align-right',
+    command: 'toggleTextAlign',
+    args: 'right',
+  },
+  alignJustify: {
+    title: 'wysiwyg.toolbar.align_justify'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:align-justify',
+    command: 'toggleTextAlign',
+    args: 'justify',
+  },
+  indent: {
+    title: 'wysiwyg.toolbar.indent'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:indent',
+    command: 'sinkListItem',
+    args: 'listItem',
+  },
+  outdent: {
+    title: 'wysiwyg.toolbar.outdent'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:outdent',
+    command: 'liftListItem',
+    args: 'listItem',
+  },
+  bulletList: {
+    title: 'wysiwyg.toolbar.bullet_list'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:list',
+    command: 'toggleBulletList',
+  },
+  orderedList: {
+    title: 'wysiwyg.toolbar.ordered_list'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:list-ordered',
+    command: 'toggleOrderedList',
+  },
+  blockquote: {
+    title: 'wysiwyg.toolbar.blockquote'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:quote',
+    command: 'toggleBlockquote',
+  },
+  link: {
+    title: 'wysiwyg.toolbar.link'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:link',
+    command: 'link.open',
+  },
+  unlink: {
+    title: 'wysiwyg.toolbar.unlink'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:link-2-off',
+    command: 'link.unset',
+  },
+  image: {
+    title: 'wysiwyg.toolbar.image'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:image',
+    command: 'image.open',
+  },
+  table: {
+    title: 'wysiwyg.toolbar.table_add'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:table',
+    command: 'table.openAddModal',
+  },
+  color: {
+    title: 'wysiwyg.color.choose'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:palette',
+  },
+  bgColor: {
+    title: 'wysiwyg.bg_color.choose'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:paint-bucket',
+  },
+  fontSize: {
+    title: 'wysiwyg.font_size.choose'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:a-large-small',
+  },
+  anchor: {
+    title: 'wysiwyg.toolbar.anchor'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:flag',
+    command: 'anchor.open',
+  },
+  template: {
+    title: 'wysiwyg.toolbar.insert_template'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:layout-template',
+    command: 'template.open',
+  },
+  source: {
+    title: 'wysiwyg.toolbar.source_mode'|trans({}, 'UmanitTiptapBundle'),
+    icon: 'umanit-tiptap:code',
+  },
+} %}
+
+{% set tool_configuration = tools[tool]|default(null) %}
+
+{% if not tool_configuration %}
+  {% if app.environment == 'dev' %}
+    <p class="alert alert-danger">{{ 'wysiwyg.error.unknown_tool'|trans({'{tool}': tool}) }}</p>
+  {% endif %}
+{% elseif tool_configuration.command is defined %}
+  <twig:Umanit:Tiptap:CommandTool
+      class="umanit-tiptap__btn" {{ ...tool_configuration }} data-wysiwyg-tool="{{ tool }}" {{ ...attributes }} />
+{% elseif tool == 'styles' %}
+  <twig:Umanit:Tiptap:Styles name="{{ stylesSet }}" {{ ...tool_configuration }} {{ ...attributes }} />
+{% elseif tool == 'color' %}
+  <twig:Umanit:Tiptap:Color
+      name="{{ colorsSet }}" type="{{ enum('Umanit\\TiptapBundle\\Twig\\Components\\ColorType').Text }}"
+      {{ ...tool_configuration }} {{ ...attributes }} />
+{% elseif tool == 'bgColor' %}
+  <twig:Umanit:Tiptap:Color
+      name="{{ backgroundColorsSet }}"
+      type="{{ enum('Umanit\\TiptapBundle\\Twig\\Components\\ColorType').Background }}"
+      {{ ...tool_configuration }} {{ ...attributes }} />
+{% elseif tool == 'fontSize' %}
+  <twig:Umanit:Tiptap:FontSize {{ ...tool_configuration }} {{ ...attributes }} />
+{% elseif tool == 'source' %}
+  <twig:Umanit:Tiptap:Source {{ ...tool_configuration }} {{ ...attributes }} />
+{% endif %}

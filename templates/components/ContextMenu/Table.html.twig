@@ -1,0 +1,57 @@
+{% set table_actions = [
+  [{
+    command: 'table.openEditModal',
+    icon: 'umanit-tiptap:table',
+    iconClass: 'ut-me-2',
+    label: 'wysiwyg.menu.table_properties'|trans({}, 'UmanitTiptapBundle'),
+  }, {
+    command: 'table.openCellModal',
+    icon: 'umanit-tiptap:square-pen',
+    iconClass: 'ut-me-2',
+    label: 'wysiwyg.menu.cell_properties'|trans({}, 'UmanitTiptapBundle'),
+  }], [{
+    command: 'table.addRowBefore',
+    icon: 'umanit-tiptap:arrow-up',
+    iconClass: 'ut-me-2',
+    label: 'wysiwyg.menu.add_row_before'|trans({}, 'UmanitTiptapBundle'),
+  }, {
+    command: 'table.addRowAfter',
+    icon: 'umanit-tiptap:arrow-down',
+    iconClass: 'ut-me-2',
+    label: 'wysiwyg.menu.add_row_after'|trans({}, 'UmanitTiptapBundle'),
+  }], [{
+    command: 'table.mergeCells',
+    icon: 'umanit-tiptap:fold-horizontal',
+    iconClass: 'ut-me-2',
+    label: 'wysiwyg.menu.merge_cells'|trans({}, 'UmanitTiptapBundle'),
+  }, {
+    command: 'table.splitCell',
+    icon: 'umanit-tiptap:unfold-horizontal',
+    iconClass: 'ut-me-2',
+    label: 'wysiwyg.menu.split_cell'|trans({}, 'UmanitTiptapBundle'),
+  }], [{
+    command: 'table.delete',
+    icon: 'umanit-tiptap:trash-2',
+    iconClass: 'ut-me-2',
+    label: 'wysiwyg.menu.delete_table'|trans({}, 'UmanitTiptapBundle'),
+    class: 'umanit-tiptap__context-menu-item--danger',
+  }],
+] %}
+
+<ul class="umanit-tiptap__context-menu ut-hidden" {{ stimulus_target('umanit/wysiwyg', 'contextMenu') }}>
+  {% for group in table_actions %}
+    {% for action in group %}
+      <li>
+        <twig:Umanit:Tiptap:CommandTool
+            :hideLabel="false" title="{{ action.label }}" {{ ...action }}
+            class="umanit-tiptap__context-menu-item {{ action.class|default('') }}" />
+      </li>
+    {% endfor %}
+
+    {% if not loop.last %}
+      <li>
+        <hr class="umanit-tiptap__dropdown-divider">
+      </li>
+    {% endif %}
+  {% endfor %}
+</ul>

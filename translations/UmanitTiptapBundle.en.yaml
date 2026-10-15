@@ -1,0 +1,142 @@
+modal.cancel: Cancel
+modal.close: Close
+modal.validate: Validate
+wysiwyg.color.black: Black
+wysiwyg.color.blue: Blue
+wysiwyg.bg_color.choose: 'Background color'
+wysiwyg.bg_color.reset: 'Reset background color'
+wysiwyg.color.choose: 'Choose a Color'
+wysiwyg.color.green: Green
+wysiwyg.color.grey: Grey
+wysiwyg.color.grey_dark: 'Dark Grey'
+wysiwyg.color.grey_light: 'Light Grey'
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Orange
+wysiwyg.color.pink: Pink
+wysiwyg.color.purple: Purple
+wysiwyg.color.red: Red
+wysiwyg.color.reset: 'Reset Color'
+wysiwyg.color.white: White
+wysiwyg.color.yellow: Yellow
+wysiwyg.error.unknown_tool: '"{tool}" tool not supported'
+wysiwyg.font_size.choose: 'Font size'
+wysiwyg.font_size.reset: 'Default size'
+wysiwyg.menu.add_row_after: 'Add Row Below'
+wysiwyg.menu.add_row_before: 'Add Row Above'
+wysiwyg.menu.cell_properties: 'Cell Properties'
+wysiwyg.menu.delete_table: 'Delete Table'
+wysiwyg.menu.merge_cells: 'Merge Cells'
+wysiwyg.menu.split_cell: 'Split Cell'
+wysiwyg.menu.table_properties: 'Table Properties'
+wysiwyg.modal.anchor.id: Identifier
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Remove anchor'
+wysiwyg.modal.anchor.title: Anchor
+wysiwyg.modal.apply: Apply
+wysiwyg.modal.cell.align.bottom: Bottom
+wysiwyg.modal.cell.align.default: Default
+wysiwyg.modal.cell.align.middle: Middle
+wysiwyg.modal.cell.align.top: Top
+wysiwyg.modal.cell.bg_color: 'Background Color'
+wysiwyg.modal.cell.bg_color.none: Default
+wysiwyg.modal.cell.title: 'Cell Properties'
+wysiwyg.modal.cell.vertical_align: 'Vertical Alignment'
+wysiwyg.modal.image.align: Alignment
+wysiwyg.modal.image.align.center: Center
+wysiwyg.modal.image.align.left: Left
+wysiwyg.modal.image.align.right: Right
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Alternative text'
+wysiwyg.modal.image.browse: 'Browse server'
+wysiwyg.modal.image.height: Height
+wysiwyg.modal.image.margin: Spacing
+wysiwyg.modal.image.margin.medium: 'Medium (10px)'
+wysiwyg.modal.image.margin.none: None
+wysiwyg.modal.image.margin.small: 'Small (5px)'
+wysiwyg.modal.image.preview: Preview
+wysiwyg.modal.image.title: 'Image Properties'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Width
+wysiwyg.modal.link.anchor_name: 'Anchor Name'
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.target: Target
+wysiwyg.modal.link.target.blank: 'New Window (_blank)'
+wysiwyg.modal.link.target.default: Default
+wysiwyg.modal.link.target.self: 'Same Window (_self)'
+wysiwyg.modal.link.title: 'Insert Link'
+wysiwyg.modal.link.type: 'Link Type'
+wysiwyg.modal.link.type.anchor: Anchor
+wysiwyg.modal.link.type.url: 'Web URL'
+wysiwyg.modal.link.url: 'Web Address (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.appearance: Appearance
+wysiwyg.modal.table.border: 'Border (px)'
+wysiwyg.modal.table.cols: 'Columns*'
+wysiwyg.modal.table.css_class: 'CSS Class'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'With Header Row'
+wysiwyg.modal.table.rows: 'Rows*'
+wysiwyg.modal.table.structure: Structure
+wysiwyg.modal.table.title: 'Table Properties'
+wysiwyg.modal.table.width: 'Table Width'
+wysiwyg.modal.table.width_auto: Automatic
+wysiwyg.modal.template.items.demo.desc: 'Simple demo template'
+wysiwyg.modal.template.items.demo.title: 'Demo template'
+wysiwyg.modal.template.items.table.desc: 'A 2x1 table'
+wysiwyg.modal.template.items.table.title: 'Pre-filled table'
+wysiwyg.modal.template.replace: 'Replace current content'
+wysiwyg.modal.template.select_helper: 'Please select the template to open in the editor'
+wysiwyg.modal.template.title: 'Content templates'
+wysiwyg.placeholder: 'Write something …'
+wysiwyg.style.banner_info: 'Information banner'
+wysiwyg.style.banner_warning: 'Warning banner'
+wysiwyg.style.button: Button
+wysiwyg.style.button_label: Styles
+wysiwyg.style.main_title: 'Block Styles'
+wysiwyg.style.normal: Normal
+wysiwyg.style.section.banners: Banners
+wysiwyg.style.section.colors: Colors
+wysiwyg.style.section.misc: Miscellaneous
+wysiwyg.style.section.tables: Tables
+wysiwyg.style.table_dotted: 'Dotted Table'
+wysiwyg.style.table_striped: 'Striped table'
+wysiwyg.toolbar.align_center: Center
+wysiwyg.toolbar.align_justify: Justify
+wysiwyg.toolbar.align_left: Left
+wysiwyg.toolbar.align_right: Right
+wysiwyg.toolbar.anchor: Anchor
+wysiwyg.toolbar.blockquote: Quote
+wysiwyg.toolbar.bold: Bold
+wysiwyg.toolbar.bullet_list: 'Bullet List'
+wysiwyg.toolbar.color: Color
+wysiwyg.toolbar.copy: Copy
+wysiwyg.toolbar.cut: Cut
+wysiwyg.toolbar.h1: 'Heading 1'
+wysiwyg.toolbar.h2: 'Heading 2'
+wysiwyg.toolbar.h3: 'Heading 3'
+wysiwyg.toolbar.image: Image
+wysiwyg.toolbar.image_text: IMG
+wysiwyg.toolbar.indent: 'Increase indent'
+wysiwyg.toolbar.insert_template: 'Insert Template'
+wysiwyg.toolbar.italic: Italic
+wysiwyg.toolbar.link: Link
+wysiwyg.toolbar.link_text: Link
+wysiwyg.toolbar.ordered_list: 'Numbered List'
+wysiwyg.toolbar.outdent: 'Decrease indent'
+wysiwyg.toolbar.paragraph: Paragraph
+wysiwyg.toolbar.paste: Paste
+wysiwyg.toolbar.redo: Redo
+wysiwyg.toolbar.redo_text: Redo
+wysiwyg.toolbar.source_mode: 'Source Mode'
+wysiwyg.toolbar.strike: Strikethrough
+wysiwyg.toolbar.subscript: Subscript
+wysiwyg.toolbar.superscript: Superscript
+wysiwyg.toolbar.table_add: 'Add Table'
+wysiwyg.toolbar.table_delete: 'Delete Table'
+wysiwyg.toolbar.table_text: Table
+wysiwyg.toolbar.underline: Underline
+wysiwyg.toolbar.undo: Undo
+wysiwyg.toolbar.undo_text: Undo
+wysiwyg.toolbar.unlink: 'Remove Link'
+wysiwyg.toolbar.unlink_text: Unlink

@@ -1,0 +1,16 @@
+{% set action_parameters = {command: command} %}
+
+{% if args is not null %}
+  {% set action_parameters = action_parameters|merge({args: args}) %}
+{% endif %}
+
+<button type="button" class="{{ class }}" title="{{ title }}"
+    {{ stimulus_action('umanit/wysiwyg', 'run', 'click', action_parameters) }} {{ attributes }}>
+  {% if icon is not null %}
+    <twig:ux:icon name="{{ icon }}" width="{{ iconSize }}" height="{{ iconSize }}" class="{{ iconClass }}" />
+  {% endif %}
+
+  {% if label %}
+    <span{% if hideLabel %} class="ut-visually-hidden"{% endif %}>{{ label }}</span>
+  {% endif %}
+</button>

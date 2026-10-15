@@ -1,0 +1,15 @@
+<div class="umanit-tiptap__toolbar" role="toolbar" {{ stimulus_target('umanit/wysiwyg', 'toolbar') }} {{ attributes }}>
+  {% for section in this.toolbar.sections %}
+    <div class="ut-flex">
+      {% for tool in section.tools %}
+        <twig:Umanit:Tiptap:Tool
+            tool="{{ tool }}" stylesSet="{{ this.stylesSet }}" colorsSet="{{ this.colorsSet }}"
+            backgroundColorsSet="{{ this.backgroundColorsSet }}" />
+      {% endfor %}
+    </div>
+
+    {% if not loop.last %}
+      <div class="umanit-tiptap__divider"></div>
+    {% endif %}
+  {% endfor %}
+</div>

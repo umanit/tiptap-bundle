@@ -1,0 +1,35 @@
+<div class="umanit-tiptap__dropdown" {{ stimulus_controller('umanit/dropdown') }} {{ attributes }}>
+  <button class="umanit-tiptap__btn umanit-tiptap__styles-btn" type="button"
+          {{ stimulus_action('umanit/dropdown', 'toggle') }} aria-expanded="false" title="{{ this.title }}">
+    {{ this.label }}
+  </button>
+  <ul class="umanit-tiptap__dropdown-menu umanit-tiptap__styles-menu">
+    <li>
+      <twig:Umanit:Tiptap:CommandTool
+          :hideLabel="false" title="{{ 'wysiwyg.style.normal'|trans({}, 'UmanitTiptapBundle') }}" label="{{ 'wysiwyg.style.normal'|trans({}, 'UmanitTiptapBundle') }}"
+          class="umanit-tiptap__dropdown-item" command="setBlockClass" />
+    </li>
+
+    <li>
+      <hr class="umanit-tiptap__dropdown-divider">
+    </li>
+
+    {% for set in this.stylesSet %}
+      <li><span class="umanit-tiptap__dropdown-header">{{ set.title|trans({}, 'UmanitTiptapBundle') }}</span></li>
+
+      {% for style in set.styles %}
+        <li>
+          <twig:Umanit:Tiptap:CommandTool
+              :hideLabel="false" title="{{ style.name|trans({}, 'UmanitTiptapBundle') }}" label="{{ style.name|trans({}, 'UmanitTiptapBundle') }}"
+              class="umanit-tiptap__dropdown-item" command="setBlockClass" args="{{ style.class }}" />
+        </li>
+      {% endfor %}
+
+      {% if not loop.last %}
+        <li>
+          <hr class="umanit-tiptap__dropdown-divider">
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
