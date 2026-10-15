@@ -111,12 +111,12 @@
   &.umanit-tiptap__toolbar--disabled {
     pointer-events: none;
 
-    .umanit-tiptap__btn:not([data-umanit-tiptap-editor-target~='sourceBtn']) {
+    .umanit-tiptap__btn:not(.umanit-tiptap__btn--source) {
       opacity: 0.5;
     }
 
     /* The "Source" button must stay clickable to leave source mode. */
-    [data-umanit-tiptap-editor-target~='sourceBtn'] {
+    .umanit-tiptap__btn--source {
       pointer-events: auto;
     }
   }
