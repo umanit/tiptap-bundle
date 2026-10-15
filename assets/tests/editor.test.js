@@ -1,0 +1,133 @@
+import {
+  afterEach, beforeEach, describe, expect, it,
+} from 'vitest';
+import TipTapEditor from '../src/editor/tiptap-editor.js';
+
+let editor;
+
+const create = (content = '', elements = {}, ...rest) => {
+  editor = new TipTapEditor(elements, { element: document.body, content }, {}, ...rest);
+
+  return editor;
+};
+
+// Round-trips the HTML through the schema: what is kept is what the editor supports.
+const roundTrip = (html) => create(html).getHTML();
+
+beforeEach(() => {
+  document.body.innerHTML = '';
+});
+
+afterEach(() => {
+  editor?.destroy();
+  editor = null;
+});
+
+describe('TipTapEditor', () => {
+  it('adds the bundle class on the content element', () => {
+    create('<p>Hello</p>');
+
+    expect(document.querySelector('.ProseMirror').classList.contains('umanit-tiptap__content')).toBe(true);
+  });
+
+  it('exposes and updates the content', () => {
+    create('<p>Hello</p>');
+    editor.setContent('<p>World</p>');
+
+    expect(editor.getHTML()).toBe('<p>World</p>');
+  });
+
+  it('runs editor commands and rejects unknown ones', () => {
+    create('<p>Hello</p>');
+    editor.getEditor().commands.selectAll();
+
+    editor.runCommand('toggleBold');
+    expect(editor.getHTML()).toBe('<p><strong>Hello</strong></p>');
+    expect(editor.isActive('bold')).toBe(true);
+
+    expect(() => editor.runCommand('nope')).toThrow('Unknown TipTap command "nope"');
+    expect(() => editor.runCommand('nope.nope')).toThrow('Unknown manager "nope.nope"');
+  });
+
+  it('notifies the source mode changes', () => {
+    create();
+    const seen = [];
+    editor.onSourceModeChange((enabled) => seen.push(enabled));
+
+    editor.setSourceMode(true);
+
+    expect(editor.isSourceMode()).toBe(true);
+    expect(seen).toEqual([true]);
+  });
+
+  it('openFileManager requires an adapter', () => {
+    create();
+
+    expect(() => editor.openFileManager()).toThrow(/Missing "fileManagerAdapter"/);
+  });
+
+  it('overrides the modal hooks of every manager', () => {
+    const form = document.createElement('form');
+    form.innerHTML = '<input name="id">';
+    const calls = [];
+    create('<p>Hi</p>', { anchorForm: form }, null, {
+      open: (el) => calls.push(['open', el]),
+      close: (el) => calls.push(['close', el]),
+    });
+
+    editor.runCommand('anchor.open');
+    editor.runCommand('anchor.confirm');
+
+    expect(calls).toEqual([['open', form], ['close', form]]);
+  });
+});
+
+describe('content schema', () => {
+  it('keeps text color, background color and size classes', () => {
+    expect(roundTrip('<p><span class="ut-color-red">a</span></p>')).toBe('<p><span class="ut-color-red">a</span></p>');
+    expect(roundTrip('<p><span class="ut-bg-red">a</span></p>')).toBe('<p><span class="ut-bg-red">a</span></p>');
+    expect(roundTrip('<p><span class="ut-fs-20">a</span></p>')).toBe('<p><span class="ut-fs-20">a</span></p>');
+  });
+
+  it('does not mistake a foreign "bg-*" class for a background color', () => {
+    expect(roundTrip('<p><span class="bg-red">a</span></p>')).toBe('<p>a</p>');
+  });
+
+  it('maps the alignment to bundle classes and reads inline styles', () => {
+    expect(roundTrip('<p class="ut-text-center">a</p>')).toBe('<p class="ut-text-center">a</p>');
+    expect(roundTrip('<p style="text-align: right">a</p>')).toBe('<p class="ut-text-right">a</p>');
+  });
+
+  it('keeps block classes but strips Word noise', () => {
+    expect(roundTrip('<p class="ut-banner-info MsoNormal">a</p>')).toBe('<p class="ut-banner-info">a</p>');
+    expect(roundTrip('<h2 class="ut-banner-warning">a</h2>')).toBe('<h2 class="ut-banner-warning">a</h2>');
+  });
+
+  it('keeps anchors and converts CKEditor anchors', () => {
+    expect(roundTrip('<p id="foo">a</p>')).toBe('<p id="foo">a</p>');
+    expect(roundTrip('<p><a id="foo"></a>a</p>')).toBe('<p id="foo">a</p>');
+  });
+
+  it('keeps table classes without inline styles', () => {
+    const html = roundTrip('<table class="ut-table-striped ut-w-50" border="1"><tbody><tr>'
+      + '<td class="ut-bg-red" colwidth="100">a</td></tr></tbody></table>');
+
+    expect(html).toContain('class="ut-table-striped ut-w-50"');
+    expect(html).toContain('border="1"');
+    expect(html).toContain('class="ut-bg-red"');
+    expect(html).not.toContain('style=');
+    expect(html).not.toContain('colgroup');
+  });
+
+  it('keeps image classes and sizes', () => {
+    const html = roundTrip('<p><img src="/a.png" alt="A" width="10" class="ut-float-start"></p>');
+
+    expect(html).toContain('src="/a.png"');
+    expect(html).toContain('class="ut-float-start"');
+    expect(html).toContain('width="10"');
+  });
+
+  it('does not render links with a target by default but keeps them', () => {
+    expect(roundTrip('<p><a href="/foo">a</a></p>')).toContain('href="/foo"');
+  });
+});
