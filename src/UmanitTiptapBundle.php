@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Umanit\TiptapBundle;
 
+use Symfony\Component\AssetMapper\AssetMapperInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
@@ -26,6 +27,18 @@ class UmanitTiptapBundle extends AbstractBundle
         if ($container->hasExtension('twig')) {
             $configurator->extension('twig', [
                 'form_themes' => ['@UmanitTiptap/form/theme.html.twig'],
+            ]);
+        }
+
+        if ($container->hasExtension('framework') && interface_exists(AssetMapperInterface::class)) {
+            // Only the JS sources and the CSS are exposed: `node_modules` and the tooling files stay out of the map.
+            $configurator->extension('framework', [
+                'asset_mapper' => [
+                    'paths' => [
+                        $this->getPath() . '/assets/src'  => self::NPM_PACKAGE . '/src',
+                        $this->getPath() . '/assets/dist' => self::NPM_PACKAGE . '/dist',
+                    ],
+                ],
             ]);
         }
 
