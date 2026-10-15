@@ -109,8 +109,16 @@
   gap: 0.25rem;
 
   &.umanit-tiptap__toolbar--disabled {
-    opacity: 0.5;
     pointer-events: none;
+
+    .umanit-tiptap__btn:not([data-umanit-tiptap-editor-target~='sourceBtn']) {
+      opacity: 0.5;
+    }
+
+    /* The "Source" button must stay clickable to leave source mode. */
+    [data-umanit-tiptap-editor-target~='sourceBtn'] {
+      pointer-events: auto;
+    }
   }
 }
 
