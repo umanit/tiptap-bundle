@@ -74,11 +74,11 @@
   {% block footer %}
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
-              {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
+          {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
         {{ 'modal.cancel'|trans({}, 'UmanitTiptapBundle') }}
       </button>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--success"
-              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'image.confirm'}) }}>
+          {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'image.confirm'}) }}>
         {{ 'modal.validate'|trans({}, 'UmanitTiptapBundle') }}
       </button>
     </div>

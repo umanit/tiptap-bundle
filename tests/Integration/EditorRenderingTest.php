@@ -48,6 +48,22 @@ class EditorRenderingTest extends KernelTestCase
         self::assertStringNotContainsString('data-bs-', $html);
     }
 
+    public function testModalFormsAreNotParsedInsideAHostForm(): void
+    {
+        $html = $this->getTwig()->createTemplate(
+            '<twig:Umanit:Tiptap:Editor id="foo" name="bar" />',
+        )->render();
+
+        // Nested forms are dropped by the HTML parser and close the host form too early: forms may only live in
+        // the inert <template> the controller mounts.
+        $withoutTemplate = preg_replace('#<template\b.*?</template>#s', '', $html);
+
+        self::assertStringContainsString('<template', $html);
+        self::assertStringContainsString('<form', $html);
+        self::assertStringNotContainsString('<form', (string) $withoutTemplate);
+        self::assertStringNotContainsString('<dialog', (string) $withoutTemplate);
+    }
+
     public function testToolbarsAndLabelsAreTranslated(): void
     {
         $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();

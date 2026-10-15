@@ -8,7 +8,7 @@ import '../index.js';
 
 export default class extends Controller {
   static targets = [
-    'editor', 'input', 'toolbar', 'contextMenu',
+    'editor', 'input', 'toolbar', 'contextMenu', 'modals',
     'tableForm', 'cellForm',
     'linkForm', 'linkUrlGroup', 'linkAnchorGroup',
     'imageForm',
@@ -33,6 +33,8 @@ export default class extends Controller {
 
   connect() {
     this.#abortController = new AbortController();
+
+    this.#mountModals();
 
     try {
       const fileManagerAdapter = this.hasFileManagerUrlValue
@@ -125,6 +127,22 @@ export default class extends Controller {
     element?.closest('dialog')?.[MODAL_PROPERTY]?.close();
   }
 
+  /**
+   * The modals are shipped in a `<template>`: their forms would otherwise be parsed inside the host form, where
+   * the HTML parser drops them and closes the host form too early. Inserting them with the DOM API keeps them nested
+   * but isolated: their fields do not belong to the host form.
+   */
+  #mountModals() {
+    if (!this.hasModalsTarget) {
+      return;
+    }
+
+    const template = this.modalsTarget;
+
+    this.element.append(template.content);
+    template.remove();
+  }
+
   #setupEventListeners() {
     const { signal } = this.#abortController;
 
@@ -136,7 +154,9 @@ export default class extends Controller {
 
     document.addEventListener('click', () => this.#wysiwygEditor?.hideContextMenu(), { signal });
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') this.#wysiwygEditor?.hideContextMenu();
+      if (event.key === 'Escape') {
+        this.#wysiwygEditor?.hideContextMenu();
+      }
     }, { signal });
   }
 

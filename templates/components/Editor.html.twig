@@ -7,26 +7,30 @@
 {% endif %}
 
 <div class="umanit-tiptap" {{ stimulus_controller('umanit/tiptap/editor', controller_values) }} {{ attributes }}>
-  {% if computed.hasTableTool %}
-    <twig:Umanit:Tiptap:ContextMenu:Table />
-    <twig:Umanit:Tiptap:Modal:Table id="{{ this.id }}" cellBackgroundColorsSet="{{ this.cellBackgroundColorsSet }}" />
-  {% endif %}
+  {# The modals contain forms, which must not be parsed inside a host form (nested forms are dropped by the HTML
+     parser and truncate the host form). The controller inserts them once connected, through the DOM API. #}
+  <template {{ stimulus_target('umanit/tiptap/editor', 'modals') }}>
+    {% if computed.hasTableTool %}
+      <twig:Umanit:Tiptap:ContextMenu:Table />
+      <twig:Umanit:Tiptap:Modal:Table id="{{ this.id }}" cellBackgroundColorsSet="{{ this.cellBackgroundColorsSet }}" />
+    {% endif %}
 
-  {% if computed.hasImageTool %}
-    <twig:Umanit:Tiptap:Modal:Image id="{{ this.id }}" :fileManagerEnabled="this.hasFileManager" />
-  {% endif %}
+    {% if computed.hasImageTool %}
+      <twig:Umanit:Tiptap:Modal:Image id="{{ this.id }}" :fileManagerEnabled="this.hasFileManager" />
+    {% endif %}
 
-  {% if computed.hasLinkTool %}
-    <twig:Umanit:Tiptap:Modal:Link id="{{ this.id }}" />
-  {% endif %}
+    {% if computed.hasLinkTool %}
+      <twig:Umanit:Tiptap:Modal:Link id="{{ this.id }}" />
+    {% endif %}
 
-  {% if computed.hasTemplateTool %}
-    <twig:Umanit:Tiptap:Modal:Template id="{{ this.id }}" name="{{ this.templatesSet }}" />
-  {% endif %}
+    {% if computed.hasTemplateTool %}
+      <twig:Umanit:Tiptap:Modal:Template id="{{ this.id }}" name="{{ this.templatesSet }}" />
+    {% endif %}
 
-  {% if computed.hasAnchorTool %}
-    <twig:Umanit:Tiptap:Modal:Anchor id="{{ this.id }}" />
-  {% endif %}
+    {% if computed.hasAnchorTool %}
+      <twig:Umanit:Tiptap:Modal:Anchor id="{{ this.id }}" />
+    {% endif %}
+  </template>
 
   <twig:Umanit:Tiptap:Toolbar
       name="{{ this.toolbar }}" stylesSet="{{ this.stylesSet }}" colorsSet="{{ this.colorsSet }}"
@@ -36,6 +40,7 @@
     <div {{ stimulus_target('umanit/tiptap/editor', 'editor') }}></div>
   </div>
 
-  <textarea id="{{ this.id }}"{% if this.name %} name="{{ this.name }}"{% endif %} class="umanit-tiptap__source ut-hidden"
-      rows="15" {{ stimulus_target('umanit/tiptap/editor', 'input') }}>{{ this.content }}</textarea>
+  <textarea id="{{ this.id }}"{% if this.name %} name="{{ this.name }}"{% endif %}
+            class="umanit-tiptap__source ut-hidden" rows="15"
+      {{ stimulus_target('umanit/tiptap/editor', 'input') }}>{{ this.content }}</textarea>
 </div>
