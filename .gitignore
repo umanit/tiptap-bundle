@@ -3,8 +3,12 @@
 /vendor
 /composer.lock
 /node_modules
+/assets/node_modules
+/assets/.yarn/*
+!/assets/.yarn/releases
 /.phpunit.cache
 /.phpunit.result.cache
 /.phpcs-cache
 /.php-cs-fixer.cache
 /var
+/.twig-cs-fixer.cache

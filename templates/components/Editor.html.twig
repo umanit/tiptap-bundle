@@ -6,38 +6,36 @@
   {% set controller_values = controller_values|merge({fileManagerAdapter: this.fileManagerAdapter}) %}
 {% endif %}
 
-<div class="c-block__body" {{ stimulus_controller('umanit/wysiwyg', controller_values) }} {{ attributes }}>
-  <div class="c-editor">
-    {% if computed.hasTableTool %}
-      <twig:Umanit:Tiptap:ContextMenu:Table />
-      <twig:Umanit:Tiptap:Modal:Table id="{{ this.id }}" cellBackgroundColorsSet="{{ this.cellBackgroundColorsSet }}" />
-    {% endif %}
+<div class="umanit-tiptap" {{ stimulus_controller('umanit/tiptap/editor', controller_values) }} {{ attributes }}>
+  {% if computed.hasTableTool %}
+    <twig:Umanit:Tiptap:ContextMenu:Table />
+    <twig:Umanit:Tiptap:Modal:Table id="{{ this.id }}" cellBackgroundColorsSet="{{ this.cellBackgroundColorsSet }}" />
+  {% endif %}
 
-    {% if computed.hasImageTool %}
-      <twig:Umanit:Tiptap:Modal:Image id="{{ this.id }}" :fileManagerEnabled="this.hasFileManager" />
-    {% endif %}
+  {% if computed.hasImageTool %}
+    <twig:Umanit:Tiptap:Modal:Image id="{{ this.id }}" :fileManagerEnabled="this.hasFileManager" />
+  {% endif %}
 
-    {% if computed.hasLinkTool %}
-      <twig:Umanit:Tiptap:Modal:Link id="{{ this.id }}" />
-    {% endif %}
+  {% if computed.hasLinkTool %}
+    <twig:Umanit:Tiptap:Modal:Link id="{{ this.id }}" />
+  {% endif %}
 
-    {% if computed.hasTemplateTool %}
-      <twig:Umanit:Tiptap:Modal:Template id="{{ this.id }}" name="{{ this.templatesSet }}" />
-    {% endif %}
+  {% if computed.hasTemplateTool %}
+    <twig:Umanit:Tiptap:Modal:Template id="{{ this.id }}" name="{{ this.templatesSet }}" />
+  {% endif %}
 
-    {% if computed.hasAnchorTool %}
-      <twig:Umanit:Tiptap:Modal:Anchor id="{{ this.id }}" />
-    {% endif %}
+  {% if computed.hasAnchorTool %}
+    <twig:Umanit:Tiptap:Modal:Anchor id="{{ this.id }}" />
+  {% endif %}
 
-    <twig:Umanit:Tiptap:Toolbar
-        name="{{ this.toolbar }}" stylesSet="{{ this.stylesSet }}" colorsSet="{{ this.colorsSet }}"
-        backgroundColorsSet="{{ this.backgroundColorsSet }}" />
+  <twig:Umanit:Tiptap:Toolbar
+      name="{{ this.toolbar }}" stylesSet="{{ this.stylesSet }}" colorsSet="{{ this.colorsSet }}"
+      backgroundColorsSet="{{ this.backgroundColorsSet }}" />
 
-    <div class="umanit-tiptap c-wysiwyg">
-      <div {{ stimulus_target('umanit/wysiwyg', 'editor') }}></div>
-    </div>
-
-    <textarea id="{{ this.id }}"{% if this.name %} name="{{ this.name }}"{% endif %} class="form-control ut-hidden font-monospace" rows="15"
-        {{ stimulus_target('umanit/wysiwyg', 'input') }}>{{ this.content }}</textarea>
+  <div class="umanit-tiptap__surface">
+    <div {{ stimulus_target('umanit/tiptap/editor', 'editor') }}></div>
   </div>
+
+  <textarea id="{{ this.id }}"{% if this.name %} name="{{ this.name }}"{% endif %} class="umanit-tiptap__source ut-hidden"
+      rows="15" {{ stimulus_target('umanit/tiptap/editor', 'input') }}>{{ this.content }}</textarea>
 </div>

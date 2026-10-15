@@ -1,6 +1,6 @@
 <dialog class="umanit-tiptap__modal{% if size is defined and size is not empty %} umanit-tiptap__modal--{{ size }}{% endif %}"
         id="{{ id }}"
-        {{ stimulus_controller('umanit/modal') }}
+        {{ stimulus_controller('umanit/tiptap/modal') }}
         aria-labelledby="umanit-modal-title-{{ id }}">
   <div class="umanit-tiptap__modal-content">
     <div class="umanit-tiptap__modal-header">
@@ -8,7 +8,7 @@
         {% block title %}{% endblock %}
       </span>
       <button type="button" class="umanit-tiptap__modal-close"
-              {{ stimulus_action('umanit/modal', 'close') }}
+              {{ stimulus_action('umanit/tiptap/modal', 'close') }}
               aria-label="{{ 'modal.close'|trans({}, 'UmanitTiptapBundle') }}">
         <twig:ux:icon name="umanit-tiptap:x" width="18" height="18" />
       </button>

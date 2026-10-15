@@ -1,7 +1,7 @@
 <div class="umanit-tiptap__dropdown" title="{{ title }}"
-     {{ stimulus_controller('umanit/dropdown') }} {{ attributes }}>
+     {{ stimulus_controller('umanit/tiptap/dropdown') }} {{ attributes }}>
   <button type="button" class="umanit-tiptap__btn"
-          {{ stimulus_action('umanit/dropdown', 'toggle') }} aria-expanded="false">
+          {{ stimulus_action('umanit/tiptap/dropdown', 'toggle') }} aria-expanded="false">
     <twig:ux:icon name="umanit-tiptap:a-large-small" width="{{ iconSize }}" height="{{ iconSize }}" />
   </button>
   <ul class="umanit-tiptap__dropdown-menu">
@@ -9,7 +9,7 @@
       <li>
         <twig:Umanit:Tiptap:CommandTool
             :hideLabel="false" title="{{ title }}" label="{{ size }}px"
-            class="umanit-tiptap__dropdown-item u-fs-{{ size }}" command="setTextSize" args="u-fs-{{ size }}" />
+            class="umanit-tiptap__dropdown-item ut-fs-{{ size }}" command="setTextSize" args="ut-fs-{{ size }}" />
       </li>
     {% endfor %}
     <li>

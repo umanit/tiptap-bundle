@@ -1,0 +1,196 @@
+/* ==========================================================================
+   TipTap content
+   Styles of the content produced by the editor. Load it in the editor (together with tiptap-editor.css) AND on the
+   pages displaying the published content, wrapped in `.umanit-tiptap-content`.
+   Everything can be overridden with the `--ut-*` custom properties.
+   ========================================================================== */
+
+:root {
+  --ut-color-white: #ffffff;
+  --ut-color-grey-light: #f8f9fa;
+  --ut-color-grey: #6c757d;
+  --ut-color-grey-dark: #343a40;
+  --ut-color-black: #000000;
+  --ut-color-red: #dc3545;
+  --ut-color-orange: #fd7e14;
+  --ut-color-yellow: #ffc107;
+  --ut-color-green: #198754;
+  --ut-color-blue: #0d6efd;
+  --ut-color-indigo: #6610f2;
+  --ut-color-purple: #6f42c1;
+  --ut-color-pink: #d63384;
+}
+
+/* Typography, tables, images... */
+:is(.umanit-tiptap__content, .umanit-tiptap-content) {
+  line-height: 1.6;
+
+  & h1 {
+    font-weight: 800;
+    font-size: 2rem;
+    margin-block: 1.5em 0.8em;
+  }
+
+  & h2 {
+    font-weight: 700;
+    font-size: 1.5rem;
+    margin-block: 1.5em 0.8em;
+  }
+
+  & h3 {
+    font-weight: 600;
+    font-size: 1.25rem;
+    margin-block: 1.25em 0.6em;
+    opacity: 0.9;
+  }
+
+  & p {
+    margin-bottom: 1.25em;
+    line-height: 1.7;
+  }
+
+  & ul,
+  & ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25em;
+  }
+
+  & li {
+    margin-bottom: 0.5em;
+  }
+
+  & table {
+    border-collapse: collapse;
+    margin: 1rem 0;
+    overflow: hidden;
+    table-layout: fixed;
+
+    & td,
+    & th {
+      border: 1px solid #ced4da;
+      box-sizing: border-box;
+      min-width: 1em;
+      padding: 0.5rem 0.75rem;
+      position: relative;
+      vertical-align: top;
+    }
+
+    & th {
+      background-color: var(--ut-color-grey-light);
+      font-weight: 600;
+    }
+  }
+
+  & img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  & blockquote {
+    border-left: 4px solid var(--umanit-tiptap-primary, var(--ut-color-blue));
+    padding-left: 1rem;
+    margin-inline: 0;
+    color: #757575;
+    font-style: italic;
+  }
+}
+
+/* Alignment */
+.ut-text-left { text-align: left !important; }
+.ut-text-center { text-align: center !important; }
+.ut-text-right { text-align: right !important; }
+.ut-text-justify { text-align: justify !important; }
+
+.ut-align-top { vertical-align: top !important; }
+.ut-align-middle { vertical-align: middle !important; }
+.ut-align-bottom { vertical-align: bottom !important; }
+
+/* Images */
+.ut-block { display: block !important; }
+.ut-mx-auto { margin-inline: auto !important; }
+.ut-float-start { float: left !important; }
+.ut-float-end { float: right !important; }
+.ut-ma-5 { margin: 5px; }
+.ut-ma-10 { margin: 10px; }
+
+/* Table widths */
+.ut-w-25 { width: 25%; }
+.ut-w-50 { width: 50%; }
+.ut-w-75 { width: 75%; }
+.ut-w-100 { width: 100%; }
+
+/* Font sizes */
+.ut-fs-10 { font-size: 10px; }
+.ut-fs-12 { font-size: 12px; }
+.ut-fs-14 { font-size: 14px; }
+.ut-fs-18 { font-size: 18px; }
+.ut-fs-20 { font-size: 20px; }
+.ut-fs-22 { font-size: 22px; }
+.ut-fs-24 { font-size: 24px; }
+.ut-fs-28 { font-size: 28px; }
+.ut-fs-30 { font-size: 30px; }
+.ut-fs-32 { font-size: 32px; }
+.ut-fs-48 { font-size: 48px; }
+
+/* Text colors */
+.ut-color-white { color: var(--ut-color-white); }
+.ut-color-grey-light { color: var(--ut-color-grey-light); }
+.ut-color-grey { color: var(--ut-color-grey); }
+.ut-color-grey-dark { color: var(--ut-color-grey-dark); }
+.ut-color-black { color: var(--ut-color-black); }
+.ut-color-red { color: var(--ut-color-red); }
+.ut-color-orange { color: var(--ut-color-orange); }
+.ut-color-yellow { color: var(--ut-color-yellow); }
+.ut-color-green { color: var(--ut-color-green); }
+.ut-color-blue { color: var(--ut-color-blue); }
+.ut-color-indigo { color: var(--ut-color-indigo); }
+.ut-color-purple { color: var(--ut-color-purple); }
+.ut-color-pink { color: var(--ut-color-pink); }
+
+/* Background colors */
+.ut-bg-white { background-color: var(--ut-color-white) !important; }
+.ut-bg-grey-light { background-color: var(--ut-color-grey-light) !important; }
+.ut-bg-grey { background-color: var(--ut-color-grey) !important; }
+.ut-bg-grey-dark { background-color: var(--ut-color-grey-dark) !important; }
+.ut-bg-black { background-color: var(--ut-color-black) !important; }
+.ut-bg-red { background-color: var(--ut-color-red) !important; }
+.ut-bg-orange { background-color: var(--ut-color-orange) !important; }
+.ut-bg-yellow { background-color: var(--ut-color-yellow) !important; }
+.ut-bg-green { background-color: var(--ut-color-green) !important; }
+.ut-bg-blue { background-color: var(--ut-color-blue) !important; }
+.ut-bg-indigo { background-color: var(--ut-color-indigo) !important; }
+.ut-bg-purple { background-color: var(--ut-color-purple) !important; }
+.ut-bg-pink { background-color: var(--ut-color-pink) !important; }
+
+/* Default styles of the "styles" dropdown */
+.ut-banner-info {
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--ut-color-blue);
+  background-color: rgb(13 110 253 / 10%);
+}
+
+.ut-banner-warning {
+  padding: 0.75rem 1rem;
+  border-left: 4px solid var(--ut-color-yellow);
+  background-color: rgb(255 193 7 / 15%);
+}
+
+.ut-button a {
+  display: inline-block;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.375rem;
+  background-color: var(--umanit-tiptap-primary, var(--ut-color-blue));
+  color: var(--ut-color-white);
+  text-decoration: none;
+}
+
+.ut-table-striped tbody tr:nth-child(even) {
+  background-color: var(--ut-color-grey-light);
+}
+
+.ut-table-dotted {
+  & td,
+  & th {
+    border-style: dotted;
+  }
+}

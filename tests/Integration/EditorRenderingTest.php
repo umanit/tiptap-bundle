@@ -26,11 +26,26 @@ class EditorRenderingTest extends KernelTestCase
             '<twig:Umanit:Tiptap:Editor id="foo" name="bar" content="Hello" />',
         )->render();
 
-        self::assertStringContainsString('data-controller="umanit--wysiwyg"', $html);
+        self::assertStringContainsString('data-controller="umanit--tiptap--editor"', $html);
         self::assertStringContainsString('name="bar"', $html);
         self::assertStringContainsString('Hello</textarea>', $html);
         self::assertStringContainsString('<svg', $html);
         self::assertStringNotContainsString('openFileManager', $html);
+    }
+
+    public function testRenderedMarkupHasNoThirdPartyFrameworkClasses(): void
+    {
+        $html = $this->getTwig()->createTemplate(
+            '<twig:Umanit:Tiptap:Editor id="foo" fileManagerUrl="/fm" />',
+        )->render();
+
+        self::assertDoesNotMatchRegularExpression(
+            '/class="(?:[^"]*\\s)?'
+            . '(?:form-\\S+|btn(?:-\\S+)?|d-none|row|col(?:-\\S+)?|mb-\\d|c-editor|c-wysiwyg)'
+            . '(?:\\s[^"]*)?"/',
+            $html,
+        );
+        self::assertStringNotContainsString('data-bs-', $html);
     }
 
     public function testToolbarsAndLabelsAreTranslated(): void

@@ -2,19 +2,18 @@
   {% block title %}{{ 'wysiwyg.modal.link.title'|trans({}, 'UmanitTiptapBundle') }}{% endblock %}
 
   {% block content %}
-    <form {{ stimulus_target('umanit/wysiwyg', 'linkForm') }}>
-      <div class="row mb-3">
-        <div class="col-md-6">
-          <label class="form-label">{{ 'wysiwyg.modal.link.type'|trans({}, 'UmanitTiptapBundle') }}</label>
-          <select class="form-select" name="type" {{ stimulus_controller('ak/select')
-          |stimulus_action('umanit/wysiwyg', 'run', 'change', {command: 'link.toggleType'}) }}>
+    <form {{ stimulus_target('umanit/tiptap/editor', 'linkForm') }}>
+      <div class="umanit-tiptap__row">
+        <div>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.link.type'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <select class="umanit-tiptap__select" name="type" {{ stimulus_action('umanit/tiptap/editor', 'run', 'change', {command: 'link.toggleType'}) }}>
             <option value="url">{{ 'wysiwyg.modal.link.type.url'|trans({}, 'UmanitTiptapBundle') }}</option>
             <option value="anchor">{{ 'wysiwyg.modal.link.type.anchor'|trans({}, 'UmanitTiptapBundle') }}</option>
           </select>
         </div>
-        <div class="col-md-6">
-          <label class="form-label">{{ 'wysiwyg.modal.link.target'|trans({}, 'UmanitTiptapBundle') }}</label>
-          <select {{ stimulus_controller('ak/select') }} class="form-select" name="target">
+        <div>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.link.target'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <select class="umanit-tiptap__select" name="target">
             <option value="">{{ 'wysiwyg.modal.link.target.default'|trans({}, 'UmanitTiptapBundle') }}</option>
             <option value="_blank">{{ 'wysiwyg.modal.link.target.blank'|trans({}, 'UmanitTiptapBundle') }}</option>
             <option value="_self">{{ 'wysiwyg.modal.link.target.self'|trans({}, 'UmanitTiptapBundle') }}</option>
@@ -22,17 +21,17 @@
         </div>
       </div>
 
-      <div class="mb-3" {{ stimulus_target('umanit/wysiwyg', 'linkUrlGroup') }}>
-        <label class="form-label">{{ 'wysiwyg.modal.link.url'|trans({}, 'UmanitTiptapBundle') }}</label>
-        <input type="url" class="form-control" name="url"
+      <div class="umanit-tiptap__field" {{ stimulus_target('umanit/tiptap/editor', 'linkUrlGroup') }}>
+        <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.link.url'|trans({}, 'UmanitTiptapBundle') }}</label>
+        <input type="url" class="umanit-tiptap__input" name="url"
                placeholder="{{ 'wysiwyg.modal.link.url_placeholder'|trans({}, 'UmanitTiptapBundle') }}">
       </div>
 
-      <div class="mb-3 ut-hidden" {{ stimulus_target('umanit/wysiwyg', 'linkAnchorGroup') }}>
-        <label class="form-label">{{ 'wysiwyg.modal.link.anchor_name'|trans({}, 'UmanitTiptapBundle') }}</label>
-        <div class="input-group">
-          <span class="input-group-text">#</span>
-          <input type="text" class="form-control" name="anchor"
+      <div class="umanit-tiptap__field ut-hidden" {{ stimulus_target('umanit/tiptap/editor', 'linkAnchorGroup') }}>
+        <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.link.anchor_name'|trans({}, 'UmanitTiptapBundle') }}</label>
+        <div class="umanit-tiptap__input-group">
+          <span class="umanit-tiptap__input-addon">#</span>
+          <input type="text" class="umanit-tiptap__input" name="anchor"
                  placeholder="{{ 'wysiwyg.modal.link.anchor_placeholder'|trans({}, 'UmanitTiptapBundle') }}">
         </div>
       </div>
@@ -42,11 +41,11 @@
   {% block footer %}
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
-              {{ stimulus_action('umanit/modal', 'close') }}>
+              {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
         {{ 'modal.cancel'|trans({}, 'UmanitTiptapBundle') }}
       </button>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--primary"
-              {{ stimulus_action('umanit/wysiwyg', 'run', 'click', {command: 'link.confirm'}) }}>
+              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'link.confirm'}) }}>
         {{ 'modal.validate'|trans({}, 'UmanitTiptapBundle') }}
       </button>
     </div>

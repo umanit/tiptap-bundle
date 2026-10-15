@@ -11,6 +11,7 @@ use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 class UmanitTiptapBundle extends AbstractBundle
 {
     public const string ICON_PREFIX = 'umanit-tiptap';
+    public const string NPM_PACKAGE = '@umanit/tiptap-bundle';
 
     /**
      * @param array<string, mixed> $config

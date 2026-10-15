@@ -1,4 +1,4 @@
-<div class="umanit-tiptap__toolbar" role="toolbar" {{ stimulus_target('umanit/wysiwyg', 'toolbar') }} {{ attributes }}>
+<div class="umanit-tiptap__toolbar" role="toolbar" {{ stimulus_target('umanit/tiptap/editor', 'toolbar') }} {{ attributes }}>
   {% for section in this.toolbar.sections %}
     <div class="ut-flex">
       {% for tool in section.tools %}

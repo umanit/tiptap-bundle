@@ -2,22 +2,22 @@
   {% block title %}{{ 'wysiwyg.modal.anchor.title'|trans({}, 'UmanitTiptapBundle') }}{% endblock %}
 
   {% block content %}
-    <form {{ stimulus_target('umanit/wysiwyg', 'anchorForm') }}>
-      <div class="mb-3 row">
-        <div class="col-9">
-          <label class="form-label" for="anchor-id-{{ id }}">{{ 'wysiwyg.modal.anchor.id'|trans({}, 'UmanitTiptapBundle') }}</label>
-          <div class="input-group">
-            <span class="input-group-text">#</span>
-            <input type="text" id="anchor-id-{{ id }}" class="form-control" name="id"
+    <form {{ stimulus_target('umanit/tiptap/editor', 'anchorForm') }}>
+      <div class="umanit-tiptap__row">
+        <div>
+          <label class="umanit-tiptap__label" for="anchor-id-{{ id }}">{{ 'wysiwyg.modal.anchor.id'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <div class="umanit-tiptap__input-group">
+            <span class="umanit-tiptap__input-addon">#</span>
+            <input type="text" id="anchor-id-{{ id }}" class="umanit-tiptap__input" name="id"
                    placeholder="{{ 'wysiwyg.modal.anchor.id_placeholder'|trans({}, 'UmanitTiptapBundle') }}"
                    aria-describedby="btn-delete-anchor-{{ id }}">
           </div>
         </div>
-        <div class="col-3 align-content-end">
+        <div>
           <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--danger"
                   id="btn-delete-anchor-{{ id }}" title="{{ 'wysiwyg.modal.anchor.remove'|trans({}, 'UmanitTiptapBundle') }}"
-                  {{ stimulus_action('umanit/modal', 'close') }}
-                  {{ stimulus_action('umanit/wysiwyg', 'run', 'click', {command: 'anchor.remove'}) }}>
+                  {{ stimulus_action('umanit/tiptap/modal', 'close') }}
+                  {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'anchor.remove'}) }}>
             <twig:ux:icon name="umanit-tiptap:trash-2" />
           </button>
         </div>
@@ -28,11 +28,11 @@
   {% block footer %}
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
-              {{ stimulus_action('umanit/modal', 'close') }}>
+              {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
         {{ 'modal.cancel'|trans({}, 'UmanitTiptapBundle') }}
       </button>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--primary"
-              {{ stimulus_action('umanit/wysiwyg', 'run', 'click', {command: 'anchor.confirm'}) }}>
+              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'anchor.confirm'}) }}>
         {{ 'modal.validate'|trans({}, 'UmanitTiptapBundle') }}
       </button>
     </div>

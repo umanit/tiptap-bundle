@@ -1,6 +1,6 @@
-<div class="umanit-tiptap__dropdown" {{ stimulus_controller('umanit/dropdown') }} {{ attributes }}>
+<div class="umanit-tiptap__dropdown" {{ stimulus_controller('umanit/tiptap/dropdown') }} {{ attributes }}>
   <button class="umanit-tiptap__btn umanit-tiptap__styles-btn" type="button"
-          {{ stimulus_action('umanit/dropdown', 'toggle') }} aria-expanded="false" title="{{ this.title }}">
+          {{ stimulus_action('umanit/tiptap/dropdown', 'toggle') }} aria-expanded="false" title="{{ this.title }}">
     {{ this.label }}
   </button>
   <ul class="umanit-tiptap__dropdown-menu umanit-tiptap__styles-menu">

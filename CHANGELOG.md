@@ -12,4 +12,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial repository skeleton and static analysis tooling.
 - Toolbar, styles, colors and templates builders/providers, with neutral default builders.
 - `Umanit:Tiptap:*` Twig components and `TiptapType` form type.
+- Stimulus controllers and TipTap editor JavaScript (`@umanit/tiptap-bundle` package), file manager adapter registry.
+- Native CSS (editor UI, content and email stylesheets) and PurgeCSS safelist.
 - Embedded Lucide icons (`umanit-tiptap:*` icon set) and `UmanitTiptapBundle` translations (en, fr).

@@ -2,63 +2,63 @@
   {% block title %}{{ 'wysiwyg.modal.image.title'|trans({}, 'UmanitTiptapBundle') }}{% endblock %}
 
   {% block content %}
-    <form {{ stimulus_controller('umanit/wysiwyg/image')|stimulus_target('umanit/wysiwyg', 'imageForm')
-    |stimulus_action('umanit/wysiwyg/image', 'reset', 'tiptap:image:inserted@window') }}>
-      <div class="mb-3">
-        <label for="imageUrlInput-{{ id }}" class="form-label">{{ 'wysiwyg.modal.image.url'|trans({}, 'UmanitTiptapBundle') }}</label>
-        <div class="input-group">
-          <input type="text" class="form-control" id="imageUrlInput-{{ id }}" name="url" required
-              {{ stimulus_target('umanit/wysiwyg/image', 'url') }}>
+    <form {{ stimulus_controller('umanit/tiptap/image')|stimulus_target('umanit/tiptap/editor', 'imageForm')
+    |stimulus_action('umanit/tiptap/image', 'reset', 'tiptap:image:inserted@window') }}>
+      <div class="umanit-tiptap__field">
+        <label for="imageUrlInput-{{ id }}" class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.url'|trans({}, 'UmanitTiptapBundle') }}</label>
+        <div class="umanit-tiptap__input-group">
+          <input type="text" class="umanit-tiptap__input" id="imageUrlInput-{{ id }}" name="url" required
+              {{ stimulus_target('umanit/tiptap/image', 'url') }}>
           {% if fileManagerEnabled %}
             <button class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary" type="button"
-                {{ stimulus_action('umanit/wysiwyg', 'openFileManager', 'click') }}>
+                {{ stimulus_action('umanit/tiptap/editor', 'openFileManager', 'click') }}>
               {{ 'wysiwyg.modal.image.browse'|trans({}, 'UmanitTiptapBundle') }}
             </button>
           {% endif %}
         </div>
       </div>
-      <div class="mb-3">
-        <label for="imageAltInput-{{ id }}" class="form-label">{{ 'wysiwyg.modal.image.alt'|trans({}, 'UmanitTiptapBundle') }}</label>
-        <input type="text" class="form-control" id="imageAltInput-{{ id }}" name="alt"
-            {{ stimulus_target('umanit/wysiwyg/image', 'alt') }}>
+      <div class="umanit-tiptap__field">
+        <label for="imageAltInput-{{ id }}" class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.alt'|trans({}, 'UmanitTiptapBundle') }}</label>
+        <input type="text" class="umanit-tiptap__input" id="imageAltInput-{{ id }}" name="alt"
+            {{ stimulus_target('umanit/tiptap/image', 'alt') }}>
       </div>
 
-      <div class="row">
-        <div class="col-md-6">
-          <div class="mb-2">
-            <label for="imageWidthInput-{{ id }}" class="form-label">{{ 'wysiwyg.modal.image.width'|trans({}, 'UmanitTiptapBundle') }}</label>
-            <input type="number" class="form-control" id="imageWidthInput-{{ id }}" name="width"
-                {{ stimulus_target('umanit/wysiwyg/image', 'width') }}>
+      <div class="umanit-tiptap__row">
+        <div>
+          <div class="umanit-tiptap__field">
+            <label for="imageWidthInput-{{ id }}" class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.width'|trans({}, 'UmanitTiptapBundle') }}</label>
+            <input type="number" class="umanit-tiptap__input" id="imageWidthInput-{{ id }}" name="width"
+                {{ stimulus_target('umanit/tiptap/image', 'width') }}>
           </div>
-          <div class="mb-2">
-            <label for="imageHeightInput-{{ id }}" class="form-label">{{ 'wysiwyg.modal.image.height'|trans({}, 'UmanitTiptapBundle') }}</label>
-            <input type="number" class="form-control" id="imageHeightInput-{{ id }}" name="height"
-                {{ stimulus_target('umanit/wysiwyg/image', 'height') }}>
+          <div class="umanit-tiptap__field">
+            <label for="imageHeightInput-{{ id }}" class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.height'|trans({}, 'UmanitTiptapBundle') }}</label>
+            <input type="number" class="umanit-tiptap__input" id="imageHeightInput-{{ id }}" name="height"
+                {{ stimulus_target('umanit/tiptap/image', 'height') }}>
           </div>
-          <div class="mb-2">
-            <label for="imageAlignInput-{{ id }}" class="form-label">{{ 'wysiwyg.modal.image.align'|trans({}, 'UmanitTiptapBundle') }}</label>
-            <select class="form-select" id="imageAlignInput-{{ id }}" name="align"
-                {{ stimulus_target('umanit/wysiwyg/image', 'align') }}>
+          <div class="umanit-tiptap__field">
+            <label for="imageAlignInput-{{ id }}" class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.align'|trans({}, 'UmanitTiptapBundle') }}</label>
+            <select class="umanit-tiptap__select" id="imageAlignInput-{{ id }}" name="align"
+                {{ stimulus_target('umanit/tiptap/image', 'align') }}>
               <option value="">{{ 'wysiwyg.modal.image.align.undefined'|trans({}, 'UmanitTiptapBundle') }}</option>
               <option value="left">{{ 'wysiwyg.modal.image.align.left'|trans({}, 'UmanitTiptapBundle') }}</option>
               <option value="center">{{ 'wysiwyg.modal.image.align.center'|trans({}, 'UmanitTiptapBundle') }}</option>
               <option value="right">{{ 'wysiwyg.modal.image.align.right'|trans({}, 'UmanitTiptapBundle') }}</option>
             </select>
           </div>
-          <div class="mb-2">
-            <label for="imageMarginInput-{{ id }}" class="form-label">{{ 'wysiwyg.modal.image.margin'|trans({}, 'UmanitTiptapBundle') }}</label>
-            <select class="form-select" id="imageMarginInput-{{ id }}" name="margin"
-                {{ stimulus_target('umanit/wysiwyg/image', 'margin') }}>
+          <div class="umanit-tiptap__field">
+            <label for="imageMarginInput-{{ id }}" class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.margin'|trans({}, 'UmanitTiptapBundle') }}</label>
+            <select class="umanit-tiptap__select" id="imageMarginInput-{{ id }}" name="margin"
+                {{ stimulus_target('umanit/tiptap/image', 'margin') }}>
               <option value="">{{ 'wysiwyg.modal.image.margin.none'|trans({}, 'UmanitTiptapBundle') }}</option>
-              <option value="u-ma-5">{{ 'wysiwyg.modal.image.margin.small'|trans({}, 'UmanitTiptapBundle') }}</option>
-              <option value="u-ma-10">{{ 'wysiwyg.modal.image.margin.medium'|trans({}, 'UmanitTiptapBundle') }}</option>
+              <option value="ut-ma-5">{{ 'wysiwyg.modal.image.margin.small'|trans({}, 'UmanitTiptapBundle') }}</option>
+              <option value="ut-ma-10">{{ 'wysiwyg.modal.image.margin.medium'|trans({}, 'UmanitTiptapBundle') }}</option>
             </select>
           </div>
         </div>
-        <div class="col-md-6">
-          <label class="form-label">{{ 'wysiwyg.modal.image.preview'|trans({}, 'UmanitTiptapBundle') }}</label>
-          <div class="border p-2 bg-light text-muted u-min-h-50 c-editor__preview">
-            <img src="" alt="" class="ut-hidden" {{ stimulus_target('umanit/wysiwyg/image', 'previewImage') }} />
+        <div>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.preview'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <div class="umanit-tiptap__preview">
+            <img src="" alt="" class="ut-hidden" {{ stimulus_target('umanit/tiptap/image', 'previewImage') }} />
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus ac sollicitudin leo, nec posuere
               ligula. Nunc placerat luctus bibendum. Quisque sit amet velit ut velit molestie placerat sed nec eros.
@@ -74,11 +74,11 @@
   {% block footer %}
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
-              {{ stimulus_action('umanit/modal', 'close') }}>
+              {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
         {{ 'modal.cancel'|trans({}, 'UmanitTiptapBundle') }}
       </button>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--success"
-              {{ stimulus_action('umanit/wysiwyg', 'run', 'click', {command: 'image.confirm'}) }}>
+              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'image.confirm'}) }}>
         {{ 'modal.validate'|trans({}, 'UmanitTiptapBundle') }}
       </button>
     </div>

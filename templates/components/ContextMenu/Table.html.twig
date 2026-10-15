@@ -38,7 +38,7 @@
   }],
 ] %}
 
-<ul class="umanit-tiptap__context-menu ut-hidden" {{ stimulus_target('umanit/wysiwyg', 'contextMenu') }}>
+<ul class="umanit-tiptap__context-menu ut-hidden" {{ stimulus_target('umanit/tiptap/editor', 'contextMenu') }}>
   {% for group in table_actions %}
     {% for action in group %}
       <li>

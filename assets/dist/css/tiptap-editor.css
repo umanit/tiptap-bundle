@@ -1,0 +1,619 @@
+/* ==========================================================================
+   TipTap editor UI
+   Toolbar, dropdowns, modals, forms and editing surface. Load tiptap-content.css as well.
+   Theme it by overriding the `--umanit-tiptap-*` custom properties.
+   ========================================================================== */
+
+:root {
+  --umanit-tiptap-primary: #0d6efd;
+  --umanit-tiptap-primary-light: rgb(13 110 253 / 10%);
+  --umanit-tiptap-border-color: #e7eaf3;
+  --umanit-tiptap-btn-color: #757575;
+  --umanit-tiptap-btn-hover-bg: #f2f6fd;
+  --umanit-tiptap-btn-hover-color: #151b38;
+  --umanit-tiptap-surface-bg: #ffffff;
+  --umanit-tiptap-text-color: #333333;
+  --umanit-tiptap-muted-color: #757575;
+  --umanit-tiptap-danger: var(--ut-color-red, #dc3545);
+  --umanit-tiptap-success: var(--ut-color-green, #198754);
+  --umanit-tiptap-radius: 0.375rem;
+}
+
+/* Utilities used by the editor markup */
+.ut-hidden { display: none !important; }
+.ut-flex { display: flex !important; }
+.ut-w-full { width: 100% !important; }
+.ut-justify-between { justify-content: space-between !important; }
+.ut-me-2 { margin-inline-end: 0.5rem !important; }
+
+.ut-visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Editing surface */
+.umanit-tiptap__surface {
+  background: var(--umanit-tiptap-surface-bg);
+}
+
+.umanit-tiptap__source {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.umanit-tiptap__content {
+  min-height: 500px;
+  background: var(--umanit-tiptap-surface-bg);
+  padding: 3rem 4rem;
+  font-size: 1rem;
+  color: var(--umanit-tiptap-text-color);
+  outline: none;
+
+  & p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+
+  & table {
+    & td.selectedCell::after,
+    & th.selectedCell::after {
+      z-index: 2;
+      position: absolute;
+      content: "";
+      inset: 0;
+      background: rgb(200 200 255 / 40%);
+      pointer-events: none;
+    }
+  }
+
+  & .column-resize-handle {
+    background-color: #adf;
+    bottom: -2px;
+    position: absolute;
+    right: -2px;
+    pointer-events: none;
+    top: 0;
+    width: 4px;
+  }
+
+  & .umanit-tiptap-anchor::before {
+    font-size: 0.875rem;
+    line-height: 1;
+    color: var(--umanit-tiptap-primary);
+    content: "⚑";
+  }
+}
+
+/* Toolbar */
+.umanit-tiptap__toolbar {
+  background: var(--umanit-tiptap-surface-bg);
+  border-bottom: 1px solid var(--umanit-tiptap-border-color);
+  padding: 0.5rem 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+
+  &.umanit-tiptap__toolbar--disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.umanit-tiptap__divider {
+  width: 1px;
+  height: 20px;
+  align-self: center;
+  background-color: var(--umanit-tiptap-border-color);
+  margin: 0 0.25rem;
+}
+
+.umanit-tiptap__btn {
+  border: none;
+  background: transparent;
+  color: var(--umanit-tiptap-btn-color);
+  padding: 0.4rem;
+  border-radius: var(--umanit-tiptap-radius);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  line-height: 1;
+
+  &:hover {
+    background-color: var(--umanit-tiptap-btn-hover-bg);
+    color: var(--umanit-tiptap-btn-hover-color);
+  }
+
+  &.umanit-tiptap__btn--active,
+  &.active {
+    background-color: var(--umanit-tiptap-primary-light) !important;
+    color: var(--umanit-tiptap-primary) !important;
+    border-color: transparent !important;
+  }
+}
+
+/* Colors */
+.umanit-tiptap__color-wrapper {
+  display: inline-flex;
+}
+
+.umanit-tiptap__color-palette {
+  min-width: 0;
+  width: fit-content;
+  padding: 0.5rem !important;
+}
+
+.umanit-tiptap__color-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 28px);
+  gap: 4px;
+}
+
+.umanit-tiptap__color-swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid var(--umanit-tiptap-border-color);
+  background: transparent;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+
+  &:hover {
+    border-color: rgb(21 27 56 / 30%);
+    transform: scale(1.1);
+  }
+
+  &.umanit-tiptap__color-swatch--reset {
+    color: var(--umanit-tiptap-muted-color);
+    font-weight: 400;
+  }
+}
+
+.umanit-tiptap__bg-color-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.umanit-tiptap__bg-color-option {
+  cursor: pointer;
+
+  &:has(input:checked) .umanit-tiptap__bg-color-swatch {
+    outline: 2px solid var(--umanit-tiptap-primary);
+    outline-offset: 2px;
+  }
+}
+
+.umanit-tiptap__bg-color-swatch {
+  display: block;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  border: 1px solid var(--umanit-tiptap-border-color);
+}
+
+/* Dropdown */
+.umanit-tiptap__dropdown {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  &[data-open] .umanit-tiptap__dropdown-menu {
+    display: block;
+  }
+}
+
+.umanit-tiptap__dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 1000;
+  background: var(--umanit-tiptap-surface-bg);
+  border: 1px solid var(--umanit-tiptap-border-color);
+  border-radius: var(--umanit-tiptap-radius);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+  min-width: 10rem;
+  padding: 0.25rem 0;
+  list-style: none;
+  margin: 0;
+}
+
+.umanit-tiptap__dropdown-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.35rem 1rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--umanit-tiptap-text-color);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    background-color: var(--umanit-tiptap-btn-hover-bg);
+    color: var(--umanit-tiptap-btn-hover-color);
+    outline: none;
+  }
+}
+
+.umanit-tiptap__dropdown-divider {
+  height: 0;
+  border: none;
+  border-top: 1px solid var(--umanit-tiptap-border-color);
+  margin: 0.25rem 0;
+  overflow: hidden;
+}
+
+.umanit-tiptap__dropdown-header {
+  display: block;
+  padding: 0.25rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--umanit-tiptap-muted-color);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.umanit-tiptap__styles-menu {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.umanit-tiptap__styles-btn {
+  font-size: 0.875rem;
+  font-weight: 500;
+  gap: 0.25rem;
+
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 4px 0;
+    border-color: currentcolor transparent transparent;
+    flex-shrink: 0;
+  }
+}
+
+/* Context menu (right click on a table) */
+.umanit-tiptap__context-menu {
+  position: fixed;
+  z-index: 1050;
+  background: var(--umanit-tiptap-surface-bg);
+  border: 1px solid var(--umanit-tiptap-border-color);
+  border-radius: var(--umanit-tiptap-radius);
+  box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+  padding: 0.25rem 0;
+  min-width: 180px;
+  list-style: none;
+  margin: 0;
+}
+
+.umanit-tiptap__context-menu-item {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.35rem 1rem;
+  background: transparent;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--umanit-tiptap-text-color);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: nowrap;
+
+  &:hover {
+    background-color: var(--umanit-tiptap-btn-hover-bg);
+    color: var(--umanit-tiptap-btn-hover-color);
+  }
+
+  &.umanit-tiptap__context-menu-item--danger {
+    color: var(--umanit-tiptap-danger);
+  }
+}
+
+/* Modal (native <dialog>) */
+.umanit-tiptap__modal {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0;
+  box-shadow: 0 20px 60px rgb(0 0 0 / 30%);
+  max-width: min(90vw, 600px);
+  width: 100%;
+  color: var(--umanit-tiptap-text-color);
+
+  &.umanit-tiptap__modal--xl {
+    max-width: min(90vw, 900px);
+  }
+
+  &::backdrop {
+    background: rgb(0 0 0 / 50%);
+  }
+}
+
+.umanit-tiptap__modal-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.umanit-tiptap__modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid var(--umanit-tiptap-border-color);
+}
+
+.umanit-tiptap__modal-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.umanit-tiptap__modal-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--umanit-tiptap-muted-color);
+  padding: 0.25rem;
+  line-height: 1;
+  border-radius: 0.25rem;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    color: var(--umanit-tiptap-text-color);
+    background: var(--umanit-tiptap-btn-hover-bg);
+  }
+}
+
+.umanit-tiptap__modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  max-height: 70vh;
+}
+
+.umanit-tiptap__modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--umanit-tiptap-border-color);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.umanit-tiptap__modal-btn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--umanit-tiptap-radius);
+  border: 1px solid transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.15s ease;
+
+  &.umanit-tiptap__modal-btn--secondary {
+    background: var(--ut-color-grey-light, #f8f9fa);
+    border-color: var(--umanit-tiptap-border-color);
+    color: var(--umanit-tiptap-text-color);
+
+    &:hover {
+      background: #e9ecef;
+    }
+  }
+
+  &.umanit-tiptap__modal-btn--primary {
+    background: var(--umanit-tiptap-primary);
+    color: #fff;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &.umanit-tiptap__modal-btn--success {
+    background: var(--umanit-tiptap-success);
+    color: #fff;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+
+  &.umanit-tiptap__modal-btn--danger {
+    background: transparent;
+    border-color: var(--umanit-tiptap-danger);
+    color: var(--umanit-tiptap-danger);
+
+    &:hover {
+      background: var(--umanit-tiptap-danger);
+      color: #fff;
+    }
+  }
+}
+
+/* Forms inside modals */
+.umanit-tiptap__field {
+  margin-bottom: 1rem;
+}
+
+.umanit-tiptap__row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+
+  & > .umanit-tiptap__field {
+    margin-bottom: 0;
+  }
+
+  &.umanit-tiptap__row--action {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+
+.umanit-tiptap__label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.umanit-tiptap__input,
+.umanit-tiptap__select {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.4rem 0.75rem;
+  font: inherit;
+  font-size: 0.875rem;
+  color: var(--umanit-tiptap-text-color);
+  background-color: var(--umanit-tiptap-surface-bg);
+  border: 1px solid #ced4da;
+  border-radius: var(--umanit-tiptap-radius);
+
+  &:focus {
+    border-color: var(--umanit-tiptap-primary);
+    outline: 2px solid var(--umanit-tiptap-primary-light);
+  }
+}
+
+.umanit-tiptap__input-group {
+  display: flex;
+
+  & > .umanit-tiptap__input {
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+  }
+
+  & > :not(:first-child) {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  & > :not(:last-child) {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+}
+
+.umanit-tiptap__input-addon {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  background: var(--ut-color-grey-light, #f8f9fa);
+  border: 1px solid #ced4da;
+  border-radius: var(--umanit-tiptap-radius);
+}
+
+.umanit-tiptap__check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.umanit-tiptap__check-label {
+  font-size: 0.875rem;
+}
+
+.umanit-tiptap__section-title {
+  margin: 0 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--umanit-tiptap-border-color);
+  font-size: 1rem;
+  font-weight: 600;
+
+  &:not(:first-child) {
+    margin-top: 1.5rem;
+  }
+}
+
+.umanit-tiptap__preview {
+  min-height: 50px;
+  padding: 0.5rem;
+  border: 1px solid var(--umanit-tiptap-border-color);
+  background: var(--ut-color-grey-light, #f8f9fa);
+  color: var(--umanit-tiptap-muted-color);
+  font-size: 0.875rem;
+}
+
+.umanit-tiptap__list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--umanit-tiptap-border-color);
+  border-radius: var(--umanit-tiptap-radius);
+  overflow: hidden;
+}
+
+.umanit-tiptap__list-item {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--umanit-tiptap-border-color);
+  text-align: left;
+  cursor: pointer;
+  color: inherit;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:hover,
+  &:focus {
+    background-color: var(--umanit-tiptap-btn-hover-bg);
+    outline: none;
+  }
+}
+
+.umanit-tiptap__list-item-title {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.umanit-tiptap__hint {
+  margin: 0 0 0.5rem;
+  color: var(--umanit-tiptap-muted-color);
+}
+
+.umanit-tiptap__muted {
+  color: var(--umanit-tiptap-muted-color);
+}
+
+.umanit-tiptap__alert {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--umanit-tiptap-danger);
+  border-radius: var(--umanit-tiptap-radius);
+  color: var(--umanit-tiptap-danger);
+}

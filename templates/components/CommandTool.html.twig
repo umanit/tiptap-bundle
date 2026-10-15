@@ -5,7 +5,7 @@
 {% endif %}
 
 <button type="button" class="{{ class }}" title="{{ title }}"
-    {{ stimulus_action('umanit/wysiwyg', 'run', 'click', action_parameters) }} {{ attributes }}>
+    {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', action_parameters) }} {{ attributes }}>
   {% if icon is not null %}
     <twig:ux:icon name="{{ icon }}" width="{{ iconSize }}" height="{{ iconSize }}" class="{{ iconClass }}" />
   {% endif %}

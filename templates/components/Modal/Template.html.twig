@@ -2,28 +2,28 @@
   {% block title %}{{ 'wysiwyg.modal.template.title'|trans({}, 'UmanitTiptapBundle') }}{% endblock %}
 
   {% block content %}
-    <form {{ stimulus_target('umanit/wysiwyg', 'templateForm') }}>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="replaceContentCheck-{{ id }}" name="replaceContent">
-        <label class="form-check-label" for="replaceContentCheck-{{ id }}">
+    <form {{ stimulus_target('umanit/tiptap/editor', 'templateForm') }}>
+      <div class="umanit-tiptap__field umanit-tiptap__check">
+        <input type="checkbox" class="umanit-tiptap__check-input" id="replaceContentCheck-{{ id }}" name="replaceContent">
+        <label class="umanit-tiptap__check-label" for="replaceContentCheck-{{ id }}">
           {{ 'wysiwyg.modal.template.replace'|trans({}, 'UmanitTiptapBundle') }}
         </label>
       </div>
 
-      <p class="text-muted mb-2">{{ 'wysiwyg.modal.template.select_helper'|trans({}, 'UmanitTiptapBundle') }}</p>
+      <p class="umanit-tiptap__hint">{{ 'wysiwyg.modal.template.select_helper'|trans({}, 'UmanitTiptapBundle') }}</p>
 
-      <div class="list-group">
+      <div class="umanit-tiptap__list">
         {% for template in this.templates %}
-          <button type="button" class="list-group-item list-group-item-action"
-              {{ stimulus_action('umanit/wysiwyg', 'run', 'click', {
+          <button type="button" class="umanit-tiptap__list-item"
+              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {
                 command: 'template.insert',
                 args: template.content,
               }) }}>
             <div class="ut-flex ut-w-full ut-justify-between">
-              <h6 class="mb-1 fw-bold">{{ template.name|trans({}, 'UmanitTiptapBundle') }}</h6>
+              <h6 class="umanit-tiptap__list-item-title">{{ template.name|trans({}, 'UmanitTiptapBundle') }}</h6>
             </div>
             {% if template.description is not null %}
-              <small class="text-muted">{{ template.description|trans({}, 'UmanitTiptapBundle') }}</small>
+              <small class="umanit-tiptap__muted">{{ template.description|trans({}, 'UmanitTiptapBundle') }}</small>
             {% endif %}
           </button>
         {% endfor %}
@@ -34,7 +34,7 @@
   {% block footer %}
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
-              {{ stimulus_action('umanit/modal', 'close') }}>
+              {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
         {{ 'modal.cancel'|trans({}, 'UmanitTiptapBundle') }}
       </button>
     </div>

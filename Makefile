@@ -1,6 +1,6 @@
-.PHONY: full_static_analyze phpstan phpcs twigcs rector phpunit
+.PHONY: full_static_analyze phpstan phpcs twigcs rector eslint phpunit
 
-full_static_analyze: phpstan phpcs twigcs rector
+full_static_analyze: phpstan phpcs twigcs rector eslint
 
 phpstan:
 	@echo "Running phpstan..."
@@ -17,6 +17,10 @@ twigcs:
 rector:
 	@echo "Running Rector..."
 	@php vendor/bin/rector process --dry-run
+
+eslint:
+	@echo "Running ESLint..."
+	@cd assets && yarn eslint src purgecss-safelist.js
 
 phpunit:
 	@php vendor/bin/phpunit

@@ -1,4 +1,4 @@
-<button type="button" class="umanit-tiptap__btn" title="{{ title }}" {{ stimulus_target('umanit/wysiwyg', 'sourceBtn')
-|stimulus_action('umanit/wysiwyg', 'toggleSource', 'click') }} {{ attributes }}>
+<button type="button" class="umanit-tiptap__btn" title="{{ title }}" {{ stimulus_target('umanit/tiptap/editor', 'sourceBtn')
+|stimulus_action('umanit/tiptap/editor', 'toggleSource', 'click') }} {{ attributes }}>
   <twig:ux:icon name="{{ icon }}" width="{{ iconSize }}" height="{{ iconSize }}" />
 </button>

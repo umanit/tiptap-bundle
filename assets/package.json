@@ -1,0 +1,93 @@
+{
+  "name": "@umanit/tiptap-bundle",
+  "description": "Standalone TipTap rich text editor for Symfony (Stimulus controllers and styles).",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./purgecss-safelist": "./purgecss-safelist.js",
+    "./dist/css/*": "./dist/css/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "dist",
+    "purgecss-safelist.js"
+  ],
+  "symfony": {
+    "controllers": {
+      "editor": {
+        "name": "umanit/tiptap/editor",
+        "main": "src/controllers/editor_controller.js",
+        "fetch": "eager",
+        "enabled": true,
+        "autoimport": {
+          "@umanit/tiptap-bundle/dist/css/tiptap-editor.css": true,
+          "@umanit/tiptap-bundle/dist/css/tiptap-content.css": true
+        }
+      },
+      "dropdown": {
+        "name": "umanit/tiptap/dropdown",
+        "main": "src/controllers/dropdown_controller.js",
+        "fetch": "lazy",
+        "enabled": true
+      },
+      "modal": {
+        "name": "umanit/tiptap/modal",
+        "main": "src/controllers/modal_controller.js",
+        "fetch": "lazy",
+        "enabled": true
+      },
+      "image": {
+        "name": "umanit/tiptap/image",
+        "main": "src/controllers/image_controller.js",
+        "fetch": "lazy",
+        "enabled": true
+      }
+    },
+    "importmap": {
+      "@hotwired/stimulus": "^3.0.0",
+      "@intevation/tiptap-extension-office-paste": "^0.1.2",
+      "@tiptap/core": "^3.13.0",
+      "@tiptap/extension-image": "^3.13.0",
+      "@tiptap/extension-placeholder": "^3.13.0",
+      "@tiptap/extension-subscript": "^3.13.0",
+      "@tiptap/extension-superscript": "^3.13.0",
+      "@tiptap/extension-table": "^3.13.0",
+      "@tiptap/extension-text-align": "^3.13.0",
+      "@tiptap/pm": "^3.13.0",
+      "@tiptap/starter-kit": "^3.13.0"
+    }
+  },
+  "scripts": {
+    "lint": "eslint src purgecss-safelist.js"
+  },
+  "dependencies": {
+    "@intevation/tiptap-extension-office-paste": "^0.1.2",
+    "@tiptap/core": "^3.13.0",
+    "@tiptap/extension-image": "^3.13.0",
+    "@tiptap/extension-placeholder": "^3.13.0",
+    "@tiptap/extension-subscript": "^3.13.0",
+    "@tiptap/extension-superscript": "^3.13.0",
+    "@tiptap/extension-table": "^3.13.0",
+    "@tiptap/extension-text-align": "^3.13.0",
+    "@tiptap/pm": "^3.13.0",
+    "@tiptap/starter-kit": "^3.13.0"
+  },
+  "peerDependencies": {
+    "@hotwired/stimulus": "^3.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.28.0",
+    "@babel/eslint-parser": "^7.28.0",
+    "@eslint/eslintrc": "^3.3.5",
+    "@eslint/js": "^9.39.4",
+    "@hotwired/stimulus": "^3.2.2",
+    "@umanit/eslint-config": "^1.0.3",
+    "eslint": "^9.39.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.32.0"
+  }
+}
