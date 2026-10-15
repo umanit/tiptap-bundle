@@ -13,7 +13,7 @@ use Umanit\TiptapBundle\Form\Type\TiptapType;
 use Umanit\TiptapBundle\Tests\Fixtures\TestKernel;
 
 #[CoversNothing]
-class EditorRenderingTest extends KernelTestCase
+final class EditorRenderingTest extends KernelTestCase
 {
     protected static function getKernelClass(): string
     {
@@ -26,11 +26,11 @@ class EditorRenderingTest extends KernelTestCase
             '<twig:Umanit:Tiptap:Editor id="foo" name="bar" content="Hello" />',
         )->render();
 
-        self::assertStringContainsString('data-controller="umanit--tiptap--editor"', $html);
-        self::assertStringContainsString('name="bar"', $html);
-        self::assertStringContainsString('Hello</textarea>', $html);
-        self::assertStringContainsString('<svg', $html);
-        self::assertStringNotContainsString('openFileManager', $html);
+        $this->assertStringContainsString('data-controller="umanit--tiptap--editor"', $html);
+        $this->assertStringContainsString('name="bar"', $html);
+        $this->assertStringContainsString('Hello</textarea>', $html);
+        $this->assertStringContainsString('<svg', $html);
+        $this->assertStringNotContainsString('openFileManager', $html);
     }
 
     public function testRenderedMarkupHasNoThirdPartyFrameworkClasses(): void
@@ -39,13 +39,13 @@ class EditorRenderingTest extends KernelTestCase
             '<twig:Umanit:Tiptap:Editor id="foo" fileManagerUrl="/fm" />',
         )->render();
 
-        self::assertDoesNotMatchRegularExpression(
+        $this->assertDoesNotMatchRegularExpression(
             '/class="(?:[^"]*\\s)?'
             . '(?:form-\\S+|btn(?:-\\S+)?|d-none|row|col(?:-\\S+)?|mb-\\d|c-editor|c-wysiwyg)'
             . '(?:\\s[^"]*)?"/',
             $html,
         );
-        self::assertStringNotContainsString('data-bs-', $html);
+        $this->assertStringNotContainsString('data-bs-', $html);
     }
 
     public function testModalFormsAreNotParsedInsideAHostForm(): void
@@ -58,18 +58,18 @@ class EditorRenderingTest extends KernelTestCase
         // the inert <template> the controller mounts.
         $withoutTemplate = preg_replace('#<template\b.*?</template>#s', '', $html);
 
-        self::assertStringContainsString('<template', $html);
-        self::assertStringContainsString('<form', $html);
-        self::assertStringNotContainsString('<form', (string) $withoutTemplate);
-        self::assertStringNotContainsString('<dialog', (string) $withoutTemplate);
+        $this->assertStringContainsString('<template', $html);
+        $this->assertStringContainsString('<form', $html);
+        $this->assertStringNotContainsString('<form', (string) $withoutTemplate);
+        $this->assertStringNotContainsString('<dialog', (string) $withoutTemplate);
     }
 
     public function testToolbarsAndLabelsAreTranslated(): void
     {
         $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
 
-        self::assertStringNotContainsString('wysiwyg.', $html);
-        self::assertStringContainsString('title="Bold"', $html);
+        $this->assertStringNotContainsString('wysiwyg.', $html);
+        $this->assertStringContainsString('title="Bold"', $html);
     }
 
     public function testApplicationBuilderIsAutoconfiguredAndReferencedByName(): void
@@ -78,8 +78,8 @@ class EditorRenderingTest extends KernelTestCase
             '<twig:Umanit:Tiptap:Editor id="foo" toolbar="compact" />',
         )->render();
 
-        self::assertStringContainsString('data-wysiwyg-tool="bold"', $html);
-        self::assertStringNotContainsString('data-wysiwyg-tool="italic"', $html);
+        $this->assertStringContainsString('data-wysiwyg-tool="bold"', $html);
+        $this->assertStringNotContainsString('data-wysiwyg-tool="italic"', $html);
     }
 
     public function testUnknownToolbarIsRejected(): void
@@ -96,16 +96,16 @@ class EditorRenderingTest extends KernelTestCase
             '<twig:Umanit:Tiptap:Editor id="foo" fileManagerUrl="/fm" fileManagerAdapter="custom" />',
         )->render();
 
-        self::assertStringContainsString('openFileManager', $html);
-        self::assertStringContainsString('/fm', $html);
-        self::assertStringContainsString('custom', $html);
+        $this->assertStringContainsString('openFileManager', $html);
+        $this->assertStringContainsString('/fm', $html);
+        $this->assertStringContainsString('custom', $html);
     }
 
     public function testTiptapTypeIsRenderedByTheComponent(): void
     {
         self::bootKernel();
         $factory = self::getContainer()->get('test.form.factory');
-        self::assertInstanceOf(FormFactoryInterface::class, $factory);
+        $this->assertInstanceOf(FormFactoryInterface::class, $factory);
 
         $form = $factory
             ->createNamed('page', FormType::class)
@@ -114,8 +114,8 @@ class EditorRenderingTest extends KernelTestCase
 
         $html = $this->getTwig()->render('form.html.twig', ['form' => $form->createView()]);
 
-        self::assertStringContainsString('name="page[body]"', $html);
-        self::assertStringContainsString('umanit-tiptap__toolbar', $html);
+        $this->assertStringContainsString('name="page[body]"', $html);
+        $this->assertStringContainsString('umanit-tiptap__toolbar', $html);
     }
 
     private function getTwig(): Environment
@@ -123,7 +123,7 @@ class EditorRenderingTest extends KernelTestCase
         self::bootKernel();
 
         $twig = self::getContainer()->get(Environment::class);
-        self::assertInstanceOf(Environment::class, $twig);
+        $this->assertInstanceOf(Environment::class, $twig);
 
         return $twig;
     }

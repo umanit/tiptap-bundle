@@ -14,7 +14,7 @@ use Umanit\TiptapBundle\DTO\ToolbarSection;
 #[CoversClass(Toolbar::class)]
 #[CoversClass(ToolbarSection::class)]
 #[CoversClass(Tool::class)]
-class ToolbarTest extends TestCase
+final class ToolbarTest extends TestCase
 {
     /**
      * @return iterable<string, array{string, string}>
@@ -34,17 +34,17 @@ class ToolbarTest extends TestCase
         $with = new Toolbar([new ToolbarSection([new Tool('bold')]), new ToolbarSection([new Tool($tool)])]);
         $without = new Toolbar([new ToolbarSection([new Tool('bold')])]);
 
-        self::assertTrue($with->{$method}());
-        self::assertFalse($without->{$method}());
+        $this->assertTrue($with->{$method}());
+        $this->assertFalse($without->{$method}());
     }
 
     public function testHasToolOnEmptyToolbar(): void
     {
-        self::assertFalse(new Toolbar([])->hasTool('bold'));
+        $this->assertFalse(new Toolbar([])->hasTool('bold'));
     }
 
     public function testToolIsStringable(): void
     {
-        self::assertSame('bold', (string) new Tool('bold'));
+        $this->assertSame('bold', (string) new Tool('bold'));
     }
 }

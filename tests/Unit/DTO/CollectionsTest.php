@@ -20,15 +20,15 @@ use Umanit\TiptapBundle\DTO\TemplatesSet;
 #[CoversClass(StyleSet::class)]
 #[CoversClass(Style::class)]
 #[CoversClass(Template::class)]
-class CollectionsTest extends TestCase
+final class CollectionsTest extends TestCase
 {
     public function testColorsSetIsCountableAndIterable(): void
     {
         $colors = [new Color('a', 'a'), new Color('b', 'b')];
         $set = new ColorsSet($colors);
 
-        self::assertCount(2, $set);
-        self::assertSame($colors, iterator_to_array($set));
+        $this->assertCount(2, $set);
+        $this->assertSame($colors, iterator_to_array($set));
     }
 
     public function testStylesSetsIsCountableAndIterable(): void
@@ -36,8 +36,8 @@ class CollectionsTest extends TestCase
         $sets = [new StyleSet('Banners', [new Style('Info', 'ut-banner-info')])];
         $stylesSets = new StylesSets($sets);
 
-        self::assertCount(1, $stylesSets);
-        self::assertSame($sets, iterator_to_array($stylesSets));
+        $this->assertCount(1, $stylesSets);
+        $this->assertSame($sets, iterator_to_array($stylesSets));
     }
 
     public function testTemplatesSetIsCountableAndIterable(): void
@@ -45,15 +45,15 @@ class CollectionsTest extends TestCase
         $templates = [new Template('Demo', '<p>Demo</p>'), new Template('Other', '<p>Other</p>', 'Description')];
         $set = new TemplatesSet($templates);
 
-        self::assertCount(2, $set);
-        self::assertSame($templates, iterator_to_array($set));
-        self::assertNull($templates[0]->description);
+        $this->assertCount(2, $set);
+        $this->assertSame($templates, iterator_to_array($set));
+        $this->assertNull($templates[0]->description);
     }
 
     public function testEmptyCollections(): void
     {
-        self::assertCount(0, new ColorsSet([]));
-        self::assertCount(0, new StylesSets([]));
-        self::assertCount(0, new TemplatesSet([]));
+        $this->assertCount(0, new ColorsSet([]));
+        $this->assertCount(0, new StylesSets([]));
+        $this->assertCount(0, new TemplatesSet([]));
     }
 }

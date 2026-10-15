@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  * Twig namespaces and JS packages.
  */
 #[CoversNothing]
-class StandaloneGuardTest extends TestCase
+final class StandaloneGuardTest extends TestCase
 {
     private const array SCANNED_DIRECTORIES = [
         'src',
@@ -68,7 +68,7 @@ class StandaloneGuardTest extends TestCase
             }
         }
 
-        self::assertSame([], $offenders);
+        $this->assertSame([], $offenders);
     }
 
     /**

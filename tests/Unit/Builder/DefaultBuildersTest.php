@@ -16,32 +16,32 @@ use Umanit\TiptapBundle\Builder\DefaultToolbarBuilder;
 #[CoversClass(DefaultStylesSetsBuilder::class)]
 #[CoversClass(DefaultTemplatesSetBuilder::class)]
 #[CoversClass(DefaultToolbarBuilder::class)]
-class DefaultBuildersTest extends TestCase
+final class DefaultBuildersTest extends TestCase
 {
     public function testDefaultBuildersAreRegisteredUnderTheDefaultName(): void
     {
-        self::assertSame('default', DefaultColorsSetBuilder::getDefaultIndexName());
-        self::assertSame('default', DefaultStylesSetsBuilder::getDefaultIndexName());
-        self::assertSame('default', DefaultTemplatesSetBuilder::getDefaultIndexName());
-        self::assertSame('default', DefaultToolbarBuilder::getDefaultIndexName());
+        $this->assertSame('default', DefaultColorsSetBuilder::getDefaultIndexName());
+        $this->assertSame('default', DefaultStylesSetsBuilder::getDefaultIndexName());
+        $this->assertSame('default', DefaultTemplatesSetBuilder::getDefaultIndexName());
+        $this->assertSame('default', DefaultToolbarBuilder::getDefaultIndexName());
     }
 
     public function testDefaultToolbarContainsTheOptionalTools(): void
     {
         $toolbar = new DefaultToolbarBuilder()->build();
 
-        self::assertTrue($toolbar->hasTableTool());
-        self::assertTrue($toolbar->hasImageTool());
-        self::assertTrue($toolbar->hasLinkTool());
-        self::assertTrue($toolbar->hasTemplateTool());
-        self::assertTrue($toolbar->hasAnchorTool());
+        $this->assertTrue($toolbar->hasTableTool());
+        $this->assertTrue($toolbar->hasImageTool());
+        $this->assertTrue($toolbar->hasLinkTool());
+        $this->assertTrue($toolbar->hasTemplateTool());
+        $this->assertTrue($toolbar->hasAnchorTool());
     }
 
     public function testDefaultStylesAreNamespacedWithTheBundlePrefix(): void
     {
         foreach (new DefaultStylesSetsBuilder()->build() as $set) {
             foreach ($set->styles as $style) {
-                self::assertStringStartsWith('ut-', $style->class);
+                $this->assertStringStartsWith('ut-', $style->class);
             }
         }
     }
@@ -74,7 +74,7 @@ class DefaultBuildersTest extends TestCase
             $messages = $this->loadCatalogue($locale);
 
             foreach (array_filter($keys) as $key) {
-                self::assertArrayHasKey($key, $messages, \sprintf('"%s" is missing in "%s".', $key, $locale));
+                $this->assertArrayHasKey($key, $messages, \sprintf('"%s" is missing in "%s".', $key, $locale));
             }
         }
     }
@@ -84,8 +84,8 @@ class DefaultBuildersTest extends TestCase
         $en = $this->loadCatalogue('en');
         $fr = $this->loadCatalogue('fr');
 
-        self::assertSame([], array_values(array_diff(array_keys($en), array_keys($fr))), 'Missing in fr.');
-        self::assertSame([], array_values(array_diff(array_keys($fr), array_keys($en))), 'Missing in en.');
+        $this->assertSame([], array_values(array_diff(array_keys($en), array_keys($fr))), 'Missing in fr.');
+        $this->assertSame([], array_values(array_diff(array_keys($fr), array_keys($en))), 'Missing in en.');
     }
 
     /**
@@ -94,7 +94,7 @@ class DefaultBuildersTest extends TestCase
     private function loadCatalogue(string $locale): array
     {
         $messages = Yaml::parseFile(\dirname(__DIR__, 3) . '/translations/UmanitTiptapBundle.' . $locale . '.yaml');
-        self::assertIsArray($messages);
+        $this->assertIsArray($messages);
 
         /** @var array<string, string> $messages */
         return $messages;

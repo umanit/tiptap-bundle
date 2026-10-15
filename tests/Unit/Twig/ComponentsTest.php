@@ -24,39 +24,39 @@ use Umanit\TiptapBundle\Twig\Components\Toolbar;
 #[CoversClass(Editor::class)]
 #[CoversClass(Styles::class)]
 #[CoversClass(Toolbar::class)]
-class ComponentsTest extends TestCase
+final class ComponentsTest extends TestCase
 {
     public function testEditorDetectsToolbarTools(): void
     {
         $provider = new ToolbarProvider([new DefaultToolbarBuilder(), new CompactToolbarBuilder()]);
 
         $full = new Editor($provider);
-        self::assertTrue($full->hasTableTool());
-        self::assertTrue($full->hasImageTool());
-        self::assertTrue($full->hasLinkTool());
-        self::assertTrue($full->hasTemplateTool());
-        self::assertTrue($full->hasAnchorTool());
+        $this->assertTrue($full->hasTableTool());
+        $this->assertTrue($full->hasImageTool());
+        $this->assertTrue($full->hasLinkTool());
+        $this->assertTrue($full->hasTemplateTool());
+        $this->assertTrue($full->hasAnchorTool());
 
         $compact = new Editor($provider);
         $compact->toolbar = 'compact';
-        self::assertFalse($compact->hasTableTool());
-        self::assertFalse($compact->hasImageTool());
-        self::assertFalse($compact->hasLinkTool());
-        self::assertFalse($compact->hasTemplateTool());
-        self::assertFalse($compact->hasAnchorTool());
+        $this->assertFalse($compact->hasTableTool());
+        $this->assertFalse($compact->hasImageTool());
+        $this->assertFalse($compact->hasLinkTool());
+        $this->assertFalse($compact->hasTemplateTool());
+        $this->assertFalse($compact->hasAnchorTool());
     }
 
     public function testEditorFileManagerIsOptional(): void
     {
         $editor = new Editor(new ToolbarProvider([]));
 
-        self::assertFalse($editor->hasFileManager());
+        $this->assertFalse($editor->hasFileManager());
 
         $editor->fileManagerUrl = '';
-        self::assertFalse($editor->hasFileManager());
+        $this->assertFalse($editor->hasFileManager());
 
         $editor->fileManagerUrl = '/files';
-        self::assertTrue($editor->hasFileManager());
+        $this->assertTrue($editor->hasFileManager());
     }
 
     public function testColorComponentMapsTypeToCommandAndClass(): void
@@ -66,25 +66,25 @@ class ComponentsTest extends TestCase
 
         $text = new Color($provider);
         $text->type = ColorType::Text;
-        self::assertSame('setTextColor', $text->command());
-        self::assertSame('A', $text->btnLabel());
-        self::assertSame('ut-color-red', $text->getColorClass($color));
-        self::assertCount(13, $text->colors());
+        $this->assertSame('setTextColor', $text->command());
+        $this->assertSame('A', $text->btnLabel());
+        $this->assertSame('ut-color-red', $text->getColorClass($color));
+        $this->assertCount(13, $text->colors());
 
         $background = new Color($provider);
         $background->type = ColorType::Background;
-        self::assertSame('setTextBgColor', $background->command());
-        self::assertSame('', $background->btnLabel());
-        self::assertSame('ut-bg-red', $background->getColorClass($color));
+        $this->assertSame('setTextBgColor', $background->command());
+        $this->assertSame('', $background->btnLabel());
+        $this->assertSame('ut-bg-red', $background->getColorClass($color));
     }
 
     public function testStylesAndToolbarComponentsResolveTheirSet(): void
     {
         $styles = new Styles(new StylesSetProvider([new DefaultStylesSetsBuilder()]));
-        self::assertCount(3, $styles->getStylesSet());
+        $this->assertCount(3, $styles->getStylesSet());
 
         $toolbar = new Toolbar(new ToolbarProvider([new CompactToolbarBuilder()]));
         $toolbar->name = 'compact';
-        self::assertTrue($toolbar->getToolbar()->hasTool('bold'));
+        $this->assertTrue($toolbar->getToolbar()->hasTool('bold'));
     }
 }

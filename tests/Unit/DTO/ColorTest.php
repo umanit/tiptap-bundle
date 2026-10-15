@@ -9,13 +9,13 @@ use PHPUnit\Framework\TestCase;
 use Umanit\TiptapBundle\DTO\Color;
 
 #[CoversClass(Color::class)]
-class ColorTest extends TestCase
+final class ColorTest extends TestCase
 {
     public function testCssClasses(): void
     {
         $color = new Color('wysiwyg.color.red', 'red');
 
-        self::assertSame('ut-color-red', $color->getAsTextColorClass());
-        self::assertSame('ut-bg-red', $color->getAsBackgroundColorClass());
+        $this->assertSame('ut-color-red', $color->getAsTextColorClass());
+        $this->assertSame('ut-bg-red', $color->getAsBackgroundColorClass());
     }
 }

@@ -11,28 +11,28 @@ use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Umanit\TiptapBundle\Form\Type\TiptapType;
 
 #[CoversClass(TiptapType::class)]
-class TiptapTypeTest extends TypeTestCase
+final class TiptapTypeTest extends TypeTestCase
 {
     public function testDefaultOptionsAreExposedToTheView(): void
     {
         $view = $this->factory->create(TiptapType::class)->createView();
 
-        self::assertSame('default', $view->vars['toolbar']);
-        self::assertSame('default', $view->vars['styles_set']);
-        self::assertSame('default', $view->vars['colors_set']);
-        self::assertSame('default', $view->vars['background_colors_set']);
-        self::assertSame('default', $view->vars['cell_background_colors_set']);
-        self::assertSame('default', $view->vars['templates_set']);
-        self::assertNull($view->vars['file_manager_url']);
-        self::assertNull($view->vars['file_manager_adapter']);
+        $this->assertSame('default', $view->vars['toolbar']);
+        $this->assertSame('default', $view->vars['styles_set']);
+        $this->assertSame('default', $view->vars['colors_set']);
+        $this->assertSame('default', $view->vars['background_colors_set']);
+        $this->assertSame('default', $view->vars['cell_background_colors_set']);
+        $this->assertSame('default', $view->vars['templates_set']);
+        $this->assertNull($view->vars['file_manager_url']);
+        $this->assertNull($view->vars['file_manager_adapter']);
     }
 
     public function testBackgroundColorsFollowTheColorsSetByDefault(): void
     {
         $view = $this->factory->create(TiptapType::class, null, ['colors_set' => 'brand'])->createView();
 
-        self::assertSame('brand', $view->vars['background_colors_set']);
-        self::assertSame('brand', $view->vars['cell_background_colors_set']);
+        $this->assertSame('brand', $view->vars['background_colors_set']);
+        $this->assertSame('brand', $view->vars['cell_background_colors_set']);
     }
 
     public function testBackgroundColorsCanBeOverridden(): void
@@ -42,8 +42,8 @@ class TiptapTypeTest extends TypeTestCase
             'background_colors_set' => 'pastel',
         ])->createView();
 
-        self::assertSame('pastel', $view->vars['background_colors_set']);
-        self::assertSame('brand', $view->vars['cell_background_colors_set']);
+        $this->assertSame('pastel', $view->vars['background_colors_set']);
+        $this->assertSame('brand', $view->vars['cell_background_colors_set']);
     }
 
     public function testFileManagerOptions(): void
@@ -53,8 +53,8 @@ class TiptapTypeTest extends TypeTestCase
             'file_manager_adapter' => 'ckeditor',
         ])->createView();
 
-        self::assertSame('/files', $view->vars['file_manager_url']);
-        self::assertSame('ckeditor', $view->vars['file_manager_adapter']);
+        $this->assertSame('/files', $view->vars['file_manager_url']);
+        $this->assertSame('ckeditor', $view->vars['file_manager_adapter']);
     }
 
     public function testSetOptionsMustBeStrings(): void
@@ -69,15 +69,15 @@ class TiptapTypeTest extends TypeTestCase
         $form = $this->factory->create(TiptapType::class);
         $form->submit('<p>Hello</p>');
 
-        self::assertTrue($form->isSynchronized());
-        self::assertSame('<p>Hello</p>', $form->getData());
+        $this->assertTrue($form->isSynchronized());
+        $this->assertSame('<p>Hello</p>', $form->getData());
     }
 
     public function testTypeIsATextareaWithADedicatedBlockPrefix(): void
     {
         $type = new TiptapType();
 
-        self::assertSame(TextareaType::class, $type->getParent());
-        self::assertSame('umanit_tiptap', $type->getBlockPrefix());
+        $this->assertSame(TextareaType::class, $type->getParent());
+        $this->assertSame('umanit_tiptap', $type->getBlockPrefix());
     }
 }

@@ -24,7 +24,7 @@ use Umanit\TiptapBundle\Provider\ToolbarProvider;
 #[CoversClass(StylesSetProvider::class)]
 #[CoversClass(TemplatesSetProvider::class)]
 #[CoversClass(ToolbarProvider::class)]
-class ProvidersTest extends TestCase
+final class ProvidersTest extends TestCase
 {
     /**
      * @return iterable<string, array{callable(): mixed, string}>
@@ -70,6 +70,6 @@ class ProvidersTest extends TestCase
     {
         $provider = new StylesSetProvider(new \ArrayIterator([new DefaultStylesSetsBuilder()]));
 
-        self::assertCount(3, $provider->getStylesSet('default'));
+        $this->assertCount(3, $provider->getStylesSet('default'));
     }
 }
