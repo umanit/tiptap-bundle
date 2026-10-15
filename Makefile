@@ -1,6 +1,6 @@
 .PHONY: full_static_analyze phpstan phpcs twigcs rector eslint phpunit
 
-full_static_analyze: phpstan phpcs twigcs rector eslint
+full_static_analyze: phpstan phpcs twigcs rector eslint phpunit
 
 phpstan:
 	@echo "Running phpstan..."

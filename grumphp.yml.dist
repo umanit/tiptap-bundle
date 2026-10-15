@@ -19,10 +19,15 @@ grumphp:
             enforce_capitalized_subject: false
             matchers:
                 Conventional Commits: '/^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([\w\-]+\))?!?: .+/'
+        eslint:
+            bin: ./grumphp-eslint.sh
+            triggered_by: [js]
         phpstan:
             configuration: ./phpstan.dist.neon
             use_grumphp_paths: false
         phpcs:
             standard: [phpcs.xml.dist]
-            ignore_patterns: ['config/reference.php']
             report_width: 120
+        phpunit: ~
+        rector: ~
+        twigcsfixer: ~
