@@ -1,0 +1,27 @@
+grumphp:
+    tasks:
+        composer:
+            no_check_publish: true
+        phplint:
+            exclude: ['vendor']
+            triggered_by: ['php']
+        git_blacklist:
+            keywords:
+                - 'die('
+                - 'var_dump('
+                - 'dump('
+                - '^dd('
+                - 'exit;'
+            triggered_by: ['php', 'twig']
+        git_commit_message:
+            max_body_width: 100
+            max_subject_width: 80
+            enforce_capitalized_subject: false
+            matchers:
+                Conventional Commits: '/^(feat|fix|docs|style|refactor|perf|test|build|ci|chore|revert)(\([\w\-]+\))?!?: .+/'
+        phpstan:
+            configuration: ./phpstan.dist.neon
+            use_grumphp_paths: false
+        phpcs:
+            standard: [phpcs.xml.dist]
+            report_width: 120

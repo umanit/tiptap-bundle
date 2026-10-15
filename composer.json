@@ -1,0 +1,52 @@
+{
+  "name": "umanit/tiptap-bundle",
+  "description": "Standalone TipTap rich text editor for Symfony (Twig components, Stimulus controllers, form type).",
+  "type": "symfony-bundle",
+  "keywords": [
+    "symfony",
+    "bundle",
+    "tiptap",
+    "wysiwyg",
+    "editor",
+    "stimulus",
+    "twig-component"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Vivien De Bona",
+      "email": "vdebona@umanit.fr"
+    }
+  ],
+  "require": {
+    "php": "^8.4",
+    "symfony/form": "^7.4 || ^8.0",
+    "symfony/framework-bundle": "^7.4 || ^8.0",
+    "symfony/stimulus-bundle": "^2.0",
+    "symfony/translation": "^7.4 || ^8.0",
+    "symfony/ux-icons": "^2.0",
+    "symfony/ux-twig-component": "^2.0",
+    "twig/twig": "^3.0"
+  },
+  "require-dev": {
+    "umanit/dev-bundle": "^3.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "Umanit\\TiptapBundle\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Umanit\\TiptapBundle\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "phpro/grumphp": true,
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "minimum-stability": "stable"
+}
