@@ -8,14 +8,18 @@
   "exports": {
     ".": "./src/index.js",
     "./src/*": "./src/*",
-    "./purgecss-safelist": "./purgecss-safelist.js",
+    "./purgecss-safelist": {
+      "import": "./purgecss-safelist.js",
+      "require": "./purgecss-safelist.cjs"
+    },
     "./dist/css/*": "./dist/css/*",
     "./package.json": "./package.json"
   },
   "files": [
     "src",
     "dist",
-    "purgecss-safelist.js"
+    "purgecss-safelist.js",
+    "purgecss-safelist.cjs"
   ],
   "symfony": {
     "controllers": {
@@ -58,12 +62,13 @@
       "@tiptap/extension-superscript": "^3.13.0",
       "@tiptap/extension-table": "^3.13.0",
       "@tiptap/extension-text-align": "^3.13.0",
+      "@tiptap/extensions": "^3.13.0",
       "@tiptap/pm": "^3.13.0",
       "@tiptap/starter-kit": "^3.13.0"
     }
   },
   "scripts": {
-    "lint": "eslint src tests purgecss-safelist.js",
+    "lint": "eslint src tests purgecss-safelist.js purgecss-safelist.cjs",
     "test": "vitest run"
   },
   "dependencies": {
@@ -75,6 +80,7 @@
     "@tiptap/extension-superscript": "^3.13.0",
     "@tiptap/extension-table": "^3.13.0",
     "@tiptap/extension-text-align": "^3.13.0",
+    "@tiptap/extensions": "^3.13.0",
     "@tiptap/pm": "^3.13.0",
     "@tiptap/starter-kit": "^3.13.0"
   },

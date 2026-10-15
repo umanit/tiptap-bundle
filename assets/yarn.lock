@@ -896,7 +896,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tiptap/extensions@npm:3.32.0":
+"@tiptap/extensions@npm:3.32.0, @tiptap/extensions@npm:^3.13.0":
   version: 3.32.0
   resolution: "@tiptap/extensions@npm:3.32.0"
   peerDependencies:
@@ -1021,6 +1021,7 @@ __metadata:
     "@tiptap/extension-superscript": "npm:^3.13.0"
     "@tiptap/extension-table": "npm:^3.13.0"
     "@tiptap/extension-text-align": "npm:^3.13.0"
+    "@tiptap/extensions": "npm:^3.13.0"
     "@tiptap/pm": "npm:^3.13.0"
     "@tiptap/starter-kit": "npm:^3.13.0"
     "@umanit/eslint-config": "npm:^1.0.3"
