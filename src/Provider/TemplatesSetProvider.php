@@ -21,7 +21,7 @@ final readonly class TemplatesSetProvider implements TemplatesSetProviderInterfa
         $indexed = [];
 
         foreach ($templatesSet as $builder) {
-            $indexed[$builder::getDefaultIndexName()] = $builder;
+            $indexed[$builder::getDefaultIndexName()] ??= $builder;
         }
 
         $this->templatesSet = $indexed;

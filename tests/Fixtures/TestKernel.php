@@ -57,6 +57,7 @@ class TestKernel extends Kernel
             'translator' => ['enabled' => true],
         ]);
         $container->register(CompactToolbarBuilder::class)->setAutoconfigured(true);
+        $container->register(OverridingStylesSetsBuilder::class)->setAutoconfigured(true);
         $container->setAlias('test.form.factory', 'form.factory')->setPublic(true);
         $container->loadFromExtension('twig', ['default_path' => __DIR__ . '/templates']);
     }

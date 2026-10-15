@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace Umanit\TiptapBundle\Builder;
 
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 use Umanit\TiptapBundle\DTO\Color;
 use Umanit\TiptapBundle\DTO\ColorsSet;
 
+/**
+ * Lowest priority: an application builder with the same name takes precedence over this one.
+ */
+#[AsTaggedItem(priority: -100)]
 final readonly class DefaultColorsSetBuilder implements ColorsSetBuilderInterface
 {
     public static function getDefaultIndexName(): string

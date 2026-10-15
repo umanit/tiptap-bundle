@@ -21,7 +21,7 @@ final readonly class ColorsSetProvider implements ColorsSetProviderInterface
         $indexed = [];
 
         foreach ($colorsSet as $builder) {
-            $indexed[$builder::getDefaultIndexName()] = $builder;
+            $indexed[$builder::getDefaultIndexName()] ??= $builder;
         }
 
         $this->colorsSet = $indexed;

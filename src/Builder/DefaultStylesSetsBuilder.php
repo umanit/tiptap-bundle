@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Umanit\TiptapBundle\Builder;
 
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 use Umanit\TiptapBundle\DTO\Style;
 use Umanit\TiptapBundle\DTO\StyleSet;
 use Umanit\TiptapBundle\DTO\StylesSets;
 
+/**
+ * Lowest priority: an application builder with the same name takes precedence over this one.
+ */
+#[AsTaggedItem(priority: -100)]
 final readonly class DefaultStylesSetsBuilder implements StylesSetsBuilderInterface
 {
     public static function getDefaultIndexName(): string

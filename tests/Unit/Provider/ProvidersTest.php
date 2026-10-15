@@ -11,6 +11,7 @@ use Umanit\TiptapBundle\Builder\DefaultColorsSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultStylesSetsBuilder;
 use Umanit\TiptapBundle\Builder\DefaultTemplatesSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultToolbarBuilder;
+use Umanit\TiptapBundle\Builder\StylesSetsBuilderInterface;
 use Umanit\TiptapBundle\DTO\ColorsSet;
 use Umanit\TiptapBundle\DTO\StylesSets;
 use Umanit\TiptapBundle\DTO\TemplatesSet;
@@ -71,5 +72,24 @@ final class ProvidersTest extends TestCase
         $provider = new StylesSetProvider(new \ArrayIterator([new DefaultStylesSetsBuilder()]));
 
         $this->assertCount(3, $provider->getStylesSet('default'));
+    }
+
+    public function testFirstBuilderWinsWhenNamesCollide(): void
+    {
+        $first = new class implements StylesSetsBuilderInterface {
+            public static function getDefaultIndexName(): string
+            {
+                return 'default';
+            }
+
+            public function build(): StylesSets
+            {
+                return new StylesSets([]);
+            }
+        };
+
+        $provider = new StylesSetProvider([$first, new DefaultStylesSetsBuilder()]);
+
+        $this->assertCount(0, $provider->getStylesSet('default'));
     }
 }

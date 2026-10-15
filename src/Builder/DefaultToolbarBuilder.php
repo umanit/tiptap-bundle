@@ -4,10 +4,15 @@ declare(strict_types=1);
 
 namespace Umanit\TiptapBundle\Builder;
 
+use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 use Umanit\TiptapBundle\DTO\Tool;
 use Umanit\TiptapBundle\DTO\Toolbar;
 use Umanit\TiptapBundle\DTO\ToolbarSection;
 
+/**
+ * Lowest priority: an application builder with the same name takes precedence over this one.
+ */
+#[AsTaggedItem(priority: -100)]
 final readonly class DefaultToolbarBuilder implements ToolbarBuilderInterface
 {
     public static function getDefaultIndexName(): string

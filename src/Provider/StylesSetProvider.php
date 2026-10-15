@@ -21,7 +21,7 @@ final readonly class StylesSetProvider implements StylesSetProviderInterface
         $indexed = [];
 
         foreach ($stylesSets as $builder) {
-            $indexed[$builder::getDefaultIndexName()] = $builder;
+            $indexed[$builder::getDefaultIndexName()] ??= $builder;
         }
 
         $this->stylesSets = $indexed;

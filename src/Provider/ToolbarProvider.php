@@ -21,7 +21,7 @@ final readonly class ToolbarProvider implements ToolbarProviderInterface
         $indexed = [];
 
         foreach ($toolbars as $builder) {
-            $indexed[$builder::getDefaultIndexName()] = $builder;
+            $indexed[$builder::getDefaultIndexName()] ??= $builder;
         }
 
         $this->toolbars = $indexed;

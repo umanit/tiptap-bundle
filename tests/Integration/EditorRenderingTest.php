@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Twig\Environment;
 use Umanit\TiptapBundle\Form\Type\TiptapType;
+use Umanit\TiptapBundle\Tests\Fixtures\OverridingStylesSetsBuilder;
 use Umanit\TiptapBundle\Tests\Fixtures\TestKernel;
 
 #[CoversNothing]
@@ -80,6 +81,14 @@ final class EditorRenderingTest extends KernelTestCase
 
         $this->assertStringContainsString('data-wysiwyg-tool="bold"', $html);
         $this->assertStringNotContainsString('data-wysiwyg-tool="italic"', $html);
+    }
+
+    public function testApplicationBuilderNamedDefaultReplacesTheBundleOne(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        $this->assertStringContainsString(OverridingStylesSetsBuilder::CSS_CLASS, $html);
+        $this->assertStringNotContainsString('ut-banner-info', $html);
     }
 
     public function testUnknownToolbarIsRejected(): void
