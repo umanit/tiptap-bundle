@@ -10,7 +10,7 @@ const compat = new FlatCompat({
 });
 
 export default [...compat.extends('@umanit'), {
-  files: ['*.config.{js,mjs,cjs}'],
+  files: ['*.config.{js,mjs,cjs}', 'bin/*.js'],
   rules: {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },

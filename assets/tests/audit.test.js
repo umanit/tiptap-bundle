@@ -1,0 +1,146 @@
+import { spawnSync } from 'node:child_process';
+import path from 'node:path';
+import {
+  afterEach, beforeEach, describe, expect, it,
+} from 'vitest';
+import RoundTripper from '../src/audit/round-trip.js';
+import { collectSignals, lostSignals } from '../src/audit/signals.js';
+
+const parser = new DOMParser();
+const signalsOf = (html) => Object.fromEntries(collectSignals(html, parser).signals);
+
+describe('collectSignals', () => {
+  it('counts tags, attributes, style families and classes', () => {
+    const html = '<p class="a b" style="border-top-width:1px;border-left-width:1px;color:red">'
+      + '<a href="#" id="x">l</a></p>';
+
+    expect(signalsOf(html))
+      .toEqual({
+        'tag:p': 1,
+        'class:a': 1,
+        'class:b': 1,
+        'style:border*': 1,
+        'style:color': 1,
+        'tag:a': 1,
+        'attr:a@href': 1,
+        'attr:a@id': 1,
+      });
+  });
+
+  it('treats <b> and <i> as <strong> and <em>', () => {
+    expect(signalsOf('<p><b>x</b><i>y</i></p>')).toEqual({ 'tag:p': 1, 'mark:strong': 1, 'mark:em': 1 });
+  });
+
+  it('measures marks in covered characters, not in elements', () => {
+    expect(signalsOf('<p><strong>ab</strong><strong>cd</strong></p>')['mark:strong']).toBe(4);
+    expect(signalsOf('<p><strong>abcd</strong></p>')['mark:strong']).toBe(4);
+  });
+
+  it('ignores a <span> and counts a utility class as its inline style', () => {
+    expect(signalsOf('<p class="ut-text-center"><span class="ut-color-red">x</span></p>')).toEqual({
+      'tag:p': 1,
+      'class:ut-text-center': 1,
+      'style:text-align': 1,
+      'class:ut-color-red': 1,
+      'style:color': 1,
+    });
+  });
+
+  it('compares the text without whitespace', () => {
+    expect(collectSignals('<p>a  b</p><p>c</p>', parser).text).toBe('abc');
+  });
+});
+
+describe('lostSignals', () => {
+  it('reports the signals which decreased', () => {
+    const before = new Map([['a', 2], ['b', 1], ['c', 1]]);
+    const after = new Map([['a', 1], ['b', 1], ['d', 3]]);
+
+    expect(lostSignals(before, after)).toEqual([
+      { signal: 'a', before: 2, after: 1 },
+      { signal: 'c', before: 1, after: 0 },
+    ]);
+  });
+});
+
+describe('RoundTripper', () => {
+  let roundTripper;
+
+  beforeEach(() => {
+    roundTripper = new RoundTripper(window);
+  });
+
+  afterEach(() => {
+    roundTripper.destroy();
+  });
+
+  const lostOf = (html) => roundTripper.run(html).lost.map(({ signal }) => signal);
+
+  it('reports nothing for a content the schema supports', () => {
+    const result = roundTripper.run('<h2>Title</h2><p>Some <strong>bold</strong> text</p>');
+
+    expect(result.lost).toEqual([]);
+    expect(result.textChanged).toBe(false);
+  });
+
+  it('does not report an alignment converted to a class, nor <b> rewritten as <strong>', () => {
+    const result = roundTripper.run('<p style="text-align:center"><b>x</b></p>');
+
+    expect(result.after).toBe('<p class="ut-text-center"><strong>x</strong></p>');
+    expect(result.lost).toEqual([]);
+  });
+
+  it('does not report adjacent marks merged by the editor', () => {
+    expect(lostOf('<p><strong>a</strong><strong>b</strong></p>')).toEqual([]);
+  });
+
+  it('reports the inline colors, sizes and indents the schema has no equivalent for', () => {
+    expect(lostOf('<p style="margin-left:40px"><span style="color:#f00;font-size:14px">x</span></p>'))
+      .toEqual(expect.arrayContaining(['style:margin-left', 'style:color', 'style:font-size']));
+  });
+
+  it('reports a flattened <div>', () => {
+    const result = roundTripper.run('<div class="box"><ul><li>x</li></ul></div>');
+
+    expect(result.lost.map(({ signal }) => signal)).toEqual(expect.arrayContaining(['tag:div', 'class:box']));
+    expect(result.textChanged).toBe(false);
+  });
+
+  it('reports a text the editor drops', () => {
+    expect(roundTripper.run('<p>a</p><script>alert(1)</script>').textChanged).toBe(true);
+  });
+});
+
+describe('bin/roundtrip.js', () => {
+  const bin = path.resolve(import.meta.dirname, '../bin/roundtrip.js');
+  const run = (input) => spawnSync(process.execPath, [bin], { input, encoding: 'utf8' });
+
+  it('echoes the input fields and adds the round trip result', () => {
+    const { status, stdout } = run(`${JSON.stringify({ id: 7, field: 'text.text', html: '<p style="color:red">x</p>' })}\n\n`);
+    const lines = stdout.trim().split('\n').map((line) => JSON.parse(line));
+
+    expect(status).toBe(0);
+    expect(lines).toHaveLength(1);
+    expect(lines[0]).toMatchObject({
+      id: 7,
+      field: 'text.text',
+      html: '<p style="color:red">x</p>',
+      after: '<p>x</p>',
+      textChanged: false,
+      lost: [{ signal: 'style:color', before: 1, after: 0 }],
+    });
+  });
+
+  it('keeps one output line per input line, in order', () => {
+    const { stdout } = run(['a', 'b', 'c'].map((id) => JSON.stringify({ id, html: `<p>${id}</p>` })).join('\n'));
+
+    expect(stdout.trim().split('\n').map((line) => JSON.parse(line).id)).toEqual(['a', 'b', 'c']);
+  });
+
+  it('aborts with an error on a line which is not JSON', () => {
+    const { status, stderr } = run('not json\n');
+
+    expect(status).toBe(1);
+    expect(stderr).toContain('Invalid JSON line');
+  });
+});

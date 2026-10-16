@@ -23,6 +23,11 @@ composer install
 make full_static_analyze
 ```
 
+## Documentation
+
+- [Auditing existing contents: the round-trip CLI](docs/round-trip-audit.md) — what a migration from another
+  editor would drop, measured before migrating.
+
 ## License
 
 [MIT](LICENSE)

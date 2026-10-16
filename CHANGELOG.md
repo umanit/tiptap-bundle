@@ -14,4 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Umanit:Tiptap:*` Twig components and `TiptapType` form type.
 - Stimulus controllers and TipTap editor JavaScript (`@umanit/tiptap-bundle` package), file manager adapter registry.
 - Native CSS (editor UI, content and email stylesheets) and PurgeCSS safelist.
+- `assets/bin/roundtrip.js`: CLI which replays contents through the editor schema and reports what it drops, to audit
+  existing contents before migrating a field from another editor (see `docs/round-trip-audit.md`).
 - Embedded Lucide icons (`umanit-tiptap:*` icon set) and `UmanitTiptapBundle` translations (en, fr).
