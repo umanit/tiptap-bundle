@@ -1,5 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
-import { MODAL_PROPERTY } from '../constants.js';
+import { MODAL_PROPERTY, SET_CONTENT_EVENT } from '../constants.js';
 import TipTapEditor from '../editor/tiptap-editor.js';
 import HtmlCleaner from '../editor/html-cleaner.js';
 import { DEFAULT_ADAPTER_NAME } from '../file-manager/default-adapter.js';
@@ -152,12 +152,29 @@ export default class extends Controller {
       { signal },
     );
 
+    this.element.addEventListener(
+      SET_CONTENT_EVENT,
+      (event) => this.#setContent(event.detail?.content ?? ''),
+      { signal },
+    );
+
     document.addEventListener('click', () => this.#wysiwygEditor?.hideContextMenu(), { signal });
     document.addEventListener('keydown', (event) => {
       if (event.key === 'Escape') {
         this.#wysiwygEditor?.hideContextMenu();
       }
     }, { signal });
+  }
+
+  /**
+   * `setContent` does not emit an update: the textarea, which is what gets submitted, is synchronized by hand.
+   *
+   * @param {string} html
+   */
+  #setContent(html) {
+    this.#wysiwygEditor.setContent(html);
+    this.inputTarget.value = this.#wysiwygEditor.getHTML();
+    this.#updateToolbarState();
   }
 
   #updateSourceModeUI(isSourceMode) {

@@ -61,4 +61,22 @@ describe('editor controller', () => {
 
     expect(document.querySelector('textarea').value).toBe('<p>Changed</p>');
   });
+
+  it('replaces its content, textarea included, on the set-content event', async () => {
+    await mount(markup);
+
+    const root = document.querySelector('[data-controller]');
+    root.dispatchEvent(new CustomEvent('umanit-tiptap:set-content', { detail: { content: '<p>Injected</p>' } }));
+
+    expect(document.querySelector('.ProseMirror').innerHTML).toBe('<p>Injected</p>');
+    expect(document.querySelector('textarea').value).toBe('<p>Injected</p>');
+  });
+
+  it('clears its content when the set-content event has no detail', async () => {
+    await mount(markup);
+
+    document.querySelector('[data-controller]').dispatchEvent(new CustomEvent('umanit-tiptap:set-content'));
+
+    expect(document.querySelector('textarea').value).toBe('<p></p>');
+  });
 });
