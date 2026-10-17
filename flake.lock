@@ -23,11 +23,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1790148665,
-        "narHash": "sha256-E9TIvWC9u8TWXARvZjF0LJjAd74h/gURuK2yekaua2s=",
+        "lastModified": 1792239361,
+        "narHash": "sha256-Pl1zp0RGem0KUy3GGZWYH2n7Lljvbr8d3HfHfDd05r8=",
         "owner": "DjLeChuck",
         "repo": "php-dev-shell",
-        "rev": "0af6f9022bd49b6216b6fddd3075743aa1e4387b",
+        "rev": "6efd4f0f8b8f54477c3d3f5ad8d5ffccc9b77ee5",
         "type": "github"
       },
       "original": {
