@@ -15,6 +15,7 @@ use Umanit\TiptapBundle\Builder\DefaultStylesSetsBuilder;
 use Umanit\TiptapBundle\Builder\DefaultTemplatesSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultToolbarBuilder;
 use Umanit\TiptapBundle\Command\AuditCommand;
+use Umanit\TiptapBundle\Command\PaletteCommand;
 use Umanit\TiptapBundle\Form\Type\TiptapType;
 use Umanit\TiptapBundle\Provider\ColorsSetProvider;
 use Umanit\TiptapBundle\Provider\ColorsSetProviderInterface;
@@ -148,6 +149,14 @@ return static function (ContainerConfigurator $container): void {
                 service('umanit_tiptap.audit.content_source_registry'),
                 service('umanit_tiptap.audit.round_trip_runner'),
                 service('umanit_tiptap.audit.loss_classifier'),
+            ])
+            ->tag('console.command')
+        ;
+        $services
+            ->set('umanit_tiptap.palette.command', PaletteCommand::class)
+            ->args([
+                service('umanit_tiptap.audit.content_source_registry'),
+                service('umanit_tiptap.audit.round_trip_runner'),
             ])
             ->tag('console.command')
         ;

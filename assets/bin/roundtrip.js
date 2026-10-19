@@ -3,8 +3,9 @@
  * Round-trips HTML contents through the editor schema and reports what it dropped.
  *
  * Reads JSON lines on stdin: `{"html": "<p>…</p>", …}`. Writes one JSON line per input line on stdout: the input
- * fields untouched (an `id`, a field name…) plus `after`, `textChanged` and `lost`, or `error` for a content the
- * editor cannot load. Blank lines are skipped. An input line which is not JSON aborts with exit code 1.
+ * fields untouched (an `id`, a field name…) plus `after`, `textChanged`, `lost` and `inlineStyles` (the distinct
+ * colors, background colors and font sizes the content sets inline), or `error` for a content the editor cannot
+ * load. Blank lines are skipped. An input line which is not JSON aborts with exit code 1.
  *
  * Option `--legacy-styles=<file.json>` turns on the legacy import mode: the file maps inline `color`,
  * `backgroundColor` and `fontSize` values onto palette classes, which are then converted instead of dropped.

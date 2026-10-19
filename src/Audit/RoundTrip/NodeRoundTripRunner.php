@@ -148,6 +148,24 @@ final readonly class NodeRoundTripRunner implements RoundTripRunnerInterface
             \is_string($row['after'] ?? null) ? $row['after'] : null,
             true === ($row['textChanged'] ?? false),
             $lost,
+            null,
+            $this->inlineStyles($row['inlineStyles'] ?? null),
         );
+    }
+
+    /**
+     * @return array<string, list<string>>
+     */
+    private function inlineStyles(mixed $styles): array
+    {
+        $result = [];
+
+        foreach (\is_array($styles) ? $styles : [] as $property => $values) {
+            if (\is_string($property) && \is_array($values)) {
+                $result[$property] = array_values(array_filter($values, \is_string(...)));
+            }
+        }
+
+        return $result;
     }
 }

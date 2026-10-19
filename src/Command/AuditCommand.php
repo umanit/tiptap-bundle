@@ -14,7 +14,6 @@ use Umanit\TiptapBundle\Audit\Classification\LossClassifier;
 use Umanit\TiptapBundle\Audit\Classification\LossStatus;
 use Umanit\TiptapBundle\Audit\Report\AuditReport;
 use Umanit\TiptapBundle\Audit\RoundTrip\RoundTripRunnerInterface;
-use Umanit\TiptapBundle\Audit\Source\AuditedContent;
 use Umanit\TiptapBundle\Audit\Source\ContentSourceInterface;
 use Umanit\TiptapBundle\Audit\Source\ContentSourceRegistry;
 
@@ -112,7 +111,7 @@ class AuditCommand extends Command
         $progress?->setRedrawFrequency(50);
 
         try {
-            foreach ($this->runner->run($this->readContents($sources, $limit), $workers) as $result) {
+            foreach ($this->runner->run($this->registry->read($sources, $limit), $workers) as $result) {
                 $report->add($result);
                 $progress?->advance();
             }
@@ -136,28 +135,6 @@ class AuditCommand extends Command
         }
 
         return Command::SUCCESS;
-    }
-
-    /**
-     * @param list<ContentSourceInterface> $sources
-     *
-     * @return \Generator<int, AuditedContent>
-     */
-    private function readContents(array $sources, ?int $limit): \Generator
-    {
-        foreach ($sources as $source) {
-            $count = 0;
-
-            foreach ($source->read() as $content) {
-                if (null !== $limit && $count >= $limit) {
-                    break;
-                }
-
-                ++$count;
-
-                yield $content;
-            }
-        }
     }
 
     /**

@@ -160,3 +160,25 @@ describe('bin/roundtrip.js --legacy-styles', () => {
     expect(stderr).toContain('Cannot read the legacy styles');
   });
 });
+
+describe('inline styles inventory', () => {
+  it('lists the distinct normalized colors, backgrounds and sizes', async () => {
+    const { default: collect } = await import('../src/audit/inline-styles.js');
+    const html = '<p style="color:#F00;font-size:10.5pt"><span style="color:rgb(255,0,0)">a</span>'
+      + '<span style="background-color:#ffff00;font-size:14px">b</span></p><p style="text-align:left">c</p>';
+
+    expect(collect(html, new DOMParser())).toEqual({
+      color: ['#ff0000'],
+      backgroundColor: ['#ffff00'],
+      fontSize: ['14px'],
+    });
+  });
+
+  it('is reported by the round trip', () => {
+    const roundTripper = new RoundTripper(window);
+
+    expect(roundTripper.run('<p><span style="color:#00f">a</span></p>').inlineStyles.color).toEqual(['#0000ff']);
+
+    roundTripper.destroy();
+  });
+});

@@ -9,7 +9,7 @@ use Umanit\TiptapBundle\Audit\RoundTrip\RoundTripResult;
 use Umanit\TiptapBundle\Audit\RoundTrip\RoundTripRunnerInterface;
 
 /**
- * Loses the color of every content without starting Node, and remembers what it was asked.
+ * Loses the color of every content (set inline: red, 14px) without starting Node and remembers what it was asked.
  */
 final class FakeRoundTripRunner implements RoundTripRunnerInterface
 {
@@ -34,7 +34,10 @@ final class FakeRoundTripRunner implements RoundTripRunnerInterface
         foreach ($contents as $content) {
             $this->html[] = $content->html;
 
-            yield new RoundTripResult($content, '<p>x</p>', false, [new LostSignal('style:color', 1, 0)]);
+            yield new RoundTripResult($content, '<p>x</p>', false, [new LostSignal('style:color', 1, 0)], null, [
+                'color'    => ['#ff0000'],
+                'fontSize' => ['14px'],
+            ]);
         }
     }
 }

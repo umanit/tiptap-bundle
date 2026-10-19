@@ -1,4 +1,5 @@
 import TipTapEditor from '../editor/tiptap-editor.js';
+import collectInlineStyles from './inline-styles.js';
 import { collectSignals, lostSignals } from './signals.js';
 
 /**
@@ -22,7 +23,12 @@ export default class RoundTripper {
 
   /**
    * @param {string} html
-   * @returns {{ after: string, textChanged: boolean, lost: { signal: string, before: number, after: number }[] }}
+   * @returns {{
+   *   after: string,
+   *   textChanged: boolean,
+   *   lost: { signal: string, before: number, after: number }[],
+   *   inlineStyles: { color: string[], backgroundColor: string[], fontSize: string[] },
+   * }}
    */
   run(html) {
     this.#editor.setContent(html);
@@ -35,6 +41,7 @@ export default class RoundTripper {
       after,
       textChanged: before.text !== kept.text,
       lost: lostSignals(before.signals, kept.signals),
+      inlineStyles: collectInlineStyles(html, this.#parser),
     };
   }
 

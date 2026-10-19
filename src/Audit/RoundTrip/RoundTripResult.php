@@ -13,6 +13,9 @@ final readonly class RoundTripResult
      * @param bool             $textChanged The text itself (formatting aside) is no longer the same
      * @param list<LostSignal> $lost
      * @param string|null      $error       Message of the editor when it could not load the content
+     *
+     * @param array<string, list<string>> $inlineStyles Distinct normalized values the content sets inline, by property
+     *                                                  (`color`, `backgroundColor`, `fontSize`)
      */
     public function __construct(
         public AuditedContent $content,
@@ -20,6 +23,7 @@ final readonly class RoundTripResult
         public bool $textChanged,
         public array $lost,
         public ?string $error = null,
+        public array $inlineStyles = [],
     ) {
     }
 }

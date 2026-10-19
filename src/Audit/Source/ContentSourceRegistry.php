@@ -56,4 +56,29 @@ final readonly class ContentSourceRegistry
             },
         ));
     }
+
+    /**
+     * Reads the contents of the sources one after the other.
+     *
+     * @param list<ContentSourceInterface> $sources
+     * @param int|null                     $limit   Maximum number of contents read by source
+     *
+     * @return \Generator<int, AuditedContent>
+     */
+    public function read(array $sources, ?int $limit = null): \Generator
+    {
+        foreach ($sources as $source) {
+            $count = 0;
+
+            foreach ($source->read() as $content) {
+                if (null !== $limit && $count >= $limit) {
+                    break;
+                }
+
+                ++$count;
+
+                yield $content;
+            }
+        }
+    }
 }
