@@ -764,6 +764,11 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     controller_paths?: list<scalar|Param|null>,
  *     controllers_json?: scalar|Param|null, // Default: "%kernel.project_dir%/assets/controllers.json"
  * }
+ * @psalm-type UmanitTiptapConfig = array{
+ *     audit?: array{
+ *         node_command?: scalar|Param|null, // Command which starts Node to audit existing contents (`yarn node` with Yarn PnP). // Default: "node"
+ *     },
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -773,6 +778,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     twig_component?: TwigComponentConfig,
  *     ux_icons?: UxIconsConfig,
  *     stimulus?: StimulusConfig,
+ *     umanit_tiptap?: UmanitTiptapConfig,
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,

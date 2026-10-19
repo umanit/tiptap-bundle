@@ -30,7 +30,11 @@
     "twig/twig": "^3.0"
   },
   "require-dev": {
+    "symfony/process": "^7.4 || ^8.0",
     "umanit/dev-bundle": "^3.2"
+  },
+  "suggest": {
+    "symfony/process": "Needed by the `umanit:tiptap:audit` command, which runs the editor under Node"
   },
   "autoload": {
     "psr-4": {

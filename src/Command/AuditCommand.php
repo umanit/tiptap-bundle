@@ -1,0 +1,263 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Umanit\TiptapBundle\Command;
+
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
+use Umanit\TiptapBundle\Audit\Classification\LossClassifier;
+use Umanit\TiptapBundle\Audit\Classification\LossStatus;
+use Umanit\TiptapBundle\Audit\Report\AuditReport;
+use Umanit\TiptapBundle\Audit\RoundTrip\RoundTripRunnerInterface;
+use Umanit\TiptapBundle\Audit\Source\AuditedContent;
+use Umanit\TiptapBundle\Audit\Source\ContentSourceInterface;
+use Umanit\TiptapBundle\Audit\Source\ContentSourceRegistry;
+
+#[AsCommand(
+    name: 'umanit:tiptap:audit',
+    description: 'Audits what the TipTap editor would change to existing contents written in another editor',
+    help: <<<'HELP'
+        Reads the HTML contents of the declared sources, runs them through the schema of the TipTap editor (under Node)
+        and lists, by source and by category, what the editor does not keep. Nothing is written.
+
+        The sources are declared by services implementing <info>ContentSourceProviderInterface</info>; the rules which
+        sort the losses by services implementing <info>LossRuleInterface</info>.
+
+        See <info>docs/migration-audit.md</info>.
+        HELP,
+)]
+class AuditCommand extends Command
+{
+    private const string FORMAT_TABLE = 'table';
+    private const string FORMAT_JSON = 'json';
+
+    public function __construct(
+        private readonly ContentSourceRegistry $registry,
+        private readonly RoundTripRunnerInterface $runner,
+        private readonly LossClassifier $classifier,
+    ) {
+        parent::__construct();
+    }
+
+    protected function configure(): void
+    {
+        $required = InputOption::VALUE_REQUIRED;
+
+        $this
+            ->addOption('list', null, InputOption::VALUE_NONE, 'Lists the declared sources without auditing anything')
+            ->addOption('source', 's', $required | InputOption::VALUE_IS_ARRAY, 'Only audits this source, repeatable')
+            ->addOption('group', 'g', $required, 'Only audits the sources of this group')
+            ->addOption('format', null, $required, 'Format of the report: `table` or `json`', self::FORMAT_TABLE)
+            ->addOption('workers', 'w', $required, 'Number of Node processes in parallel', '4')
+            ->addOption('examples', null, $required, 'Number of examples (content ids) by category', '3')
+            ->addOption('limit', null, $required, 'Maximum number of contents read by source (quick try)')
+        ;
+    }
+
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        $io = new SymfonyStyle($input, $output);
+
+        $format = $this->stringOption($input, 'format') ?? self::FORMAT_TABLE;
+        $workers = $this->positiveInt($input->getOption('workers'));
+        $examples = $this->positiveInt($input->getOption('examples'));
+        $limit = null === $input->getOption('limit') ? null : $this->positiveInt($input->getOption('limit'));
+
+        if (!\in_array($format, [self::FORMAT_TABLE, self::FORMAT_JSON], true)) {
+            $io->error(\sprintf('Unknown format "%s" (expected: table or json).', $format));
+
+            return Command::FAILURE;
+        }
+
+        if (null === $workers || null === $examples || (null === $limit && null !== $input->getOption('limit'))) {
+            $io->error('The options --workers, --examples and --limit expect a strictly positive integer.');
+
+            return Command::FAILURE;
+        }
+
+        /** @var list<string> $names */
+        $names = $input->getOption('source');
+
+        try {
+            $sources = $this->registry->getSources($this->stringOption($input, 'group'), $names);
+        } catch (\InvalidArgumentException $exception) {
+            $io->error($exception->getMessage());
+
+            return Command::FAILURE;
+        }
+
+        if ([] === $sources) {
+            $io->warning('No content source matches the selection.');
+
+            return Command::SUCCESS;
+        }
+
+        if (true === $input->getOption('list')) {
+            $this->renderSourceList($io, $sources, $format);
+
+            return Command::SUCCESS;
+        }
+
+        $asTable = self::FORMAT_TABLE === $format;
+        $report = new AuditReport($this->classifier, $examples);
+
+        // Out of a terminal (redirection, CI), a bar would write a line by redraw
+        $progress = $asTable && $output->isDecorated() ? $io->createProgressBar() : null;
+        $progress?->setFormat(' %current% contents audited [%elapsed:6s%]');
+        $progress?->setRedrawFrequency(50);
+
+        try {
+            foreach ($this->runner->run($this->readContents($sources, $limit), $workers) as $result) {
+                $report->add($result);
+                $progress?->advance();
+            }
+        } catch (\RuntimeException $exception) {
+            $progress?->clear();
+            $io->error($exception->getMessage());
+
+            return Command::FAILURE;
+        }
+
+        $progress?->finish();
+
+        if ($asTable) {
+            $io->newLine(2);
+            $this->renderTable($io, $report);
+        } else {
+            $output->writeln(json_encode(
+                $report->toArray(),
+                \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR,
+            ));
+        }
+
+        return Command::SUCCESS;
+    }
+
+    /**
+     * @param list<ContentSourceInterface> $sources
+     *
+     * @return \Generator<int, AuditedContent>
+     */
+    private function readContents(array $sources, ?int $limit): \Generator
+    {
+        foreach ($sources as $source) {
+            $count = 0;
+
+            foreach ($source->read() as $content) {
+                if (null !== $limit && $count >= $limit) {
+                    break;
+                }
+
+                ++$count;
+
+                yield $content;
+            }
+        }
+    }
+
+    /**
+     * @param list<ContentSourceInterface> $sources
+     */
+    private function renderSourceList(SymfonyStyle $io, array $sources, string $format): void
+    {
+        $rows = array_map(
+            static fn(ContentSourceInterface $source): array => [
+                'source' => $source->getName(),
+                'group'  => $source->getGroup(),
+            ],
+            $sources,
+        );
+
+        if (self::FORMAT_JSON === $format) {
+            $io->writeln(json_encode($rows, \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_THROW_ON_ERROR));
+
+            return;
+        }
+
+        $io->table(['Source', 'Group'], array_map(array_values(...), $rows));
+    }
+
+    private function renderTable(SymfonyStyle $io, AuditReport $report): void
+    {
+        $data = $report->toArray();
+
+        $io->title('Audit of the contents');
+        $io->text(\sprintf(
+            '%d contents audited, %d with a loss of formatting, %d whose text changes, %d in error.',
+            $data['totals']['values'],
+            $data['totals']['with_loss'],
+            $data['totals']['text_changed'],
+            $data['totals']['errors'],
+        ));
+
+        foreach ($data['sources'] as $name => $source) {
+            $io->section(\sprintf(
+                '%s — %d contents, %d with a loss (%d %%)',
+                $name,
+                $source['total'],
+                $source['with_loss'],
+                $source['total'] > 0 ? (int) round(100 * $source['with_loss'] / $source['total']) : 0,
+            ));
+
+            if ($source['text_changed']['count'] > 0) {
+                $io->warning(\sprintf(
+                    '%d contents whose text changes (e.g. %s).',
+                    $source['text_changed']['count'],
+                    implode(', ', $source['text_changed']['examples']),
+                ));
+            }
+
+            if ($source['errors'] > 0) {
+                $io->error(\sprintf(
+                    '%d contents the editor could not load (e.g. %s).',
+                    $source['errors'],
+                    implode(' ; ', $source['error_examples']),
+                ));
+            }
+
+            if ([] === $source['categories']) {
+                $io->text('No loss of formatting.');
+
+                continue;
+            }
+
+            $io->table(
+                ['Status', 'Category', 'Contents', 'Main signals', 'Examples'],
+                array_map(
+                    static fn(array $category): array => [
+                        LossStatus::from($category['status'])->getLabel(),
+                        $category['label'],
+                        $category['values'],
+                        implode(', ', array_map(
+                            static fn(string $signal, int $count): string => \sprintf('%s (%d)', $signal, $count),
+                            array_keys(\array_slice($category['signals'], 0, 4, true)),
+                            \array_slice($category['signals'], 0, 4),
+                        )),
+                        implode(', ', $category['examples']),
+                    ],
+                    $source['categories'],
+                ),
+            );
+        }
+    }
+
+    /**
+     * @return int<1, max>|null `null` when the value is not a strictly positive integer
+     */
+    private function positiveInt(mixed $value): ?int
+    {
+        return \is_string($value) && 1 === preg_match('/^[1-9]\d*$/', $value) ? max(1, (int) $value) : null;
+    }
+
+    private function stringOption(InputInterface $input, string $name): ?string
+    {
+        $value = $input->getOption($name);
+
+        return \is_string($value) ? $value : null;
+    }
+}

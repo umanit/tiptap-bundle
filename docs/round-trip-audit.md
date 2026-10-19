@@ -126,9 +126,9 @@ The order is only kept within a chunk: carry an `id` in your input fields to fin
 
 ### From an application
 
-The CLI only deals with HTML. Reading your tables, spreading the work over several processes and classifying the
-signals is up to the application: write the JSON lines yourself (for instance from a console command which streams the
-rows of your tables), start one process per chunk and read the output as above.
+The CLI only deals with HTML. In a Symfony application, the `umanit:tiptap:audit` command does the rest: it reads the
+contents from the sources you declare, spreads them over several processes, runs this script and sorts what is lost by
+category. See [Auditing the contents before migrating to TipTap](migration-audit.md).
 
 ## Using it from JavaScript
 

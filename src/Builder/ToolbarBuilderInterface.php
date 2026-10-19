@@ -4,10 +4,8 @@ declare(strict_types=1);
 
 namespace Umanit\TiptapBundle\Builder;
 
-use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 use Umanit\TiptapBundle\DTO\Toolbar;
 
-#[AutoconfigureTag('umanit_tiptap.toolbar_builder')]
 interface ToolbarBuilderInterface
 {
     /**

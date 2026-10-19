@@ -2,8 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres
+to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
@@ -16,4 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Native CSS (editor UI, content and email stylesheets) and PurgeCSS safelist.
 - `assets/bin/roundtrip.js`: CLI which replays contents through the editor schema and reports what it drops, to audit
   existing contents before migrating a field from another editor (see `docs/round-trip-audit.md`).
+- `umanit:tiptap:audit` command: audits what the schema would drop from the contents of an application, by source and by
+  category of loss. Applications declare their sources (`ContentSourceProviderInterface`) and may add rules
+  (`LossRuleInterface`); see `docs/migration-audit.md`. Requires `symfony/process`; the
+  `umanit_tiptap.audit.node_command` option tells how to start Node.
 - Embedded Lucide icons (`umanit-tiptap:*` icon set) and `UmanitTiptapBundle` translations (en, fr).

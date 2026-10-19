@@ -41,6 +41,9 @@ final class StandaloneGuardTest extends TestCase
             'js',
         ];
         yield 'Application namespace' => ['/\bApp\\\\/', 'php,twig,yaml,js'];
+        // Best practices for bundles: the services are declared explicitly, under an identifier of the bundle.
+        yield 'Autowiring or autoconfiguration of the services' => ['/->(?:autowire|autoconfigure|defaults)\(/', 'php'];
+        yield 'Class name as a service identifier' => ['/->set\(\s*[\w\\\\]+::class\s*[,)]/', 'php'];
         yield 'Bootstrap classes' => [
             '/(?:["\'\s])(?:form-(?:control|select|label|check\S*)|btn(?:-\S+)?|d-none|bs-\S+)(?=["\'\s])/',
             'twig,js,css',

@@ -13,6 +13,8 @@ use Symfony\Component\HttpKernel\Kernel;
 use Symfony\UX\Icons\UXIconsBundle;
 use Symfony\UX\StimulusBundle\StimulusBundle;
 use Symfony\UX\TwigComponent\TwigComponentBundle;
+use Umanit\TiptapBundle\Tests\Fixtures\Audit\BrandLossRule;
+use Umanit\TiptapBundle\Tests\Fixtures\Audit\FixtureContentSourceProvider;
 use Umanit\TiptapBundle\UmanitTiptapBundle;
 
 class TestKernel extends Kernel
@@ -58,6 +60,8 @@ class TestKernel extends Kernel
         ]);
         $container->register(CompactToolbarBuilder::class)->setAutoconfigured(true);
         $container->register(OverridingStylesSetsBuilder::class)->setAutoconfigured(true);
+        $container->register(FixtureContentSourceProvider::class)->setAutoconfigured(true);
+        $container->register(BrandLossRule::class)->setAutoconfigured(true);
         $container->setAlias('test.form.factory', 'form.factory')->setPublic(true);
         $container->loadFromExtension('twig', ['default_path' => __DIR__ . '/templates']);
     }
