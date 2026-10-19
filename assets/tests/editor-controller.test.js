@@ -62,6 +62,41 @@ describe('editor controller', () => {
     expect(document.querySelector('textarea').value).toBe('<p>Changed</p>');
   });
 
+  it('shows a laid out source and submits it compact', async () => {
+    await mount(markup.replace('<p>Hello</p>', '<ul><li><p>A</p></li></ul><p>B</p>'));
+
+    const input = document.querySelector('textarea');
+    const host = document.getElementById('host');
+    const controller = application.getControllerForElementAndIdentifier(
+      document.querySelector('[data-controller]'),
+      'umanit--tiptap--editor',
+    );
+
+    controller.toggleSource();
+
+    expect(input.value).toBe('<ul>\n  <li>\n    <p>A</p>\n  </li>\n</ul>\n<p>B</p>');
+
+    host.addEventListener('submit', (event) => event.preventDefault());
+    host.dispatchEvent(new Event('submit', { cancelable: true }));
+
+    expect(input.value).toBe('<ul><li><p>A</p></li></ul><p>B</p>');
+  });
+
+  it('gives the compact HTML back when leaving the source view', async () => {
+    await mount(markup.replace('<p>Hello</p>', '<p>A</p><p>B</p>'));
+
+    const input = document.querySelector('textarea');
+    const controller = application.getControllerForElementAndIdentifier(
+      document.querySelector('[data-controller]'),
+      'umanit--tiptap--editor',
+    );
+
+    controller.toggleSource();
+    controller.toggleSource();
+
+    expect(input.value).toBe('<p>A</p><p>B</p>');
+  });
+
   it('replaces its content, textarea included, on the set-content event', async () => {
     await mount(markup);
 

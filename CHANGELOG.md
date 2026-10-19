@@ -21,3 +21,5 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   (`LossRuleInterface`); see `docs/migration-audit.md`. Requires `symfony/process`; the
   `umanit_tiptap.audit.node_command` option tells how to start Node.
 - Embedded Lucide icons (`umanit-tiptap:*` icon set) and `UmanitTiptapBundle` translations (en, fr).
+- The source view lays out the HTML (one block per line, nested blocks indented). It is for reading only: the
+  content is compacted again when leaving the source view and on submit.

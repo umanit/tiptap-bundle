@@ -2,6 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 import { MODAL_PROPERTY, SET_CONTENT_EVENT } from '../constants.js';
 import TipTapEditor from '../editor/tiptap-editor.js';
 import HtmlCleaner from '../editor/html-cleaner.js';
+import HtmlFormatter from '../editor/html-formatter.js';
 import { DEFAULT_ADAPTER_NAME } from '../file-manager/default-adapter.js';
 import { createFileManagerAdapter } from '../file-manager/registry.js';
 import '../index.js';
@@ -95,9 +96,11 @@ export default class extends Controller {
     const newMode = !this.#wysiwygEditor.isSourceMode();
 
     if (newMode) {
-      this.inputTarget.value = this.#wysiwygEditor.getHTML();
+      // The layout is for reading only: what is stored stays compact.
+      this.inputTarget.value = HtmlFormatter.format(this.#wysiwygEditor.getHTML());
     } else {
       this.#wysiwygEditor.setContent(this.inputTarget.value);
+      this.inputTarget.value = this.#wysiwygEditor.getHTML();
     }
 
     this.#wysiwygEditor.setSourceMode(newMode);
@@ -157,6 +160,13 @@ export default class extends Controller {
       (event) => this.#setContent(event.detail?.content ?? ''),
       { signal },
     );
+
+    // The source view shows a laid out HTML: what gets submitted is always the compact one.
+    this.element.closest('form')?.addEventListener('submit', () => {
+      if (this.#wysiwygEditor.isSourceMode()) {
+        this.#setContent(this.inputTarget.value);
+      }
+    }, { signal });
 
     document.addEventListener('click', () => this.#wysiwygEditor?.hideContextMenu(), { signal });
     document.addEventListener('keydown', (event) => {
