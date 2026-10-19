@@ -18,14 +18,17 @@ final class FakeRoundTripRunner implements RoundTripRunnerInterface
 
     public int $workers = 0;
 
+    public ?string $legacyStylesFile = null;
+
     public function __construct(
         private readonly ?\RuntimeException $failure = null,
     ) {
     }
 
-    public function run(iterable $contents, int $workers = 4): \Generator
+    public function run(iterable $contents, int $workers = 4, ?string $legacyStylesFile = null): \Generator
     {
         $this->workers = $workers;
+        $this->legacyStylesFile = $legacyStylesFile;
 
         if (null !== $this->failure) {
             throw $this->failure;

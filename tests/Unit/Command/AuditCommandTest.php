@@ -45,6 +45,15 @@ final class AuditCommandTest extends TestCase
         $this->assertStringContainsString('convertible', $tester->getDisplay());
     }
 
+    public function testLegacyStylesFileIsPassedToTheRunner(): void
+    {
+        $tester = $this->tester();
+
+        $tester->execute(['--source' => ['article.body'], '--legacy-styles' => 'palette.json']);
+
+        $this->assertSame('palette.json', $this->runner->legacyStylesFile);
+    }
+
     public function testLimitCapsTheContentsReadBySource(): void
     {
         $tester = $this->tester();

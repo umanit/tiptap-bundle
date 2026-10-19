@@ -127,6 +127,16 @@ bin/console umanit:tiptap:audit --format=json > audit.json
 The command exits with `0` once the report is written, whatever it found: it is a measure, not a check. It fails when an
 option is invalid, a source is unknown, or Node cannot be started.
 
+### With a palette
+
+Colors and font sizes set inline are lost by default. Once you have a palette for your contents (see
+[palette.md](palette.md)), give its `legacy-styles.json` to the audit: what the palette covers is converted to classes
+and no longer reported, what it does not cover remains a loss.
+
+```bash
+bin/console umanit:tiptap:audit --legacy-styles=var/palette/legacy-styles.json
+```
+
 ## Reading the report
 
 For each source: how many contents were audited, how many lose something, then one line by **category** of loss.

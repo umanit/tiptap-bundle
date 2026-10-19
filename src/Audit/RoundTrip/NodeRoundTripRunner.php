@@ -24,13 +24,22 @@ final readonly class NodeRoundTripRunner implements RoundTripRunnerInterface
     ) {
     }
 
-    public function run(iterable $contents, int $workers = 4): \Generator
+    public function run(iterable $contents, int $workers = 4, ?string $legacyStylesFile = null): \Generator
     {
         if (!is_file($this->scriptPath)) {
             throw new \RuntimeException(\sprintf('The script of the editor cannot be found: %s', $this->scriptPath));
         }
 
+        if (null !== $legacyStylesFile && !is_file($legacyStylesFile)) {
+            throw new \RuntimeException(\sprintf('The legacy styles file cannot be found: %s', $legacyStylesFile));
+        }
+
         $command = [...(preg_split('/\s+/', trim($this->nodeCommand)) ?: []), $this->scriptPath];
+
+        if (null !== $legacyStylesFile) {
+            $command[] = '--legacy-styles=' . $legacyStylesFile;
+        }
+
         /** @var list<NodeWorker> $pool */
         $pool = [];
         /** @var array<int, AuditedContent> $pending */

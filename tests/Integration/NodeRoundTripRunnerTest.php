@@ -47,6 +47,32 @@ final class NodeRoundTripRunnerTest extends TestCase
         }
     }
 
+    public function testLegacyStylesConvertTheColorsOfThePalette(): void
+    {
+        $file = tempnam(sys_get_temp_dir(), 'legacy');
+        file_put_contents($file, '{"color": {"#ff0000": "ut-color-red-1"}}');
+
+        try {
+            $results = iterator_to_array(
+                $this->runner()->run($this->contents(['<p><span style="color:#f00">a</span></p>']), 1, $file),
+                false,
+            );
+        } finally {
+            unlink($file);
+        }
+
+        $this->assertSame('<p><span class="ut-color-red-1">a</span></p>', $results[0]->after);
+        $this->assertSame([], $results[0]->lost);
+    }
+
+    public function testMissingLegacyStylesFileIsReported(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('legacy styles file cannot be found');
+
+        iterator_to_array($this->runner()->run($this->contents(['<p>x</p>']), 1, '/nope/legacy-styles.json'));
+    }
+
     public function testMissingScriptIsReported(): void
     {
         $this->expectException(\RuntimeException::class);
