@@ -53,15 +53,16 @@ export default class TipTapEditor {
    * @param {ManagersElements} managersElements
    * @param {Object} editorOptions TipTap options, plus `legacyStyles` (LegacyStyles) to import contents written by
    *   another editor: their inline color, background and font size are mapped onto the given palette classes.
+   *   `trailingNode: false` stops the editor from adding an empty paragraph after a last list, table or image.
    * @param {Translations} translations
    * @param {FileManagerAdapter} fileManagerAdapter
    * @param {{ open?: (element: HTMLElement) => void, close?: (element: HTMLElement) => void }} modalCallbacks
    */
   constructor(managersElements, editorOptions = {}, translations = {}, fileManagerAdapter = null, modalCallbacks = {}) {
-    const { legacyStyles = null, ...tiptapOptions } = editorOptions;
+    const { legacyStyles = null, trailingNode = true, ...tiptapOptions } = editorOptions;
 
     this.#editor = new Editor({
-      extensions: this.#getExtensions(translations, legacyStyles),
+      extensions: this.#getExtensions(translations, legacyStyles, trailingNode),
       ...tiptapOptions,
       editorProps: {
         ...tiptapOptions.editorProps,
@@ -167,12 +168,14 @@ export default class TipTapEditor {
   /**
    * @param {Translations} translations
    * @param {LegacyStyles|null} legacyStyles
+   * @param {boolean} trailingNode
    * @returns {import('@tiptap/core').Extension[]}
    */
-  #getExtensions(translations = {}, legacyStyles = null) {
+  #getExtensions(translations = {}, legacyStyles = null, trailingNode = true) {
     return [
       StarterKit.configure({
         link: { openOnClick: false },
+        ...(trailingNode ? {} : { trailingNode: false }),
       }),
       CustomBlockClasses,
       CustomImage,

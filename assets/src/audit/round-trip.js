@@ -18,7 +18,14 @@ export default class RoundTripper {
    */
   constructor(win = window, legacyStyles = null) {
     this.#parser = new win.DOMParser();
-    this.#editor = new TipTapEditor({}, { element: win.document.createElement('div'), content: '', legacyStyles }, {});
+    // No trailing paragraph: it helps to type after a last list, not to rewrite a content
+    this.#editor = new TipTapEditor(
+      {},
+      {
+        element: win.document.createElement('div'), content: '', legacyStyles, trailingNode: false,
+      },
+      {},
+    );
   }
 
   /**

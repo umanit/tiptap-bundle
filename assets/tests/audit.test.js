@@ -104,6 +104,10 @@ describe('RoundTripper', () => {
     expect(result.lost).toEqual([]);
   });
 
+  it('does not add an empty paragraph after a last list', () => {
+    expect(roundTripper.run('<ul><li><p>a</p></li></ul>').after).toBe('<ul><li><p>a</p></li></ul>');
+  });
+
   it('does not report adjacent marks merged by the editor', () => {
     expect(lostOf('<p><strong>a</strong><strong>b</strong></p>')).toEqual([]);
   });
