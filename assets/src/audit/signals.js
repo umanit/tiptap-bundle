@@ -5,6 +5,8 @@
  * dropped. The signals are normalized so that what the editor merely rewrites is not reported as a loss.
  */
 import imageSize from '../editor/image-size.js';
+import imageStyle from '../editor/image-style.js';
+import { indentClassOf } from '../editor/indent.js';
 
 // Tags the editor renders with another one (`<b>` becomes `<strong>`).
 const TAG_ALIASES = {
@@ -35,6 +37,60 @@ const STYLE_FAMILIES = [
 
 const styleSignal = (property) => `style:${STYLE_FAMILIES.find(([pattern]) => pattern.test(property))?.[1] ?? property}`;
 
+const BOLD_WEIGHT = /^(bold(er)?|[5-9]\d{2,})$/;
+
+// Marks an inline style stands for (`font-weight:bold` is `<strong>`): the editor reads them as such.
+const styleMarks = (style) => {
+  const marks = new Set();
+  const decoration = `${style.getPropertyValue('text-decoration')} ${style.getPropertyValue('text-decoration-line')}`;
+
+  if (BOLD_WEIGHT.test(style.getPropertyValue('font-weight').trim())) {
+    marks.add('strong');
+  }
+
+  if (style.getPropertyValue('font-style').trim() === 'italic') {
+    marks.add('em');
+  }
+
+  if (decoration.includes('underline')) {
+    marks.add('u');
+  }
+
+  if (decoration.includes('line-through')) {
+    marks.add('s');
+  }
+
+  return marks;
+};
+
+// Style properties the editor turns into something it keeps: a mark, a utility class.
+const convertedProperties = (el, tag) => {
+  const converted = new Set();
+  const marks = styleMarks(el.style);
+
+  if (marks.has('strong')) {
+    converted.add('font-weight');
+  }
+
+  if (marks.has('em')) {
+    converted.add('font-style');
+  }
+
+  if (marks.has('u') || marks.has('s')) {
+    Array.from(el.style).filter((property) => property.startsWith('text-decoration')).forEach((p) => converted.add(p));
+  }
+
+  if (tag === 'img') {
+    imageStyle(el.style).properties.forEach((property) => converted.add(property));
+  }
+
+  if (/^(p|h[1-6])$/.test(tag) && indentClassOf(el.style) !== null) {
+    converted.add('margin-left');
+  }
+
+  return converted;
+};
+
 const increment = (signals, key, by = 1) => signals.set(key, (signals.get(key) ?? 0) + by);
 
 const countMarkedCharacters = (root, signals) => {
@@ -52,6 +108,8 @@ const countMarkedCharacters = (root, signals) => {
         if (MARK_TAGS.has(tag)) {
           marks.add(tag);
         }
+
+        styleMarks(el.style).forEach((mark) => marks.add(mark));
       }
 
       marks.forEach((tag) => increment(signals, `mark:${tag}`, length));
@@ -78,11 +136,12 @@ export const collectSignals = (html, parser) => {
 
     // The size of an image: the editor keeps it as attributes, whether it was set as an attribute or inline.
     const imageSizes = new Set();
+    const converted = convertedProperties(el, rawTag);
     const isImageSize = (property) => rawTag === 'img' && ['width', 'height'].includes(property);
 
     Array.from(el.attributes).forEach(({ name }) => {
       if (name === 'style') {
-        new Set(Array.from(el.style).map((property) => {
+        new Set(Array.from(el.style).filter((property) => !converted.has(property)).map((property) => {
           if (isImageSize(property)) {
             if (imageSize(el.style.getPropertyValue(property)) !== null) {
               imageSizes.add(`attr:img@${property}`);

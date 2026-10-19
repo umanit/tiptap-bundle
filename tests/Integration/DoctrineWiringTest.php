@@ -83,7 +83,7 @@ final class DoctrineWiringTest extends KernelTestCase
         $connection->insert('article', ['id' => 1, 'title' => 'one', 'body' => '<p><b>Bold</b> text</p>']);
         $connection->insert(
             'article',
-            ['id' => 2, 'title' => 'two', 'body' => '<p style="margin-left:40px">Indented</p>'],
+            ['id' => 2, 'title' => 'two', 'body' => '<p style="margin-left:50px">Indented</p>'],
         );
 
         $tester = new CommandTester($this->application()->find('umanit:tiptap:migrate'));
@@ -95,7 +95,7 @@ final class DoctrineWiringTest extends KernelTestCase
         );
         // Its indentation would be lost: the content is left alone
         $this->assertSame(
-            '<p style="margin-left:40px">Indented</p>',
+            '<p style="margin-left:50px">Indented</p>',
             $connection->fetchOne('SELECT body FROM article WHERE id = 2'),
         );
         $this->assertStringContainsString('blocked by "indent": 1', $tester->getDisplay());

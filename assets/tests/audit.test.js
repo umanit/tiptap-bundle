@@ -60,6 +60,33 @@ describe('collectSignals', () => {
     expect(signalsOf('<p><img src="a.jpg" style="width:50%"></p>')['style:img@width']).toBe(1);
   });
 
+  it('counts the inline styles the editor reads as marks as those marks', () => {
+    const inline = signalsOf(
+      '<p><span style="font-weight:bold;font-style:italic;text-decoration:underline">ab</span></p>',
+    );
+
+    expect(inline).toEqual({
+      'tag:p': 1, 'mark:strong': 2, 'mark:em': 2, 'mark:u': 2,
+    });
+    expect(signalsOf('<p><span style="font-weight:normal">a</span></p>')['style:font-weight']).toBe(1);
+  });
+
+  it('counts the float and margins of an image as the utility classes the editor writes', () => {
+    expect(signalsOf('<p><img src="a" style="float:left;margin:10px"></p>')).toEqual({
+      'tag:p': 1, 'tag:img': 1, 'attr:img@src': 1,
+    });
+    expect(signalsOf('<p><img src="a" style="display:block;margin-left:auto;margin-right:auto"></p>')).toEqual({
+      'tag:p': 1, 'tag:img': 1, 'attr:img@src': 1,
+    });
+    expect(signalsOf('<p><img src="a" style="margin:7px"></p>')['style:margin-top']).toBe(1);
+  });
+
+  it('counts a margin-left in multiples of 40px as an indentation level', () => {
+    expect(signalsOf('<p style="margin-left:80px">a</p>')).toEqual({ 'tag:p': 1 });
+    expect(signalsOf('<p style="margin-left:50px">a</p>')['style:margin-left']).toBe(1);
+    expect(signalsOf('<ul style="margin-left:40px"><li>a</li></ul>')['style:margin-left']).toBe(1);
+  });
+
   it('compares the text without whitespace', () => {
     expect(collectSignals('<p>a  b</p><p>c</p>', parser).text).toBe('abc');
   });
@@ -104,6 +131,30 @@ describe('RoundTripper', () => {
     expect(result.lost).toEqual([]);
   });
 
+  it('converts what the audit counts as kept: marks, image float and margins, indentation', () => {
+    const result = (html) => roundTripper.run(html);
+
+    expect(result('<p><span style="font-weight:bold">a</span><span style="text-decoration:line-through">b</span></p>'))
+      .toMatchObject({ after: '<p><strong>a</strong><s>b</s></p>', lost: [] });
+    expect(result('<p style="margin-left:80px">a</p>')).toMatchObject({
+      after: '<p class="ut-indent-2">a</p>', lost: [],
+    });
+    expect(result('<h2 style="margin-left:40px;text-align:center">a</h2>').after)
+      .toContain('class="ut-indent-1 ut-text-center"');
+
+    const image = result('<img src="a.jpg" style="float:left;margin:10px">');
+
+    expect(image.lost).toEqual([]);
+    expect(image.after).toContain('class="ut-float-start ut-ma-10"');
+    expect(result('<img src="a.jpg" style="display:block;margin-left:auto;margin-right:auto">').after)
+      .toContain('class="ut-block ut-mx-auto"');
+  });
+
+  it('reports what has no class: another margin, an indentation off the 40px steps', () => {
+    expect(lostOf('<p style="margin-left:50px">a</p>')).toEqual(['style:margin-left']);
+    expect(lostOf('<img src="a.jpg" style="margin:7px">')).toContain('style:margin-top');
+  });
+
   it('does not add an empty paragraph after a last list', () => {
     expect(roundTripper.run('<ul><li><p>a</p></li></ul>').after).toBe('<ul><li><p>a</p></li></ul>');
   });
@@ -113,7 +164,7 @@ describe('RoundTripper', () => {
   });
 
   it('reports the inline colors, sizes and indents the schema has no equivalent for', () => {
-    expect(lostOf('<p style="margin-left:40px"><span style="color:#f00;font-size:14px">x</span></p>'))
+    expect(lostOf('<p style="margin-left:50px"><span style="color:#f00;font-size:14px">x</span></p>'))
       .toEqual(expect.arrayContaining(['style:margin-left', 'style:color', 'style:font-size']));
   });
 

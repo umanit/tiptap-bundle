@@ -105,6 +105,16 @@
 .ut-align-middle { vertical-align: middle !important; }
 .ut-align-bottom { vertical-align: bottom !important; }
 
+/* Indentation */
+.ut-indent-1 { margin-inline-start: 40px !important; }
+.ut-indent-2 { margin-inline-start: 80px !important; }
+.ut-indent-3 { margin-inline-start: 120px !important; }
+.ut-indent-4 { margin-inline-start: 160px !important; }
+.ut-indent-5 { margin-inline-start: 200px !important; }
+.ut-indent-6 { margin-inline-start: 240px !important; }
+.ut-indent-7 { margin-inline-start: 280px !important; }
+.ut-indent-8 { margin-inline-start: 320px !important; }
+
 /* Images */
 .ut-block { display: block !important; }
 .ut-mx-auto { margin-inline: auto !important; }
