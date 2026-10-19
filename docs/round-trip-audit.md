@@ -151,6 +151,28 @@ roundTripper.destroy();
 `src/audit/signals.js` exports `collectSignals(html, parser)` and `lostSignals(before, after)` if you want the signals
 without running the editor.
 
+## Legacy import mode
+
+By default the schema reads palette classes only, so an inline `color`, `background-color` or `font-size` is dropped.
+To import contents written by another editor, give the mode a map from the inline values to your palette classes:
+
+```json
+{
+  "color": { "#ff0000": "ut-color-red" },
+  "backgroundColor": { "#ffff00": "ut-bg-yellow" },
+  "fontSize": { "14px": "ut-fs-14", "10.5pt": "ut-fs-14" }
+}
+```
+
+```bash
+node assets/bin/roundtrip.js --legacy-styles=palette.json < contents.jsonl
+```
+
+Values are normalized before the lookup: `#F00`, `rgb(255, 0, 0)` and `#ff0000` are one color, and `pt` sizes are
+converted to `px` (1pt = 4/3px). A value which is not in the map is dropped and reported as lost, as without the mode.
+In JavaScript, pass the map as the `legacyStyles` editor option, or as the second argument of `RoundTripper`. The mode
+is opt-in: the editor in the browser does not read inline styles unless the option is given.
+
 ## Limits
 
 - It measures the **schema**, not the rendering. A content which keeps its classes loses nothing here, but you still

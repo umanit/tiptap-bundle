@@ -13,10 +13,11 @@ export default class RoundTripper {
 
   /**
    * @param {Window} [win]
+   * @param {import('../editor/tiptap-editor.js').LegacyStyles|null} [legacyStyles] Palette of the legacy import mode
    */
-  constructor(win = window) {
+  constructor(win = window, legacyStyles = null) {
     this.#parser = new win.DOMParser();
-    this.#editor = new TipTapEditor({}, { element: win.document.createElement('div'), content: '' }, {});
+    this.#editor = new TipTapEditor({}, { element: win.document.createElement('div'), content: '', legacyStyles }, {});
   }
 
   /**

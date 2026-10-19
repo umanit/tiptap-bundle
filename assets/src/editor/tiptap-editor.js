@@ -36,6 +36,11 @@ import CustomImage from './extensions/custom-image.js';
  *
  * @typedef {Object} Translations
  * @property {string} [placeholder] - The placeholder text for the editor.
+ *
+ * @typedef {Object} LegacyStyles
+ * @property {Object<string, string>} [color] - Inline `color` value (`#ff0000`, `rgb(…)`) => `ut-color-*` class.
+ * @property {Object<string, string>} [backgroundColor] - Inline `background-color` value => `ut-bg-*` class.
+ * @property {Object<string, string>} [fontSize] - Inline `font-size` value (`14px`, `10.5pt`) => `ut-fs-*` class.
  */
 
 export default class TipTapEditor {
@@ -46,20 +51,23 @@ export default class TipTapEditor {
 
   /**
    * @param {ManagersElements} managersElements
-   * @param {Object} editorOptions
+   * @param {Object} editorOptions TipTap options, plus `legacyStyles` (LegacyStyles) to import contents written by
+   *   another editor: their inline color, background and font size are mapped onto the given palette classes.
    * @param {Translations} translations
    * @param {FileManagerAdapter} fileManagerAdapter
    * @param {{ open?: (element: HTMLElement) => void, close?: (element: HTMLElement) => void }} modalCallbacks
    */
   constructor(managersElements, editorOptions = {}, translations = {}, fileManagerAdapter = null, modalCallbacks = {}) {
+    const { legacyStyles = null, ...tiptapOptions } = editorOptions;
+
     this.#editor = new Editor({
-      extensions: this.#getExtensions(translations),
-      ...editorOptions,
+      extensions: this.#getExtensions(translations, legacyStyles),
+      ...tiptapOptions,
       editorProps: {
-        ...editorOptions.editorProps,
+        ...tiptapOptions.editorProps,
         attributes: {
-          ...editorOptions.editorProps?.attributes,
-          class: ['umanit-tiptap__content', editorOptions.editorProps?.attributes?.class].filter(Boolean).join(' '),
+          ...tiptapOptions.editorProps?.attributes,
+          class: ['umanit-tiptap__content', tiptapOptions.editorProps?.attributes?.class].filter(Boolean).join(' '),
         },
       },
     });
@@ -158,9 +166,10 @@ export default class TipTapEditor {
 
   /**
    * @param {Translations} translations
+   * @param {LegacyStyles|null} legacyStyles
    * @returns {import('@tiptap/core').Extension[]}
    */
-  #getExtensions(translations = {}) {
+  #getExtensions(translations = {}, legacyStyles = null) {
     return [
       StarterKit.configure({
         link: { openOnClick: false },
@@ -174,14 +183,14 @@ export default class TipTapEditor {
       CustomTableHeader,
       CustomTextAlign.configure({ types: ['heading', 'paragraph'] }),
       TableRow,
-      CustomTextColor,
-      CustomTextBgColor,
+      CustomTextColor.configure({ legacyStyles }),
+      CustomTextBgColor.configure({ legacyStyles }),
       Placeholder.configure({
         placeholder: translations.placeholder || 'Write something …',
       }),
       OfficePaste,
       CustomAnchor,
-      CustomTextSize,
+      CustomTextSize.configure({ legacyStyles }),
     ];
   }
 
@@ -212,10 +221,14 @@ export default class TipTapEditor {
     };
 
     if (modalCallbacks.open) {
-      Object.values(this.#managers).forEach((m) => { m._openModal = modalCallbacks.open; });
+      Object.values(this.#managers).forEach((m) => {
+        m._openModal = modalCallbacks.open;
+      });
     }
     if (modalCallbacks.close) {
-      Object.values(this.#managers).forEach((m) => { m._closeModal = modalCallbacks.close; });
+      Object.values(this.#managers).forEach((m) => {
+        m._closeModal = modalCallbacks.close;
+      });
     }
   }
 

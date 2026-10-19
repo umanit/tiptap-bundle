@@ -1,7 +1,12 @@
 import { Mark } from '@tiptap/core';
+import { resolveLegacyClass } from '../legacy-styles.js';
 
 export default Mark.create({
   name: 'textSize',
+
+  addOptions() {
+    return { legacyStyles: null };
+  },
 
   addAttributes() {
     return {
@@ -9,7 +14,7 @@ export default Mark.create({
         default: null,
         parseHTML: (element) => {
           const match = element.getAttribute('class')?.match(/\but-fs-\d+/);
-          return match ? match[0] : null;
+          return match ? match[0] : resolveLegacyClass(this.options.legacyStyles, 'fontSize', element);
         },
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
       },
@@ -19,9 +24,13 @@ export default Mark.create({
   parseHTML() {
     return [{
       tag: 'span',
+      // A span may carry several of these marks (color, background, size): let the other rules read it too.
+      consuming: false,
       getAttrs: (element) => {
         const cls = element.getAttribute('class') || '';
-        return /\but-fs-\d+/.test(cls) ? null : false;
+        return /\but-fs-\d+/.test(cls) || resolveLegacyClass(this.options.legacyStyles, 'fontSize', element)
+          ? null
+          : false;
       },
     }];
   },
