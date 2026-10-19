@@ -84,7 +84,14 @@ describe('collectSignals', () => {
   it('counts a margin-left in multiples of 40px as an indentation level', () => {
     expect(signalsOf('<p style="margin-left:80px">a</p>')).toEqual({ 'tag:p': 1 });
     expect(signalsOf('<p style="margin-left:50px">a</p>')['style:margin-left']).toBe(1);
-    expect(signalsOf('<ul style="margin-left:40px"><li>a</li></ul>')['style:margin-left']).toBe(1);
+    expect(signalsOf('<ul style="margin-left:40px"><li>a</li></ul>')['style:margin-left']).toBeUndefined();
+    expect(signalsOf('<li style="margin-left:40px">a</li>')['style:margin-left']).toBe(1);
+  });
+
+  it('counts a zero margin as a class: inline, it overrides the margin the site gives to lists', () => {
+    expect(signalsOf('<ul style="margin-left:0;margin-right:0px"><li>a</li></ul>'))
+      .toEqual({ 'tag:ul': 1, 'tag:li': 1 });
+    expect(signalsOf('<p style="margin-top:0">a</p>')['style:margin-top']).toBe(1);
   });
 
   it('compares the text without whitespace', () => {
@@ -141,6 +148,11 @@ describe('RoundTripper', () => {
     });
     expect(result('<h2 style="margin-left:40px;text-align:center">a</h2>').after)
       .toContain('class="ut-indent-1 ut-text-center"');
+
+    expect(result('<ul style="margin-left:0;margin-right:0;"><li><p>a</p></li></ul>')).toMatchObject({
+      after: '<ul class="ut-indent-0 ut-me-0"><li><p>a</p></li></ul>', lost: [],
+    });
+    expect(result('<ol style="margin-left:80px"><li><p>a</p></li></ol>').after).toContain('<ol class="ut-indent-2">');
 
     const image = result('<img src="a.jpg" style="float:left;margin:10px">');
 

@@ -6,7 +6,7 @@
  */
 import imageSize from '../editor/image-size.js';
 import imageStyle from '../editor/image-style.js';
-import { indentClassOf } from '../editor/indent.js';
+import { BLOCK_TAGS, marginClassesOf } from '../editor/indent.js';
 
 // Tags the editor renders with another one (`<b>` becomes `<strong>`).
 const TAG_ALIASES = {
@@ -84,8 +84,8 @@ const convertedProperties = (el, tag) => {
     imageStyle(el.style).properties.forEach((property) => converted.add(property));
   }
 
-  if (/^(p|h[1-6])$/.test(tag) && indentClassOf(el.style) !== null) {
-    converted.add('margin-left');
+  if (BLOCK_TAGS.test(tag)) {
+    marginClassesOf(el.style).properties.forEach((property) => converted.add(property));
   }
 
   return converted;

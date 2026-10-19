@@ -106,6 +106,7 @@
 .ut-align-bottom { vertical-align: bottom !important; }
 
 /* Indentation */
+.ut-indent-0 { margin-inline-start: 0 !important; }
 .ut-indent-1 { margin-inline-start: 40px !important; }
 .ut-indent-2 { margin-inline-start: 80px !important; }
 .ut-indent-3 { margin-inline-start: 120px !important; }
@@ -114,6 +115,7 @@
 .ut-indent-6 { margin-inline-start: 240px !important; }
 .ut-indent-7 { margin-inline-start: 280px !important; }
 .ut-indent-8 { margin-inline-start: 320px !important; }
+.ut-me-0 { margin-inline-end: 0 !important; }
 
 /* Images */
 .ut-block { display: block !important; }

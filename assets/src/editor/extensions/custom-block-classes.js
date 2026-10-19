@@ -1,25 +1,24 @@
 import { Extension } from '@tiptap/core';
 import HtmlCleaner from '../html-cleaner.js';
-import { indentClassOf } from '../indent.js';
+import { marginClassesOf } from '../indent.js';
 
 export default Extension.create({
   name: 'customBlockClasses',
   addGlobalAttributes() {
     return [
       {
-        types: ['paragraph', 'heading'],
+        types: ['paragraph', 'heading', 'bulletList', 'orderedList'],
         attributes: {
           class: {
             default: null,
             renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
             parseHTML: (element) => {
               const classes = (HtmlCleaner.parseClass(element) ?? '').split(' ').filter(Boolean);
-              const indent = indentClassOf(element.style);
+              // The margins another editor wrote inline, unless the content already has its own indentation class
+              const margins = marginClassesOf(element.style).classes
+                .filter((cls) => !classes.some((existing) => existing.startsWith(cls.replace(/\d+$/, ''))));
 
-              // The indentation another editor wrote inline, unless the content already has its class
-              if (indent && !classes.some((cls) => cls.startsWith('ut-indent-'))) {
-                classes.push(indent);
-              }
+              classes.push(...margins);
 
               return classes.length > 0 ? classes.join(' ') : null;
             },
