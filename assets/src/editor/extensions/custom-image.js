@@ -9,6 +9,11 @@ const sizeAttribute = (name) => ({
 });
 
 export default Image.extend({
+  // An image is part of a paragraph (`<p>text <img> text</p>`): as a block, it would split it.
+  addOptions() {
+    return { ...this.parent?.(), inline: true };
+  },
+
   addAttributes() {
     return {
       ...this.parent?.(),

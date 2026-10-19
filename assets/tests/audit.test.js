@@ -155,6 +155,14 @@ describe('RoundTripper', () => {
     expect(lostOf('<img src="a.jpg" style="margin:7px">')).toContain('style:margin-top');
   });
 
+  it('keeps an image in its paragraph, and wraps a bare one in a paragraph', () => {
+    const html = '<p>a <img src="a.jpg" alt=""> b</p>';
+
+    expect(roundTripper.run(html).after).toBe(html);
+    expect(roundTripper.run('<p><img src="a.jpg" alt=""></p>').after).toBe('<p><img src="a.jpg" alt=""></p>');
+    expect(roundTripper.run('<img src="a.jpg" alt="">').after).toBe('<p><img src="a.jpg" alt=""></p>');
+  });
+
   it('does not add an empty paragraph after a last list', () => {
     expect(roundTripper.run('<ul><li><p>a</p></li></ul>').after).toBe('<ul><li><p>a</p></li></ul>');
   });
