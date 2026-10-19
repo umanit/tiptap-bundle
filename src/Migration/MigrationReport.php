@@ -18,6 +18,9 @@ class MigrationReport
     /** @var array<string, array<string, int>> Blocked contents by source and by category of loss */
     private array $blockedBy = [];
 
+    /** @var array<string, array<string, list<MigrationDetail>>> Details by source and by outcome */
+    private array $details = [];
+
     /** @var list<string> */
     private array $readOnlySources = [];
 
@@ -44,6 +47,26 @@ class MigrationReport
         foreach ($categories as $category) {
             $this->blockedBy[$source][$category] = ($this->blockedBy[$source][$category] ?? 0) + 1;
         }
+    }
+
+    /**
+     * Only as many details as examples are kept, by source and by outcome.
+     */
+    public function addDetail(string $source, MigrationDetail $detail): void
+    {
+        $key = $detail->outcome->value;
+
+        if (\count($this->details[$source][$key] ?? []) < $this->maxExamples) {
+            $this->details[$source][$key][] = $detail;
+        }
+    }
+
+    /**
+     * @return list<MigrationDetail>
+     */
+    public function getDetails(string $source): array
+    {
+        return array_merge(...array_values($this->details[$source] ?? []));
     }
 
     /**

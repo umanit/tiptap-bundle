@@ -229,6 +229,23 @@ final class ContentMigratorTest extends TestCase
         )->rollback('m1');
     }
 
+    public function testDetailsExplainWhatBlocksAContent(): void
+    {
+        $html = '<p><img src="a.jpg" style="width:50%"></p>';
+        $results = [$html => ['<p><img src="a.jpg"></p>', ['style:img@width'], false]];
+
+        $without = $this->migrate($results, new MigrationOptions());
+        $with = $this->migrate($results, new MigrationOptions(details: true));
+
+        $this->assertSame([], $without->getDetails('article.body'));
+        $this->assertCount(1, $with->getDetails('article.body'));
+
+        $detail = $with->getDetails('article.body')[0];
+        $this->assertSame(MigrationOutcome::Blocked, $detail->outcome);
+        $this->assertSame(['style:img@width (image_size, decision): 1 → 0'], $detail->reasons);
+        $this->assertSame('<p><img src="a.jpg"></p>', $detail->after);
+    }
+
     public function testTheReportKeepsOnlyTheRequestedNumberOfExamples(): void
     {
         $report = new MigrationReport(2);

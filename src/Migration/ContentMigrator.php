@@ -6,6 +6,7 @@ namespace Umanit\TiptapBundle\Migration;
 
 use Umanit\TiptapBundle\Audit\Classification\LossClassifier;
 use Umanit\TiptapBundle\Audit\Classification\LossStatus;
+use Umanit\TiptapBundle\Audit\RoundTrip\LostSignal;
 use Umanit\TiptapBundle\Audit\RoundTrip\RoundTripResult;
 use Umanit\TiptapBundle\Audit\RoundTrip\RoundTripRunnerInterface;
 use Umanit\TiptapBundle\Audit\Source\ContentSourceInterface;
@@ -75,12 +76,15 @@ final readonly class ContentMigrator
 
             if (null !== $result->error || null === $result->after) {
                 $report->add($content->source, MigrationOutcome::Error, $reference);
+                $this->addDetail($report, $options, $result, MigrationOutcome::Error, $reference);
             } elseif ($result->textChanged) {
                 $report->add($content->source, MigrationOutcome::TextChanged, $reference);
+                $this->addDetail($report, $options, $result, MigrationOutcome::TextChanged, $reference);
             } elseif ($result->after === $content->html) {
                 $report->add($content->source, MigrationOutcome::Unchanged, $reference);
             } elseif ([] !== $blocking) {
                 $report->add($content->source, MigrationOutcome::Blocked, $reference, $blocking);
+                $this->addDetail($report, $options, $result, MigrationOutcome::Blocked, $reference);
             } else {
                 $planned[$content->source][$content->id][$content->path] = [$content->html, $result->after];
                 $references[$content->source . '|' . $content->id . '|' . $content->path] = $reference;
@@ -192,6 +196,47 @@ final readonly class ContentMigrator
         }
 
         return $written;
+    }
+
+    private function addDetail(
+        MigrationReport $report,
+        MigrationOptions $options,
+        RoundTripResult $result,
+        MigrationOutcome $outcome,
+        string $reference,
+    ): void {
+        if (!$options->details) {
+            return;
+        }
+
+        $reasons = array_map(
+            function (LostSignal $lost): string {
+                $category = $this->classifier->classify($lost->signal);
+
+                return \sprintf(
+                    '%s (%s, %s): %d → %d',
+                    $lost->signal,
+                    $category->key,
+                    $category->status->value,
+                    $lost->before,
+                    $lost->after,
+                );
+            },
+            $result->lost,
+        );
+
+        if (null !== $result->error) {
+            array_unshift($reasons, $result->error);
+        }
+
+        if ($result->textChanged) {
+            array_unshift($reasons, 'the text itself changes');
+        }
+
+        $report->addDetail(
+            $result->content->source,
+            new MigrationDetail($reference, $outcome, $reasons, $result->content->html, $result->after),
+        );
     }
 
     /**

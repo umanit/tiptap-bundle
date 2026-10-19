@@ -6,6 +6,7 @@ namespace Umanit\TiptapBundle\Command;
 
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Formatter\OutputFormatter;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -13,6 +14,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Umanit\TiptapBundle\Audit\Source\ContentSourceRegistry;
 use Umanit\TiptapBundle\Migration\Backup\MigrationBackupInterface;
 use Umanit\TiptapBundle\Migration\ContentMigrator;
+use Umanit\TiptapBundle\Migration\HtmlDiff;
 use Umanit\TiptapBundle\Migration\MigrationOptions;
 use Umanit\TiptapBundle\Migration\MigrationOutcome;
 use Umanit\TiptapBundle\Migration\MigrationReport;
@@ -28,6 +30,9 @@ use Umanit\TiptapBundle\Migration\MigrationReport;
         A content is rewritten only if that loses neither text nor formatting (the one which has no visible effect
         aside). The others are left as they are, and counted: <info>--accept=indent</info> accepts the loss of a
         category of the audit, <info>--accept=decision</info> the one of a whole family.
+
+        <info>--details</info> shows, for the contents given as examples (<info>--examples</info>) which are not
+        migrated, what is lost and the difference between the HTML read and the one the editor would write.
 
         The colors and sizes CKEditor sets inline are only converted if the palette of the application is given with
         <info>--legacy-styles</info> (see <info>umanit:tiptap:palette</info>).
@@ -64,6 +69,7 @@ class MigrateCommand extends Command
             ->addOption('workers', 'w', $required, 'Number of Node processes in parallel', '4')
             ->addOption('examples', null, $required, 'Number of references given by outcome', '3')
             ->addOption('limit', null, $required, 'Maximum number of contents read by source (quick try)')
+            ->addOption('details', null, InputOption::VALUE_NONE, 'Shows what blocks the contents given as examples')
         ;
     }
 
@@ -114,6 +120,7 @@ class MigrateCommand extends Command
                         $apply,
                         $limit,
                         $examples,
+                        true === $input->getOption('details'),
                     ),
                 );
             }
@@ -176,6 +183,8 @@ class MigrateCommand extends Command
 
             $io->table(['Outcome', 'Contents', 'Examples'], $rows);
 
+            $this->renderDetails($io, $report, $source);
+
             foreach ($report->getBlockedCategories($source) as $category => $count) {
                 $io->text(
                     \sprintf(
@@ -196,6 +205,43 @@ class MigrateCommand extends Command
                     $report->getMigrationId(),
                 ),
             );
+        }
+    }
+
+    private function renderDetails(SymfonyStyle $io, MigrationReport $report, string $source): void
+    {
+        $diff = new HtmlDiff();
+
+        foreach ($report->getDetails($source) as $detail) {
+            $io->writeln(
+                \sprintf(
+                    '<comment>%s</comment> — %s',
+                    OutputFormatter::escape($detail->reference),
+                    $detail->outcome->getLabel(),
+                ),
+            );
+
+            foreach ($detail->reasons as $reason) {
+                $io->writeln('  ' . OutputFormatter::escape($reason));
+            }
+
+            if (null === $detail->after) {
+                $io->newLine();
+
+                continue;
+            }
+
+            foreach ($diff->diff($detail->before, $detail->after) as [$marker, $line]) {
+                $text = OutputFormatter::escape($marker . ' ' . $line);
+
+                $io->writeln(match ($marker) {
+                    '-' => '    <fg=red>' . $text . '</>',
+                    '+' => '    <fg=green>' . $text . '</>',
+                    default => '    ' . $text,
+                });
+            }
+
+            $io->newLine();
         }
     }
 

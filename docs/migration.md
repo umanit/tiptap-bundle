@@ -27,6 +27,10 @@ neither text nor formatting:
 The report counts the contents of each source by outcome, and tells which category blocks the ones which are left. The
 colors and sizes CKEditor sets inline are only converted with `--legacy-styles` (see [palette.md](palette.md)).
 
+To understand what blocks a content, add `--details`: for the contents given as examples (`--examples=10` to see more)
+which are not migrated, the report lists what is lost (`style:img@width (image_size, decision): 1 → 0`) and shows the
+difference between the HTML read and the one the editor would write, one tag per line.
+
 Every rewritten content is **saved first** under the identifier of the migration, shown at the end.
 `--rollback` puts the original contents back, except the ones which have been edited since (they are reported, not
 overwritten). A content is also never overwritten if it was edited between its reading and its writing.
