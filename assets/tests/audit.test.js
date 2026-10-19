@@ -46,6 +46,20 @@ describe('collectSignals', () => {
     });
   });
 
+  it('counts the inline size of an image as the attributes the editor keeps', () => {
+    const expected = {
+      'tag:p': 1, 'tag:img': 1, 'attr:img@src': 1, 'attr:img@height': 1, 'attr:img@width': 1,
+    };
+
+    expect(signalsOf('<p><img src="a.jpg" style="height:403px;width:783px;"></p>')).toEqual(expected);
+    expect(signalsOf('<p><img src="a.jpg" height="403" width="783"></p>')).toEqual(expected);
+    expect(signalsOf('<p><img src="a.jpg" height="403" style="height:403px" width="783"></p>')).toEqual(expected);
+  });
+
+  it('reports an inline image size which has no attribute equivalent', () => {
+    expect(signalsOf('<p><img src="a.jpg" style="width:50%"></p>')['style:img@width']).toBe(1);
+  });
+
   it('compares the text without whitespace', () => {
     expect(collectSignals('<p>a  b</p><p>c</p>', parser).text).toBe('abc');
   });

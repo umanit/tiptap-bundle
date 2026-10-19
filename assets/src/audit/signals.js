@@ -4,6 +4,7 @@
  * Comparing the signals of a content before and after a round trip through the editor tells what the schema
  * dropped. The signals are normalized so that what the editor merely rewrites is not reported as a loss.
  */
+import imageSize from '../editor/image-size.js';
 
 // Tags the editor renders with another one (`<b>` becomes `<strong>`).
 const TAG_ALIASES = {
@@ -75,18 +76,38 @@ export const collectSignals = (html, parser) => {
       increment(signals, `tag:${tag}`);
     }
 
+    // The size of an image: the editor keeps it as attributes, whether it was set as an attribute or inline.
+    const imageSizes = new Set();
+    const isImageSize = (property) => rawTag === 'img' && ['width', 'height'].includes(property);
+
     Array.from(el.attributes).forEach(({ name }) => {
       if (name === 'style') {
-        new Set(Array.from(el.style).map(styleSignal)).forEach((signal) => increment(signals, signal));
+        new Set(Array.from(el.style).map((property) => {
+          if (isImageSize(property)) {
+            if (imageSize(el.style.getPropertyValue(property)) !== null) {
+              imageSizes.add(`attr:img@${property}`);
+
+              return null;
+            }
+
+            return `style:img@${property}`;
+          }
+
+          return styleSignal(property);
+        })).forEach((signal) => signal && increment(signals, signal));
       } else if (name === 'class') {
         el.classList.forEach((cls) => {
           increment(signals, `class:${cls}`);
           CLASS_EQUIVALENCES.filter(([pattern]) => pattern.test(cls)).forEach(([, style]) => increment(signals, style));
         });
+      } else if (isImageSize(name)) {
+        imageSizes.add(`attr:img@${name}`);
       } else {
         increment(signals, `attr:${rawTag}@${name}`);
       }
     });
+
+    imageSizes.forEach((signal) => increment(signals, signal));
   });
 
   countMarkedCharacters(body, signals);

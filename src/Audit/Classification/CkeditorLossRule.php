@@ -60,6 +60,10 @@ class CkeditorLossRule implements LossRuleInterface
                 new LossCategory('font_family', 'Font family', $decision),
             ],
             [
+                '/^style:img@(width|height)$/',
+                new LossCategory('image_size', 'Image dimensions (inline style)', $decision),
+            ],
+            [
                 '/^(tag:(table|thead|tbody|tfoot|caption|colgroup|col)'
                 . '|attr:(table|tr|td|th|col)@.+'
                 . '|style:(border\*|padding\*|width|height|vertical-align))$/',
