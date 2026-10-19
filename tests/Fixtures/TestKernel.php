@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Umanit\TiptapBundle\Tests\Fixtures;
 
+use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Bundle\TwigBundle\TwigBundle;
@@ -21,6 +22,8 @@ class TestKernel extends Kernel
 {
     use MicroKernelTrait;
 
+    protected bool $withDoctrine = false;
+
     public function registerBundles(): iterable
     {
         yield new FrameworkBundle();
@@ -29,6 +32,10 @@ class TestKernel extends Kernel
         yield new UXIconsBundle();
         yield new StimulusBundle();
         yield new UmanitTiptapBundle();
+
+        if ($this->withDoctrine) {
+            yield new DoctrineBundle();
+        }
     }
 
     public function getProjectDir(): string

@@ -16,11 +16,16 @@ use Umanit\TiptapBundle\Builder\ColorsSetBuilderInterface;
 use Umanit\TiptapBundle\Builder\StylesSetsBuilderInterface;
 use Umanit\TiptapBundle\Builder\TemplatesSetBuilderInterface;
 use Umanit\TiptapBundle\Builder\ToolbarBuilderInterface;
+use Umanit\TiptapBundle\Doctrine\ContentColumnProviderInterface;
+use Umanit\TiptapBundle\Doctrine\OrmMapping;
+use Umanit\TiptapBundle\Doctrine\Storage\ColumnStorageInterface;
 
 class UmanitTiptapBundle extends AbstractBundle
 {
     public const string ICON_PREFIX = 'umanit-tiptap';
     public const string NPM_PACKAGE = '@umanit/tiptap-bundle';
+
+    private const string PARAMETER_USES_DOCTRINE = 'umanit_tiptap.uses_doctrine';
 
     public function configure(DefinitionConfigurator $definition): void
     {
@@ -47,6 +52,15 @@ class UmanitTiptapBundle extends AbstractBundle
         $configurator->parameters()->set('umanit_tiptap.audit.node_command', $config['audit']['node_command']);
         $configurator->import('../config/services.php');
 
+        // The columns of the database are audited and migrated when the application uses Doctrine
+        // (`prependExtension()` has seen the extensions of the application: this one only sees its own)
+        $usesDoctrine = class_exists(Process::class)
+            && true === $container->getParameter(self::PARAMETER_USES_DOCTRINE);
+
+        if ($usesDoctrine) {
+            $configurator->import('../config/doctrine.php');
+        }
+
         // The application services implementing these interfaces are picked up by the bundle
         $autoconfiguration = [
             ToolbarBuilderInterface::class      => 'umanit_tiptap.toolbar_builder',
@@ -60,6 +74,11 @@ class UmanitTiptapBundle extends AbstractBundle
             $autoconfiguration[LossRuleInterface::class] = 'umanit_tiptap.audit_loss_rule';
         }
 
+        if ($usesDoctrine) {
+            $autoconfiguration[ContentColumnProviderInterface::class] = 'umanit_tiptap.content_column_provider';
+            $autoconfiguration[ColumnStorageInterface::class] = 'umanit_tiptap.column_storage';
+        }
+
         foreach ($autoconfiguration as $interface => $tag) {
             $container->registerForAutoconfiguration($interface)->addTag($tag);
         }
@@ -67,6 +86,13 @@ class UmanitTiptapBundle extends AbstractBundle
 
     public function prependExtension(ContainerConfigurator $configurator, ContainerBuilder $container): void
     {
+        $container->setParameter(self::PARAMETER_USES_DOCTRINE, $container->hasExtension('doctrine'));
+
+        // The table where the migration saves the contents it rewrites is mapped, so that Doctrine knows about it
+        if ($container->hasExtension('doctrine') && OrmMapping::isAvailable() && class_exists(Process::class)) {
+            $configurator->extension('doctrine', ['orm' => ['mappings' => OrmMapping::getMappings()]]);
+        }
+
         if ($container->hasExtension('twig')) {
             $configurator->extension('twig', [
                 'form_themes' => ['@UmanitTiptap/form/theme.html.twig'],

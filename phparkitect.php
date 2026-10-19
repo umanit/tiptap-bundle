@@ -15,9 +15,17 @@ return static function (Config $config): void {
 
     $rules[] = Rule
         ::allClasses()
+        ->except('Umanit\TiptapBundle\Doctrine\*')
         ->that(new ResideInOneOfTheseNamespaces('Umanit\TiptapBundle'))
         ->should(new DependsOnlyOnTheseNamespaces('Umanit\TiptapBundle', 'Symfony', 'Twig', 'Psr'))
         ->because('the bundle must stay standalone: it only relies on its own code, Symfony, Twig and PSR interfaces')
+    ;
+
+    $rules[] = Rule
+        ::allClasses()
+        ->that(new ResideInOneOfTheseNamespaces('Umanit\TiptapBundle\Doctrine'))
+        ->should(new DependsOnlyOnTheseNamespaces('Umanit\TiptapBundle', 'Symfony', 'Twig', 'Psr', 'Doctrine'))
+        ->because('Doctrine is only an optional dependency of the code which reads and writes the database')
     ;
 
     $config->add($classSet, ...$rules);

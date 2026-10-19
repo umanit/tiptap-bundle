@@ -30,10 +30,15 @@
     "twig/twig": "^3.0"
   },
   "require-dev": {
+    "doctrine/dbal": "^3.8 || ^4.0",
+    "doctrine/doctrine-bundle": "^2.11 || ^3.0",
+    "doctrine/orm": "^2.14 || ^3.0",
     "symfony/process": "^7.4 || ^8.0",
     "umanit/dev-bundle": "^3.2"
   },
   "suggest": {
+    "doctrine/dbal": "Lets the audit and the migration read and rewrite the columns of the database which hold contents",
+    "doctrine/orm": "Maps the table where the migration saves the contents it rewrites, so that `doctrine:migrations:diff` creates it",
     "symfony/process": "Needed by the `umanit:tiptap:audit` command, which runs the editor under Node"
   },
   "autoload": {

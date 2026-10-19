@@ -15,8 +15,10 @@ use Umanit\TiptapBundle\Builder\DefaultStylesSetsBuilder;
 use Umanit\TiptapBundle\Builder\DefaultTemplatesSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultToolbarBuilder;
 use Umanit\TiptapBundle\Command\AuditCommand;
+use Umanit\TiptapBundle\Command\MigrateCommand;
 use Umanit\TiptapBundle\Command\PaletteCommand;
 use Umanit\TiptapBundle\Form\Type\TiptapType;
+use Umanit\TiptapBundle\Migration\ContentMigrator;
 use Umanit\TiptapBundle\Palette\PaletteBuilder;
 use Umanit\TiptapBundle\Palette\PaletteRenderer;
 use Umanit\TiptapBundle\Provider\ColorsSetProvider;
@@ -151,6 +153,25 @@ return static function (ContainerConfigurator $container): void {
                 service('umanit_tiptap.audit.content_source_registry'),
                 service('umanit_tiptap.audit.round_trip_runner'),
                 service('umanit_tiptap.audit.loss_classifier'),
+            ])
+            ->tag('console.command')
+        ;
+        // The backup is optional: the Doctrine services of the bundle define it, an application can define its own
+        $services
+            ->set('umanit_tiptap.migration.migrator', ContentMigrator::class)
+            ->args([
+                service('umanit_tiptap.audit.round_trip_runner'),
+                service('umanit_tiptap.audit.loss_classifier'),
+                service('umanit_tiptap.audit.content_source_registry'),
+                service('umanit_tiptap.migration.backup')->nullOnInvalid(),
+            ])
+        ;
+        $services
+            ->set('umanit_tiptap.migration.command', MigrateCommand::class)
+            ->args([
+                service('umanit_tiptap.audit.content_source_registry'),
+                service('umanit_tiptap.migration.migrator'),
+                service('umanit_tiptap.migration.backup')->nullOnInvalid(),
             ])
             ->tag('console.command')
         ;
