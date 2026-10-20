@@ -19,6 +19,7 @@ import CustomTextSize from './extensions/custom-text-size.js';
 import CustomBlockClasses from './extensions/custom-block-classes.js';
 import { CustomTable, CustomTableCell, CustomTableHeader } from './extensions/custom-table.js';
 import CustomImage from './extensions/custom-image.js';
+import CustomListItem from './extensions/custom-list-item.js';
 
 /**
  * @typedef {Object} ManagersElements
@@ -175,9 +176,11 @@ export default class TipTapEditor {
     return [
       StarterKit.configure({
         link: { openOnClick: false },
+        listItem: false,
         ...(trailingNode ? {} : { trailingNode: false }),
       }),
       CustomBlockClasses,
+      CustomListItem,
       CustomImage,
       Subscript,
       Superscript,

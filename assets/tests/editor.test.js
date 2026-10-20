@@ -130,4 +130,35 @@ describe('content schema', () => {
   it('does not render links with a target by default but keeps them', () => {
     expect(roundTrip('<p><a href="/foo">a</a></p>')).toContain('href="/foo"');
   });
+
+  describe('list items', () => {
+    it('accepts a heading as first child of a list item', () => {
+      expect(roundTrip('<ul><li><h2>Title</h2></li></ul>')).toBe('<ul><li><h2>Title</h2></li></ul>');
+    });
+
+    it('parses bare and paragraph-wrapped list items into the same model', () => {
+      expect(roundTrip('<ul><li>Text</li></ul>')).toBe('<ul><li><p>Text</p></li></ul>');
+      expect(roundTrip('<ul><li><p>Text</p></li></ul>')).toBe('<ul><li><p>Text</p></li></ul>');
+    });
+
+    it('turns a list item paragraph into a heading and back without leaving the list', () => {
+      create('<ul><li><p>Text</p></li></ul>');
+      editor.getEditor().commands.setTextSelection(3);
+
+      editor.runCommand('toggleHeading', { level: 2 });
+      expect(editor.getHTML()).toContain('<ul><li><h2>Text</h2></li></ul>');
+
+      editor.runCommand('setParagraph');
+      expect(editor.getHTML()).toContain('<ul><li><p>Text</p></li></ul>');
+    });
+
+    it('splits a heading list item with Enter', () => {
+      create('<ul><li><h2>One</h2></li></ul>');
+      const tip = editor.getEditor();
+      tip.commands.focus('end');
+      tip.commands.splitListItem('listItem');
+
+      expect(tip.getJSON().content[0].content).toHaveLength(2);
+    });
+  });
 });
