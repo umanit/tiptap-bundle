@@ -106,10 +106,13 @@ class MigrateCommand extends Command
             return Command::FAILURE;
         }
 
+        // Out of a terminal (redirection, CI), a bar would write a line by redraw
+        $tracker = new ProgressTracker($io, $output->isDecorated());
+
         try {
             if (\is_string($rollback)) {
                 $io->title(\sprintf('Rollback of the migration %s%s', $rollback, $apply ? '' : ' (simulation)'));
-                $report = $this->migrator->rollback($rollback, $apply, $examples);
+                $report = $this->migrator->rollback($rollback, $apply, $examples, $tracker->update(...));
             } else {
                 $report = $this->migrate(
                     $input,
@@ -122,13 +125,17 @@ class MigrateCommand extends Command
                         $examples,
                         true === $input->getOption('details'),
                     ),
+                    $tracker->update(...),
                 );
             }
         } catch (\Throwable $exception) {
+            $tracker->clear();
             $io->error($exception->getMessage());
 
             return Command::FAILURE;
         }
+
+        $tracker->finish();
 
         $this->renderReport($io, $report);
 
@@ -139,7 +146,7 @@ class MigrateCommand extends Command
         return Command::SUCCESS;
     }
 
-    private function migrate(InputInterface $input, MigrationOptions $options): MigrationReport
+    private function migrate(InputInterface $input, MigrationOptions $options, ?\Closure $onProgress): MigrationReport
     {
         $sources = $this->registry->getSources(
             $this->stringOption($input, 'group'),
@@ -152,7 +159,7 @@ class MigrateCommand extends Command
 
         $migrationId = new \DateTimeImmutable()->format('YmdHis') . '-' . bin2hex(random_bytes(3));
 
-        return $this->migrator->migrate($sources, $migrationId, $options);
+        return $this->migrator->migrate($sources, $migrationId, $options, $onProgress);
     }
 
     private function renderReport(SymfonyStyle $io, MigrationReport $report): void
@@ -234,11 +241,13 @@ class MigrateCommand extends Command
             foreach ($diff->diff($detail->before, $detail->after) as [$marker, $line]) {
                 $text = OutputFormatter::escape($marker . ' ' . $line);
 
-                $io->writeln(match ($marker) {
-                    '-' => '    <fg=red>' . $text . '</>',
-                    '+' => '    <fg=green>' . $text . '</>',
-                    default => '    ' . $text,
-                });
+                $io->writeln(
+                    match ($marker) {
+                        '-' => '    <fg=red>' . $text . '</>',
+                        '+' => '    <fg=green>' . $text . '</>',
+                        default => '    ' . $text,
+                    },
+                );
             }
 
             $io->newLine();

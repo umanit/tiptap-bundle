@@ -33,7 +33,13 @@ final readonly class ContentMigrator
     }
 
     /**
-     * @param list<ContentSourceInterface> $sources The sources which cannot be written are reported and left alone
+     * @param list<ContentSourceInterface>                                          $sources    The sources which
+     *                                                                                          cannot be written are
+     *                                                                                          reported and left alone
+     * @param (\Closure(MigrationPhase, int<0, max>, int<0, max>|null): void)|null $onProgress Called after each
+     *                                                                                          content analyzed or row
+     *                                                                                          written, with the total
+     *                                                                                          when it is known
      *
      * @throws \RuntimeException If the editor cannot start, or if there is nowhere to save the contents
      */
@@ -41,6 +47,7 @@ final readonly class ContentMigrator
         array $sources,
         string $migrationId,
         MigrationOptions $options = new MigrationOptions(),
+        ?\Closure $onProgress = null,
     ): MigrationReport {
         $report = new MigrationReport($options->maxExamples);
         /** @var array<string, WritableContentSourceInterface> $writable */
@@ -69,7 +76,11 @@ final readonly class ContentMigrator
             $options->legacyStylesFile,
         );
 
+        $analyzed = 0;
+
         foreach ($results as $result) {
+            $onProgress?->__invoke(MigrationPhase::Analysis, ++$analyzed, null);
+
             $content = $result->content;
             $reference = $content->describe();
             $blocking = $this->getBlockingCategories($result, $options->accepted);
@@ -91,6 +102,9 @@ final readonly class ContentMigrator
             }
         }
 
+        $total = array_sum(array_map(count(...), $planned));
+        $done = 0;
+
         foreach ($planned as $sourceName => $rows) {
             foreach ($rows as $id => $changes) {
                 $written = $options->apply
@@ -106,6 +120,8 @@ final readonly class ContentMigrator
                         $references[$sourceName . '|' . $id . '|' . $path],
                     );
                 }
+
+                $onProgress?->__invoke(MigrationPhase::Writing, ++$done, $total);
             }
         }
 
@@ -119,10 +135,17 @@ final readonly class ContentMigrator
     /**
      * Puts back the original contents of a migration, except the ones edited since.
      *
+     * @param (\Closure(MigrationPhase, int<0, max>, int<0, max>|null): void)|null $onProgress Called after each
+     *                                                                                          content restored
+     *
      * @throws \RuntimeException If there is no backup storage
      */
-    public function rollback(string $migrationId, bool $apply = false, int $maxExamples = 3): MigrationReport
-    {
+    public function rollback(
+        string $migrationId,
+        bool $apply = false,
+        int $maxExamples = 3,
+        ?\Closure $onProgress = null,
+    ): MigrationReport {
         $backup = $this->backup;
 
         if (null === $backup || !$backup->isReady()) {
@@ -137,7 +160,10 @@ final readonly class ContentMigrator
             $sources[$source->getName()] = $source;
         }
 
-        foreach ($backup->findToRestore($migrationId) as $entry) {
+        $entries = $backup->findToRestore($migrationId);
+        $done = 0;
+
+        foreach ($entries as $entry) {
             $source = $sources[$entry->source] ?? null;
             $reference = $entry->id . ('' !== $entry->path ? '/' . $entry->path : '');
 
@@ -148,6 +174,8 @@ final readonly class ContentMigrator
             } else {
                 $report->add($entry->source, $this->restore($source, $backup, $entry), $reference);
             }
+
+            $onProgress?->__invoke(MigrationPhase::Rollback, ++$done, \count($entries));
         }
 
         return $report;

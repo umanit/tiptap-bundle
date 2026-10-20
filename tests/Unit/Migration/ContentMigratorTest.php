@@ -14,6 +14,7 @@ use Umanit\TiptapBundle\Audit\Source\ContentSourceRegistry;
 use Umanit\TiptapBundle\Migration\ContentMigrator;
 use Umanit\TiptapBundle\Migration\MigrationOptions;
 use Umanit\TiptapBundle\Migration\MigrationOutcome;
+use Umanit\TiptapBundle\Migration\MigrationPhase;
 use Umanit\TiptapBundle\Migration\MigrationReport;
 use Umanit\TiptapBundle\Tests\Fixtures\Audit\FakeContentSource;
 use Umanit\TiptapBundle\Tests\Fixtures\Audit\FakeContentSourceProvider;
@@ -25,6 +26,7 @@ use Umanit\TiptapBundle\Tests\Fixtures\Migration\ScriptedRoundTripRunner;
 #[CoversClass(MigrationReport::class)]
 #[CoversClass(MigrationOptions::class)]
 #[CoversClass(MigrationOutcome::class)]
+#[CoversClass(MigrationPhase::class)]
 final class ContentMigratorTest extends TestCase
 {
     private InMemoryWritableSource $source;
@@ -41,6 +43,27 @@ final class ContentMigratorTest extends TestCase
         $this->assertNull($report->getMigrationId());
         $this->assertSame('<p><b>x</b></p>', $this->source->rows['1']['']);
         $this->assertSame([], $this->backup->records);
+    }
+
+    public function testTheProgressIsReportedForTheAnalysisThenTheWriting(): void
+    {
+        $steps = [];
+
+        $this->source = new InMemoryWritableSource('article.body', ['1' => ['' => '<p><b>x</b></p>']]);
+        $this->backup = new InMemoryMigrationBackup();
+
+        $this->migrator(new ScriptedRoundTripRunner(['<p><b>x</b></p>' => ['<p><strong>x</strong></p>', [], false]]))
+            ->migrate(
+                [$this->source],
+                'm1',
+                new MigrationOptions(apply: true),
+                static function (MigrationPhase $phase, int $done, ?int $total) use (&$steps): void {
+                    $steps[] = [$phase, $done, $total];
+                },
+            )
+        ;
+
+        $this->assertSame([[MigrationPhase::Analysis, 1, null], [MigrationPhase::Writing, 1, 1]], $steps);
     }
 
     public function testAContentIsSavedThenRewritten(): void
