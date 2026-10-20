@@ -69,4 +69,6 @@ for await (const line of createInterface({ input: process.stdin, crlfDelay: Infi
 }
 
 roundTripper.destroy();
-process.exit(exitCode);
+
+// `process.exit()` drops what a full pipe still has queued: it waits for stdout to be flushed.
+process.stdout.write('', () => process.exit(exitCode));
