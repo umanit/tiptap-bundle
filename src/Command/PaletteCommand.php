@@ -129,14 +129,26 @@ class PaletteCommand extends Command
 
         $inventory = new StyleInventory();
 
+        // Out of a terminal (redirection, CI), a bar would write a line by redraw; the JSON goes to stdout
+        $progress = self::FORMAT_TABLE === $format && $output->isDecorated() ? $io->createProgressBar() : null;
+        $progress?->setFormat(' %current% contents read [%elapsed:6s%]');
+        $progress?->setRedrawFrequency(50);
+
         try {
             foreach ($this->runner->run($this->registry->read($sources, $limit), $workers) as $result) {
                 $inventory->add($result);
+                $progress?->advance();
             }
         } catch (\RuntimeException $exception) {
+            $progress?->clear();
             $io->error($exception->getMessage());
 
             return Command::FAILURE;
+        }
+
+        if (null !== $progress) {
+            $progress->finish();
+            $io->newLine(2);
         }
 
         $palette = $this->builder->build($inventory, $maxDistance, $maxSizeDistance);
