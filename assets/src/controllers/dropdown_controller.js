@@ -9,16 +9,24 @@ export default class extends Controller {
   };
 
   #onKeydown = (event) => {
-    if (event.key === 'Escape') this.close();
+    if (event.key === 'Escape') {
+      this.close();
+    }
   };
 
   #onItemClick = (event) => {
-    if (!this.isOpen) return;
+    if (!this.isOpen) {
+      return;
+    }
     const target = event.target.closest('button, a, [role="button"]');
-    if (!target) return;
+    if (!target) {
+      return;
+    }
     // Don't auto-close when clicking the toggle button (toggle() handles that)
     const isToggle = target.dataset.action?.includes(`${this.identifier}#toggle`);
-    if (!isToggle) requestAnimationFrame(() => this.close());
+    if (!isToggle) {
+      requestAnimationFrame(() => this.close());
+    }
   };
 
   connect() {

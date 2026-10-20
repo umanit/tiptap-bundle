@@ -37,12 +37,18 @@ export default class extends Controller {
     img.style.height = this.heightTarget.value ? `${this.heightTarget.value}px` : '';
 
     img.classList.remove('ut-float-start', 'ut-float-end', 'ut-block', 'ut-mx-auto');
-    if (this.alignTarget.value === 'left') img.classList.add('ut-float-start');
-    else if (this.alignTarget.value === 'right') img.classList.add('ut-float-end');
-    else if (this.alignTarget.value === 'center') img.classList.add('ut-block', 'ut-mx-auto');
+    if ('left' === this.alignTarget.value) {
+      img.classList.add('ut-float-start');
+    } else if ('right' === this.alignTarget.value) {
+      img.classList.add('ut-float-end');
+    } else if ('center' === this.alignTarget.value) {
+      img.classList.add('ut-block', 'ut-mx-auto');
+    }
 
     img.classList.remove('ut-ma-5', 'ut-ma-10');
-    if (this.marginTarget.value) img.classList.add(this.marginTarget.value);
+    if (this.marginTarget.value) {
+      img.classList.add(this.marginTarget.value);
+    }
   }
 
   #setListeners() {

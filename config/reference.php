@@ -765,6 +765,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     controllers_json?: scalar|Param|null, // Default: "%kernel.project_dir%/assets/controllers.json"
  * }
  * @psalm-type UmanitTiptapConfig = array{
+ *     migration_diff?: bool|Param, // Warns when a field loads a content the editor rewrites, and shows the difference. For the environments where a migration is checked, not for production. // Default: false
  *     audit?: array{
  *         node_command?: scalar|Param|null, // Command which starts Node to audit existing contents (`yarn node` with Yarn PnP). // Default: "node"
  *     },

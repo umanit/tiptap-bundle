@@ -31,6 +31,16 @@ class TiptapType extends AbstractType
         'file_manager_adapter',
     ];
 
+    /** Options which are not a string. */
+    private const array FLAG_OPTIONS = ['migration_diff'];
+
+    /**
+     * @param bool $migrationDiff Default of the `migration_diff` option (the `umanit_tiptap.migration_diff` setting)
+     */
+    public function __construct(private readonly bool $migrationDiff = false)
+    {
+    }
+
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
@@ -42,7 +52,10 @@ class TiptapType extends AbstractType
             'templates_set'              => 'default',
             'file_manager_url'           => null,
             'file_manager_adapter'       => null,
+            'migration_diff'             => $this->migrationDiff,
         ]);
+
+        $resolver->setAllowedTypes('migration_diff', 'bool');
 
         foreach (self::COMPONENT_OPTIONS as $option) {
             $nullable = str_starts_with($option, 'file_manager_');
@@ -53,7 +66,7 @@ class TiptapType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options): void
     {
-        foreach (self::COMPONENT_OPTIONS as $option) {
+        foreach ([...self::COMPONENT_OPTIONS, ...self::FLAG_OPTIONS] as $option) {
             $view->vars[$option] = $options[$option];
         }
     }

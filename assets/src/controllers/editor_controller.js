@@ -3,6 +3,7 @@ import { MODAL_PROPERTY, SET_CONTENT_EVENT } from '../constants.js';
 import TipTapEditor from '../editor/tiptap-editor.js';
 import HtmlCleaner from '../editor/html-cleaner.js';
 import HtmlFormatter from '../editor/html-formatter.js';
+import { analyzeContent } from '../editor/migration-diff.js';
 import { DEFAULT_ADAPTER_NAME } from '../file-manager/default-adapter.js';
 import { createFileManagerAdapter } from '../file-manager/registry.js';
 import '../index.js';
@@ -17,11 +18,13 @@ export default class extends Controller {
     'imageForm',
     'templateForm',
     'anchorForm',
+    'diffBanner', 'diffMessage', 'diffBefore', 'diffAfter', 'diffSignals', 'diffLines',
   ];
 
   static values = {
     translations: Object,
     fileManagerUrl: String,
+    migrationDiff: Boolean,
     fileManagerAdapter: {
       type: String,
       default: DEFAULT_ADAPTER_NAME,
@@ -34,10 +37,15 @@ export default class extends Controller {
   /** @var {AbortController} */
   #abortController;
 
+  /** Original content and what the editor made of it, when the migration diff is on. */
+  #migration = null;
+
   connect() {
     this.#abortController = new AbortController();
 
     this.#mountModals();
+
+    const storedContent = this.inputTarget.value;
 
     try {
       const fileManagerAdapter = this.hasFileManagerUrlValue
@@ -78,6 +86,10 @@ export default class extends Controller {
     } catch (err) {
       throw new Error('Cannot instantiate the TipTap editor', { cause: err });
     }
+
+    if (this.migrationDiffValue) {
+      this.#checkMigration(storedContent);
+    }
   }
 
   disconnect() {
@@ -106,6 +118,50 @@ export default class extends Controller {
     }
 
     this.#wysiwygEditor.setSourceMode(newMode);
+  }
+
+  openDiff() {
+    if (!this.#migration || !this.hasDiffBeforeTarget) {
+      return;
+    }
+
+    const { before, result } = this.#migration;
+    const stylesheets = [...document.querySelectorAll('link[rel="stylesheet"]')]
+      .map((link) => link.cloneNode().outerHTML)
+      .join('');
+    const preview = (html) => `<!doctype html><html><head>${stylesheets}`
+      + '<style>body{margin:0}.umanit-tiptap__content{min-height:0;padding:1rem}</style></head>'
+      + `<body class="umanit-tiptap__content">${html}</body></html>`;
+
+    // The contents are put in the page as text only: they are not to be trusted
+    this.diffSignalsTarget.replaceChildren(...result.lost.map(({ signal, before: was, after: now }) => {
+      const item = document.createElement('li');
+      item.textContent = `${signal} (${was} → ${now})`;
+
+      return item;
+    }));
+
+    const marks = {
+      removed: '-', added: '+', same: ' ', gap: ' ',
+    };
+    this.diffLinesTarget.replaceChildren(...result.lines.map(({ type, line }) => {
+      const item = document.createElement('code');
+      item.className = `umanit-tiptap__diff-line umanit-tiptap__diff-line--${type}`;
+      item.textContent = `${marks[type]} ${line}`;
+
+      return item;
+    }));
+
+    this.openModal(this.diffBeforeTarget);
+
+    // A fresh iframe each time, once the dialog is open: one which loaded its `srcdoc` while the closed dialog hid
+    // it stays blank when opened again, whatever is assigned to it afterwards.
+    [[this.diffBeforeTarget, before], [this.diffAfterTarget, result.after]].forEach(([iframe, html]) => {
+      const fresh = iframe.cloneNode(false);
+      fresh.removeAttribute('srcdoc');
+      iframe.replaceWith(fresh);
+      fresh.srcdoc = preview(html);
+    });
   }
 
   openFileManager() {
@@ -187,6 +243,30 @@ export default class extends Controller {
     this.#wysiwygEditor.setContent(html);
     this.inputTarget.value = this.#wysiwygEditor.getHTML();
     this.#updateToolbarState();
+  }
+
+  /**
+   * Compares the stored content with what the editor made of it, and warns when they differ.
+   *
+   * @param {string} before
+   */
+  #checkMigration(before) {
+    const result = analyzeContent(before, this.#wysiwygEditor.getHTML(), new DOMParser());
+
+    if (!result.changed) {
+      return;
+    }
+
+    this.#migration = { before, result };
+
+    if (this.hasDiffBannerTarget) {
+      const { diffLost = '', diffRewritten = '' } = this.translationsValue;
+
+      this.diffMessageTarget.textContent = result.lost.length > 0
+        ? diffLost.replace('{signals}', result.lost.map(({ signal }) => signal).join(', '))
+        : diffRewritten;
+      this.diffBannerTarget.classList.remove('ut-hidden');
+    }
   }
 
   #updateSourceModeUI(isSourceMode) {

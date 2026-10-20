@@ -23,3 +23,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Embedded Lucide icons (`umanit-tiptap:*` icon set) and `UmanitTiptapBundle` translations (en, fr).
 - The source view lays out the HTML (one block per line, nested blocks indented). It is for reading only: the
   content is compacted again when leaving the source view and on submit.
+- Migration diff: when the editor rewrites the content a field loads, a banner lists what would be lost and a window
+  shows the original and the edited contents side by side, with the HTML diff. Off by default; turned on with the
+  `umanit_tiptap.migration_diff` setting (per environment) or the `migration_diff` option of `TiptapType`; see
+  `docs/migration-diff.md`.

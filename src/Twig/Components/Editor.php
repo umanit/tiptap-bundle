@@ -26,6 +26,9 @@ final class Editor
     /** Name of the file manager adapter registered on the JS side. */
     public ?string $fileManagerAdapter = null;
 
+    /** Warns when the editor rewrites the content it loads, and shows the difference (to check a migration). */
+    public bool $migrationDiff = false;
+
     public function __construct(
         private readonly ToolbarProviderInterface $toolbarProvider,
     ) {

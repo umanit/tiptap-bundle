@@ -1,4 +1,13 @@
 {% set controller_values = {translations: {placeholder: 'wysiwyg.placeholder'|trans({}, 'UmanitTiptapBundle')}} %}
+{% if this.migrationDiff %}
+  {% set controller_values = controller_values|merge({
+    migrationDiff: true,
+    translations: controller_values.translations|merge({
+      diffLost: 'wysiwyg.diff.banner_lost'|trans({}, 'UmanitTiptapBundle'),
+      diffRewritten: 'wysiwyg.diff.banner_rewritten'|trans({}, 'UmanitTiptapBundle'),
+    }),
+  }) %}
+{% endif %}
 {% if this.hasFileManager %}
   {% set controller_values = controller_values|merge({fileManagerUrl: this.fileManagerUrl}) %}
 {% endif %}
@@ -30,7 +39,22 @@
     {% if computed.hasAnchorTool %}
       <twig:Umanit:Tiptap:Modal:Anchor id="{{ this.id }}" />
     {% endif %}
+
+    {% if this.migrationDiff %}
+      <twig:Umanit:Tiptap:Modal:Diff id="{{ this.id }}" />
+    {% endif %}
   </template>
+
+  {% if this.migrationDiff %}
+    <div class="umanit-tiptap__diff-banner ut-hidden" role="status"
+        {{ stimulus_target('umanit/tiptap/editor', 'diffBanner') }}>
+      <span {{ stimulus_target('umanit/tiptap/editor', 'diffMessage') }}></span>
+      <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
+              {{ stimulus_action('umanit/tiptap/editor', 'openDiff') }}>
+        {{ 'wysiwyg.diff.show'|trans({}, 'UmanitTiptapBundle') }}
+      </button>
+    </div>
+  {% endif %}
 
   <twig:Umanit:Tiptap:Toolbar
       name="{{ this.toolbar }}" stylesSet="{{ this.stylesSet }}" colorsSet="{{ this.colorsSet }}"

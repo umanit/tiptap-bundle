@@ -99,6 +99,31 @@ final class EditorRenderingTest extends KernelTestCase
         $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" toolbar="nope" />')->render();
     }
 
+    public function testMigrationDiffIsOffByDefault(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        $this->assertStringNotContainsString('migration-diff-value', $html);
+        $this->assertStringNotContainsString('diffBanner', $html);
+        $this->assertStringNotContainsString('diffModal-foo', $html);
+    }
+
+    public function testMigrationDiffAddsTheBannerAndTheModal(): void
+    {
+        $html = $this->getTwig()->createTemplate(
+            '<twig:Umanit:Tiptap:Editor id="foo" :migrationDiff="true" />',
+        )->render();
+
+        $this->assertStringContainsString('migration-diff-value="true"', $html);
+        $this->assertStringContainsString('diffBanner', $html);
+        $this->assertStringContainsString('diffModal-foo', $html);
+        $this->assertStringContainsString('Show the differences', $html);
+        // No `allow-scripts`: the stored content must not run anything, and the fonts need the origin of the page
+        $this->assertStringContainsString('sandbox="allow-same-origin"', $html);
+        $this->assertStringNotContainsString('allow-scripts', $html);
+        $this->assertStringNotContainsString('wysiwyg.diff.', $html);
+    }
+
     public function testFileManagerIsOptional(): void
     {
         $html = $this->getTwig()->createTemplate(

@@ -31,6 +31,13 @@ class UmanitTiptapBundle extends AbstractBundle
     {
         $definition->rootNode()
             ->children()
+                ->booleanNode('migration_diff')
+                    ->defaultFalse()
+                    ->info(
+                        'Warns when a field loads a content the editor rewrites, and shows the difference. '
+                        . 'For the environments where a migration is checked, not for production.',
+                    )
+                ->end()
                 ->arrayNode('audit')
                     ->addDefaultsIfNotSet()
                     ->children()
@@ -45,10 +52,11 @@ class UmanitTiptapBundle extends AbstractBundle
     }
 
     /**
-     * @param array{audit: array{node_command: string}} $config
+     * @param array{migration_diff: bool, audit: array{node_command: string}} $config
      */
     public function loadExtension(array $config, ContainerConfigurator $configurator, ContainerBuilder $container): void
     {
+        $configurator->parameters()->set('umanit_tiptap.migration_diff', $config['migration_diff']);
         $configurator->parameters()->set('umanit_tiptap.audit.node_command', $config['audit']['node_command']);
         $configurator->import('../config/services.php');
 

@@ -114,4 +114,48 @@ describe('editor controller', () => {
 
     expect(document.querySelector('textarea').value).toBe('<p></p>');
   });
+
+  describe('migration diff', () => {
+    const diffMarkup = (content) => `
+      <div data-controller="umanit--tiptap--editor"
+           data-umanit--tiptap--editor-migration-diff-value="true"
+           data-umanit--tiptap--editor-translations-value='{"diffLost":"Lost: {signals}","diffRewritten":"Rewritten"}'>
+        <div class="ut-hidden" data-umanit--tiptap--editor-target="diffBanner">
+          <span data-umanit--tiptap--editor-target="diffMessage"></span>
+        </div>
+        <div data-umanit--tiptap--editor-target="toolbar"></div>
+        <div data-umanit--tiptap--editor-target="editor"></div>
+        <textarea data-umanit--tiptap--editor-target="input">${content}</textarea>
+      </div>`;
+
+    const banner = () => document.querySelector('[data-umanit--tiptap--editor-target="diffBanner"]');
+
+    it('stays silent when the editor keeps the content as is', async () => {
+      await mount(diffMarkup('&lt;p&gt;Hello&lt;/p&gt;'));
+
+      expect(banner().classList.contains('ut-hidden')).toBe(true);
+    });
+
+    it('warns about what the editor drops', async () => {
+      await mount(diffMarkup('&lt;div class="box"&gt;&lt;p&gt;x&lt;/p&gt;&lt;/div&gt;'));
+
+      expect(banner().classList.contains('ut-hidden')).toBe(false);
+      expect(banner().textContent).toContain('Lost: tag:div, class:box');
+    });
+
+    it('only mentions a rewrite when nothing is lost', async () => {
+      await mount(diffMarkup('&lt;p&gt;&lt;b&gt;x&lt;/b&gt;&lt;/p&gt;'));
+
+      expect(banner().classList.contains('ut-hidden')).toBe(false);
+      expect(banner().textContent).toContain('Rewritten');
+    });
+
+    it('does nothing when the option is off', async () => {
+      await mount(
+        diffMarkup('&lt;div&gt;x&lt;/div&gt;').replace('migration-diff-value="true"', 'migration-diff-value="false"'),
+      );
+
+      expect(banner().classList.contains('ut-hidden')).toBe(true);
+    });
+  });
 });

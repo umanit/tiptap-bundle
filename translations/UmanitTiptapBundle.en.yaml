@@ -18,6 +18,13 @@ wysiwyg.color.red: Red
 wysiwyg.color.reset: 'Reset Color'
 wysiwyg.color.white: White
 wysiwyg.color.yellow: Yellow
+wysiwyg.diff.after: 'After (what will be saved)'
+wysiwyg.diff.banner_lost: 'This content will lose elements when saved: {signals}.'
+wysiwyg.diff.banner_rewritten: 'This content will be rewritten when saved, without losing any formatting.'
+wysiwyg.diff.before: 'Before (original content)'
+wysiwyg.diff.help: 'Lines prefixed with "-" come from the original content, those prefixed with "+" are what the editor made of it.'
+wysiwyg.diff.show: 'Show the differences'
+wysiwyg.diff.title: 'Differences with the original content'
 wysiwyg.error.unknown_tool: '"{tool}" tool not supported'
 wysiwyg.font_size.choose: 'Font size'
 wysiwyg.font_size.reset: 'Default size'

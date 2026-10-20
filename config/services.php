@@ -35,6 +35,7 @@ use Umanit\TiptapBundle\Twig\Components\ContextMenu\Table as ContextMenuTable;
 use Umanit\TiptapBundle\Twig\Components\Editor;
 use Umanit\TiptapBundle\Twig\Components\FontSize;
 use Umanit\TiptapBundle\Twig\Components\Modal\Anchor as ModalAnchor;
+use Umanit\TiptapBundle\Twig\Components\Modal\Diff as ModalDiff;
 use Umanit\TiptapBundle\Twig\Components\Modal\Image as ModalImage;
 use Umanit\TiptapBundle\Twig\Components\Modal\Link as ModalLink;
 use Umanit\TiptapBundle\Twig\Components\Modal\Table as ModalTable;
@@ -103,6 +104,7 @@ return static function (ContainerConfigurator $container): void {
         'editor'             => [Editor::class, 'umanit_tiptap.provider.toolbar'],
         'font_size'          => [FontSize::class, null],
         'modal_anchor'       => [ModalAnchor::class, null],
+        'modal_diff'         => [ModalDiff::class, null],
         'modal_image'        => [ModalImage::class, null],
         'modal_link'         => [ModalLink::class, null],
         'modal_table'        => [ModalTable::class, 'umanit_tiptap.provider.colors_set'],
@@ -125,6 +127,7 @@ return static function (ContainerConfigurator $container): void {
 
     $services
         ->set('umanit_tiptap.form.type.tiptap', TiptapType::class)
+        ->args([param('umanit_tiptap.migration_diff')])
         ->tag('form.type')
     ;
 

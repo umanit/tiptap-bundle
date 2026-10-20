@@ -18,6 +18,13 @@ wysiwyg.color.red: Rouge
 wysiwyg.color.reset: 'Réinitialiser la couleur'
 wysiwyg.color.white: Blanc
 wysiwyg.color.yellow: Jaune
+wysiwyg.diff.after: 'Après (ce qui sera enregistré)'
+wysiwyg.diff.banner_lost: 'Ce contenu perdra des éléments à l’enregistrement : {signals}.'
+wysiwyg.diff.banner_rewritten: 'Ce contenu sera réécrit à l’enregistrement, sans perte de mise en forme.'
+wysiwyg.diff.before: 'Avant (contenu d’origine)'
+wysiwyg.diff.help: 'Les lignes préfixées par « - » sont celles du contenu d’origine, celles préfixées par « + » ce que l’éditeur en a fait.'
+wysiwyg.diff.show: 'Voir les différences'
+wysiwyg.diff.title: 'Différences avec le contenu d’origine'
 wysiwyg.error.unknown_tool: 'Outil « {tool} » non supporté'
 wysiwyg.font_size.choose: 'Taille du texte'
 wysiwyg.font_size.reset: 'Taille par défaut'

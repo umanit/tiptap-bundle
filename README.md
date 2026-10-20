@@ -28,6 +28,8 @@ make full_static_analyze
 - [Auditing the contents before migrating to TipTap](docs/migration-audit.md) — the `umanit:tiptap:audit` command:
   declare where your contents are, and see what the schema would drop from them.
 - [The round-trip CLI](docs/round-trip-audit.md) — the Node script behind it, usable on its own.
+- [The migration diff](docs/migration-diff.md) — in the editor, warn when a loaded content is rewritten and show the
+  difference (for acceptance environments, off by default).
 
 ## License
 

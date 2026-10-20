@@ -6,6 +6,7 @@ namespace Umanit\TiptapBundle\Tests\Unit\Form;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\FormFactoryBuilder;
 use Symfony\Component\Form\Test\TypeTestCase;
 use Symfony\Component\OptionsResolver\Exception\InvalidOptionsException;
 use Umanit\TiptapBundle\Form\Type\TiptapType;
@@ -25,6 +26,25 @@ final class TiptapTypeTest extends TypeTestCase
         $this->assertSame('default', $view->vars['templates_set']);
         $this->assertNull($view->vars['file_manager_url']);
         $this->assertNull($view->vars['file_manager_adapter']);
+        $this->assertFalse($view->vars['migration_diff']);
+    }
+
+    public function testMigrationDiffCanBeSetPerField(): void
+    {
+        $view = $this->factory->create(TiptapType::class, null, ['migration_diff' => true])->createView();
+
+        $this->assertTrue($view->vars['migration_diff']);
+    }
+
+    public function testMigrationDiffDefaultsToTheBundleSetting(): void
+    {
+        $form = new FormFactoryBuilder()
+            ->addType(new TiptapType(true))
+            ->getFormFactory()
+            ->create(TiptapType::class)
+        ;
+
+        $this->assertTrue($form->createView()->vars['migration_diff']);
     }
 
     public function testBackgroundColorsFollowTheColorsSetByDefault(): void

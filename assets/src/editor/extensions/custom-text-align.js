@@ -18,12 +18,16 @@ export default TextAlign.extend({
           parseHTML: (element) => {
             const classes = (element.className || '').split(' ');
             for (const [align, cls] of Object.entries(CLASS_MAP)) {
-              if (classes.includes(cls)) return align;
+              if (classes.includes(cls)) {
+                return align;
+              }
             }
             return element.style?.textAlign || null;
           },
           renderHTML: (attributes) => {
-            if (!attributes.textAlign) return {};
+            if (!attributes.textAlign) {
+              return {};
+            }
             const cls = CLASS_MAP[attributes.textAlign];
             return cls ? { class: cls } : {};
           },
