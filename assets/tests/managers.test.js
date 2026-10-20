@@ -124,6 +124,28 @@ describe('image manager', () => {
     expect(tiptap.getHTML()).toContain('class="ut-block ut-mx-auto ut-ma-5"');
   });
 
+  it('edits the selected image and keeps the classes the form does not manage', () => {
+    const els = { imageForm: imageForm() };
+    create(els, '<p><img src="/a.png" alt="A" width="100" class="ut-float-start ut-ma-5 custom"></p>', null, {
+      open: () => {},
+      close: () => {},
+    });
+    tiptap.runCommand('setNodeSelection', 1);
+
+    tiptap.runCommand('image.open');
+
+    expect(els.imageForm.elements.url.value).toBe('/a.png');
+    expect(els.imageForm.elements.align.value).toBe('left');
+    expect(els.imageForm.elements.margin.value).toBe('ut-ma-5');
+
+    els.imageForm.elements.alt.value = 'B';
+    tiptap.runCommand('image.confirm');
+
+    expect(tiptap.getHTML()).toContain('alt="B"');
+    expect(tiptap.getHTML()).toContain('class="custom ut-float-start ut-ma-5"');
+    expect(tiptap.getHTML().match(/<img/g)).toHaveLength(1);
+  });
+
   it('does not insert anything without url', () => {
     create({ imageForm: imageForm() }, '', null, { open: () => {}, close: () => {} });
 

@@ -7,6 +7,8 @@ import { DEFAULT_ADAPTER_NAME } from '../file-manager/default-adapter.js';
 import { createFileManagerAdapter } from '../file-manager/registry.js';
 import '../index.js';
 
+const NODE_COMMANDS = { 'image.open': 'image' };
+
 export default class extends Controller {
   static targets = [
     'editor', 'input', 'toolbar', 'contextMenu', 'modals',
@@ -196,6 +198,14 @@ export default class extends Controller {
   #updateToolbarState() {
     this.toolbarTarget.querySelectorAll('[data-wysiwyg-tool]').forEach((button) => {
       const command = button.getAttribute(`data-${this.identifier}-command-param`);
+
+      // Manager commands have no "isActive" counterpart, except the ones bound to a node
+      if (command in NODE_COMMANDS) {
+        button.classList.toggle('active', this.#wysiwygEditor.isActive(NODE_COMMANDS[command]));
+
+        return;
+      }
+
       if (!command || command.includes('.')) {
         return;
       }

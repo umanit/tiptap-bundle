@@ -77,6 +77,12 @@
     }
   }
 
+  /* ProseMirror hides the native selection of a node: without an outline, a selected image (above all a broken one) looks unselected. */
+  & img.ProseMirror-selectednode {
+    outline: 2px solid var(--umanit-tiptap-primary, #8cf);
+    outline-offset: 2px;
+  }
+
   & .column-resize-handle {
     background-color: #adf;
     bottom: -2px;
