@@ -145,6 +145,13 @@ describe('RoundTripper', () => {
     expect(lostOf(`<table><tbody><tr>${cells}</tr></tbody></table>`)).toEqual([]);
   });
 
+  it('does not report the align attribute of a table or a cell, which the editor keeps as a class', () => {
+    const cells = '<td align="center">a</td><th align="right">b</th>';
+
+    expect(lostOf(`<table align="center"><tbody><tr>${cells}</tr></tbody></table>`)).toEqual([]);
+    expect(lostOf('<table align="left"><tbody><tr><td>a</td></tr></tbody></table>')).toEqual(['attr:table@align']);
+  });
+
   it('does not report an alignment converted to a class, nor <b> rewritten as <strong>', () => {
     const result = roundTripper.run('<p style="text-align:center"><b>x</b></p>');
 

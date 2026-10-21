@@ -79,6 +79,18 @@ class TableView {
   }
 }
 
+// `<table align="center">` (what CKEditor writes) becomes the class the schema uses, unless the table has one already.
+function tableClass(element) {
+  const classes = (element.getAttribute('class') || '').split(' ').filter(Boolean);
+  const align = (element.getAttribute('align') || '').toLowerCase();
+
+  if (['center', 'right'].includes(align) && !classes.some((c) => /^ut-table-(center|right)$/.test(c))) {
+    classes.push(`ut-table-${align}`);
+  }
+
+  return classes.join(' ') || null;
+}
+
 export const CustomTable = Table.extend({
   addNodeView() {
     return ({ node, HTMLAttributes }) => new TableView(
@@ -104,7 +116,7 @@ export const CustomTable = Table.extend({
       ...this.parent?.(),
       class: {
         default: null,
-        parseHTML: (element) => element.getAttribute('class'),
+        parseHTML: tableClass,
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
       },
       border: {

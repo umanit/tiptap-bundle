@@ -122,6 +122,21 @@ const countMarkedCharacters = (root, signals) => {
  * @param {DOMParser} parser
  * @returns {{ signals: Map<string, number>, text: string }}
  */
+// The `align` attribute of a table (center, right) and of a cell is kept by the editor, as a class.
+const isConvertedAlign = (el, rawTag, name) => {
+  if (name !== 'align') {
+    return false;
+  }
+
+  const align = el.getAttribute('align').toLowerCase();
+
+  if (rawTag === 'table') {
+    return ['center', 'right'].includes(align);
+  }
+
+  return ['td', 'th'].includes(rawTag) && ['left', 'center', 'right', 'justify'].includes(align);
+};
+
 export const collectSignals = (html, parser) => {
   const { body } = parser.parseFromString(html, 'text/html');
   const signals = new Map();
@@ -161,7 +176,7 @@ export const collectSignals = (html, parser) => {
         });
       } else if (isImageSize(name)) {
         imageSizes.add(`attr:img@${name}`);
-      } else {
+      } else if (!isConvertedAlign(el, rawTag, name)) {
         increment(signals, `attr:${rawTag}@${name}`);
       }
     });

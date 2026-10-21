@@ -199,6 +199,15 @@ describe('content schema', () => {
     expect(classes()).toBe('keep');
   });
 
+  it('turns the align attribute of a table into a class, once', () => {
+    const table = (attributes) => `<table ${attributes}><tbody><tr><td>a</td></tr></tbody></table>`;
+
+    expect(roundTrip(table('align="center"'))).toContain('<table class="ut-table-center">');
+    expect(roundTrip(table('align="right" class="ut-w-50"'))).toContain('<table class="ut-w-50 ut-table-right">');
+    expect(roundTrip(table('align="right" class="ut-table-center"'))).toContain('<table class="ut-table-center">');
+    expect(roundTrip(table('align="left"'))).toContain('<table>');
+  });
+
   it('keeps the alignment class of a table', () => {
     expect(roundTrip('<table class="ut-w-50 ut-table-center"><tbody><tr><td>a</td></tr></tbody></table>'))
       .toContain('class="ut-w-50 ut-table-center"');

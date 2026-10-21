@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Umanit\TiptapBundle\Cleaning\Rule;
 
+use Dom\Element;
 use Dom\HTMLElement;
 use Umanit\TiptapBundle\Cleaning\CleaningRuleInterface;
 use Umanit\TiptapBundle\Cleaning\Html;
@@ -45,7 +46,7 @@ final class TableLayoutRule implements CleaningRuleInterface
             $attributes = 'table' === $element->localName ? self::TABLE_ATTRIBUTES : self::CELL_ATTRIBUTES;
 
             foreach ($attributes as $attribute) {
-                if ($element->hasAttribute($attribute)) {
+                if ($element->hasAttribute($attribute) && !$this->isKeptAlignment($element, $attribute)) {
                     $element->removeAttribute($attribute);
                     ++$changes;
                 }
@@ -69,5 +70,15 @@ final class TableLayoutRule implements CleaningRuleInterface
         }
 
         return $changes;
+    }
+
+    /**
+     * The editor turns the alignment of a table (center, right) into a class: it is not part of the Word layout.
+     */
+    private function isKeptAlignment(Element $element, string $attribute): bool
+    {
+        return 'table' === $element->localName
+            && 'align' === $attribute
+            && \in_array(\strtolower($element->getAttribute('align') ?? ''), ['center', 'right'], true);
     }
 }

@@ -84,6 +84,16 @@ final class HtmlCleanerTest extends TestCase
             ['word-classes', 'table-layout'],
         ];
 
+        yield 'a table centered or aligned to the right keeps its alignment, a left one loses it' => [
+            '<table align="center" width="50%"><tbody><tr><td>a</td></tr></tbody></table>'
+            . '<table align="RIGHT"><tbody><tr><td>b</td></tr></tbody></table>'
+            . '<table align="left"><tbody><tr><td>c</td></tr></tbody></table>',
+            '<table align="center"><tbody><tr><td>a</td></tr></tbody></table>'
+            . '<table align="RIGHT"><tbody><tr><td>b</td></tr></tbody></table>'
+            . '<table><tbody><tr><td>c</td></tr></tbody></table>',
+            ['table-layout'],
+        ];
+
         yield 'the classes of the application stay' => [
             '<div class="WordSection1 keydates"><p class="MsoNormal primary-banner">a</p></div>',
             '<div class="keydates"><p class="primary-banner">a</p></div>',
