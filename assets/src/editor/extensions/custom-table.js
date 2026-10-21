@@ -1,5 +1,6 @@
 import { Table, TableCell, TableHeader } from '@tiptap/extension-table';
 import { mergeAttributes } from '@tiptap/core';
+import { resolveLegacyClass } from '../legacy-styles.js';
 
 // Column widths are written as <col width="Xpx"> (a presentational attribute, not an inline style, so CSP compliant).
 // Only the first row is read: that is where the parent (and the browsers) look for the grid too.
@@ -155,14 +156,23 @@ function parseColwidth(element) {
   return widths.some(Boolean) ? widths : null;
 }
 
-// The alignment another editor wrote on the cell (`style="text-align:center"`, `align="center"`) becomes the class the
-// schema uses, unless the cell has one already.
-function cellClass(element) {
+// What another editor wrote on the cell becomes the classes the schema uses, unless the cell has one already: the
+// alignment (`style="text-align:center"`, `align="center"`) and, in legacy import mode, the background color
+// (`style="background-color:#eee"`, looked up in the palette).
+function cellClass(element, legacyStyles) {
   const classes = (element.getAttribute('class') || '').split(' ').filter(Boolean);
   const align = (element.style?.textAlign || element.getAttribute('align') || '').toLowerCase();
 
   if (TEXT_ALIGNS.includes(align) && !classes.some((c) => c.startsWith('ut-text-'))) {
     classes.push(`ut-text-${align}`);
+  }
+
+  const background = classes.some((c) => c.startsWith('ut-bg-'))
+    ? null
+    : resolveLegacyClass(legacyStyles, 'backgroundColor', element);
+
+  if (background) {
+    classes.push(background);
   }
 
   return classes.join(' ') || null;
@@ -182,12 +192,16 @@ function withoutInlineStyles(parentAttrs) {
 }
 
 export const CustomTableCell = TableCell.extend({
+  addOptions() {
+    return { ...this.parent?.(), legacyStyles: null };
+  },
+
   addAttributes() {
     return {
       ...withoutInlineStyles(this.parent?.() ?? {}),
       class: {
         default: null,
-        parseHTML: cellClass,
+        parseHTML: (element) => cellClass(element, this.options.legacyStyles),
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
       },
     };
@@ -195,12 +209,16 @@ export const CustomTableCell = TableCell.extend({
 });
 
 export const CustomTableHeader = TableHeader.extend({
+  addOptions() {
+    return { ...this.parent?.(), legacyStyles: null };
+  },
+
   addAttributes() {
     return {
       ...withoutInlineStyles(this.parent?.() ?? {}),
       class: {
         default: null,
-        parseHTML: cellClass,
+        parseHTML: (element) => cellClass(element, this.options.legacyStyles),
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
       },
     };

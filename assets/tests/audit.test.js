@@ -139,6 +139,21 @@ describe('RoundTripper', () => {
     expect(lostOf(table('<col style="width:100px"><col>'))).toContain('style:width');
   });
 
+  it('does not report the background color of a cell the palette maps, and reports the others', () => {
+    const mapped = new RoundTripper(window, { backgroundColor: { '#eeeeee': 'ut-bg-grey-light' } });
+    const cell = (color) => `<table><tbody><tr><td style="background-color:${color}">a</td></tr></tbody></table>`;
+
+    try {
+      expect(mapped.run(cell('#eeeeee')).lost).toEqual([]);
+      expect(mapped.run(cell('rgb(238,238,238)')).lost).toEqual([]);
+      expect(mapped.run(cell('#123456')).lost.map(({ signal }) => signal)).toEqual(['style:background-color']);
+    } finally {
+      mapped.destroy();
+    }
+
+    expect(lostOf(cell('#eeeeee'))).toEqual(['style:background-color']);
+  });
+
   it('does not report the alignment of a cell', () => {
     const cells = '<td style="text-align:center">a</td><td>b</td>';
 

@@ -170,6 +170,8 @@ node assets/bin/roundtrip.js --legacy-styles=palette.json < contents.jsonl
 
 Values are normalized before the lookup: `#F00`, `rgb(255, 0, 0)` and `#ff0000` are one color, and `pt` sizes are
 converted to `px` (1pt = 4/3px). A value which is not in the map is dropped and reported as lost, as without the mode.
+The `backgroundColor` map also applies to the cells of a table (`<td style="background-color:#eee">`), unless the
+cell already has a `ut-bg-*` class.
 In JavaScript, pass the map as the `legacyStyles` editor option, or as the second argument of `RoundTripper`. The mode
 is opt-in: the editor in the browser does not read inline styles unless the option is given.
 

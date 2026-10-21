@@ -42,6 +42,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   reports it as lost, and the `table-layout` cleaning rule keeps that `align` instead of removing it (an alignment
   nobody would otherwise get back, since it was removed before the migration could convert it). The `align` of a cell
   is converted the same way.
+- Legacy import mode: the `backgroundColor` map of `legacy-styles.json` also applies to the cells of a table
+  (`<td style="background-color:#eee">` becomes `ut-bg-grey-light`), without overwriting a `ut-bg-*` class the cell
+  already has; the audit no longer reports a mapped background as lost.
 - The `table-layout` cleaning rule keeps the `border` of a table when it is a number of pixels, which the table
   properties support; any other value is still removed.
 

@@ -192,6 +192,29 @@ describe('content schema', () => {
     expect(table().border).toBeNull();
   });
 
+  it('turns the background color of a cell into a palette class in legacy import mode', () => {
+    const legacyStyles = { backgroundColor: { '#eeeeee': 'ut-bg-grey-light' } };
+    const cells = (attributes) => `<table><tbody><tr><td ${attributes}>a</td></tr></tbody></table>`;
+    const withMap = (html) => {
+      editor?.destroy();
+      editor = new TipTapEditor({}, { element: document.body, content: html, legacyStyles }, {});
+
+      return editor.getHTML();
+    };
+
+    expect(withMap(cells('style="background-color:#eeeeee"'))).toContain('<td class="ut-bg-grey-light">');
+    expect(withMap(cells('style="background-color:rgb(238, 238, 238)"'))).toContain('<td class="ut-bg-grey-light">');
+    expect(withMap(cells('style="background:#EEE"'))).toContain('<td class="ut-bg-grey-light">');
+    expect(withMap(cells('class="keep" style="background-color:#eeeeee"')))
+      .toContain('<td class="keep ut-bg-grey-light">');
+    expect(withMap(cells('class="ut-bg-red" style="background-color:#eeeeee"'))).toContain('<td class="ut-bg-red">');
+    expect(withMap(cells('style="background-color:#123456"'))).toContain('<td>');
+    expect(withMap('<table><tbody><tr><th style="background-color:#eeeeee">a</th></tr></tbody></table>'))
+      .toContain('<th class="ut-bg-grey-light">');
+    // Without a map the schema reads classes only
+    expect(roundTrip(cells('style="background-color:#eeeeee"'))).toContain('<td>');
+  });
+
   it('turns the alignment of a cell into a class, once', () => {
     const html = roundTrip('<table><tbody><tr><td style="text-align:center">a</td><th align="right">b</th>'
       + '<td class="ut-text-left" style="text-align:center">c</td><td>d</td></tr></tbody></table>');
