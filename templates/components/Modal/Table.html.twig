@@ -65,11 +65,11 @@
   {% block footer %}
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
-              {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
+          {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
         {{ 'modal.cancel'|trans }}
       </button>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--success"
-              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'table.confirmAdd'}) }}>
+          {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'table.confirmAdd'}) }}>
         {{ 'wysiwyg.modal.ok'|trans }}
       </button>
     </div>
@@ -85,15 +85,14 @@
     <form {{ stimulus_target('umanit/tiptap/editor', 'cellForm') }}>
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.bg_color'|trans }}</label>
-          <div class="umanit-tiptap__bg-color-grid" role="group">
-            {% for color in computed.cellBackgroundColors %}
-              <label class="umanit-tiptap__bg-color-option" title="{{ color.label|trans }}">
-                <input type="radio" name="bgColor" value="{{ color.asBackgroundColorClass }}" class="ut-visually-hidden">
-                <span class="umanit-tiptap__bg-color-swatch {{ color.asBackgroundColorClass }}"></span>
-              </label>
-            {% endfor %}
-          </div>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.text_align'|trans }}</label>
+          <select class="umanit-tiptap__select" name="textAlign">
+            <option value="">{{ 'wysiwyg.modal.cell.align.default'|trans }}</option>
+            <option value="ut-text-left">{{ 'wysiwyg.modal.cell.text_align.left'|trans }}</option>
+            <option value="ut-text-center">{{ 'wysiwyg.modal.cell.text_align.center'|trans }}</option>
+            <option value="ut-text-right">{{ 'wysiwyg.modal.cell.text_align.right'|trans }}</option>
+            <option value="ut-text-justify">{{ 'wysiwyg.modal.cell.text_align.justify'|trans }}</option>
+          </select>
         </div>
         <div>
           <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.vertical_align'|trans }}</label>
@@ -107,14 +106,15 @@
       </div>
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.text_align'|trans }}</label>
-          <select class="umanit-tiptap__select" name="textAlign">
-            <option value="">{{ 'wysiwyg.modal.cell.align.default'|trans }}</option>
-            <option value="ut-text-left">{{ 'wysiwyg.modal.cell.text_align.left'|trans }}</option>
-            <option value="ut-text-center">{{ 'wysiwyg.modal.cell.text_align.center'|trans }}</option>
-            <option value="ut-text-right">{{ 'wysiwyg.modal.cell.text_align.right'|trans }}</option>
-            <option value="ut-text-justify">{{ 'wysiwyg.modal.cell.text_align.justify'|trans }}</option>
-          </select>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.bg_color'|trans }}</label>
+          <div class="umanit-tiptap__bg-color-grid" role="group">
+            {% for color in computed.cellBackgroundColors %}
+              <label class="umanit-tiptap__bg-color-option" title="{{ color.label|trans }}">
+                <input type="radio" name="bgColor" value="{{ color.asBackgroundColorClass }}" class="ut-visually-hidden">
+                <span class="umanit-tiptap__bg-color-swatch {{ color.asBackgroundColorClass }}"></span>
+              </label>
+            {% endfor %}
+          </div>
         </div>
         <div>
           <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.col_width'|trans }}</label>
@@ -128,11 +128,11 @@
   {% block footer %}
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
-              {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
+          {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
         {{ 'modal.cancel'|trans }}
       </button>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--success"
-              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'table.confirmUpdateCell'}) }}>
+          {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'table.confirmUpdateCell'}) }}>
         {{ 'wysiwyg.modal.apply'|trans }}
       </button>
     </div>
