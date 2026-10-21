@@ -14,7 +14,21 @@ use Umanit\TiptapBundle\Builder\DefaultColorsSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultStylesSetsBuilder;
 use Umanit\TiptapBundle\Builder\DefaultTemplatesSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultToolbarBuilder;
+use Umanit\TiptapBundle\Cleaning\ContentCleaner;
+use Umanit\TiptapBundle\Cleaning\HtmlCleaner;
+use Umanit\TiptapBundle\Cleaning\Rule\EmptyInlineRule;
+use Umanit\TiptapBundle\Cleaning\Rule\EmptyParagraphsRule;
+use Umanit\TiptapBundle\Cleaning\Rule\FontTagRule;
+use Umanit\TiptapBundle\Cleaning\Rule\ListValueRule;
+use Umanit\TiptapBundle\Cleaning\Rule\NbspRunsRule;
+use Umanit\TiptapBundle\Cleaning\Rule\NestedSpansRule;
+use Umanit\TiptapBundle\Cleaning\Rule\SmallIndentRule;
+use Umanit\TiptapBundle\Cleaning\Rule\TableLayoutRule;
+use Umanit\TiptapBundle\Cleaning\Rule\WordClassesRule;
+use Umanit\TiptapBundle\Cleaning\Rule\WordLanguageRule;
+use Umanit\TiptapBundle\Cleaning\Rule\WordStylesRule;
 use Umanit\TiptapBundle\Command\AuditCommand;
+use Umanit\TiptapBundle\Command\CleanCommand;
 use Umanit\TiptapBundle\Command\MigrateCommand;
 use Umanit\TiptapBundle\Command\PaletteCommand;
 use Umanit\TiptapBundle\Form\Type\TiptapType;
@@ -174,6 +188,52 @@ return static function (ContainerConfigurator $container): void {
             ->args([
                 service('umanit_tiptap.audit.content_source_registry'),
                 service('umanit_tiptap.migration.migrator'),
+                service('umanit_tiptap.migration.backup')->nullOnInvalid(),
+            ])
+            ->tag('console.command')
+        ;
+        // The cleaning rules, applied by decreasing priority: an application adds its own with the tag
+        // `umanit_tiptap.cleaning_rule` (the lower the priority, the later it runs)
+        $cleaningRules = [
+            'word_language'    => WordLanguageRule::class,
+            'word_classes'     => WordClassesRule::class,
+            'font_tag'         => FontTagRule::class,
+            'word_styles'      => WordStylesRule::class,
+            'table_layout'     => TableLayoutRule::class,
+            'small_indent'     => SmallIndentRule::class,
+            'list_value'       => ListValueRule::class,
+            'nested_spans'     => NestedSpansRule::class,
+            'empty_inline'     => EmptyInlineRule::class,
+            'nbsp_runs'        => NbspRunsRule::class,
+            'empty_paragraphs' => EmptyParagraphsRule::class,
+        ];
+        $priority = 100;
+
+        foreach ($cleaningRules as $name => $class) {
+            $services
+                ->set('umanit_tiptap.cleaning.rule.' . $name, $class)
+                ->tag('umanit_tiptap.cleaning_rule', ['priority' => $priority--])
+            ;
+        }
+
+        $services
+            ->set('umanit_tiptap.cleaning.html_cleaner', HtmlCleaner::class)
+            ->args([tagged_iterator('umanit_tiptap.cleaning_rule')])
+        ;
+        $services
+            ->set('umanit_tiptap.cleaning.content_cleaner', ContentCleaner::class)
+            ->args([
+                service('umanit_tiptap.cleaning.html_cleaner'),
+                service('umanit_tiptap.audit.content_source_registry'),
+                service('umanit_tiptap.migration.backup')->nullOnInvalid(),
+            ])
+        ;
+        $services
+            ->set('umanit_tiptap.cleaning.command', CleanCommand::class)
+            ->args([
+                service('umanit_tiptap.audit.content_source_registry'),
+                service('umanit_tiptap.cleaning.content_cleaner'),
+                service('umanit_tiptap.cleaning.html_cleaner'),
                 service('umanit_tiptap.migration.backup')->nullOnInvalid(),
             ])
             ->tag('console.command')

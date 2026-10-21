@@ -2,7 +2,8 @@
 
 `umanit:tiptap:migrate` rewrites the contents written with another editor (CKEditor…) as the TipTap editor writes them,
 so that nothing changes the first time someone opens one of them. Measure first with
-[`umanit:tiptap:audit`](migration-audit.md), and build the palette of your colors and sizes with
+[`umanit:tiptap:audit`](migration-audit.md), remove what Word left in them with
+[`umanit:tiptap:clean`](cleaning.md), and build the palette of your colors and sizes with
 [`umanit:tiptap:palette`](palette.md).
 
 ```bash

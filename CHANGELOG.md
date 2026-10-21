@@ -27,3 +27,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   shows the original and the edited contents side by side, with the HTML diff. Off by default; turned on with the
   `umanit_tiptap.migration_diff` setting (per environment) or the `migration_diff` option of `TiptapType`; see
   `docs/migration-diff.md`.
+- `umanit:tiptap:clean` command: removes the leftovers of Word and of other editors (fonts, default line heights and
+  spacing, languages, table layout, non-breaking spaces used to indent, empty paragraphs…) from the contents of the
+  declared sources before they are migrated. It simulates by default, never changes the text, saves the contents it
+  rewrites (`umanit:tiptap:migrate --rollback` puts them back), and is a set of rules (`CleaningRuleInterface`, tag
+  `umanit_tiptap.cleaning_rule`); see `docs/cleaning.md`. Requires `ext-dom`.
