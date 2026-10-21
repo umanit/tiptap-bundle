@@ -32,3 +32,16 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   declared sources before they are migrated. It simulates by default, never changes the text, saves the contents it
   rewrites (`umanit:tiptap:migrate --rollback` puts them back), and is a set of rules (`CleaningRuleInterface`, tag
   `umanit_tiptap.cleaning_rule`); see `docs/cleaning.md`. Requires `ext-dom`.
+- Tables: the width of a column (in px, from the cell properties) is written as `<col width>` in a `<colgroup>` and read
+  back; only pixel widths are read, any other one is reported by the audit. A table can be aligned left, centered or
+  right (`ut-table-center`, `ut-table-right`).
+- Tables: the horizontal alignment of a cell (`ut-text-left|center|right|justify` on the `td`/`th`, from the cell
+  properties). A cell written by another editor with `style="text-align:…"` or `align="…"` gets that class, so the audit
+  no longer reports it as lost. The cell form keeps the other classes of the cell.
+
+### Fixed
+
+- A new table width class or column width was not shown in the editor (the TipTap table view ignored updates), and the
+  `ut-w-*` classes lost against the `width: 100%` that sites give to the tables of their contents (now `!important`).
+- Removing the background color of a cell left a `ut-bg-` class.
+- The source view laid out a table with a `<colgroup>` on a single line.

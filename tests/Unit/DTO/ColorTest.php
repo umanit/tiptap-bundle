@@ -18,4 +18,12 @@ final class ColorTest extends TestCase
         $this->assertSame('ut-color-red', $color->getAsTextColorClass());
         $this->assertSame('ut-bg-red', $color->getAsBackgroundColorClass());
     }
+
+    public function testNoColorHasNoCssClass(): void
+    {
+        $color = new Color('wysiwyg.modal.cell.bg_color.none', '');
+
+        $this->assertSame('', $color->getAsTextColorClass());
+        $this->assertSame('', $color->getAsBackgroundColorClass());
+    }
 }

@@ -54,7 +54,7 @@ repeated.
 Some of them are choices rather than facts, and can be skipped:
 
 - `word-styles` drops every `font-family`: the site decides the font.
-- `table-layout` drops the widths of the columns.
+- `table-layout` drops the widths of the columns, those set in the editor (`<col width>`) included.
 - `small-indent` treats up to 12px as noise; 30px or 40px, which somebody picked, stay.
 - A black text color is only removed when nothing else colors the text around it.
 

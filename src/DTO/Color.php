@@ -14,11 +14,11 @@ final readonly class Color
 
     public function getAsTextColorClass(): string
     {
-        return 'ut-color-' . $this->name;
+        return '' === $this->name ? '' : 'ut-color-' . $this->name;
     }
 
     public function getAsBackgroundColorClass(): string
     {
-        return 'ut-bg-' . $this->name;
+        return '' === $this->name ? '' : 'ut-bg-' . $this->name;
     }
 }

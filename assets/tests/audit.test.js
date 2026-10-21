@@ -139,6 +139,12 @@ describe('RoundTripper', () => {
     expect(lostOf(table('<col style="width:100px"><col>'))).toContain('style:width');
   });
 
+  it('does not report the alignment of a cell', () => {
+    const cells = '<td style="text-align:center">a</td><td>b</td>';
+
+    expect(lostOf(`<table><tbody><tr>${cells}</tr></tbody></table>`)).toEqual([]);
+  });
+
   it('does not report an alignment converted to a class, nor <b> rewritten as <strong>', () => {
     const result = roundTripper.run('<p style="text-align:center"><b>x</b></p>');
 

@@ -103,6 +103,16 @@
       </div>
       <div class="umanit-tiptap__row">
         <div>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.text_align'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <select class="umanit-tiptap__select" name="textAlign">
+            <option value="">{{ 'wysiwyg.modal.cell.align.default'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="ut-text-left">{{ 'wysiwyg.modal.cell.text_align.left'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="ut-text-center">{{ 'wysiwyg.modal.cell.text_align.center'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="ut-text-right">{{ 'wysiwyg.modal.cell.text_align.right'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="ut-text-justify">{{ 'wysiwyg.modal.cell.text_align.justify'|trans({}, 'UmanitTiptapBundle') }}</option>
+          </select>
+        </div>
+        <div>
           <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.col_width'|trans({}, 'UmanitTiptapBundle') }}</label>
           <input type="number" class="umanit-tiptap__input" name="colWidth" min="1" step="1"
                  placeholder="{{ 'wysiwyg.modal.cell.col_width_placeholder'|trans({}, 'UmanitTiptapBundle') }}">

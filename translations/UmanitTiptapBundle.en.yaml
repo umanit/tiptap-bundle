@@ -48,6 +48,11 @@ wysiwyg.modal.cell.bg_color: 'Background Color'
 wysiwyg.modal.cell.bg_color.none: Default
 wysiwyg.modal.cell.col_width: 'Column width (px)'
 wysiwyg.modal.cell.col_width_placeholder: Automatic
+wysiwyg.modal.cell.text_align: 'Horizontal Alignment'
+wysiwyg.modal.cell.text_align.center: Centered
+wysiwyg.modal.cell.text_align.justify: Justified
+wysiwyg.modal.cell.text_align.left: Left
+wysiwyg.modal.cell.text_align.right: Right
 wysiwyg.modal.cell.title: 'Cell Properties'
 wysiwyg.modal.cell.vertical_align: 'Vertical Alignment'
 wysiwyg.modal.image.align: Alignment

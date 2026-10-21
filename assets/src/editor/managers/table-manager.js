@@ -1,6 +1,8 @@
 import { selectedRect } from '@tiptap/pm/tables';
 import AbstractManager from './abstract-manager.js';
 
+// Classes of a cell which the cell form manages: any other one is left as it is
+const CELL_FORM_CLASS = /^(ut-bg-.+|ut-align-.+|ut-text-(left|center|right|justify))$/;
 const TABLE_ALIGN_CLASSES = ['ut-table-center', 'ut-table-right'];
 
 export default class TableManager extends AbstractManager {
@@ -131,12 +133,14 @@ export default class TableManager extends AbstractManager {
     }
 
     const classes = (attrs.class || '').split(' ').filter(Boolean);
-    const bgClass = classes.find((c) => c.startsWith('ut-bg-')) || '';
+    const bgClass = classes.find((c) => /^ut-bg-.+/.test(c)) || '';
     const alignClass = classes.find((c) => c.startsWith('ut-align-')) || '';
+    const textAlignClass = classes.find((c) => c.startsWith('ut-text-')) || '';
 
     this.setFormValues(this.#cellFormElement, {
       bgColor: bgClass,
       verticalAlign: alignClass,
+      textAlign: textAlignClass,
       colWidth: this.#selectedColumnWidth() ?? '',
     });
 
@@ -149,12 +153,10 @@ export default class TableManager extends AbstractManager {
     }
 
     const data = this.getFormData(this.#cellFormElement);
-    const classes = [data.bgColor, data.verticalAlign].filter(Boolean).join(' ');
-    const attributes = { class: classes || null };
+    const formClasses = [data.bgColor, data.verticalAlign, data.textAlign].filter(Boolean);
 
     this.chain()
-      .updateAttributes('tableCell', attributes)
-      .updateAttributes('tableHeader', attributes)
+      .command(({ tr, state }) => this.#setCellClasses(tr, state, formClasses))
       .command(({ tr, state }) => this.#setColumnWidth(tr, state, parseInt(data.colWidth, 10)))
       .run();
 
@@ -202,6 +204,32 @@ export default class TableManager extends AbstractManager {
       zIndex: '1060',
     });
     this.#contextMenuElement.classList.remove('ut-hidden');
+  }
+
+  /**
+   * Gives every selected cell the classes of the form, keeping the other classes it has.
+   *
+   * @param {import('@tiptap/pm/state').Transaction} tr
+   * @param {import('@tiptap/pm/state').EditorState} state
+   * @param {string[]} formClasses
+   * @returns {boolean}
+   */
+  #setCellClasses(tr, state, formClasses) {
+    const {
+      left, right, top, bottom, map, table, tableStart,
+    } = selectedRect(state);
+
+    map.cellsInRect({
+      left, right, top, bottom,
+    }).forEach((pos) => {
+      const cell = table.nodeAt(pos);
+      const kept = (cell.attrs.class || '').split(' ').filter((c) => c && !CELL_FORM_CLASS.test(c));
+      const classes = [...kept, ...formClasses].join(' ');
+
+      tr.setNodeMarkup(tableStart + pos, null, { ...cell.attrs, class: classes || null });
+    });
+
+    return true;
   }
 
   /**

@@ -116,6 +116,8 @@ export const CustomTable = Table.extend({
   },
 });
 
+const TEXT_ALIGNS = ['left', 'center', 'right', 'justify'];
+
 // Only a width in pixels is read: the parent's parseInt would turn a `50%` into 50px, silently.
 function parseColwidth(element) {
   const colwidth = element.getAttribute('colwidth');
@@ -141,11 +143,28 @@ function parseColwidth(element) {
   return widths.some(Boolean) ? widths : null;
 }
 
+// The alignment another editor wrote on the cell (`style="text-align:center"`, `align="center"`) becomes the class the
+// schema uses, unless the cell has one already.
+function cellClass(element) {
+  const classes = (element.getAttribute('class') || '').split(' ').filter(Boolean);
+  const align = (element.style?.textAlign || element.getAttribute('align') || '').toLowerCase();
+
+  if (TEXT_ALIGNS.includes(align) && !classes.some((c) => c.startsWith('ut-text-'))) {
+    classes.push(`ut-text-${align}`);
+  }
+
+  return classes.join(' ') || null;
+}
+
 function withoutInlineStyles(parentAttrs) {
   const attrs = { ...parentAttrs };
   // colwidth renders as style="width:Xpx; min-width:Ypx" — neutralize it for CSP compliance
   if (attrs.colwidth) {
     attrs.colwidth = { ...attrs.colwidth, parseHTML: parseColwidth, renderHTML: () => ({}) };
+  }
+  // The native alignment renders as style="text-align:…": the class (see cellClass) carries it instead
+  if (attrs.align) {
+    attrs.align = { ...attrs.align, renderHTML: () => ({}) };
   }
   return attrs;
 }
@@ -156,7 +175,7 @@ export const CustomTableCell = TableCell.extend({
       ...withoutInlineStyles(this.parent?.() ?? {}),
       class: {
         default: null,
-        parseHTML: (element) => element.getAttribute('class') || null,
+        parseHTML: cellClass,
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
       },
     };
@@ -169,7 +188,7 @@ export const CustomTableHeader = TableHeader.extend({
       ...withoutInlineStyles(this.parent?.() ?? {}),
       class: {
         default: null,
-        parseHTML: (element) => element.getAttribute('class') || null,
+        parseHTML: cellClass,
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
       },
     };

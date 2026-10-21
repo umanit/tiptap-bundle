@@ -164,6 +164,41 @@ describe('content schema', () => {
     expect(editor.getHTML()).not.toContain('colgroup');
   });
 
+  it('turns the alignment of a cell into a class, once', () => {
+    const html = roundTrip('<table><tbody><tr><td style="text-align:center">a</td><th align="right">b</th>'
+      + '<td class="ut-text-left" style="text-align:center">c</td><td>d</td></tr></tbody></table>');
+
+    expect(html).toContain('<td class="ut-text-center">');
+    expect(html).toContain('<th class="ut-text-right">');
+    expect(html).toContain('<td class="ut-text-left">');
+    expect(html).not.toContain('style=');
+    expect(html).toContain('<td><p>d</p></td>');
+  });
+
+  it('sets the classes of the cell form without losing the other ones', () => {
+    const cellForm = document.createElement('form');
+    cellForm.innerHTML = '<input name="colWidth"><input type="radio" name="bgColor" value="ut-bg-red">'
+      + '<select name="verticalAlign"><option value=""></option></select>'
+      + '<select name="textAlign"><option value=""></option><option value="ut-text-center">c</option></select>';
+    document.body.append(cellForm);
+    create(
+      '<table><tbody><tr><td class="keep ut-bg-blue">a</td><td class="ut-align-top">b</td></tr></tbody></table>',
+      { cellForm },
+    );
+    const classes = () => editor.getEditor().state.doc.firstChild.firstChild.child(0).attrs.class;
+
+    editor.getEditor().commands.setTextSelection(4);
+    cellForm.elements.textAlign.value = 'ut-text-center';
+    editor.runCommand('table.confirmUpdateCell');
+
+    expect(classes()).toBe('keep ut-text-center');
+
+    cellForm.elements.textAlign.value = '';
+    editor.runCommand('table.confirmUpdateCell');
+
+    expect(classes()).toBe('keep');
+  });
+
   it('keeps the alignment class of a table', () => {
     expect(roundTrip('<table class="ut-w-50 ut-table-center"><tbody><tr><td>a</td></tr></tbody></table>'))
       .toContain('class="ut-w-50 ut-table-center"');
