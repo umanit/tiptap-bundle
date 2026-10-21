@@ -5,9 +5,9 @@
  * Only the whitespace between blocks is added, so the content is unchanged for the editor and the browsers.
  */
 const CONTAINER_TAGS = new Set([
-  'blockquote', 'ul', 'ol', 'li', 'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th', 'div',
+  'blockquote', 'ul', 'ol', 'li', 'table', 'colgroup', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th', 'div',
 ]);
-const BLOCK_TAGS = new Set([...CONTAINER_TAGS, 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'pre']);
+const BLOCK_TAGS = new Set([...CONTAINER_TAGS, 'col', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'pre']);
 const INDENT = '  ';
 
 const isBlock = (node) => node.nodeType === Node.ELEMENT_NODE && BLOCK_TAGS.has(node.localName);

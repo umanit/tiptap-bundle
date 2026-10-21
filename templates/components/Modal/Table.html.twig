@@ -29,6 +29,14 @@
             <option value="ut-w-100">100%</option>
           </select>
         </div>
+        <div>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.align'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <select class="umanit-tiptap__select" name="tableAlign">
+            <option value="">{{ 'wysiwyg.modal.table.align_left'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="ut-table-center">{{ 'wysiwyg.modal.table.align_center'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="ut-table-right">{{ 'wysiwyg.modal.table.align_right'|trans({}, 'UmanitTiptapBundle') }}</option>
+          </select>
+        </div>
       </div>
 
       <div class="umanit-tiptap__row">
@@ -91,6 +99,13 @@
             <option value="ut-align-middle">{{ 'wysiwyg.modal.cell.align.middle'|trans({}, 'UmanitTiptapBundle') }}</option>
             <option value="ut-align-bottom">{{ 'wysiwyg.modal.cell.align.bottom'|trans({}, 'UmanitTiptapBundle') }}</option>
           </select>
+        </div>
+      </div>
+      <div class="umanit-tiptap__row">
+        <div>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.col_width'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <input type="number" class="umanit-tiptap__input" name="colWidth" min="1" step="1"
+                 placeholder="{{ 'wysiwyg.modal.cell.col_width_placeholder'|trans({}, 'UmanitTiptapBundle') }}">
         </div>
       </div>
     </form>

@@ -131,6 +131,14 @@ describe('RoundTripper', () => {
     expect(result.textChanged).toBe(false);
   });
 
+  it('keeps the column widths in pixels and reports the ones it cannot', () => {
+    const table = (cols) => `<table><colgroup>${cols}</colgroup><tbody><tr><td>a</td><td>b</td></tr></tbody></table>`;
+
+    expect(lostOf(table('<col width="100"><col width="200px">'))).toEqual([]);
+    expect(lostOf(table('<col width="50%"><col width="50%">'))).toEqual(['tag:colgroup', 'tag:col', 'attr:col@width']);
+    expect(lostOf(table('<col style="width:100px"><col>'))).toContain('style:width');
+  });
+
   it('does not report an alignment converted to a class, nor <b> rewritten as <strong>', () => {
     const result = roundTripper.run('<p style="text-align:center"><b>x</b></p>');
 

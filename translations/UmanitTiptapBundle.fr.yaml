@@ -46,6 +46,8 @@ wysiwyg.modal.cell.align.middle: Milieu
 wysiwyg.modal.cell.align.top: Haut
 wysiwyg.modal.cell.bg_color: 'Couleur de fond'
 wysiwyg.modal.cell.bg_color.none: 'Par défaut'
+wysiwyg.modal.cell.col_width: 'Largeur de la colonne (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automatique
 wysiwyg.modal.cell.title: 'Propriétés de la cellule'
 wysiwyg.modal.cell.vertical_align: 'Alignement Vertical'
 wysiwyg.modal.image.align: Alignement
@@ -77,6 +79,10 @@ wysiwyg.modal.link.type.url: 'URL Web'
 wysiwyg.modal.link.url: 'Adresse Web (URL)'
 wysiwyg.modal.link.url_placeholder: 'https://example.com'
 wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Alignement du tableau'
+wysiwyg.modal.table.align_center: Centré
+wysiwyg.modal.table.align_left: Gauche
+wysiwyg.modal.table.align_right: Droite
 wysiwyg.modal.table.appearance: Apparence
 wysiwyg.modal.table.border: 'Bordure (px)'
 wysiwyg.modal.table.cols: 'Colonnes*'

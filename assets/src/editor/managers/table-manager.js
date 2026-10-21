@@ -1,4 +1,7 @@
+import { selectedRect } from '@tiptap/pm/tables';
 import AbstractManager from './abstract-manager.js';
+
+const TABLE_ALIGN_CLASSES = ['ut-table-center', 'ut-table-right'];
 
 export default class TableManager extends AbstractManager {
   /** @type {HTMLFormElement|null} */
@@ -66,10 +69,12 @@ export default class TableManager extends AbstractManager {
     const attrs = this._editor.getAttributes('table');
     const classes = (attrs.class || '').split(' ');
     const tableWidth = classes.find((c) => c.startsWith('ut-w-')) || '';
-    const cssClass = classes.filter((c) => !c.startsWith('ut-w-')).join(' ');
+    const tableAlign = classes.find((c) => TABLE_ALIGN_CLASSES.includes(c)) || '';
+    const cssClass = classes.filter((c) => !c.startsWith('ut-w-') && !TABLE_ALIGN_CLASSES.includes(c)).join(' ');
 
     this.setFormValues(this._formElement, {
       tableWidth,
+      tableAlign,
       border: attrs.border || '',
       cssClass,
     });
@@ -132,6 +137,7 @@ export default class TableManager extends AbstractManager {
     this.setFormValues(this.#cellFormElement, {
       bgColor: bgClass,
       verticalAlign: alignClass,
+      colWidth: this.#selectedColumnWidth() ?? '',
     });
 
     this.openModal(this.#cellFormElement);
@@ -149,6 +155,7 @@ export default class TableManager extends AbstractManager {
     this.chain()
       .updateAttributes('tableCell', attributes)
       .updateAttributes('tableHeader', attributes)
+      .command(({ tr, state }) => this.#setColumnWidth(tr, state, parseInt(data.colWidth, 10)))
       .run();
 
     this.closeModal(this.#cellFormElement);
@@ -197,6 +204,61 @@ export default class TableManager extends AbstractManager {
     this.#contextMenuElement.classList.remove('ut-hidden');
   }
 
+  /**
+   * Width (in px) of the first selected column, null when it has none.
+   *
+   * @returns {number|null}
+   */
+  #selectedColumnWidth() {
+    const {
+      left, map, table,
+    } = selectedRect(this._editor.state);
+    const pos = map.map[left];
+    const cell = table.nodeAt(pos);
+
+    return cell.attrs.colwidth?.[left - map.colCount(pos)] || null;
+  }
+
+  /**
+   * Gives the selected columns the width (in px, none when not a positive number) on every one of their cells.
+   *
+   * @param {import('@tiptap/pm/state').Transaction} tr
+   * @param {import('@tiptap/pm/state').EditorState} state
+   * @param {number} width
+   * @returns {boolean}
+   */
+  #setColumnWidth(tr, state, width) {
+    const {
+      left, right, map, table, tableStart,
+    } = selectedRect(state);
+    const value = width > 0 ? width : 0;
+    const done = new Set();
+
+    for (let row = 0; row < map.height; row += 1) {
+      for (let col = left; col < right; col += 1) {
+        const pos = map.map[row * map.width + col];
+
+        if (!done.has(pos)) {
+          done.add(pos);
+
+          const cell = table.nodeAt(pos);
+          const first = map.colCount(pos);
+          // A cell spanning several columns keeps the widths of those which are not selected
+          const colwidth = Array.from({ length: cell.attrs.colspan }, (_, i) => (
+            first + i >= left && first + i < right ? value : (cell.attrs.colwidth?.[i] ?? 0)
+          ));
+
+          tr.setNodeMarkup(tableStart + pos, null, {
+            ...cell.attrs,
+            colwidth: colwidth.some(Boolean) ? colwidth : null,
+          });
+        }
+      }
+    }
+
+    return true;
+  }
+
   #buildTableAttributes(data) {
     const attributes = {};
 
@@ -204,7 +266,7 @@ export default class TableManager extends AbstractManager {
       attributes.border = data.border;
     }
 
-    const classes = [data.tableWidth, data.cssClass].filter(Boolean).join(' ');
+    const classes = [data.tableWidth, data.tableAlign, data.cssClass].filter(Boolean).join(' ');
     if (classes) {
       attributes.class = classes;
     }

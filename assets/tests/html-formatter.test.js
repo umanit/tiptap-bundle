@@ -49,6 +49,27 @@ describe('HtmlFormatter.format', () => {
       ].join('\n'));
   });
 
+  it('lays out the colgroup of a table', () => {
+    const html = '<table><colgroup><col width="50"><col></colgroup><tbody><tr><td><p>x</p></td></tr></tbody></table>';
+
+    expect(HtmlFormatter.format(html))
+      .toBe([
+        '<table>',
+        '  <colgroup>',
+        '    <col width="50">',
+        '    <col>',
+        '  </colgroup>',
+        '  <tbody>',
+        '    <tr>',
+        '      <td>',
+        '        <p>x</p>',
+        '      </td>',
+        '    </tr>',
+        '  </tbody>',
+        '</table>',
+      ].join('\n'));
+  });
+
   it('never touches the whitespace of a pre', () => {
     const html = '<pre><code>a\n  b</code></pre>';
 

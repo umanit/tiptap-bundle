@@ -126,10 +126,14 @@
 .ut-ma-10 { margin: 10px; }
 
 /* Table widths */
-.ut-w-25 { width: 25%; }
-.ut-w-50 { width: 50%; }
-.ut-w-75 { width: 75%; }
-.ut-w-100 { width: 100%; }
+.ut-w-25 { width: 25% !important; }
+.ut-w-50 { width: 50% !important; }
+.ut-w-75 { width: 75% !important; }
+.ut-w-100 { width: 100% !important; }
+
+/* Table alignment */
+.ut-table-center { margin-inline: auto !important; }
+.ut-table-right { margin-inline: auto 0 !important; }
 
 /* Font sizes */
 .ut-fs-10 { font-size: 10px; }

@@ -116,7 +116,57 @@ describe('content schema', () => {
     expect(html).toContain('border="1"');
     expect(html).toContain('class="ut-bg-red"');
     expect(html).not.toContain('style=');
-    expect(html).not.toContain('colgroup');
+    expect(html).toContain('<colgroup><col width="100"></colgroup>');
+  });
+
+  it('renders column widths as <col width>, read back from a colgroup', () => {
+    const html = roundTrip('<table><colgroup><col width="120"><col></colgroup><tbody><tr><td>a</td><td>b</td></tr>'
+      + '</tbody></table>');
+
+    expect(html).toContain('<colgroup><col width="120"><col></colgroup>');
+    expect(html).not.toContain('style=');
+  });
+
+  it('redraws the table when its class changes', () => {
+    create('<table><tbody><tr><td>a</td></tr></tbody></table>');
+    editor.getEditor().chain().setTextSelection(3).updateAttributes('table', { class: 'ut-w-50' })
+      .run();
+
+    expect(document.querySelector('.ProseMirror table').classList.contains('ut-w-50')).toBe(true);
+  });
+
+  it('sets the width of the whole selected column from the cell form', () => {
+    const cellForm = document.createElement('form');
+    cellForm.innerHTML = '<input name="colWidth"><input name="bgColor"><select name="verticalAlign"></select>';
+    document.body.append(cellForm);
+    create('<table><tbody><tr><td>a</td><td>b</td></tr><tr><td>c</td><td>d</td></tr></tbody></table>', { cellForm });
+    editor.getEditor().commands.setTextSelection(7);
+    cellForm.elements.colWidth.value = '150';
+    editor.runCommand('table.confirmUpdateCell');
+
+    expect(editor.getHTML()).toContain('<colgroup><col><col width="150"></colgroup>');
+    expect(editor.getEditor().state.doc.firstChild.child(1).child(1).attrs.colwidth).toEqual([150]);
+
+    // Every change shows on screen, not only the first one
+    const cols = () => [...document.querySelectorAll('.ProseMirror colgroup col')].map((c) => c.getAttribute('width'));
+    expect(cols()).toEqual([null, '150']);
+
+    cellForm.elements.colWidth.value = '200';
+    editor.runCommand('table.confirmUpdateCell');
+
+    expect(cols()).toEqual([null, '200']);
+
+    cellForm.elements.colWidth.value = '';
+    editor.runCommand('table.confirmUpdateCell');
+
+    expect(document.querySelector('.ProseMirror colgroup')).toBeNull();
+
+    expect(editor.getHTML()).not.toContain('colgroup');
+  });
+
+  it('keeps the alignment class of a table', () => {
+    expect(roundTrip('<table class="ut-w-50 ut-table-center"><tbody><tr><td>a</td></tr></tbody></table>'))
+      .toContain('class="ut-w-50 ut-table-center"');
   });
 
   it('keeps image classes and sizes', () => {
