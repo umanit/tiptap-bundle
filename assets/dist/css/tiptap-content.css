@@ -79,6 +79,13 @@
       background-color: var(--ut-color-grey-light);
       font-weight: 600;
     }
+
+    &[border="0"] {
+      & td,
+      & th {
+        border: 0;
+      }
+    }
   }
 
   & img {

@@ -42,10 +42,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   reports it as lost, and the `table-layout` cleaning rule keeps that `align` instead of removing it (an alignment
   nobody would otherwise get back, since it was removed before the migration could convert it). The `align` of a cell
   is converted the same way.
+- The `table-layout` cleaning rule keeps the `border` of a table when it is a number of pixels, which the table
+  properties support; any other value is still removed.
 
 ### Fixed
 
 - A new table width class or column width was not shown in the editor (the TipTap table view ignored updates), and the
   `ut-w-*` classes lost against the `width: 100%` that sites give to the tables of their contents (now `!important`).
 - Removing the background color of a cell left a `ut-bg-` class.
+- The table properties could not remove a value: a border of 0 and an emptied class (width, alignment) kept the old
+  ones. A border of 0 is now written (`border="0"`) and `tiptap-content.css` draws no border on the cells then.
 - The source view laid out a table with a `<colgroup>` on a single line.

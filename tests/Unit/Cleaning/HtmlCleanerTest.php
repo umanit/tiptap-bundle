@@ -80,8 +80,19 @@ final class HtmlCleanerTest extends TestCase
             . ' width="510" border="1" cellpadding="1" cellspacing="1"><tbody><tr>'
             . '<td colspan="2" style="border-bottom:1px solid #000000;width:236px;padding:0cm 7px;height:23px;'
             . 'text-align:center;" valign="top"><p>a</p></td></tr></tbody></table>',
-            '<table><tbody><tr><td colspan="2" style="text-align:center;"><p>a</p></td></tr></tbody></table>',
+            '<table border="1"><tbody><tr><td colspan="2" style="text-align:center;"><p>a</p></td></tr></tbody>'
+            . '</table>',
             ['word-classes', 'table-layout'],
+        ];
+
+        yield 'a border in pixels stays, any other value goes' => [
+            '<table border="0"><tbody><tr><td>a</td></tr></tbody></table>'
+            . '<table border="2"><tbody><tr><td>b</td></tr></tbody></table>'
+            . '<table border="1px"><tbody><tr><td>c</td></tr></tbody></table>',
+            '<table border="0"><tbody><tr><td>a</td></tr></tbody></table>'
+            . '<table border="2"><tbody><tr><td>b</td></tr></tbody></table>'
+            . '<table><tbody><tr><td>c</td></tr></tbody></table>',
+            ['table-layout'],
         ];
 
         yield 'a table centered or aligned to the right keeps its alignment, a left one loses it' => [

@@ -164,6 +164,34 @@ describe('content schema', () => {
     expect(editor.getHTML()).not.toContain('colgroup');
   });
 
+  it('updates the table from its form: a border of 0 and an emptied class remove the old values', () => {
+    const tableForm = document.createElement('form');
+    tableForm.innerHTML = '<input name="border"><select name="tableWidth"><option value=""></option>'
+      + '<option value="ut-w-50">50</option></select><select name="tableAlign"><option value=""></option></select>'
+      + '<input name="cssClass">';
+    document.body.append(tableForm);
+    create('<table class="ut-w-50 striped" border="1"><tbody><tr><td>a</td></tr></tbody></table>', { tableForm });
+    editor.getEditor().commands.setTextSelection(3);
+    const table = () => editor.getEditor().state.doc.firstChild.attrs;
+
+    editor.runCommand('table.openEditModal');
+    expect(tableForm.elements.border.value).toBe('1');
+
+    tableForm.elements.border.value = '0';
+    tableForm.elements.tableWidth.value = '';
+    tableForm.elements.cssClass.value = '';
+    editor.runCommand('table.confirmAdd');
+
+    expect(table()).toMatchObject({ border: '0', class: null });
+    expect(editor.getHTML()).toContain('<table border="0">');
+
+    editor.runCommand('table.openEditModal');
+    tableForm.elements.border.value = '';
+    editor.runCommand('table.confirmAdd');
+
+    expect(table().border).toBeNull();
+  });
+
   it('turns the alignment of a cell into a class, once', () => {
     const html = roundTrip('<table><tbody><tr><td style="text-align:center">a</td><th align="right">b</th>'
       + '<td class="ut-text-left" style="text-align:center">c</td><td>d</td></tr></tbody></table>');

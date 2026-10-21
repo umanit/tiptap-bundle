@@ -46,7 +46,7 @@ final class TableLayoutRule implements CleaningRuleInterface
             $attributes = 'table' === $element->localName ? self::TABLE_ATTRIBUTES : self::CELL_ATTRIBUTES;
 
             foreach ($attributes as $attribute) {
-                if ($element->hasAttribute($attribute) && !$this->isKeptAlignment($element, $attribute)) {
+                if ($element->hasAttribute($attribute) && !$this->isKept($element, $attribute)) {
                     $element->removeAttribute($attribute);
                     ++$changes;
                 }
@@ -73,12 +73,21 @@ final class TableLayoutRule implements CleaningRuleInterface
     }
 
     /**
-     * The editor turns the alignment of a table (center, right) into a class: it is not part of the Word layout.
+     * What the editor supports on a table is not part of the Word layout: an alignment (center, right), turned into a
+     * class, and a border in pixels (`border="1"`).
      */
-    private function isKeptAlignment(Element $element, string $attribute): bool
+    private function isKept(Element $element, string $attribute): bool
     {
-        return 'table' === $element->localName
-            && 'align' === $attribute
-            && \in_array(\strtolower($element->getAttribute('align') ?? ''), ['center', 'right'], true);
+        if ('table' !== $element->localName) {
+            return false;
+        }
+
+        $value = \strtolower($element->getAttribute($attribute) ?? '');
+
+        return match ($attribute) {
+            'align' => \in_array($value, ['center', 'right'], true),
+            'border' => 1 === \preg_match('/^\d+$/', $value),
+            default => false,
+        };
     }
 }
