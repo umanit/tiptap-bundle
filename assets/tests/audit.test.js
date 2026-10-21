@@ -204,6 +204,15 @@ describe('RoundTripper', () => {
     expect(lostOf('<p><strong>a</strong><strong>b</strong></p>')).toEqual([]);
   });
 
+  it('does not report adjacent identical spans merged by the editor', () => {
+    const signals = (html) => collectSignals(html, parser).signals;
+    const span = (text) => `<span style="color:#f00;font-size:10pt">${text}</span>`;
+    const before = signals(`<p>${span('a')}${span('b')}</p>`);
+    const after = signals('<p><span class="ut-color-red ut-fs-13">ab</span></p>');
+
+    expect(lostSignals(before, after)).toEqual([]);
+  });
+
   it('reports the inline colors, sizes and indents the schema has no equivalent for', () => {
     expect(lostOf('<p style="margin-left:50px"><span style="color:#f00;font-size:14px">x</span></p>'))
       .toEqual(expect.arrayContaining(['style:margin-left', 'style:color', 'style:font-size']));

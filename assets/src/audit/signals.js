@@ -27,6 +27,9 @@ const CLASS_EQUIVALENCES = [
   [/^ut-fs-/, 'style:font-size'],
 ];
 
+// Properties measured in covered characters too, because the editor merges adjacent identical spans.
+const COVERAGE_STYLES = new Set(['color', 'background-color', 'font-size']);
+
 // Style properties reported as a single signal (`border-top-width`, `border-left-color`... become `border*`).
 const STYLE_FAMILIES = [
   [/^border/, 'border*'],
@@ -93,6 +96,19 @@ const convertedProperties = (el, tag) => {
 
 const increment = (signals, key, by = 1) => signals.set(key, (signals.get(key) ?? 0) + by);
 
+// Coverage signals (`style:color`...) an element carries, through an inline style or an equivalent utility class.
+const coverageSignalsOf = (el) => {
+  const found = new Set();
+
+  Array.from(el.style).filter((property) => COVERAGE_STYLES.has(property)).forEach((p) => found.add(`style:${p}`));
+  el.classList.forEach((cls) => {
+    CLASS_EQUIVALENCES.filter(([pattern, style]) => pattern.test(cls) && COVERAGE_STYLES.has(style.slice(6)))
+      .forEach(([, style]) => found.add(style));
+  });
+
+  return found;
+};
+
 const countMarkedCharacters = (root, signals) => {
   const walker = root.ownerDocument.createTreeWalker(root, 4 /* NodeFilter.SHOW_TEXT */);
 
@@ -101,6 +117,7 @@ const countMarkedCharacters = (root, signals) => {
 
     if (length > 0) {
       const marks = new Set();
+      const coverage = new Set();
 
       for (let el = walker.currentNode.parentElement; el && el !== root; el = el.parentElement) {
         const tag = TAG_ALIASES[el.tagName.toLowerCase()] ?? el.tagName.toLowerCase();
@@ -110,9 +127,11 @@ const countMarkedCharacters = (root, signals) => {
         }
 
         styleMarks(el.style).forEach((mark) => marks.add(mark));
+        coverageSignalsOf(el).forEach((signal) => coverage.add(signal));
       }
 
       marks.forEach((tag) => increment(signals, `mark:${tag}`, length));
+      coverage.forEach((signal) => increment(signals, signal, length));
     }
   }
 };
@@ -157,6 +176,10 @@ export const collectSignals = (html, parser) => {
     Array.from(el.attributes).forEach(({ name }) => {
       if (name === 'style') {
         new Set(Array.from(el.style).filter((property) => !converted.has(property)).map((property) => {
+          if (COVERAGE_STYLES.has(property)) {
+            return null;
+          }
+
           if (isImageSize(property)) {
             if (imageSize(el.style.getPropertyValue(property)) !== null) {
               imageSizes.add(`attr:img@${property}`);
@@ -172,7 +195,9 @@ export const collectSignals = (html, parser) => {
       } else if (name === 'class') {
         el.classList.forEach((cls) => {
           increment(signals, `class:${cls}`);
-          CLASS_EQUIVALENCES.filter(([pattern]) => pattern.test(cls)).forEach(([, style]) => increment(signals, style));
+          CLASS_EQUIVALENCES
+            .filter(([pattern, style]) => pattern.test(cls) && !COVERAGE_STYLES.has(style.slice(6)))
+            .forEach(([, style]) => increment(signals, style));
         });
       } else if (isImageSize(name)) {
         imageSizes.add(`attr:img@${name}`);
