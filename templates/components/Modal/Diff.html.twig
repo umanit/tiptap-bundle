@@ -1,12 +1,14 @@
 {% embed '@UmanitTiptap/components/Modal/base.html.twig' with {id: 'diffModal-' ~ id, size: 'xl'} %}
-  {% block title %}{{ 'wysiwyg.diff.title'|trans({}, 'UmanitTiptapBundle') }}{% endblock %}
+  {% trans_default_domain 'UmanitTiptapBundle' %}
+
+  {% block title %}{{ 'wysiwyg.diff.title'|trans }}{% endblock %}
 
   {% block content %}
-    <p class="umanit-tiptap__diff-help">{{ 'wysiwyg.diff.help'|trans({}, 'UmanitTiptapBundle') }}</p>
+    <p class="umanit-tiptap__diff-help">{{ 'wysiwyg.diff.help'|trans }}</p>
 
     <div class="umanit-tiptap__diff-previews">
       <figure>
-        <figcaption>{{ 'wysiwyg.diff.before'|trans({}, 'UmanitTiptapBundle') }}</figcaption>
+        <figcaption>{{ 'wysiwyg.diff.before'|trans }}</figcaption>
         {# Sandboxed: the stored content is shown as is, and must not run anything. `allow-same-origin` without
            `allow-scripts` runs nothing, and keeps the origin of the page: with an opaque origin, the browser would ask
            the web fonts of the stylesheets for CORS headers they are not served with. #}
@@ -14,7 +16,7 @@
                 {{ stimulus_target('umanit/tiptap/editor', 'diffBefore') }}></iframe>
       </figure>
       <figure>
-        <figcaption>{{ 'wysiwyg.diff.after'|trans({}, 'UmanitTiptapBundle') }}</figcaption>
+        <figcaption>{{ 'wysiwyg.diff.after'|trans }}</figcaption>
         <iframe sandbox="allow-same-origin" class="umanit-tiptap__diff-preview"
                 {{ stimulus_target('umanit/tiptap/editor', 'diffAfter') }}></iframe>
       </figure>
@@ -29,7 +31,7 @@
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
               {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
-        {{ 'modal.close'|trans({}, 'UmanitTiptapBundle') }}
+        {{ 'modal.close'|trans }}
       </button>
     </div>
   {% endblock %}

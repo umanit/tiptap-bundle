@@ -1,10 +1,12 @@
-{% set controller_values = {translations: {placeholder: 'wysiwyg.placeholder'|trans({}, 'UmanitTiptapBundle')}} %}
+{% trans_default_domain 'UmanitTiptapBundle' %}
+
+{% set controller_values = {translations: {placeholder: 'wysiwyg.placeholder'|trans}} %}
 {% if this.migrationDiff %}
   {% set controller_values = controller_values|merge({
     migrationDiff: true,
     translations: controller_values.translations|merge({
-      diffLost: 'wysiwyg.diff.banner_lost'|trans({}, 'UmanitTiptapBundle'),
-      diffRewritten: 'wysiwyg.diff.banner_rewritten'|trans({}, 'UmanitTiptapBundle'),
+      diffLost: 'wysiwyg.diff.banner_lost'|trans,
+      diffRewritten: 'wysiwyg.diff.banner_rewritten'|trans,
     }),
   }) %}
 {% endif %}
@@ -51,7 +53,7 @@
       <span {{ stimulus_target('umanit/tiptap/editor', 'diffMessage') }}></span>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
               {{ stimulus_action('umanit/tiptap/editor', 'openDiff') }}>
-        {{ 'wysiwyg.diff.show'|trans({}, 'UmanitTiptapBundle') }}
+        {{ 'wysiwyg.diff.show'|trans }}
       </button>
     </div>
   {% endif %}

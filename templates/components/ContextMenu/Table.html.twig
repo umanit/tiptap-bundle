@@ -1,39 +1,41 @@
+{% trans_default_domain 'UmanitTiptapBundle' %}
+
 {% set table_actions = [
   [{
     command: 'table.openEditModal',
     icon: 'umanit-tiptap:table',
     iconClass: 'ut-me-2',
-    label: 'wysiwyg.menu.table_properties'|trans({}, 'UmanitTiptapBundle'),
+    label: 'wysiwyg.menu.table_properties'|trans,
   }, {
     command: 'table.openCellModal',
     icon: 'umanit-tiptap:square-pen',
     iconClass: 'ut-me-2',
-    label: 'wysiwyg.menu.cell_properties'|trans({}, 'UmanitTiptapBundle'),
+    label: 'wysiwyg.menu.cell_properties'|trans,
   }], [{
     command: 'table.addRowBefore',
     icon: 'umanit-tiptap:arrow-up',
     iconClass: 'ut-me-2',
-    label: 'wysiwyg.menu.add_row_before'|trans({}, 'UmanitTiptapBundle'),
+    label: 'wysiwyg.menu.add_row_before'|trans,
   }, {
     command: 'table.addRowAfter',
     icon: 'umanit-tiptap:arrow-down',
     iconClass: 'ut-me-2',
-    label: 'wysiwyg.menu.add_row_after'|trans({}, 'UmanitTiptapBundle'),
+    label: 'wysiwyg.menu.add_row_after'|trans,
   }], [{
     command: 'table.mergeCells',
     icon: 'umanit-tiptap:fold-horizontal',
     iconClass: 'ut-me-2',
-    label: 'wysiwyg.menu.merge_cells'|trans({}, 'UmanitTiptapBundle'),
+    label: 'wysiwyg.menu.merge_cells'|trans,
   }, {
     command: 'table.splitCell',
     icon: 'umanit-tiptap:unfold-horizontal',
     iconClass: 'ut-me-2',
-    label: 'wysiwyg.menu.split_cell'|trans({}, 'UmanitTiptapBundle'),
+    label: 'wysiwyg.menu.split_cell'|trans,
   }], [{
     command: 'table.delete',
     icon: 'umanit-tiptap:trash-2',
     iconClass: 'ut-me-2',
-    label: 'wysiwyg.menu.delete_table'|trans({}, 'UmanitTiptapBundle'),
+    label: 'wysiwyg.menu.delete_table'|trans,
     class: 'umanit-tiptap__context-menu-item--danger',
   }],
 ] %}

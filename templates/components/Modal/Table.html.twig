@@ -1,28 +1,30 @@
 {% embed '@UmanitTiptap/components/Modal/base.html.twig' with {id: 'tableConfigModal-' ~ id} %}
-  {% block title %}{{ 'wysiwyg.modal.table.title'|trans({}, 'UmanitTiptapBundle') }}{% endblock %}
+  {% trans_default_domain 'UmanitTiptapBundle' %}
+
+  {% block title %}{{ 'wysiwyg.modal.table.title'|trans }}{% endblock %}
 
   {% block content %}
     <form {{ stimulus_target('umanit/tiptap/editor', 'tableForm') }}>
       <div data-table-structure>
-        <h6 class="umanit-tiptap__section-title">{{ 'wysiwyg.modal.table.structure'|trans({}, 'UmanitTiptapBundle') }}</h6>
+        <h6 class="umanit-tiptap__section-title">{{ 'wysiwyg.modal.table.structure'|trans }}</h6>
         <div class="umanit-tiptap__row">
           <div>
-            <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.rows'|trans({}, 'UmanitTiptapBundle') }}</label>
+            <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.rows'|trans }}</label>
             <input type="number" class="umanit-tiptap__input" name="rows" value="3" min="1" required>
           </div>
           <div>
-            <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.cols'|trans({}, 'UmanitTiptapBundle') }}</label>
+            <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.cols'|trans }}</label>
             <input type="number" class="umanit-tiptap__input" name="cols" value="2" min="1" required>
           </div>
         </div>
       </div>
 
-      <h6 class="umanit-tiptap__section-title">{{ 'wysiwyg.modal.table.appearance'|trans({}, 'UmanitTiptapBundle') }}</h6>
+      <h6 class="umanit-tiptap__section-title">{{ 'wysiwyg.modal.table.appearance'|trans }}</h6>
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.width'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.width'|trans }}</label>
           <select class="umanit-tiptap__select" name="tableWidth">
-            <option value="">{{ 'wysiwyg.modal.table.width_auto'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="">{{ 'wysiwyg.modal.table.width_auto'|trans }}</option>
             <option value="ut-w-25">25%</option>
             <option value="ut-w-50">50%</option>
             <option value="ut-w-75">75%</option>
@@ -30,23 +32,23 @@
           </select>
         </div>
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.align'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.align'|trans }}</label>
           <select class="umanit-tiptap__select" name="tableAlign">
-            <option value="">{{ 'wysiwyg.modal.table.align_left'|trans({}, 'UmanitTiptapBundle') }}</option>
-            <option value="ut-table-center">{{ 'wysiwyg.modal.table.align_center'|trans({}, 'UmanitTiptapBundle') }}</option>
-            <option value="ut-table-right">{{ 'wysiwyg.modal.table.align_right'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="">{{ 'wysiwyg.modal.table.align_left'|trans }}</option>
+            <option value="ut-table-center">{{ 'wysiwyg.modal.table.align_center'|trans }}</option>
+            <option value="ut-table-right">{{ 'wysiwyg.modal.table.align_right'|trans }}</option>
           </select>
         </div>
       </div>
 
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.css_class'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.css_class'|trans }}</label>
           <input type="text" class="umanit-tiptap__input" name="cssClass"
-                 placeholder="{{ 'wysiwyg.modal.table.css_placeholder'|trans({}, 'UmanitTiptapBundle') }}">
+                 placeholder="{{ 'wysiwyg.modal.table.css_placeholder'|trans }}">
         </div>
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.border'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.border'|trans }}</label>
           <input type="number" class="umanit-tiptap__input" name="border" value="1" min="0">
         </div>
       </div>
@@ -54,7 +56,7 @@
       <div class="umanit-tiptap__field" data-table-structure>
         <input type="checkbox" class="umanit-tiptap__check-input" name="withHeader" value="1" checked>
         <label class="umanit-tiptap__check-label">
-          {{ 'wysiwyg.modal.table.header_row'|trans({}, 'UmanitTiptapBundle') }}
+          {{ 'wysiwyg.modal.table.header_row'|trans }}
         </label>
       </div>
     </form>
@@ -64,27 +66,29 @@
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
               {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
-        {{ 'modal.cancel'|trans({}, 'UmanitTiptapBundle') }}
+        {{ 'modal.cancel'|trans }}
       </button>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--success"
               {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'table.confirmAdd'}) }}>
-        {{ 'wysiwyg.modal.ok'|trans({}, 'UmanitTiptapBundle') }}
+        {{ 'wysiwyg.modal.ok'|trans }}
       </button>
     </div>
   {% endblock %}
 {% endembed %}
 
 {% embed '@UmanitTiptap/components/Modal/base.html.twig' with {id: 'cellConfigModal-' ~ id} %}
-  {% block title %}{{ 'wysiwyg.modal.cell.title'|trans({}, 'UmanitTiptapBundle') }}{% endblock %}
+  {% trans_default_domain 'UmanitTiptapBundle' %}
+
+  {% block title %}{{ 'wysiwyg.modal.cell.title'|trans }}{% endblock %}
 
   {% block content %}
     <form {{ stimulus_target('umanit/tiptap/editor', 'cellForm') }}>
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.bg_color'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.bg_color'|trans }}</label>
           <div class="umanit-tiptap__bg-color-grid" role="group">
             {% for color in computed.cellBackgroundColors %}
-              <label class="umanit-tiptap__bg-color-option" title="{{ color.label|trans({}, 'UmanitTiptapBundle') }}">
+              <label class="umanit-tiptap__bg-color-option" title="{{ color.label|trans }}">
                 <input type="radio" name="bgColor" value="{{ color.asBackgroundColorClass }}" class="ut-visually-hidden">
                 <span class="umanit-tiptap__bg-color-swatch {{ color.asBackgroundColorClass }}"></span>
               </label>
@@ -92,30 +96,30 @@
           </div>
         </div>
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.vertical_align'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.vertical_align'|trans }}</label>
           <select class="umanit-tiptap__select" name="verticalAlign">
-            <option value="">{{ 'wysiwyg.modal.cell.align.default'|trans({}, 'UmanitTiptapBundle') }}</option>
-            <option value="ut-align-top">{{ 'wysiwyg.modal.cell.align.top'|trans({}, 'UmanitTiptapBundle') }}</option>
-            <option value="ut-align-middle">{{ 'wysiwyg.modal.cell.align.middle'|trans({}, 'UmanitTiptapBundle') }}</option>
-            <option value="ut-align-bottom">{{ 'wysiwyg.modal.cell.align.bottom'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="">{{ 'wysiwyg.modal.cell.align.default'|trans }}</option>
+            <option value="ut-align-top">{{ 'wysiwyg.modal.cell.align.top'|trans }}</option>
+            <option value="ut-align-middle">{{ 'wysiwyg.modal.cell.align.middle'|trans }}</option>
+            <option value="ut-align-bottom">{{ 'wysiwyg.modal.cell.align.bottom'|trans }}</option>
           </select>
         </div>
       </div>
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.text_align'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.text_align'|trans }}</label>
           <select class="umanit-tiptap__select" name="textAlign">
-            <option value="">{{ 'wysiwyg.modal.cell.align.default'|trans({}, 'UmanitTiptapBundle') }}</option>
-            <option value="ut-text-left">{{ 'wysiwyg.modal.cell.text_align.left'|trans({}, 'UmanitTiptapBundle') }}</option>
-            <option value="ut-text-center">{{ 'wysiwyg.modal.cell.text_align.center'|trans({}, 'UmanitTiptapBundle') }}</option>
-            <option value="ut-text-right">{{ 'wysiwyg.modal.cell.text_align.right'|trans({}, 'UmanitTiptapBundle') }}</option>
-            <option value="ut-text-justify">{{ 'wysiwyg.modal.cell.text_align.justify'|trans({}, 'UmanitTiptapBundle') }}</option>
+            <option value="">{{ 'wysiwyg.modal.cell.align.default'|trans }}</option>
+            <option value="ut-text-left">{{ 'wysiwyg.modal.cell.text_align.left'|trans }}</option>
+            <option value="ut-text-center">{{ 'wysiwyg.modal.cell.text_align.center'|trans }}</option>
+            <option value="ut-text-right">{{ 'wysiwyg.modal.cell.text_align.right'|trans }}</option>
+            <option value="ut-text-justify">{{ 'wysiwyg.modal.cell.text_align.justify'|trans }}</option>
           </select>
         </div>
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.col_width'|trans({}, 'UmanitTiptapBundle') }}</label>
+          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.col_width'|trans }}</label>
           <input type="number" class="umanit-tiptap__input" name="colWidth" min="1" step="1"
-                 placeholder="{{ 'wysiwyg.modal.cell.col_width_placeholder'|trans({}, 'UmanitTiptapBundle') }}">
+                 placeholder="{{ 'wysiwyg.modal.cell.col_width_placeholder'|trans }}">
         </div>
       </div>
     </form>
@@ -125,11 +129,11 @@
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
               {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
-        {{ 'modal.cancel'|trans({}, 'UmanitTiptapBundle') }}
+        {{ 'modal.cancel'|trans }}
       </button>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--success"
               {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'table.confirmUpdateCell'}) }}>
-        {{ 'wysiwyg.modal.apply'|trans({}, 'UmanitTiptapBundle') }}
+        {{ 'wysiwyg.modal.apply'|trans }}
       </button>
     </div>
   {% endblock %}

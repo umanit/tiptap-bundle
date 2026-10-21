@@ -1,16 +1,18 @@
 {% embed '@UmanitTiptap/components/Modal/base.html.twig' with {id: 'templateModal-' ~ id} %}
-  {% block title %}{{ 'wysiwyg.modal.template.title'|trans({}, 'UmanitTiptapBundle') }}{% endblock %}
+  {% trans_default_domain 'UmanitTiptapBundle' %}
+
+  {% block title %}{{ 'wysiwyg.modal.template.title'|trans }}{% endblock %}
 
   {% block content %}
     <form {{ stimulus_target('umanit/tiptap/editor', 'templateForm') }}>
       <div class="umanit-tiptap__field umanit-tiptap__check">
         <input type="checkbox" class="umanit-tiptap__check-input" id="replaceContentCheck-{{ id }}" name="replaceContent">
         <label class="umanit-tiptap__check-label" for="replaceContentCheck-{{ id }}">
-          {{ 'wysiwyg.modal.template.replace'|trans({}, 'UmanitTiptapBundle') }}
+          {{ 'wysiwyg.modal.template.replace'|trans }}
         </label>
       </div>
 
-      <p class="umanit-tiptap__hint">{{ 'wysiwyg.modal.template.select_helper'|trans({}, 'UmanitTiptapBundle') }}</p>
+      <p class="umanit-tiptap__hint">{{ 'wysiwyg.modal.template.select_helper'|trans }}</p>
 
       <div class="umanit-tiptap__list">
         {% for template in this.templates %}
@@ -20,10 +22,10 @@
                 args: template.content,
               }) }}>
             <div class="ut-flex ut-w-full ut-justify-between">
-              <h6 class="umanit-tiptap__list-item-title">{{ template.name|trans({}, 'UmanitTiptapBundle') }}</h6>
+              <h6 class="umanit-tiptap__list-item-title">{{ template.name|trans }}</h6>
             </div>
             {% if template.description is not null %}
-              <small class="umanit-tiptap__muted">{{ template.description|trans({}, 'UmanitTiptapBundle') }}</small>
+              <small class="umanit-tiptap__muted">{{ template.description|trans }}</small>
             {% endif %}
           </button>
         {% endfor %}
@@ -35,7 +37,7 @@
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
               {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
-        {{ 'modal.cancel'|trans({}, 'UmanitTiptapBundle') }}
+        {{ 'modal.cancel'|trans }}
       </button>
     </div>
   {% endblock %}
