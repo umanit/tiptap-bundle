@@ -140,6 +140,7 @@ wysiwyg.toolbar.insert_template: 'Insérer Gabarit'
 wysiwyg.toolbar.italic: Italique
 wysiwyg.toolbar.link: Lien
 wysiwyg.toolbar.link_text: Link
+wysiwyg.toolbar.list_tight: 'Liste compacte (sans espace entre les éléments)'
 wysiwyg.toolbar.ordered_list: 'Liste numérotée'
 wysiwyg.toolbar.outdent: 'Diminuer le retrait'
 wysiwyg.toolbar.paragraph: Paragraphe

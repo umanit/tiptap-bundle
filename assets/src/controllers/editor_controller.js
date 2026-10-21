@@ -9,6 +9,8 @@ import { createFileManagerAdapter } from '../file-manager/registry.js';
 import '../index.js';
 
 const NODE_COMMANDS = { 'image.open': 'image' };
+// Commands whose state is not a node or a mark: the editor tells it with a dedicated method
+const STATE_COMMANDS = { toggleListTight: 'isListTight' };
 
 export default class extends Controller {
   static targets = [
@@ -282,6 +284,12 @@ export default class extends Controller {
       // Manager commands have no "isActive" counterpart, except the ones bound to a node
       if (command in NODE_COMMANDS) {
         button.classList.toggle('active', this.#wysiwygEditor.isActive(NODE_COMMANDS[command]));
+
+        return;
+      }
+
+      if (command in STATE_COMMANDS) {
+        button.classList.toggle('active', this.#wysiwygEditor[STATE_COMMANDS[command]]());
 
         return;
       }

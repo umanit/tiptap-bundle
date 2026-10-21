@@ -25,6 +25,11 @@ neither text nor formatting:
   visible effect never blocks;
 - a content which is already as the editor writes it is left alone.
 
+CKEditor writes a list item as `<li>text</li>`, the editor as `<li><p>text</p></li>`, and the margin of the paragraph
+then spaces the items out. A list whose items are **all** written without a paragraph is rewritten with the class
+`ut-list-tight` (`<ul class="ut-list-tight">`), which cancels that margin (`tiptap-content.css`, `tiptap-email.css`). A
+list which already has a paragraph or a heading in one of its items is left as it is.
+
 The report counts the contents of each source by outcome, and tells which category blocks the ones which are left. The
 colors and sizes CKEditor sets inline are only converted with `--legacy-styles` (see [palette.md](palette.md)).
 

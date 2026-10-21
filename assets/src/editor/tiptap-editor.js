@@ -20,6 +20,7 @@ import CustomBlockClasses from './extensions/custom-block-classes.js';
 import { CustomTable, CustomTableCell, CustomTableHeader } from './extensions/custom-table.js';
 import CustomImage from './extensions/custom-image.js';
 import CustomListItem from './extensions/custom-list-item.js';
+import { closestList, hasTightClass } from './tight-list.js';
 
 /**
  * @typedef {Object} ManagersElements
@@ -112,6 +113,15 @@ export default class TipTapEditor {
 
   destroy() {
     this.#editor.destroy();
+  }
+
+  /**
+   * @returns {boolean} Whether the closest list around the cursor packs its items
+   */
+  isListTight() {
+    const list = closestList(this.#editor.state.selection.$from);
+
+    return list !== null && hasTightClass(list.node);
   }
 
   /**

@@ -67,6 +67,7 @@ final readonly class DefaultToolbarBuilder implements ToolbarBuilderInterface
                 new Tool('orderedList'),
                 new Tool('indent'),
                 new Tool('outdent'),
+                new Tool('listTight'),
             ]),
             new ToolbarSection([
                 new Tool('anchor'),

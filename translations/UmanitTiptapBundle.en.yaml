@@ -140,6 +140,7 @@ wysiwyg.toolbar.insert_template: 'Insert Template'
 wysiwyg.toolbar.italic: Italic
 wysiwyg.toolbar.link: Link
 wysiwyg.toolbar.link_text: Link
+wysiwyg.toolbar.list_tight: 'Compact list (no space between items)'
 wysiwyg.toolbar.ordered_list: 'Numbered List'
 wysiwyg.toolbar.outdent: 'Decrease indent'
 wysiwyg.toolbar.paragraph: Paragraph

@@ -25,6 +25,9 @@
 .ut-indent-8 { margin-left: 320px !important; }
 .ut-me-0 { margin-right: 0 !important; }
 
+/* Lists whose items were written without a paragraph */
+.ut-list-tight > li > p { margin-top: 0 !important; margin-bottom: 0 !important; }
+
 /* Images */
 .ut-block { display: block !important; }
 .ut-float-start { float: left !important; }

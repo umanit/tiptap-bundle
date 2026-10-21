@@ -124,6 +124,9 @@
 .ut-indent-8 { margin-inline-start: 320px !important; }
 .ut-me-0 { margin-inline-end: 0 !important; }
 
+/* Lists whose items were written without a paragraph */
+.ut-list-tight > li > p { margin-block: 0 !important; }
+
 /* Images */
 .ut-block { display: block !important; }
 .ut-mx-auto { margin-inline: auto !important; }

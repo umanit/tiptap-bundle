@@ -258,9 +258,82 @@ describe('content schema', () => {
       expect(roundTrip('<ul><li><h2>Title</h2></li></ul>')).toBe('<ul><li><h2>Title</h2></li></ul>');
     });
 
-    it('parses bare and paragraph-wrapped list items into the same model', () => {
-      expect(roundTrip('<ul><li>Text</li></ul>')).toBe('<ul><li><p>Text</p></li></ul>');
+    it('parses bare and paragraph-wrapped list items into the same items', () => {
+      expect(roundTrip('<ul><li>Text</li></ul>')).toBe('<ul class="ut-list-tight"><li><p>Text</p></li></ul>');
       expect(roundTrip('<ul><li><p>Text</p></li></ul>')).toBe('<ul><li><p>Text</p></li></ul>');
+    });
+
+    it('marks a list whose items were all written bare as tight', () => {
+      expect(roundTrip('<ul><li>One</li><li>Two<ul><li>Nested</li></ul></li></ul>')).toBe(
+        '<ul class="ut-list-tight"><li><p>One</p></li>'
+        + '<li><p>Two</p><ul class="ut-list-tight"><li><p>Nested</p></li></ul></li></ul>',
+      );
+      expect(roundTrip('<ol><li>One</li></ol>')).toBe('<ol class="ut-list-tight"><li><p>One</p></li></ol>');
+    });
+
+    it('leaves a list with a block in an item untouched, and keeps the class once marked', () => {
+      expect(roundTrip('<ul><li><p>One</p></li></ul>')).toBe('<ul><li><p>One</p></li></ul>');
+      expect(roundTrip('<ul><li>One</li><li><p>Two</p></li></ul>'))
+        .toBe('<ul><li><p>One</p></li><li><p>Two</p></li></ul>');
+      expect(roundTrip('<ul class="ut-list-tight"><li><p>One</p></li></ul>'))
+        .toBe('<ul class="ut-list-tight"><li><p>One</p></li></ul>');
+    });
+
+    it('toggles the tight class on the closest list only, and reports it', () => {
+      create('<ul><li><p>One</p><ul><li><p>Nested</p></li></ul></li></ul>');
+      const tip = editor.getEditor();
+
+      tip.commands.setTextSelection(3);
+      expect(editor.isListTight()).toBe(false);
+
+      editor.runCommand('toggleListTight');
+      expect(editor.isListTight()).toBe(true);
+      expect(editor.getHTML()).toContain('<ul class="ut-list-tight"><li><p>One</p><ul><li>');
+
+      tip.commands.setTextSelection(10);
+      expect(editor.isListTight()).toBe(false);
+
+      tip.commands.setTextSelection(3);
+      editor.runCommand('toggleListTight');
+      expect(editor.isListTight()).toBe(false);
+      expect(editor.getHTML()).toContain('<ul><li><p>One</p>');
+    });
+
+    it('makes a list created by an indent tight when the parent list is', () => {
+      create('<ul class="ut-list-tight"><li>One</li><li>Two</li></ul>');
+      const tip = editor.getEditor();
+
+      tip.commands.setTextSelection(10);
+      editor.runCommand('sinkListItem', 'listItem');
+
+      expect(editor.getHTML()).toContain(
+        '<ul class="ut-list-tight"><li><p>One</p><ul class="ut-list-tight"><li><p>Two</p></li></ul></li></ul>',
+      );
+    });
+
+    it('leaves a list created by an indent as it is when the parent list is not tight', () => {
+      create('<ul><li><p>One</p></li><li><p>Two</p></li></ul>');
+      editor.getEditor().commands.setTextSelection(10);
+      editor.runCommand('sinkListItem', 'listItem');
+
+      expect(editor.getHTML()).toContain('<ul><li><p>One</p><ul><li><p>Two</p></li></ul></li></ul>');
+    });
+
+    it('keeps the class of an existing sublist when an item is indented into it', () => {
+      create('<ul class="ut-list-tight"><li><p>One</p><ul><li><p>Two</p></li></ul></li><li><p>Three</p></li></ul>');
+      const tip = editor.getEditor();
+
+      tip.commands.setTextSelection(tip.state.doc.content.size - 3);
+      editor.runCommand('sinkListItem', 'listItem');
+
+      expect(editor.getHTML()).toContain('<li><p>One</p><ul><li><p>Two</p></li><li><p>Three</p></li></ul></li>');
+    });
+
+    it('does nothing outside a list', () => {
+      create('<p>Text</p>');
+
+      expect(editor.getEditor().commands.toggleListTight()).toBe(false);
+      expect(editor.isListTight()).toBe(false);
     });
 
     it('turns a list item paragraph into a heading and back without leaving the list', () => {
