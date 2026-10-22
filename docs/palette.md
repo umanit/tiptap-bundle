@@ -18,7 +18,8 @@ bin/console umanit:tiptap:palette \
 ## Inventory
 
 Each color, background color and font size set inline is counted once per content which uses it. The values are
-normalized first: `#F00`, `#ff0000` and `rgb(255, 0, 0)` are one color, and `10.5pt` is `14px` (1pt = 4/3px).
+normalized first: `#F00`, `#ff0000`, `rgb(255, 0, 0)` and the CSS name `red` are one color, and `10.5pt` is `14px`
+(1pt = 4/3px).
 
 ## Grouping
 
@@ -32,7 +33,7 @@ The sizes are rounded to a pixel (`ut-fs-<n>`) and can be grouped too with `--ma
 The colors get generic names, numbered by usage inside their family: `red-1`, `red-2`, `blue-1`, `grey-1`… **Rename them
 before committing the files**: the classes are what ends up in the migrated contents.
 
-What the palette cannot express is listed apart and is not converted: color names (`red`), translucent colors, sizes in
+What the palette cannot express is listed apart and is not converted: translucent colors, sizes in
 `em`, `%` or keywords.
 
 ## Generated files

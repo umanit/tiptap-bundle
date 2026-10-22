@@ -3,9 +3,11 @@
  * schema. It is opt-in: without a map, the schema reads classes only and an inline style is dropped.
  *
  * The map is `{ color: { '#ff0000': 'ut-color-red' }, backgroundColor: { … }, fontSize: { '14px': 'ut-fs-14' } }`.
- * Keys are normalized (see `normalizeColor` and `normalizeFontSize`), so `rgb(255, 0, 0)`, `#F00` and `#ff0000` are
- * the same color and `10.5pt` is `14px`.
+ * Keys are normalized (see `normalizeColor` and `normalizeFontSize`), so `rgb(255, 0, 0)`, `#F00`, `red` and `#ff0000`
+ * are the same color and `10.5pt` is `14px`.
  */
+
+import CSS_COLOR_NAMES from './css-color-names.js';
 
 /** Selector of the inline elements which can carry a color, a background or a size, read by the marks of the schema. */
 export const INLINE_STYLE_TAGS = 'span, strong, b, em, i, u, s, strike, del, sub, sup, mark';
@@ -16,13 +18,18 @@ const round = (value) => Math.round(value * 100) / 100;
 
 /**
  * @param {string|null|undefined} value
- * @returns {string|null} `#rrggbb` for a hex or rgb() color, the lowercase value for a color name, null when empty
+ * @returns {string|null} `#rrggbb` for a hex, rgb() or CSS named color, the lowercase value for anything else, null
+ *   when empty
  */
 export const normalizeColor = (value) => {
   const color = (value ?? '').trim().toLowerCase();
 
   if ('' === color) {
     return null;
+  }
+
+  if (Object.hasOwn(CSS_COLOR_NAMES, color)) {
+    return CSS_COLOR_NAMES[color];
   }
 
   const hex = color.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/);

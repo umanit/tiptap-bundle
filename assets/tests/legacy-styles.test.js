@@ -22,7 +22,11 @@ describe('normalizeColor', () => {
     ['rgb(255, 0, 0)', '#ff0000'],
     ['rgb(255 0 0)', '#ff0000'],
     ['rgba(255,0,0,1)', '#ff0000'],
-    ['  Red ', 'red'],
+    ['  Red ', '#ff0000'],
+    ['rebeccapurple', '#663399'],
+    ['DarkGrey', '#a9a9a9'],
+    ['transparent', 'transparent'],
+    ['constructor', 'constructor'],
     ['rgba(255,0,0,0.5)', 'rgba(255,0,0,0.5)'],
     ['', null],
     [null, null],
@@ -61,6 +65,13 @@ describe('resolveLegacyClass', () => {
     expect(resolveLegacyClass(palette, 'color', el('color:rgb(0,0,255)'))).toBe('ut-color-blue');
     expect(resolveLegacyClass(palette, 'backgroundColor', el('background-color:#ffff00'))).toBe('ut-bg-yellow');
     expect(resolveLegacyClass(palette, 'fontSize', el('font-size:16px'))).toBe('ut-fs-16');
+  });
+
+  it('attaches a named color to the class of its hex value', () => {
+    expect(resolveLegacyClass(palette, 'color', el('color:red'))).toBe('ut-color-red');
+    expect(resolveLegacyClass(palette, 'color', el('color:Blue'))).toBe('ut-color-blue');
+    expect(resolveLegacyClass(palette, 'backgroundColor', el('background-color:yellow'))).toBe('ut-bg-yellow');
+    expect(resolveLegacyClass(palette, 'color', el('color:green'))).toBeNull();
   });
 
   it('returns null for a value which is not in the map', () => {
