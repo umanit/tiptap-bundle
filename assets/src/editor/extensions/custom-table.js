@@ -1,5 +1,6 @@
 import { Table, TableCell, TableHeader } from '@tiptap/extension-table';
 import { mergeAttributes } from '@tiptap/core';
+import HtmlCleaner from '../html-cleaner.js';
 import { resolveLegacyClass } from '../legacy-styles.js';
 
 // Column widths are written as <col width="Xpx"> (a presentational attribute, not an inline style, so CSP compliant).
@@ -80,9 +81,10 @@ class TableView {
   }
 }
 
+// The classes Word and the like leave (`MsoTableGrid`…) are dropped, as on the paragraphs.
 // `<table align="center">` (what CKEditor writes) becomes the class the schema uses, unless the table has one already.
 function tableClass(element) {
-  const classes = (element.getAttribute('class') || '').split(' ').filter(Boolean);
+  const classes = (HtmlCleaner.parseClass(element) ?? '').split(' ').filter(Boolean);
   const align = (element.getAttribute('align') || '').toLowerCase();
 
   if (['center', 'right'].includes(align) && !classes.some((c) => /^ut-table-(center|right)$/.test(c))) {
@@ -160,7 +162,7 @@ function parseColwidth(element) {
 // alignment (`style="text-align:center"`, `align="center"`) and, in legacy import mode, the background color
 // (`style="background-color:#eee"`, looked up in the palette).
 function cellClass(element, legacyStyles) {
-  const classes = (element.getAttribute('class') || '').split(' ').filter(Boolean);
+  const classes = (HtmlCleaner.parseClass(element) ?? '').split(' ').filter(Boolean);
   const align = (element.style?.textAlign || element.getAttribute('align') || '').toLowerCase();
 
   if (TEXT_ALIGNS.includes(align) && !classes.some((c) => c.startsWith('ut-text-'))) {

@@ -55,4 +55,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Removing the background color of a cell left a `ut-bg-` class.
 - The table properties could not remove a value: a border of 0 and an emptied class (width, alignment) kept the old
   ones. A border of 0 is now written (`border="0"`) and `tiptap-content.css` draws no border on the cells then.
+- The classes Word and the like leave on a table, a cell or an image (`MsoTableGrid`, `MsoNormal`, `SCX*`, `kix-*`) were
+  kept, unlike on the paragraphs: they are dropped now, the other classes stay.
 - The source view laid out a table with a `<colgroup>` on a single line.

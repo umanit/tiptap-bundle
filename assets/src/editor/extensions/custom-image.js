@@ -1,4 +1,5 @@
 import Image from '@tiptap/extension-image';
+import HtmlCleaner from '../html-cleaner.js';
 import imageSize from '../image-size.js';
 import imageStyleClasses from '../image-style.js';
 
@@ -23,7 +24,7 @@ export default Image.extend({
         default: null,
         // Contents written in another editor set the float and the margins inline
         parseHTML: (element) => {
-          const classes = (element.getAttribute('class') ?? '').split(/\s+/).filter(Boolean);
+          const classes = (HtmlCleaner.parseClass(element) ?? '').split(/\s+/).filter(Boolean);
           const merged = [...new Set([...classes, ...imageStyleClasses(element.style).classes])];
 
           return merged.length > 0 ? merged.join(' ') : null;

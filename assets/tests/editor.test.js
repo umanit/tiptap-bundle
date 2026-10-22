@@ -250,6 +250,18 @@ describe('content schema', () => {
     expect(classes()).toBe('keep');
   });
 
+  it('drops the classes Word leaves on a table and its cells, and keeps the others', () => {
+    const html = roundTrip('<table class="MsoTableGrid ut-w-50 keep" border="1"><tbody><tr>'
+      + '<td class="MsoNormal">a</td><td class="SCXW1 ut-bg-red">b</td></tr></tbody></table>');
+
+    expect(html).toContain('<table class="ut-w-50 keep" border="1">');
+    expect(html).toContain('<td>');
+    expect(html).toContain('<td class="ut-bg-red">');
+    expect(html).not.toMatch(/Mso|SCX/);
+    expect(roundTrip('<table class="MsoTableGrid"><tbody><tr><td>a</td></tr></tbody></table>'))
+      .toContain('<table>');
+  });
+
   it('turns the align attribute of a table into a class, once', () => {
     const table = (attributes) => `<table ${attributes}><tbody><tr><td>a</td></tr></tbody></table>`;
 
@@ -262,6 +274,12 @@ describe('content schema', () => {
   it('keeps the alignment class of a table', () => {
     expect(roundTrip('<table class="ut-w-50 ut-table-center"><tbody><tr><td>a</td></tr></tbody></table>'))
       .toContain('class="ut-w-50 ut-table-center"');
+  });
+
+  it('drops the classes Word leaves on an image', () => {
+    expect(roundTrip('<p><img src="/a.png" class="MsoNormal ut-float-start keep"></p>'))
+      .toContain('class="ut-float-start keep"');
+    expect(roundTrip('<p><img src="/a.png" class="SCXW1"></p>')).not.toContain('class=');
   });
 
   it('keeps image classes and sizes', () => {
