@@ -49,8 +49,8 @@ class TableView {
       return false;
     }
 
-    // Another class or border: let ProseMirror build the view again
-    if (node.attrs.class !== this.node.attrs.class || node.attrs.border !== this.node.attrs.border) {
+    // Another class: let ProseMirror build the view again
+    if (node.attrs.class !== this.node.attrs.class) {
       return false;
     }
 
@@ -122,11 +122,6 @@ export const CustomTable = Table.extend({
         default: null,
         parseHTML: tableClass,
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
-      },
-      border: {
-        default: null,
-        parseHTML: (element) => element.getAttribute('border'),
-        renderHTML: (attributes) => (attributes.border ? { border: attributes.border } : {}),
       },
     };
   },

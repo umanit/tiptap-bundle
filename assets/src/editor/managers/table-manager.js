@@ -77,7 +77,6 @@ export default class TableManager extends AbstractManager {
     this.setFormValues(this._formElement, {
       tableWidth,
       tableAlign,
-      border: attrs.border || '',
       cssClass,
     });
 
@@ -291,13 +290,8 @@ export default class TableManager extends AbstractManager {
    * Every attribute is given, `null` to remove it: updateAttributes() keeps the ones it is not told about.
    */
   #buildTableAttributes(data) {
-    const border = parseInt(data.border, 10);
     const classes = [data.tableWidth, data.tableAlign, data.cssClass].filter(Boolean).join(' ');
 
-    return {
-      // 0 is written: the CSS draws a border on every cell, unless the table says it has none
-      border: border >= 0 ? String(border) : null,
-      class: classes || null,
-    };
+    return { class: classes || null };
   }
 }

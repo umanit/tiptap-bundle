@@ -88,7 +88,7 @@ final class TableLayoutRule implements CleaningRuleInterface
 
     /**
      * What the editor supports on a table is not part of the Word layout: an alignment (center, right), turned into a
-     * class, and a border in pixels (`border="1"`).
+     * class.
      */
     private function isKept(Element $element, string $attribute): bool
     {
@@ -98,10 +98,6 @@ final class TableLayoutRule implements CleaningRuleInterface
 
         $value = \strtolower($element->getAttribute($attribute) ?? '');
 
-        return match ($attribute) {
-            'align' => \in_array($value, ['center', 'right'], true),
-            'border' => 1 === \preg_match('/^\d+$/', $value),
-            default => false,
-        };
+        return 'align' === $attribute && \in_array($value, ['center', 'right'], true);
     }
 }

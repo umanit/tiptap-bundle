@@ -45,8 +45,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Legacy import mode: the `backgroundColor` map of `legacy-styles.json` also applies to the cells of a table
   (`<td style="background-color:#eee">` becomes `ut-bg-grey-light`), without overwriting a `ut-bg-*` class the cell
   already has; the audit no longer reports a mapped background as lost.
-- The `table-layout` cleaning rule keeps the `border` of a table when it is a number of pixels, which the table
-  properties support; any other value is still removed.
+- Tables carry no `border`, `cellpadding` or `cellspacing`: the look of a table (borders, padding, spacing) is the one
+  of the CSS of the site, and a project which needs more sets it itself. The attributes are dropped on load (the audit
+  reports them in the `table` category) and removed by the `table-layout` cleaning rule.
 - Legacy import mode: the width of the cells (`<td style="width:274px">`, `<td width="120">`) becomes the width of
   their column (`<col width>`): the most frequent value of the column, the largest on a tie, stray widths of 1px to 5px
   and cells with a `colspan` ignored. A `<col width>` of the source stays first; the audit no longer reports a
@@ -63,8 +64,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - A new table width class or column width was not shown in the editor (the TipTap table view ignored updates), and the
   `ut-w-*` classes lost against the `width: 100%` that sites give to the tables of their contents (now `!important`).
 - Removing the background color of a cell left a `ut-bg-` class.
-- The table properties could not remove a value: a border of 0 and an emptied class (width, alignment) kept the old
-  ones. A border of 0 is now written (`border="0"`) and `tiptap-content.css` draws no border on the cells then.
+- The table properties could not remove a value: an emptied class (width, alignment) kept the old one.
 - `ut-mx-auto` (centered image) and `ut-table-striped` were missing from `tiptap-email.css`.
 - The classes Word and the like leave on a table, a cell or an image (`MsoTableGrid`, `MsoNormal`, `SCX*`, `kix-*`) were
   kept, unlike on the paragraphs: they are dropped now, the other classes stay.

@@ -40,7 +40,7 @@ write, the backup table.
 | `word-classes`     | Classes `Mso*` and `WordSection*`; the `<div>` which only wrapped the document                              |
 | `font-tag`         | `<font>`: replaced by a `<span>` which only keeps its color                                                 |
 | `word-styles`      | `font-family`, `line-height`, `margin-bottom` of 11px, `mso-*`, the automatic black, the Word look of links |
-| `table-layout`     | Widths, heights, borders, paddings and alignments of tables and cells (the structure is kept; a table keeps its `align="center"`/`right` and its `border` in pixels, a cell its width in pixels: the import reads it as the width of the column) |
+| `table-layout`     | Widths, heights, borders, paddings and alignments of tables and cells (the structure is kept; a table keeps its `align="center"`/`right`, a cell its width in pixels: the import reads it as the width of the column) |
 | `small-indent`     | A `margin-left` of 12px or less: the offset Word gives to lists and cells, not an indentation               |
 | `list-value`       | `value` on the items of a bulleted list                                                                     |
 | `nested-spans`     | `<span>` without attribute; a `<span>` which only holds another one is merged into it                       |

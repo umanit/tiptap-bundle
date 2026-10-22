@@ -80,8 +80,8 @@ final class HtmlCleanerTest extends TestCase
             . ' width="510" border="1" cellpadding="1" cellspacing="1"><tbody><tr>'
             . '<td colspan="2" style="border-bottom:1px solid #000000;width:236px;padding:0cm 7px;height:23px;'
             . 'text-align:center;" valign="top"><p>a</p></td></tr></tbody></table>',
-            '<table border="1"><tbody><tr><td colspan="2" style="width:236px;text-align:center;"><p>a</p></td></tr>'
-            . '</tbody></table>',
+            '<table><tbody><tr><td colspan="2" style="width:236px;text-align:center;"><p>a</p></td></tr></tbody>'
+            . '</table>',
             ['word-classes', 'table-layout'],
         ];
 
@@ -89,16 +89,6 @@ final class HtmlCleanerTest extends TestCase
             '<table><tbody><tr><td width="120" style="width:274px;height:20px">a</td>'
             . '<th width="50%" style="width:30%">b</th></tr></tbody></table>',
             '<table><tbody><tr><td width="120" style="width:274px;">a</td><th>b</th></tr></tbody></table>',
-            ['table-layout'],
-        ];
-
-        yield 'a border in pixels stays, any other value goes' => [
-            '<table border="0"><tbody><tr><td>a</td></tr></tbody></table>'
-            . '<table border="2"><tbody><tr><td>b</td></tr></tbody></table>'
-            . '<table border="1px"><tbody><tr><td>c</td></tr></tbody></table>',
-            '<table border="0"><tbody><tr><td>a</td></tr></tbody></table>'
-            . '<table border="2"><tbody><tr><td>b</td></tr></tbody></table>'
-            . '<table><tbody><tr><td>c</td></tr></tbody></table>',
             ['table-layout'],
         ];
 

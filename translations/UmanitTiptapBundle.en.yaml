@@ -89,7 +89,6 @@ wysiwyg.modal.table.align_center: Centered
 wysiwyg.modal.table.align_left: Left
 wysiwyg.modal.table.align_right: Right
 wysiwyg.modal.table.appearance: Appearance
-wysiwyg.modal.table.border: 'Border (px)'
 wysiwyg.modal.table.cols: 'Columns*'
 wysiwyg.modal.table.css_class: 'CSS Class'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

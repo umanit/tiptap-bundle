@@ -109,11 +109,12 @@ describe('content schema', () => {
   });
 
   it('keeps table classes without inline styles', () => {
-    const html = roundTrip('<table class="ut-table-striped ut-w-50" border="1"><tbody><tr>'
+    const html = roundTrip('<table class="ut-table-striped ut-w-50" border="1" cellpadding="3"><tbody><tr>'
       + '<td class="ut-bg-red" colwidth="100">a</td></tr></tbody></table>');
 
     expect(html).toContain('class="ut-table-striped ut-w-50"');
-    expect(html).toContain('border="1"');
+    // The look of the table is the one of the site: no border, padding or spacing of the table itself
+    expect(html).not.toMatch(/border|cellpadding|cellspacing/);
     expect(html).toContain('class="ut-bg-red"');
     expect(html).not.toContain('style=');
     expect(html).toContain('<colgroup><col width="100"></colgroup>');
@@ -164,32 +165,24 @@ describe('content schema', () => {
     expect(editor.getHTML()).not.toContain('colgroup');
   });
 
-  it('updates the table from its form: a border of 0 and an emptied class remove the old values', () => {
+  it('updates the table from its form: an emptied width and class remove the old ones', () => {
     const tableForm = document.createElement('form');
-    tableForm.innerHTML = '<input name="border"><select name="tableWidth"><option value=""></option>'
-      + '<option value="ut-w-50">50</option></select><select name="tableAlign"><option value=""></option></select>'
-      + '<input name="cssClass">';
+    tableForm.innerHTML = '<select name="tableWidth"><option value=""></option><option value="ut-w-50">50</option>'
+      + '</select><select name="tableAlign"><option value=""></option></select><input name="cssClass">';
     document.body.append(tableForm);
-    create('<table class="ut-w-50 striped" border="1"><tbody><tr><td>a</td></tr></tbody></table>', { tableForm });
+    create('<table class="ut-w-50 striped"><tbody><tr><td>a</td></tr></tbody></table>', { tableForm });
     editor.getEditor().commands.setTextSelection(3);
-    const table = () => editor.getEditor().state.doc.firstChild.attrs;
 
     editor.runCommand('table.openEditModal');
-    expect(tableForm.elements.border.value).toBe('1');
+    expect(tableForm.elements.tableWidth.value).toBe('ut-w-50');
+    expect(tableForm.elements.cssClass.value).toBe('striped');
 
-    tableForm.elements.border.value = '0';
     tableForm.elements.tableWidth.value = '';
     tableForm.elements.cssClass.value = '';
     editor.runCommand('table.confirmAdd');
 
-    expect(table()).toMatchObject({ border: '0', class: null });
-    expect(editor.getHTML()).toContain('<table border="0">');
-
-    editor.runCommand('table.openEditModal');
-    tableForm.elements.border.value = '';
-    editor.runCommand('table.confirmAdd');
-
-    expect(table().border).toBeNull();
+    expect(editor.getEditor().state.doc.firstChild.attrs.class).toBeNull();
+    expect(editor.getHTML()).toContain('<table>');
   });
 
   it('turns the background color of a cell into a palette class in legacy import mode', () => {
@@ -251,10 +244,10 @@ describe('content schema', () => {
   });
 
   it('drops the classes Word leaves on a table and its cells, and keeps the others', () => {
-    const html = roundTrip('<table class="MsoTableGrid ut-w-50 keep" border="1"><tbody><tr>'
+    const html = roundTrip('<table class="MsoTableGrid ut-w-50 keep"><tbody><tr>'
       + '<td class="MsoNormal">a</td><td class="SCXW1 ut-bg-red">b</td></tr></tbody></table>');
 
-    expect(html).toContain('<table class="ut-w-50 keep" border="1">');
+    expect(html).toContain('<table class="ut-w-50 keep">');
     expect(html).toContain('<td>');
     expect(html).toContain('<td class="ut-bg-red">');
     expect(html).not.toMatch(/Mso|SCX/);
