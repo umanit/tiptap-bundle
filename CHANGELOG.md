@@ -58,9 +58,20 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `assets/bin/build-email-css.js`): custom properties resolved, `rem` in `px`, logical properties written as physical
   ones, nesting flattened, so that the CSS inliners of the emails can read it. A test fails when the file is out of
   date, so the two cannot drift apart.
+- The classes of a `span` (`text-primary`…) are kept, as well as the ones of a formatting element
+  (`<strong class="text-secondary">` becomes a `<span>` around the `<strong>`): they can come from the stylesheet of
+  the site, the source mode or a template. Each `span` of the source comes out as one `span`, nested or not; the
+  palette classes (`ut-color-*`, `ut-bg-*`, `ut-fs-*`) are set from the toolbar in the same span (single `textSpan`
+  mark, which replaces the three `textColor`, `textBgColor` and `textSize` marks; the commands keep their names, and
+  `unsetTextBgColor` is new). Only the classes of Word and the like are dropped.
+- Legacy import mode: the color, background and size set inline on a formatting element
+  (`<strong style="font-size:10pt">`, `<em>`, `<u>`…) are converted like the ones of a span, and a CSS color name (`red`) is read as its hex value.
+- A list whose items are all written without a paragraph (CKEditor) is rewritten with `ut-list-tight`, which cancels
+  the margin of the paragraphs of the items; see `docs/migration.md`.
 
 ### Fixed
 
+- The reset button of the background color palette removed the text color, not the background.
 - A new table width class or column width was not shown in the editor (the TipTap table view ignored updates), and the
   `ut-w-*` classes lost against the `width: 100%` that sites give to the tables of their contents (now `!important`).
 - Removing the background color of a cell left a `ut-bg-` class.
