@@ -1,5 +1,5 @@
 import { Mark } from '@tiptap/core';
-import { resolveLegacyClass } from '../legacy-styles.js';
+import { INLINE_STYLE_TAGS, resolveLegacyClass } from '../legacy-styles.js';
 
 export default Mark.create({
   name: 'textColor',
@@ -24,8 +24,11 @@ export default Mark.create({
 
   parseHTML() {
     return [{
-      tag: 'span',
-      // A span may carry several of these marks (color, background, size): let the other rules read it too.
+      // CKEditor may put the style on a formatting element (`<strong style="font-size:10pt">`) rather than on a span.
+      // An element may carry several of these marks (color, background, size): let the other rules read it too.
+      tag: INLINE_STYLE_TAGS,
+      // Read before the rule of the formatting element (bold…) which consumes it, or this one is never reached.
+      priority: 60,
       consuming: false,
       getAttrs: (element) => {
         const cls = element.getAttribute('class') || '';

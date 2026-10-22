@@ -117,6 +117,17 @@ describe('legacy import mode in the editor', () => {
     expect(html).toContain('ut-fs-14');
     expect(html).toContain('>a<');
   });
+
+  it('converts a style carried by a formatting element', () => {
+    const html = load('<p><strong style="font-size:10pt"><em>a</em></strong></p>', {
+      fontSize: { '10pt': 'ut-fs-13' },
+    });
+
+    expect(html).toContain('ut-fs-13');
+    expect(html).toContain('<strong');
+    expect(html).toContain('<em');
+    expect(html).toContain('>a<');
+  });
 });
 
 describe('round trip with the legacy styles', () => {

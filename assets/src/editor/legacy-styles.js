@@ -7,6 +7,9 @@
  * the same color and `10.5pt` is `14px`.
  */
 
+/** Selector of the inline elements which can carry a color, a background or a size, read by the marks of the schema. */
+export const INLINE_STYLE_TAGS = 'span, strong, b, em, i, u, s, strike, del, sub, sup, mark';
+
 export const PROPERTIES = ['color', 'backgroundColor', 'fontSize'];
 
 const round = (value) => Math.round(value * 100) / 100;
