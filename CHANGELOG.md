@@ -48,6 +48,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - The `table-layout` cleaning rule keeps the `border` of a table when it is a number of pixels, which the table
   properties support; any other value is still removed.
 
+- `tiptap-email.css` is generated from the `ut-*` rules of `tiptap-content.css` (`yarn build:email-css`,
+  `assets/bin/build-email-css.js`): custom properties resolved, `rem` in `px`, logical properties written as physical
+  ones, nesting flattened, so that the CSS inliners of the emails can read it. A test fails when the file is out of
+  date, so the two cannot drift apart.
+
 ### Fixed
 
 - A new table width class or column width was not shown in the editor (the TipTap table view ignored updates), and the
@@ -55,6 +60,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Removing the background color of a cell left a `ut-bg-` class.
 - The table properties could not remove a value: a border of 0 and an emptied class (width, alignment) kept the old
   ones. A border of 0 is now written (`border="0"`) and `tiptap-content.css` draws no border on the cells then.
+- `ut-mx-auto` (centered image) and `ut-table-striped` were missing from `tiptap-email.css`.
 - The classes Word and the like leave on a table, a cell or an image (`MsoTableGrid`, `MsoNormal`, `SCX*`, `kix-*`) were
   kept, unlike on the paragraphs: they are dropped now, the other classes stay.
 - The source view laid out a table with a `<colgroup>` on a single line.

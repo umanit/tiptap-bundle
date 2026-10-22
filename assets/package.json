@@ -69,7 +69,8 @@
     }
   },
   "scripts": {
-    "lint": "eslint src tests purgecss-safelist.js purgecss-safelist.cjs",
+    "lint": "eslint src tests bin purgecss-safelist.js purgecss-safelist.cjs",
+    "build:email-css": "node bin/build-email-css.js",
     "test": "vitest run"
   },
   "dependencies": {

@@ -1,5 +1,6 @@
 /* ==========================================================================
    TipTap email
+   GENERATED from tiptap-content.css by `node bin/build-email-css.js`: do not edit it, change the content stylesheet.
    Content classes with hard-coded values (no custom properties, no nesting) so that CSS inliners can process them.
    ========================================================================== */
 
@@ -8,7 +9,6 @@
 .ut-text-center { text-align: center !important; }
 .ut-text-right { text-align: right !important; }
 .ut-text-justify { text-align: justify !important; }
-
 .ut-align-top { vertical-align: top !important; }
 .ut-align-middle { vertical-align: middle !important; }
 .ut-align-bottom { vertical-align: bottom !important; }
@@ -30,6 +30,7 @@
 
 /* Images */
 .ut-block { display: block !important; }
+.ut-mx-auto { margin-left: auto !important; margin-right: auto !important; }
 .ut-float-start { float: left !important; }
 .ut-float-end { float: right !important; }
 .ut-ma-5 { margin: 5px; }
@@ -59,11 +60,11 @@
 .ut-fs-48 { font-size: 48px; }
 
 /* Text colors */
-.ut-color-white { color: #fff; }
+.ut-color-white { color: #ffffff; }
 .ut-color-grey-light { color: #f8f9fa; }
 .ut-color-grey { color: #6c757d; }
 .ut-color-grey-dark { color: #343a40; }
-.ut-color-black { color: #000; }
+.ut-color-black { color: #000000; }
 .ut-color-red { color: #dc3545; }
 .ut-color-orange { color: #fd7e14; }
 .ut-color-yellow { color: #ffc107; }
@@ -74,11 +75,11 @@
 .ut-color-pink { color: #d63384; }
 
 /* Background colors */
-.ut-bg-white { background-color: #fff !important; }
+.ut-bg-white { background-color: #ffffff !important; }
 .ut-bg-grey-light { background-color: #f8f9fa !important; }
 .ut-bg-grey { background-color: #6c757d !important; }
 .ut-bg-grey-dark { background-color: #343a40 !important; }
-.ut-bg-black { background-color: #000 !important; }
+.ut-bg-black { background-color: #000000 !important; }
 .ut-bg-red { background-color: #dc3545 !important; }
 .ut-bg-orange { background-color: #fd7e14 !important; }
 .ut-bg-yellow { background-color: #ffc107 !important; }
@@ -92,7 +93,7 @@
 .ut-banner-info {
   padding: 12px 16px;
   border-left: 4px solid #0d6efd;
-  background-color: #e7f0ff;
+  background-color: #e7f1ff;
 }
 
 .ut-banner-warning {
@@ -103,11 +104,15 @@
 
 .ut-button a {
   display: inline-block;
-  padding: 10px 20px;
+  padding: 9.6px 20px;
   border-radius: 6px;
   background-color: #0d6efd;
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
+}
+
+.ut-table-striped tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
 }
 
 .ut-table-dotted td,

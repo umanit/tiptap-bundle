@@ -3,6 +3,7 @@
    Styles of the content produced by the editor. Load it in the editor (together with tiptap-editor.css) AND on the
    pages displaying the published content, wrapped in `.umanit-tiptap-content`.
    Everything can be overridden with the `--ut-*` custom properties.
+   tiptap-email.css is generated from the `ut-*` rules of this file: run `yarn build:email-css` after changing them.
    ========================================================================== */
 
 :root {
