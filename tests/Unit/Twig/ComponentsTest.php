@@ -67,6 +67,7 @@ final class ComponentsTest extends TestCase
         $text = new Color($provider);
         $text->type = ColorType::Text;
         $this->assertSame('setTextColor', $text->command());
+        $this->assertSame('unsetTextColor', $text->resetCommand());
         $this->assertSame('A', $text->btnLabel());
         $this->assertSame('ut-color-red', $text->getColorClass($color));
         $this->assertCount(13, $text->colors());
@@ -74,6 +75,7 @@ final class ComponentsTest extends TestCase
         $background = new Color($provider);
         $background->type = ColorType::Background;
         $this->assertSame('setTextBgColor', $background->command());
+        $this->assertSame('unsetTextBgColor', $background->resetCommand());
         $this->assertSame('', $background->btnLabel());
         $this->assertSame('ut-bg-red', $background->getColorClass($color));
     }

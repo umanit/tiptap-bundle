@@ -36,6 +36,14 @@ final class Color
         };
     }
 
+    public function resetCommand(): string
+    {
+        return match ($this->type) {
+            ColorType::Text => 'unsetTextColor',
+            ColorType::Background => 'unsetTextBgColor',
+        };
+    }
+
     public function btnLabel(): string
     {
         return match ($this->type) {
