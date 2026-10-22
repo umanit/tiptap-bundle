@@ -7,6 +7,7 @@
 import imageSize from '../editor/image-size.js';
 import imageStyle from '../editor/image-style.js';
 import { BLOCK_TAGS, marginClassesOf } from '../editor/indent.js';
+import { isWidthConverted } from '../editor/column-widths.js';
 
 // Tags the editor renders with another one (`<b>` becomes `<strong>`).
 const TAG_ALIASES = {
@@ -156,7 +157,8 @@ const isConvertedAlign = (el, rawTag, name) => {
   return ['td', 'th'].includes(rawTag) && ['left', 'center', 'right', 'justify'].includes(align);
 };
 
-export const collectSignals = (html, parser) => {
+// In legacy import mode, the width of a cell becomes the width of its column.
+export const collectSignals = (html, parser, { convertCellWidths = false } = {}) => {
   const { body } = parser.parseFromString(html, 'text/html');
   const signals = new Map();
 
@@ -171,6 +173,11 @@ export const collectSignals = (html, parser) => {
     // The size of an image: the editor keeps it as attributes, whether it was set as an attribute or inline.
     const imageSizes = new Set();
     const converted = convertedProperties(el, rawTag);
+    const isConvertedCellWidth = convertCellWidths && ['td', 'th'].includes(rawTag) && isWidthConverted(el);
+
+    if (isConvertedCellWidth) {
+      converted.add('width');
+    }
     const isImageSize = (property) => rawTag === 'img' && ['width', 'height'].includes(property);
 
     Array.from(el.attributes).forEach(({ name }) => {
@@ -201,7 +208,7 @@ export const collectSignals = (html, parser) => {
         });
       } else if (isImageSize(name)) {
         imageSizes.add(`attr:img@${name}`);
-      } else if (!isConvertedAlign(el, rawTag, name)) {
+      } else if (!isConvertedAlign(el, rawTag, name) && !(isConvertedCellWidth && name === 'width')) {
         increment(signals, `attr:${rawTag}@${name}`);
       }
     });

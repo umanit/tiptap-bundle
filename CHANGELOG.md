@@ -47,6 +47,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   already has; the audit no longer reports a mapped background as lost.
 - The `table-layout` cleaning rule keeps the `border` of a table when it is a number of pixels, which the table
   properties support; any other value is still removed.
+- Legacy import mode: the width of the cells (`<td style="width:274px">`, `<td width="120">`) becomes the width of
+  their column (`<col width>`): the most frequent value of the column, the largest on a tie, stray widths of 1px to 5px
+  and cells with a `colspan` ignored. A `<col width>` of the source stays first; the audit no longer reports a
+  converted width as lost. The `table-layout` cleaning rule keeps the widths in pixels of `td`/`th` so that they reach
+  the migration.
 
 - `tiptap-email.css` is generated from the `ut-*` rules of `tiptap-content.css` (`yarn build:email-css`,
   `assets/bin/build-email-css.js`): custom properties resolved, `rem` in `px`, logical properties written as physical

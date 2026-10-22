@@ -204,3 +204,76 @@ describe('inline styles inventory', () => {
     roundTripper.destroy();
   });
 });
+
+describe('column widths read on the cells', () => {
+  let editor;
+
+  const importHtml = (html, legacyStyles = {}) => {
+    editor = new TipTapEditor({}, {
+      element: document.createElement('div'), content: html, legacyStyles, trailingNode: false,
+    }, {});
+
+    return editor.getHTML();
+  };
+
+  const table = (...rows) => `<table><tbody>${rows.map((cells) => `<tr>${cells.join('')}</tr>`).join('')}</tbody></table>`;
+  const cols = (html) => [...html.matchAll(/<col(?: width="(\d+)")?>/g)].map(([, width]) => width ?? null);
+
+  afterEach(() => editor?.destroy());
+
+  it('turns the widths of the cells into the widths of the columns', () => {
+    expect(importHtml(table(['<td style="width:274px">a</td>', '<td style="width:227px">b</td>'])))
+      .toBe('<table><colgroup><col width="274"><col width="227"></colgroup><tbody><tr><td><p>a</p></td>'
+        + '<td><p>b</p></td></tr></tbody></table>');
+  });
+
+  it('reads the width attribute as the style', () => {
+    expect(cols(importHtml(table(['<td width="120">a</td>', '<td width="90px">b</td>'])))).toEqual(['120', '90']);
+  });
+
+  it('takes the most frequent width of a column, the largest one on a tie, and skips the stray ones', () => {
+    const rows = [['1px', '400px'], ['350px', '400px'], ['350px', '400px']]
+      .map((widths) => widths.map((width) => `<td style="width:${width}">a</td>`));
+
+    expect(cols(importHtml(table(...rows)))).toEqual(['350', '400']);
+    expect(cols(importHtml(table(
+      ['<td width="100">a</td>', '<td>b</td>'],
+      ['<td width="200">a</td>', '<td>b</td>'],
+    )))).toEqual(['200', null]);
+  });
+
+  it('ignores another unit', () => {
+    expect(importHtml(table(['<td style="width:50%">a</td>', '<td>b</td>']))).not.toContain('<col');
+  });
+
+  it('lets a <col width> come first', () => {
+    const html = '<table><colgroup><col width="100"><col></colgroup><tbody><tr><td style="width:200px">a</td>'
+      + '<td style="width:300px">b</td></tr></tbody></table>';
+
+    expect(cols(importHtml(html))).toEqual(['100', '300']);
+  });
+
+  it('does not invent a width for the columns of a merged cell', () => {
+    expect(importHtml(table(
+      ['<td colspan="2" style="width:300px">a</td>'],
+      ['<td>b</td>', '<td>c</td>'],
+    ))).not.toContain('<col');
+  });
+
+  it('only reads the widths in legacy import mode', () => {
+    expect(importHtml(table(['<td style="width:274px">a</td>']), null)).not.toContain('<col');
+  });
+
+  it('reports a width it did not convert, not the converted ones', () => {
+    const roundTripper = new RoundTripper(window, {});
+    const lost = (cells) => roundTripper.run(table(...cells)).lost.map(({ signal }) => signal);
+
+    try {
+      expect(lost([['<td style="width:274px">a</td>', '<td width="120">b</td>']])).toEqual([]);
+      expect(lost([['<td style="width:50%">a</td>', '<td>b</td>']])).toEqual(['style:width']);
+      expect(lost([['<td width="1">a</td>', '<td>b</td>']])).toEqual(['attr:td@width']);
+    } finally {
+      roundTripper.destroy();
+    }
+  });
+});

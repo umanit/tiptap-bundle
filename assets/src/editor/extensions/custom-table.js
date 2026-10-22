@@ -2,6 +2,7 @@ import { Table, TableCell, TableHeader } from '@tiptap/extension-table';
 import { mergeAttributes } from '@tiptap/core';
 import HtmlCleaner from '../html-cleaner.js';
 import { resolveLegacyClass } from '../legacy-styles.js';
+import { colgroupWidth, widthsFromCells } from '../column-widths.js';
 
 // Column widths are written as <col width="Xpx"> (a presentational attribute, not an inline style, so CSP compliant).
 // Only the first row is read: that is where the parent (and the browsers) look for the grid too.
@@ -134,26 +135,27 @@ export const CustomTable = Table.extend({
 const TEXT_ALIGNS = ['left', 'center', 'right', 'justify'];
 
 // Only a width in pixels is read: the parent's parseInt would turn a `50%` into 50px, silently.
-function parseColwidth(element) {
+// A <col width> comes first. In legacy import mode, the cells of the first row also get the width the other editor
+// wrote on the cells of their column (see widthsFromCells).
+function parseColwidth(element, legacyStyles) {
   const colwidth = element.getAttribute('colwidth');
   if (colwidth) {
     return colwidth.split(',').map((width) => parseInt(width, 10));
   }
 
   const row = element.parentElement;
-  const cols = element.closest('table')?.querySelectorAll('colgroup > col');
-  if (!row || !cols?.length) {
+  const table = element.closest('table');
+  if (!row || !table) {
     return null;
   }
 
   const first = Array.from(row.children)
     .slice(0, Array.from(row.children).indexOf(element))
     .reduce((count, cell) => count + (parseInt(cell.getAttribute('colspan'), 10) || 1), 0);
-  const widths = Array.from({ length: parseInt(element.getAttribute('colspan'), 10) || 1 }, (_, i) => {
-    const width = cols[first + i]?.getAttribute('width') ?? '';
-
-    return /^\d+(px)?$/.test(width) ? parseInt(width, 10) : 0;
-  });
+  const fromCells = legacyStyles && row === table.rows[0] ? widthsFromCells(table) : [];
+  const widths = Array.from({ length: parseInt(element.getAttribute('colspan'), 10) || 1 }, (_, i) => (
+    colgroupWidth(table, first + i) || fromCells[first + i] || 0
+  ));
 
   return widths.some(Boolean) ? widths : null;
 }
@@ -180,11 +182,15 @@ function cellClass(element, legacyStyles) {
   return classes.join(' ') || null;
 }
 
-function withoutInlineStyles(parentAttrs) {
+function withoutInlineStyles(parentAttrs, legacyStyles) {
   const attrs = { ...parentAttrs };
   // colwidth renders as style="width:Xpx; min-width:Ypx" — neutralize it for CSP compliance
   if (attrs.colwidth) {
-    attrs.colwidth = { ...attrs.colwidth, parseHTML: parseColwidth, renderHTML: () => ({}) };
+    attrs.colwidth = {
+      ...attrs.colwidth,
+      parseHTML: (element) => parseColwidth(element, legacyStyles),
+      renderHTML: () => ({}),
+    };
   }
   // The native alignment renders as style="text-align:…": the class (see cellClass) carries it instead
   if (attrs.align) {
@@ -200,7 +206,7 @@ export const CustomTableCell = TableCell.extend({
 
   addAttributes() {
     return {
-      ...withoutInlineStyles(this.parent?.() ?? {}),
+      ...withoutInlineStyles(this.parent?.() ?? {}, this.options.legacyStyles),
       class: {
         default: null,
         parseHTML: (element) => cellClass(element, this.options.legacyStyles),
@@ -217,7 +223,7 @@ export const CustomTableHeader = TableHeader.extend({
 
   addAttributes() {
     return {
-      ...withoutInlineStyles(this.parent?.() ?? {}),
+      ...withoutInlineStyles(this.parent?.() ?? {}, this.options.legacyStyles),
       class: {
         default: null,
         parseHTML: (element) => cellClass(element, this.options.legacyStyles),

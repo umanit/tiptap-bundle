@@ -55,10 +55,13 @@ final class TableLayoutRule implements CleaningRuleInterface
             $declarations = StyleDeclarations::read($element);
             $kept = \array_filter(
                 $declarations,
-                static fn(string $property): bool => !\in_array($property, self::STYLE_PROPERTIES, true)
-                    && !\str_starts_with($property, 'border')
-                    && !\str_starts_with($property, 'padding'),
-                \ARRAY_FILTER_USE_KEY,
+                fn(string $value, string $property): bool => $this->isCellWidth($element, $property, $value)
+                    || (
+                        !\in_array($property, self::STYLE_PROPERTIES, true)
+                        && !\str_starts_with($property, 'border')
+                        && !\str_starts_with($property, 'padding')
+                    ),
+                \ARRAY_FILTER_USE_BOTH,
             );
 
             $removed = \array_diff_key($declarations, $kept);
@@ -73,13 +76,24 @@ final class TableLayoutRule implements CleaningRuleInterface
     }
 
     /**
+     * The width of a cell in pixels is the width of its column: the editor reads it (in legacy import mode) and turns
+     * it into a `<col width>`, so it has to reach the migration.
+     */
+    private function isCellWidth(Element $element, string $property, string $value): bool
+    {
+        return 'width' === $property
+            && \in_array($element->localName, ['td', 'th'], true)
+            && 1 === \preg_match('/^\d*\.?\d+(px)?$/i', \trim($value));
+    }
+
+    /**
      * What the editor supports on a table is not part of the Word layout: an alignment (center, right), turned into a
      * class, and a border in pixels (`border="1"`).
      */
     private function isKept(Element $element, string $attribute): bool
     {
         if ('table' !== $element->localName) {
-            return false;
+            return $this->isCellWidth($element, $attribute, $element->getAttribute($attribute) ?? '');
         }
 
         $value = \strtolower($element->getAttribute($attribute) ?? '');

@@ -11,6 +11,7 @@ import { collectSignals, lostSignals } from './signals.js';
 export default class RoundTripper {
   #editor;
   #parser;
+  #legacy;
 
   /**
    * @param {Window} [win]
@@ -18,6 +19,7 @@ export default class RoundTripper {
    */
   constructor(win = window, legacyStyles = null) {
     this.#parser = new win.DOMParser();
+    this.#legacy = legacyStyles !== null;
     // No trailing paragraph: it helps to type after a last list, not to rewrite a content
     this.#editor = new TipTapEditor(
       {},
@@ -41,7 +43,7 @@ export default class RoundTripper {
     this.#editor.setContent(html);
 
     const after = this.#editor.getHTML();
-    const before = collectSignals(html, this.#parser);
+    const before = collectSignals(html, this.#parser, { convertCellWidths: this.#legacy });
     const kept = collectSignals(after, this.#parser);
 
     return {
