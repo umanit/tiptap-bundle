@@ -141,6 +141,110 @@ describe('legacy import mode in the editor', () => {
   });
 });
 
+describe('custom classes on inline elements', () => {
+  let editor;
+
+  const load = (html) => {
+    document.body.innerHTML = '';
+    editor = new TipTapEditor({}, { element: document.body, content: html }, {});
+
+    return editor.getHTML();
+  };
+
+  afterEach(() => {
+    editor?.destroy();
+  });
+
+  it('keeps the class of a span', () => {
+    expect(load('<p><span class="text-primary">a</span></p>')).toBe('<p><span class="text-primary">a</span></p>');
+  });
+
+  it('keeps the class of a formatting element as a span around the text', () => {
+    const html = load('<p><strong class="text-secondary"><em>a</em></strong></p>');
+
+    expect(html).toContain('text-secondary');
+    expect(html).toContain('<strong');
+    expect(html).toContain('<em');
+  });
+
+  it('keeps the spans of the source as they are, nested or not', () => {
+    const nested = '<p><span class="text-primary"><span class="ut-fs-14">a</span></span> b</p>';
+    const flat = '<p><span class="ut-color-red text-primary">a</span></p>';
+
+    expect(load(nested)).toBe(nested);
+    expect(load(flat)).toBe(flat);
+  });
+
+  it('puts the span around the formatting element', () => {
+    expect(load('<p><strong class="text-secondary"><em>a</em></strong></p>'))
+      .toBe('<p><span class="text-secondary"><strong><em>a</em></strong></span></p>');
+  });
+
+  it('strips the noise of Word but not the classes of the site', () => {
+    expect(load('<p><span class="ut-color-red text-primary MsoNormal">a</span></p>'))
+      .toBe('<p><span class="ut-color-red text-primary">a</span></p>');
+  });
+});
+
+describe('toolbar commands on the spans', () => {
+  let editor;
+
+  const run = (html, command, args, from = 1, to = 2) => {
+    document.body.innerHTML = '';
+    editor = new TipTapEditor({}, { element: document.body, content: html }, {});
+    editor.getEditor().commands.setTextSelection({ from, to });
+    editor.runCommand(command, args);
+
+    return editor.getHTML();
+  };
+
+  afterEach(() => {
+    editor?.destroy();
+  });
+
+  it('sets a color on a text, in a span', () => {
+    expect(run('<p>a</p>', 'setTextColor', 'ut-color-red')).toBe('<p><span class="ut-color-red">a</span></p>');
+  });
+
+  it('replaces the color of the span which has one, and keeps its other classes', () => {
+    expect(run('<p><span class="text-primary ut-color-red">a</span></p>', 'setTextColor', 'ut-color-blue'))
+      .toBe('<p><span class="text-primary ut-color-blue">a</span></p>');
+  });
+
+  it('puts the class in the span of the text rather than adding one', () => {
+    expect(run('<p><span class="text-primary">a</span></p>', 'setTextSize', 'ut-fs-14'))
+      .toBe('<p><span class="text-primary ut-fs-14">a</span></p>');
+  });
+
+  it('does not touch the nesting of the spans', () => {
+    const html = '<p><span class="a"><span class="ut-color-red">x</span></span></p>';
+
+    expect(run(html, 'setTextColor', 'ut-color-blue')).toBe(html.replace('red', 'blue'));
+  });
+
+  it('removes the class of a family and the span which is left empty', () => {
+    expect(run('<p><span class="ut-color-red ut-fs-14">a</span></p>', 'unsetTextColor'))
+      .toBe('<p><span class="ut-fs-14">a</span></p>');
+    expect(run('<p><span class="ut-fs-14">a</span></p>', 'unsetTextSize')).toBe('<p>a</p>');
+  });
+
+  it('only changes the selected text', () => {
+    expect(run('<p><span class="ut-color-red">ab</span></p>', 'setTextColor', 'ut-color-blue', 1, 2))
+      .toBe('<p><span class="ut-color-blue">a</span><span class="ut-color-red">b</span></p>');
+  });
+
+  it('tells whether the selection has a class', () => {
+    run('<p><span class="ut-color-red">a</span>b</p>', 'unsetTextSize');
+
+    expect(editor.hasSpanClass('ut-color-red')).toBe(true);
+    expect(editor.hasSpanClass('ut-color-blue')).toBe(false);
+
+    editor.getEditor().commands.setTextSelection({ from: 1, to: 3 });
+
+    expect(editor.hasSpanClass('ut-color-red')).toBe(false);
+  });
+});
+
 describe('round trip with the legacy styles', () => {
   it('does not report a converted style as lost, but reports an unmapped one', () => {
     const roundTripper = new RoundTripper(window, palette);

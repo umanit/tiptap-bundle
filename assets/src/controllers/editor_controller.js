@@ -10,6 +10,8 @@ import '../index.js';
 
 const NODE_COMMANDS = { 'image.open': 'image' };
 // Commands whose state is not a node or a mark: the editor tells it with a dedicated method
+// Commands which set a class on the text: they are active when the selection has the class
+const CLASS_COMMANDS = ['setTextColor', 'setTextBgColor', 'setTextSize'];
 const STATE_COMMANDS = { toggleListTight: 'isListTight' };
 
 export default class extends Controller {
@@ -290,6 +292,14 @@ export default class extends Controller {
 
       if (command in STATE_COMMANDS) {
         button.classList.toggle('active', this.#wysiwygEditor[STATE_COMMANDS[command]]());
+
+        return;
+      }
+
+      if (CLASS_COMMANDS.includes(command)) {
+        const className = (button.getAttribute(`data-${this.identifier}-args-param`) ?? '').replace(/^"|"$/g, '');
+
+        button.classList.toggle('active', '' !== className && this.#wysiwygEditor.hasSpanClass(className));
 
         return;
       }

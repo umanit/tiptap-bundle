@@ -5,8 +5,6 @@ import Placeholder from '@tiptap/extension-placeholder';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
 import OfficePaste from '@intevation/tiptap-extension-office-paste';
-import CustomTextColor from './extensions/custom-text-color.js';
-import CustomTextBgColor from './extensions/custom-text-bg-color.js';
 import CustomTextAlign from './extensions/custom-text-align.js';
 import TableManager from './managers/table-manager.js';
 import LinkManager from './managers/link-manager.js';
@@ -15,7 +13,7 @@ import TemplateManager from './managers/template-manager.js';
 import ClipboardManager from './managers/clipboard-manager.js';
 import AnchorManager from './managers/anchor-manager.js';
 import CustomAnchor from './extensions/custom-anchor.js';
-import CustomTextSize from './extensions/custom-text-size.js';
+import CustomSpan, { hasSpanClass } from './extensions/custom-span.js';
 import CustomBlockClasses from './extensions/custom-block-classes.js';
 import { CustomTable, CustomTableCell, CustomTableHeader } from './extensions/custom-table.js';
 import CustomImage from './extensions/custom-image.js';
@@ -125,6 +123,14 @@ export default class TipTapEditor {
   }
 
   /**
+   * @param {string} className
+   * @returns {boolean} Whether the selection is in a span which has the class (color, background or size)
+   */
+  hasSpanClass(className) {
+    return hasSpanClass(this.#editor.state, className);
+  }
+
+  /**
    * @param {...any} args
    * @returns {boolean}
    */
@@ -199,14 +205,12 @@ export default class TipTapEditor {
       CustomTableHeader.configure({ legacyStyles }),
       CustomTextAlign.configure({ types: ['heading', 'paragraph'] }),
       TableRow,
-      CustomTextColor.configure({ legacyStyles }),
-      CustomTextBgColor.configure({ legacyStyles }),
       Placeholder.configure({
         placeholder: translations.placeholder || 'Write something …',
       }),
       OfficePaste,
       CustomAnchor,
-      CustomTextSize.configure({ legacyStyles }),
+      CustomSpan.configure({ legacyStyles }),
     ];
   }
 

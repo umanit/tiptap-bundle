@@ -179,6 +179,10 @@ is opt-in: the editor in the browser does not read inline styles unless the opti
 
 - It measures the **schema**, not the rendering. A content which keeps its classes loses nothing here, but you still
   need the stylesheet which defines those classes (`ut-*`, your own) to look right.
+- The classes of a `span` (`text-primary`…) are kept, as well as the ones of a formatting element
+  (`<strong class="text-secondary">`, which goes on a `span` around the text): they can come from the stylesheet of the
+  site, the source mode or a template, not from the editor. Each `span` of the source comes out as one `span`, nothing
+  is merged nor split. Only the noise of Word and Google Docs (`Mso*`, `SCX*`, `kix-*`) is stripped.
 - It uses the schema of the bundle as is: the colors, sizes, styles and templates you configure in PHP are options of
   the toolbar and do not change what the schema accepts.
 - It cannot tell a deliberate omission from a defect: `style:font-family` is dropped by design, only you can say whether

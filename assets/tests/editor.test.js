@@ -89,8 +89,12 @@ describe('content schema', () => {
     expect(roundTrip('<p><span class="ut-fs-20">a</span></p>')).toBe('<p><span class="ut-fs-20">a</span></p>');
   });
 
-  it('does not mistake a foreign "bg-*" class for a background color', () => {
-    expect(roundTrip('<p><span class="bg-red">a</span></p>')).toBe('<p>a</p>');
+  it('keeps a foreign "bg-*" class as a custom class, not as a background color', () => {
+    create('<p><span class="bg-red">a</span></p>');
+
+    expect(editor.getHTML()).toBe('<p><span class="bg-red">a</span></p>');
+    expect(editor.getEditor().getJSON().content[0].content[0].marks.map((mark) => mark.type))
+      .toEqual(['textSpan']);
   });
 
   it('maps the alignment to bundle classes and reads inline styles', () => {
