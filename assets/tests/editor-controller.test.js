@@ -137,10 +137,10 @@ describe('editor controller', () => {
     });
 
     it('warns about what the editor drops', async () => {
-      await mount(diffMarkup('&lt;div class="box"&gt;&lt;p&gt;x&lt;/p&gt;&lt;/div&gt;'));
+      await mount(diffMarkup('&lt;div&gt;&lt;p&gt;x&lt;/p&gt;&lt;/div&gt;'));
 
       expect(banner().classList.contains('ut-hidden')).toBe(false);
-      expect(banner().textContent).toContain('Lost: tag:div, class:box');
+      expect(banner().textContent).toContain('Lost: tag:div');
     });
 
     it('only mentions a rewrite when nothing is lost', async () => {

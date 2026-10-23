@@ -233,11 +233,15 @@ describe('RoundTripper', () => {
       .toEqual(expect.arrayContaining(['style:margin-left', 'style:color', 'style:font-size']));
   });
 
-  it('reports a flattened <div>', () => {
-    const result = roundTripper.run('<div class="box"><ul><li>x</li></ul></div>');
+  it('reports a flattened <div>, the one without a class', () => {
+    const result = roundTripper.run('<div><ul><li>x</li></ul></div>');
 
-    expect(result.lost.map(({ signal }) => signal)).toEqual(expect.arrayContaining(['tag:div', 'class:box']));
+    expect(result.lost.map(({ signal }) => signal)).toEqual(['tag:div']);
     expect(result.textChanged).toBe(false);
+  });
+
+  it('does not report a <div> which has a class: the editor keeps it', () => {
+    expect(roundTripper.run('<div class="box"><ul><li class="i">x</li></ul></div>').lost).toEqual([]);
   });
 
   it('reports a text the editor drops', () => {

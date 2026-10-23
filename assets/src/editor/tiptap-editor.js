@@ -13,6 +13,7 @@ import TemplateManager from './managers/template-manager.js';
 import ClipboardManager from './managers/clipboard-manager.js';
 import AnchorManager from './managers/anchor-manager.js';
 import CustomAnchor from './extensions/custom-anchor.js';
+import CustomDiv from './extensions/custom-div.js';
 import CustomSpan, { hasSpanClass } from './extensions/custom-span.js';
 import CustomBlockClasses from './extensions/custom-block-classes.js';
 import { CustomTable, CustomTableCell, CustomTableHeader } from './extensions/custom-table.js';
@@ -196,6 +197,7 @@ export default class TipTapEditor {
         ...(trailingNode ? {} : { trailingNode: false }),
       }),
       CustomBlockClasses,
+      CustomDiv,
       CustomListItem,
       CustomImage,
       Subscript,

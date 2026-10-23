@@ -97,6 +97,23 @@ describe('content schema', () => {
       .toEqual(['textSpan']);
   });
 
+  it('keeps the classes of the items, quotes, code, rules and divs', () => {
+    expect(roundTrip('<blockquote class="q"><p>a</p></blockquote>'))
+      .toBe('<blockquote class="q"><p>a</p></blockquote>');
+    expect(roundTrip('<pre class="p"><code>a</code></pre>')).toBe('<pre class="p"><code>a</code></pre>');
+    expect(roundTrip('<p><code class="c">a</code></p>')).toBe('<p><code class="c">a</code></p>');
+    expect(roundTrip('<p>a</p><hr class="h"><p>b</p>')).toBe('<p>a</p><hr class="h"><p>b</p>');
+    expect(roundTrip('<ul><li class="i"><p>a</p></li></ul>')).toBe('<ul><li class="i"><p>a</p></li></ul>');
+  });
+
+  it('keeps a div which has a class, nested or not, and drops the wrapper without one', () => {
+    expect(roundTrip('<div class="box"><p>a</p><div class="in"><p>b</p></div></div>'))
+      .toBe('<div class="box"><p>a</p><div class="in"><p>b</p></div></div>');
+    expect(roundTrip('<div class="box">a</div>')).toBe('<div class="box"><p>a</p></div>');
+    expect(roundTrip('<div><p>a</p></div>')).toBe('<p>a</p>');
+    expect(roundTrip('<div class="WordSection1"><p>a</p></div>')).toBe('<p>a</p>');
+  });
+
   it('maps the alignment to bundle classes and reads inline styles', () => {
     expect(roundTrip('<p class="ut-text-center">a</p>')).toBe('<p class="ut-text-center">a</p>');
     expect(roundTrip('<p style="text-align: right">a</p>')).toBe('<p class="ut-text-right">a</p>');

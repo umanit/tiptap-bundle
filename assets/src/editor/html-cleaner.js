@@ -4,6 +4,7 @@
 const HtmlCleaner = {
   FORBIDDEN_CLASSES: [
     /^Mso/, // Word Desktop
+    /^WordSection/, // Word Desktop, the wrapper of the document
     /^SCX/, // Word Online
     /^kix-/, // Google Docs
     /^[a-z0-9]{20,}$/, // Hashs/Noise

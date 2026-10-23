@@ -64,6 +64,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   palette classes (`ut-color-*`, `ut-bg-*`, `ut-fs-*`) are set from the toolbar in the same span (single `textSpan`
   mark, which replaces the three `textColor`, `textBgColor` and `textSize` marks; the commands keep their names, and
   `unsetTextBgColor` is new). Only the classes of Word and the like are dropped.
+- The classes of a list item, a quote, a code block, an inline `code` and a horizontal rule are kept, like the ones of
+  the paragraphs.
+- A `<div>` which has a class is kept (`div` node, nested or not): a block of the site written in the source view, with
+  no button in the toolbar. A `<div>` without a class, or with only the classes of Word (`WordSection*` is now one of
+  them), is still dropped and keeps its content.
 - Legacy import mode: the color, background and size set inline on a formatting element
   (`<strong style="font-size:10pt">`, `<em>`, `<u>`…) are converted like the ones of a span, and a CSS color name (`red`) is read as its hex value.
 - A list whose items are all written without a paragraph (CKEditor) is rewritten with `ut-list-tight`, which cancels

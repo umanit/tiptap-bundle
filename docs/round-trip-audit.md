@@ -36,7 +36,7 @@ identifies the content (a table, an id, a locale…).
 ```jsonl
 {"id": 1, "html": "<p style=\"text-align:center\"><b>Hello</b></p>"}
 {"id": 2, "html": "<p><span style=\"color:#f00;font-size:14px\">Red</span></p>"}
-{"id": 3, "html": "<div class=\"box\"><ul><li>x</li></ul></div>"}
+{"id": 3, "html": "<div><ul><li>x</li></ul></div>"}
 {"id": 4, "html": "<p style=\"margin-left:40px\">Indented</p>"}
 ```
 
@@ -58,7 +58,7 @@ For the input above:
 ```jsonl
 {"id":1,…,"after":"<p class=\"ut-text-center\"><strong>Hello</strong></p>","textChanged":false,"lost":[]}
 {"id":2,…,"after":"<p>Red</p>","textChanged":false,"lost":[{"signal":"style:color","before":1,"after":0},{"signal":"style:font-size","before":1,"after":0}]}
-{"id":3,…,"after":"<ul><li><p>x</p></li></ul><p></p>","textChanged":false,"lost":[{"signal":"tag:div","before":1,"after":0},{"signal":"class:box","before":1,"after":0}]}
+{"id":3,…,"after":"<ul class=\"ut-list-tight\"><li><p>x</p></li></ul>","textChanged":false,"lost":[{"signal":"tag:div","before":1,"after":0}]}
 {"id":4,…,"after":"<p>Indented</p>","textChanged":false,"lost":[{"signal":"style:margin-left","before":1,"after":0}]}
 ```
 
@@ -179,10 +179,14 @@ is opt-in: the editor in the browser does not read inline styles unless the opti
 
 - It measures the **schema**, not the rendering. A content which keeps its classes loses nothing here, but you still
   need the stylesheet which defines those classes (`ut-*`, your own) to look right.
-- The classes of a `span` (`text-primary`…) are kept, as well as the ones of a formatting element
-  (`<strong class="text-secondary">`, which goes on a `span` around the text): they can come from the stylesheet of the
+- The classes of the site (`text-primary`…) are kept on the paragraphs, headings, lists, items, quotes, code (`pre` and
+  `code`), rules, tables, cells, images and links, and on a `span` or a formatting element
+  (`<strong class="text-secondary">` goes on a `span` around the `<strong>`). They can come from the stylesheet of the
   site, the source mode or a template, not from the editor. Each `span` of the source comes out as one `span`, nothing
-  is merged nor split. Only the noise of Word and Google Docs (`Mso*`, `SCX*`, `kix-*`) is stripped.
+  is merged nor split. Only the noise of Word and Google Docs (`Mso*`, `WordSection*`, `SCX*`, `kix-*`) is stripped.
+- A `<div>` which has a class is kept, nested or not, with its content: it is for the needs of a site which the editor
+  does not manage (no button in the toolbar, it is written in the source view). A `<div>` without a class, what Word
+  and CKEditor wrap the text in, is not: its content stays, the wrapper does not (`tag:div`).
 - It uses the schema of the bundle as is: the colors, sizes, styles and templates you configure in PHP are options of
   the toolbar and do not change what the schema accepts.
 - It cannot tell a deliberate omission from a defect: `style:font-family` is dropped by design, only you can say whether

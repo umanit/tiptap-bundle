@@ -32,6 +32,18 @@ export default Extension.create({
           },
         },
       },
+      {
+        // Kept as they are (the site's own classes): no margins nor tightness, which are about the text blocks.
+        // `code` is a mark which excludes the others, so its class is one of its attributes rather than a span.
+        types: ['listItem', 'blockquote', 'codeBlock', 'horizontalRule', 'code'],
+        attributes: {
+          class: {
+            default: null,
+            renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
+            parseHTML: (element) => HtmlCleaner.parseClass(element),
+          },
+        },
+      },
     ];
   },
 
