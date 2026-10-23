@@ -192,7 +192,8 @@ export default class TipTapEditor {
   #getExtensions(translations = {}, legacyStyles = null, trailingNode = true) {
     return [
       StarterKit.configure({
-        link: { openOnClick: false },
+        // No default target/rel: the content may be used in emails, where they are unwanted.
+        link: { openOnClick: false, HTMLAttributes: { target: null, rel: null } },
         listItem: false,
         ...(trailingNode ? {} : { trailingNode: false }),
       }),

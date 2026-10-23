@@ -73,6 +73,7 @@ wysiwyg.modal.image.url: 'URL*'
 wysiwyg.modal.image.width: Width
 wysiwyg.modal.link.anchor_name: 'Anchor Name'
 wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'Add rel="noopener noreferrer nofollow"'
 wysiwyg.modal.link.target: Target
 wysiwyg.modal.link.target.blank: 'New Window (_blank)'
 wysiwyg.modal.link.target.default: Default

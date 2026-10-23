@@ -490,6 +490,15 @@
   &.umanit-tiptap__row--action {
     grid-template-columns: 1fr auto;
     align-items: end;
+
+    /* Same height as the input next to the button */
+    & .umanit-tiptap__modal-btn {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.4rem 0.75rem;
+      font-size: 0.875rem;
+      line-height: inherit;
+    }
   }
 }
 

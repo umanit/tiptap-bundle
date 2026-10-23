@@ -85,3 +85,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - The classes Word and the like leave on a table, a cell or an image (`MsoTableGrid`, `MsoNormal`, `SCX*`, `kix-*`) were
   kept, unlike on the paragraphs: they are dropped now, the other classes stay.
 - The source view laid out a table with a `<colgroup>` on a single line.
+- Links got `target="_blank"` and `rel="noopener noreferrer nofollow"` by default, including the existing ones when the
+  content was loaded, which is unwanted for contents used in emails: they only keep the target chosen in the link modal.
+  A checkbox of the link modal adds `rel="noopener noreferrer nofollow"` when wanted.

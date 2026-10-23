@@ -37,6 +37,14 @@
                  placeholder="{{ 'wysiwyg.modal.link.anchor_placeholder'|trans }}">
         </div>
       </div>
+
+      <div class="umanit-tiptap__field umanit-tiptap__check">
+        <input type="checkbox" class="umanit-tiptap__check-input" id="linkRelCheck-{{ id }}" name="rel"
+               value="noopener noreferrer nofollow">
+        <label class="umanit-tiptap__check-label" for="linkRelCheck-{{ id }}">
+          {{ 'wysiwyg.modal.link.rel'|trans }}
+        </label>
+      </div>
     </form>
   {% endblock %}
 

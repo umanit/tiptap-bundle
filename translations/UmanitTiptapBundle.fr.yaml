@@ -73,6 +73,7 @@ wysiwyg.modal.image.url: 'URL*'
 wysiwyg.modal.image.width: Largeur
 wysiwyg.modal.link.anchor_name: 'Nom de l’ancre'
 wysiwyg.modal.link.anchor_placeholder: mon-ancre
+wysiwyg.modal.link.rel: 'Ajouter rel="noopener noreferrer nofollow"'
 wysiwyg.modal.link.target: Cible
 wysiwyg.modal.link.target.blank: 'Nouvelle fenêtre (_blank)'
 wysiwyg.modal.link.target.default: 'Par défaut'

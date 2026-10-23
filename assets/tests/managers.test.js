@@ -69,6 +69,41 @@ describe('link manager', () => {
     expect(tiptap.getHTML()).toContain('target="_blank"');
   });
 
+  it('adds no target nor rel to a link which does not have any', () => {
+    const els = elements();
+    create(els, '<p><a href="/foo">Hello</a></p>', null, { open: () => {}, close: () => {} });
+
+    expect(tiptap.getHTML()).toContain('<a href="/foo">Hello</a>');
+
+    tiptap.getEditor().commands.selectAll();
+    els.linkForm.elements.url.value = '/bar';
+    tiptap.runCommand('link.confirm');
+
+    expect(tiptap.getHTML()).toContain('href="/bar"');
+    expect(tiptap.getHTML()).not.toMatch(/target=|rel=/);
+  });
+
+  it('sets the rel only when the box is checked, and shows it when editing', () => {
+    const els = elements();
+    els.linkForm.insertAdjacentHTML('beforeend', '<input type="checkbox" name="rel" value="noopener noreferrer">');
+    create(els, '<p>Hello</p>', null, { open: () => {}, close: () => {} });
+    tiptap.getEditor().commands.selectAll();
+    els.linkForm.elements.url.value = '/foo';
+    els.linkForm.elements.rel.checked = true;
+    tiptap.runCommand('link.confirm');
+
+    expect(tiptap.getHTML()).toContain('rel="noopener noreferrer"');
+
+    tiptap.runCommand('link.open');
+
+    expect(els.linkForm.elements.rel.checked).toBe(true);
+
+    els.linkForm.elements.rel.checked = false;
+    tiptap.runCommand('link.confirm');
+
+    expect(tiptap.getHTML()).not.toContain('rel=');
+  });
+
   it('builds an internal link from an anchor, adding the hash', () => {
     const els = elements();
     create(els, '<p>Hello</p>', null, { open: () => {}, close: () => {} });

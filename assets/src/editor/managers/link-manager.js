@@ -47,6 +47,7 @@ export default class LinkManager extends AbstractManager {
       url: isAnchor ? '' : href,
       anchor: isAnchor ? href.substring(1) : '',
       target: attrs.target || '',
+      rel: Boolean(attrs.rel),
     });
 
     this.toggleType();
@@ -69,7 +70,7 @@ export default class LinkManager extends AbstractManager {
         .setLink({
           href: url,
           target: data.target || null,
-          rel: isAnchor ? null : undefined,
+          rel: isAnchor ? null : data.rel || null,
         })
         .run();
     }
