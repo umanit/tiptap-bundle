@@ -309,6 +309,54 @@ describe('content schema', () => {
   });
 
   describe('list items', () => {
+    describe('alignment of an item', () => {
+      const legacyStyles = { fontSize: { '12px': 'ut-fs-12' } };
+      const legacyTrip = (html) => {
+        editor = new TipTapEditor({}, { element: document.body, content: html, legacyStyles }, {});
+
+        return editor.getHTML();
+      };
+
+      it('reports it on the paragraph the editor creates for an inline text', () => {
+        expect(roundTrip('<ul><li style="text-align:justify">a</li></ul>'))
+          .toBe('<ul class="ut-list-tight"><li><p class="ut-text-justify">a</p></li></ul>');
+        expect(roundTrip('<ol><li style="text-align:right">a</li></ol>'))
+          .toBe('<ol class="ut-list-tight"><li><p class="ut-text-right">a</p></li></ol>');
+        expect(roundTrip('<ul><li style="text-align:center">a</li></ul>')).toContain('<p class="ut-text-center">a</p>');
+      });
+
+      it('reports it on the paragraphs of the item, the own alignment of a paragraph winning', () => {
+        expect(roundTrip('<ul><li style="text-align:justify"><p>a</p></li></ul>'))
+          .toBe('<ul><li><p class="ut-text-justify">a</p></li></ul>');
+        expect(roundTrip('<ul><li style="text-align:justify"><p>a</p><p>b</p></li></ul>'))
+          .toBe('<ul><li><p class="ut-text-justify">a</p><p class="ut-text-justify">b</p></li></ul>');
+        expect(roundTrip('<ul><li style="text-align:justify"><p style="text-align:center">a</p></li></ul>'))
+          .toBe('<ul><li><p class="ut-text-center">a</p></li></ul>');
+        expect(roundTrip('<ul><li style="text-align:justify"><p class="ut-text-right">a</p></li></ul>'))
+          .toBe('<ul><li><p class="ut-text-right">a</p></li></ul>');
+      });
+
+      it('leaves the items of a sub-list their own alignment', () => {
+        expect(roundTrip('<ul><li style="text-align:justify">a<ul><li>b</li></ul></li></ul>')).toContain(
+          '<li><p class="ut-text-justify">a</p><ul class="ut-list-tight"><li><p>b</p></li></ul></li>',
+        );
+        expect(roundTrip('<ul><li>a<ul><li style="text-align:right">b</li></ul></li></ul>')).toContain(
+          '<li><p>a</p><ul class="ut-list-tight"><li><p class="ut-text-right">b</p></li></ul></li>',
+        );
+      });
+
+      it('reaches a text in a span converted to a class', () => {
+        expect(legacyTrip('<ul><li style="text-align:justify"><span style="font-size:12px">a</span></li></ul>'))
+          .toContain('<li><p class="ut-text-justify"><span class="ut-fs-12">a</span></p></li>');
+      });
+
+      it('adds nothing for the default alignment nor for an unknown value', () => {
+        ['start', 'left', 'foo'].forEach((value) => {
+          expect(roundTrip(`<ul><li style="text-align:${value}">a</li></ul>`)).not.toContain('ut-text-');
+        });
+      });
+    });
+
     it('accepts a heading as first child of a list item', () => {
       expect(roundTrip('<ul><li><h2>Title</h2></li></ul>')).toBe('<ul><li><h2>Title</h2></li></ul>');
     });

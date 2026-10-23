@@ -1,6 +1,7 @@
 import { getNodeType } from '@tiptap/core';
 import { ListItem } from '@tiptap/extension-list';
 import { sinkListItem } from '@tiptap/pm/schema-list';
+import { withItemAlign } from '../list-item-align.js';
 import { TIGHT_LIST_CLASS, closestList, hasTightClass } from '../tight-list.js';
 
 // Like sinkListItem, whether the previous item already ends with a list of the same kind: the item then joins it
@@ -21,6 +22,11 @@ const isSunkIntoExistingList = ($from, type) => {
 // instead of the default "paragraph block*" which forces a leading paragraph.
 export default ListItem.extend({
   content: 'block+',
+
+  // The alignment CKEditor writes on the item goes on its paragraphs (see withItemAlign)
+  parseHTML() {
+    return [{ tag: 'li', contentElement: withItemAlign }];
+  },
 
   addCommands() {
     return {

@@ -240,6 +240,23 @@ describe('RoundTripper', () => {
     expect(result.textChanged).toBe(false);
   });
 
+  describe('alignment of a list item', () => {
+    const lost = (html) => new RoundTripper().run(html).lost.map(({ signal }) => signal);
+
+    it.each(['center', 'right', 'justify', 'left', 'start'])('does not report %s', (value) => {
+      expect(lost(`<ul><li style="text-align:${value}">a</li></ul>`)).not.toContain('style:text-align');
+    });
+
+    it('does not report an alignment the paragraph of the item overrides', () => {
+      expect(lost('<ul><li style="text-align:justify"><p style="text-align:center">a</p></li></ul>'))
+        .not.toContain('style:text-align');
+    });
+
+    it('still reports an unknown value', () => {
+      expect(lost('<ul><li style="text-align:foo">a</li></ul>')).toContain('style:text-align');
+    });
+  });
+
   describe('harmless signals', () => {
     const table = (style) => `<table style="${style}"><tbody><tr><td>a</td></tr></tbody></table>`;
 
@@ -253,7 +270,7 @@ describe('RoundTripper', () => {
       ['the start alignment', '<p style="text-align:start">a</p>', '<p style="text-align:justify">a</p>',
         'style:text-align'],
       ['the start alignment of a li', '<ul><li style="text-align:start">a</li></ul>',
-        '<ul><li style="text-align:center">a</li></ul>', 'style:text-align'],
+        '<ul><li style="text-align:foo">a</li></ul>', 'style:text-align'],
       ['the initial font-weight', table('font-weight:400'), table('font-weight:lighter'), 'style:font-weight'],
       ['the normal font-weight', table('font-weight:normal'), table('font-weight:lighter'), 'style:font-weight'],
       ['the initial font-style', table('font-style:normal'), table('font-style:oblique'), 'style:font-style'],
@@ -286,10 +303,9 @@ describe('RoundTripper', () => {
       expect(signalsOf('<div dir="rtl"><p style="text-align:left">a</p></div>')['style:text-align']).toBe(1);
     });
 
-    it('still reports the square of a first level list and the unsupported alignments of a li', () => {
+    it('still reports the square of a first level list and an unsupported alignment of a li', () => {
       expect(lostOf('<ul style="list-style-type:square"><li>a</li></ul>')).toContain('style:list-style-type');
-      expect(lostOf('<ul><li style="text-align:justify">a</li></ul>')).toContain('style:text-align');
-      expect(lostOf('<ul><li style="text-align:center">a</li></ul>')).toContain('style:text-align');
+      expect(lostOf('<ul><li style="text-align:foo">a</li></ul>')).toContain('style:text-align');
     });
 
     it('keeps the alignments converted to a class unreported', () => {

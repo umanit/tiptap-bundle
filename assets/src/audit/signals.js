@@ -8,6 +8,7 @@ import imageSize from '../editor/image-size.js';
 import imageStyle from '../editor/image-style.js';
 import { BLOCK_TAGS, marginClassesOf } from '../editor/indent.js';
 import { isWidthConverted } from '../editor/column-widths.js';
+import { isLeftToRight, listItemAlign } from '../editor/list-item-align.js';
 
 // Tags the editor renders with another one (`<b>` becomes `<strong>`).
 const TAG_ALIASES = {
@@ -88,6 +89,11 @@ const convertedProperties = (el, tag) => {
     imageStyle(el.style).properties.forEach((property) => converted.add(property));
   }
 
+  // The alignment of an item is reported on its paragraphs
+  if (tag === 'li' && listItemAlign(el)) {
+    converted.add('text-align');
+  }
+
   if (BLOCK_TAGS.test(tag)) {
     marginClassesOf(el.style).properties.forEach((property) => converted.add(property));
   }
@@ -131,9 +137,6 @@ const defaultListStyleType = (rawTag, level) => {
 
   return ['disc', 'circle'][level] ?? 'square';
 };
-
-// The `left` alignment is the default one unless the writing direction is right-to-left.
-const isLeftToRight = (el) => (el.closest('[dir]')?.getAttribute('dir') ?? 'ltr').trim().toLowerCase() === 'ltr';
 
 // A declaration which sets what the browser applies anyway: dropping it changes nothing on screen.
 const isDefaultStyle = (el, rawTag, property) => {
@@ -255,6 +258,11 @@ export const collectSignals = (html, parser, { convertCellWidths = false, produc
 
     Array.from(el.attributes).forEach(({ name }) => {
       if (name === 'style') {
+        // A value the browser does not know is not in `el.style`: the declaration is still read from the attribute
+        if (!el.style.textAlign && /(^|;)\s*text-align\s*:\s*[^;\s]/i.test(el.getAttribute('style'))) {
+          increment(signals, 'style:text-align');
+        }
+
         new Set(Array.from(el.style)
           .filter((property) => !converted.has(property) && !isDefaultStyle(el, rawTag, property)).map((property) => {
             if (COVERAGE_STYLES.has(property)) {

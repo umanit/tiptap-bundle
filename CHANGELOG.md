@@ -38,6 +38,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Tables: the horizontal alignment of a cell (`ut-text-left|center|right|justify` on the `td`/`th`, from the cell
   properties). A cell written by another editor with `style="text-align:…"` or `align="…"` gets that class, so the audit
   no longer reports it as lost. The cell form keeps the other classes of the cell.
+- Lists: the `text-align` CKEditor writes on a `<li>` (`center`, `right`, `justify`, and `left` in a right-to-left
+  context) becomes the `ut-text-*` class of the paragraphs of the item, including the one the editor creates for an
+  inline text. A paragraph keeps its own alignment, and the items of a sub-list their own. The audit no longer reports
+  it as lost; an unknown value (`text-align:foo`) still is.
 - Tables: `<table align="center|right">` (CKEditor) becomes `ut-table-center` / `ut-table-right`, so the audit no longer
   reports it as lost, and the `table-layout` cleaning rule keeps that `align` instead of removing it (an alignment
   nobody would otherwise get back, since it was removed before the migration could convert it). The `align` of a cell
