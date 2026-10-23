@@ -43,8 +43,9 @@ export default class RoundTripper {
     this.#editor.setContent(html);
 
     const after = this.#editor.getHTML();
-    const before = collectSignals(html, this.#parser, { convertCellWidths: this.#legacy });
     const kept = collectSignals(after, this.#parser);
+    // The identifiers of the produced content tell which named anchors are still reachable
+    const before = collectSignals(html, this.#parser, { convertCellWidths: this.#legacy, producedIds: kept.ids });
 
     return {
       after,

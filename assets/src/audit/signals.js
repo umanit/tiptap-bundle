@@ -95,6 +95,74 @@ const convertedProperties = (el, tag) => {
   return converted;
 };
 
+// Properties whose initial value is what the browser applies without the declaration, on any element.
+const INITIAL_VALUES = [
+  [/^font-weight$/, ['normal', '400']],
+  [/^font-style$/, ['normal']],
+  [/^text-decoration/, ['none']],
+  [/^white-space$/, ['normal']],
+];
+
+// Attributes whose HTML default value is the one written.
+const DEFAULT_ATTRIBUTES = {
+  'ol@start': '1', 'td@colspan': '1', 'td@rowspan': '1', 'th@colspan': '1', 'th@rowspan': '1',
+};
+
+const LIST_TAGS = new Set(['ul', 'ol']);
+
+// Number of `ul`/`ol` ancestors of an element: the nesting level of a list.
+const listLevel = (el) => {
+  let level = 0;
+
+  for (let parent = el.parentElement; parent; parent = parent.parentElement) {
+    if (LIST_TAGS.has(parent.tagName.toLowerCase())) {
+      level += 1;
+    }
+  }
+
+  return level;
+};
+
+// Marker the browser draws by default for a list at that level.
+const defaultListStyleType = (rawTag, level) => {
+  if (rawTag === 'ol') {
+    return 'decimal';
+  }
+
+  return ['disc', 'circle'][level] ?? 'square';
+};
+
+// The `left` alignment is the default one unless the writing direction is right-to-left.
+const isLeftToRight = (el) => (el.closest('[dir]')?.getAttribute('dir') ?? 'ltr').trim().toLowerCase() === 'ltr';
+
+// A declaration which sets what the browser applies anyway: dropping it changes nothing on screen.
+const isDefaultStyle = (el, rawTag, property) => {
+  const value = el.style.getPropertyValue(property).trim().toLowerCase();
+
+  if (property === 'text-align') {
+    return value === 'start' || (value === 'left' && isLeftToRight(el));
+  }
+
+  if (property === 'list-style-type') {
+    return LIST_TAGS.has(rawTag) && value === defaultListStyleType(rawTag, listLevel(el));
+  }
+
+  return INITIAL_VALUES.some(([pattern, values]) => pattern.test(property) && values.includes(value));
+};
+
+const isDefaultAttribute = (el, rawTag, name) => DEFAULT_ATTRIBUTES[`${rawTag}@${name}`] === el.getAttribute(name).trim();
+
+// Ids of the elements which are not anchors: where the editor moves the identifier of an `<a id>`.
+const idsOfContent = (body) => new Set(
+  Array.from(body.querySelectorAll('[id]')).filter((el) => el.tagName !== 'A').map((el) => el.id),
+);
+
+// A named anchor whose identifiers are found on an element of the produced content: the `#x` link still works.
+const isReplacedAnchor = (el, rawTag, producedIds) => rawTag === 'a'
+  && !el.hasAttribute('href')
+  && (el.hasAttribute('id') || el.hasAttribute('name'))
+  && ['id', 'name'].filter((name) => el.hasAttribute(name)).every((name) => producedIds.has(el.getAttribute(name)));
+
 const increment = (signals, key, by = 1) => signals.set(key, (signals.get(key) ?? 0) + by);
 
 // Coverage signals (`style:color`...) an element carries, through an inline style or an equivalent utility class.
@@ -140,7 +208,7 @@ const countMarkedCharacters = (root, signals) => {
 /**
  * @param {string} html
  * @param {DOMParser} parser
- * @returns {{ signals: Map<string, number>, text: string }}
+ * @returns {{ signals: Map<string, number>, text: string, ids: Set<string> }}
  */
 // The `align` attribute of a table (center, right) and of a cell is kept by the editor, as a class.
 const isConvertedAlign = (el, rawTag, name) => {
@@ -158,15 +226,20 @@ const isConvertedAlign = (el, rawTag, name) => {
 };
 
 // In legacy import mode, the width of a cell becomes the width of its column.
-export const collectSignals = (html, parser, { convertCellWidths = false } = {}) => {
+export const collectSignals = (html, parser, { convertCellWidths = false, producedIds = null } = {}) => {
   const { body } = parser.parseFromString(html, 'text/html');
   const signals = new Map();
+  const identifiers = producedIds ?? idsOfContent(body);
 
   body.querySelectorAll('*').forEach((el) => {
     const rawTag = el.tagName.toLowerCase();
     const tag = TAG_ALIASES[rawTag] ?? rawTag;
 
-    if (!MARK_TAGS.has(tag) && !CARRIER_TAGS.has(tag)) {
+    const replacedAnchor = isReplacedAnchor(el, rawTag, identifiers);
+    // A `<div>` without attribute only wraps its content, which is kept (and measured) on its own.
+    const isBareDiv = rawTag === 'div' && el.attributes.length === 0;
+
+    if (!MARK_TAGS.has(tag) && !CARRIER_TAGS.has(tag) && !replacedAnchor && !isBareDiv) {
       increment(signals, `tag:${tag}`);
     }
 
@@ -182,23 +255,24 @@ export const collectSignals = (html, parser, { convertCellWidths = false } = {})
 
     Array.from(el.attributes).forEach(({ name }) => {
       if (name === 'style') {
-        new Set(Array.from(el.style).filter((property) => !converted.has(property)).map((property) => {
-          if (COVERAGE_STYLES.has(property)) {
-            return null;
-          }
-
-          if (isImageSize(property)) {
-            if (imageSize(el.style.getPropertyValue(property)) !== null) {
-              imageSizes.add(`attr:img@${property}`);
-
+        new Set(Array.from(el.style)
+          .filter((property) => !converted.has(property) && !isDefaultStyle(el, rawTag, property)).map((property) => {
+            if (COVERAGE_STYLES.has(property)) {
               return null;
             }
 
-            return `style:img@${property}`;
-          }
+            if (isImageSize(property)) {
+              if (imageSize(el.style.getPropertyValue(property)) !== null) {
+                imageSizes.add(`attr:img@${property}`);
 
-          return styleSignal(property);
-        })).forEach((signal) => signal && increment(signals, signal));
+                return null;
+              }
+
+              return `style:img@${property}`;
+            }
+
+            return styleSignal(property);
+          })).forEach((signal) => signal && increment(signals, signal));
       } else if (name === 'class') {
         el.classList.forEach((cls) => {
           increment(signals, `class:${cls}`);
@@ -208,7 +282,12 @@ export const collectSignals = (html, parser, { convertCellWidths = false } = {})
         });
       } else if (isImageSize(name)) {
         imageSizes.add(`attr:img@${name}`);
-      } else if (!isConvertedAlign(el, rawTag, name) && !(isConvertedCellWidth && name === 'width')) {
+      } else if (
+        !isConvertedAlign(el, rawTag, name)
+        && !(isConvertedCellWidth && name === 'width')
+        && !isDefaultAttribute(el, rawTag, name)
+        && !(replacedAnchor && ['id', 'name'].includes(name))
+      ) {
         increment(signals, `attr:${rawTag}@${name}`);
       }
     });
@@ -218,7 +297,7 @@ export const collectSignals = (html, parser, { convertCellWidths = false } = {})
 
   countMarkedCharacters(body, signals);
 
-  return { signals, text: body.textContent.replace(/\s+/g, '') };
+  return { signals, text: body.textContent.replace(/\s+/g, ''), ids: idsOfContent(body) };
 };
 
 /**

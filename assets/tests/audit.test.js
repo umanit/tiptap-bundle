@@ -68,7 +68,7 @@ describe('collectSignals', () => {
     expect(inline).toEqual({
       'tag:p': 1, 'mark:strong': 2, 'mark:em': 2, 'mark:u': 2,
     });
-    expect(signalsOf('<p><span style="font-weight:normal">a</span></p>')['style:font-weight']).toBe(1);
+    expect(signalsOf('<p><span style="font-weight:lighter">a</span></p>')['style:font-weight']).toBe(1);
   });
 
   it('counts the float and margins of an image as the utility classes the editor writes', () => {
@@ -233,11 +233,77 @@ describe('RoundTripper', () => {
       .toEqual(expect.arrayContaining(['style:margin-left', 'style:color', 'style:font-size']));
   });
 
-  it('reports a flattened <div>, the one without a class', () => {
-    const result = roundTripper.run('<div><ul><li>x</li></ul></div>');
+  it('reports a flattened <div> which carries an attribute the editor drops', () => {
+    const result = roundTripper.run('<div data-x="1"><ul><li>x</li></ul></div>');
 
-    expect(result.lost.map(({ signal }) => signal)).toEqual(['tag:div']);
+    expect(result.lost.map(({ signal }) => signal)).toEqual(expect.arrayContaining(['tag:div', 'attr:div@data-x']));
     expect(result.textChanged).toBe(false);
+  });
+
+  describe('harmless signals', () => {
+    const table = (style) => `<table style="${style}"><tbody><tr><td>a</td></tr></tbody></table>`;
+
+    it.each([
+      ['an attribute at its default value', '<ol start="1"><li>a</li></ol>', '<ol start="5"><li>a</li></ol>',
+        'attr:ol@start'],
+      ['a colspan at its default value', '<table><tbody><tr><td colspan="1">a</td></tr></tbody></table>',
+        '<table><tbody><tr><td colspan="2">a</td><td>b</td></tr></tbody></table>', 'attr:td@colspan'],
+      ['a rowspan at its default value', '<table><tbody><tr><th rowspan="1">a</th></tr></tbody></table>',
+        '<table><tbody><tr><th rowspan="2">a</th></tr><tr></tr></tbody></table>', 'attr:th@rowspan'],
+      ['the start alignment', '<p style="text-align:start">a</p>', '<p style="text-align:justify">a</p>',
+        'style:text-align'],
+      ['the start alignment of a li', '<ul><li style="text-align:start">a</li></ul>',
+        '<ul><li style="text-align:center">a</li></ul>', 'style:text-align'],
+      ['the initial font-weight', table('font-weight:400'), table('font-weight:lighter'), 'style:font-weight'],
+      ['the normal font-weight', table('font-weight:normal'), table('font-weight:lighter'), 'style:font-weight'],
+      ['the initial font-style', table('font-style:normal'), table('font-style:oblique'), 'style:font-style'],
+      ['the initial text-decoration', table('text-decoration:none'), table('text-decoration:overline'),
+        'style:text-decoration'],
+      ['the initial white-space', table('white-space:normal'), table('white-space:pre'), 'style:white-space'],
+      ['an initial value on a span', '<p><span style="font-style:normal">a</span></p>',
+        '<p><span style="font-style:oblique">a</span></p>', 'style:font-style'],
+      ['the disc of a first level list', '<ul style="list-style-type:disc"><li>a</li></ul>',
+        '<ul style="list-style-type:square"><li>a</li></ul>', 'style:list-style-type'],
+      ['the circle of a second level list', '<ul><li>a<ul style="list-style-type:circle"><li>b</li></ul></li></ul>',
+        '<ul><li>a<ul style="list-style-type:disc"><li>b</li></ul></li></ul>', 'style:list-style-type'],
+      ['the square of a third level list',
+        '<ul><li>a<ul><li>b<ul style="list-style-type:square"><li>c</li></ul></li></ul></li></ul>',
+        '<ul><li>a<ul><li>b<ul style="list-style-type:circle"><li>c</li></ul></li></ul></li></ul>',
+        'style:list-style-type'],
+      ['the decimal of an ordered list', '<ol style="list-style-type:decimal"><li>a</li></ol>',
+        '<ol style="list-style-type:lower-alpha"><li>a</li></ol>', 'style:list-style-type'],
+      ['a named anchor whose id is on the paragraph', '<p><a id="x" name="x"></a>Title</p>',
+        '<p><a id="x" name="y"></a>Title</p>', 'attr:a@name'],
+      ['a <div> without attribute', '<div><p>a</p></div>', '<div data-x="1"><p>a</p></div>', 'tag:div'],
+    ])('does not report %s, but still counts a real value', (name, harmless, real, signal) => {
+      expect(lostOf(harmless)).toEqual([]);
+      expect(signalsOf(real)[signal]).toBeGreaterThan(0);
+    });
+
+    it('does not report a left alignment, unless the writing direction is right-to-left', () => {
+      expect(lostOf('<p style="text-align:left">a</p>')).toEqual([]);
+      expect(lostOf('<p dir="ltr" style="text-align:left">a</p>').filter((s) => s === 'style:text-align')).toEqual([]);
+      expect(signalsOf('<div dir="rtl"><p style="text-align:left">a</p></div>')['style:text-align']).toBe(1);
+    });
+
+    it('still reports the square of a first level list and the unsupported alignments of a li', () => {
+      expect(lostOf('<ul style="list-style-type:square"><li>a</li></ul>')).toContain('style:list-style-type');
+      expect(lostOf('<ul><li style="text-align:justify">a</li></ul>')).toContain('style:text-align');
+      expect(lostOf('<ul><li style="text-align:center">a</li></ul>')).toContain('style:text-align');
+    });
+
+    it('keeps the alignments converted to a class unreported', () => {
+      const cells = '<td style="text-align:right">a</td><td align="right">b</td>';
+
+      expect(lostOf(`<table><tbody><tr>${cells}</tr></tbody></table>`)).toEqual([]);
+      expect(lostOf('<ol start="5"><li>a</li></ol>')).toEqual([]);
+    });
+
+    it('reports a named anchor whose id the content does not keep', () => {
+      const signals = lostOf('<p>a<a name="x"></a></p>');
+
+      expect(signals).toEqual(expect.arrayContaining(['tag:a', 'attr:a@name']));
+    });
   });
 
   it('does not report a <div> which has a class: the editor keeps it', () => {

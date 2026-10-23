@@ -137,7 +137,7 @@ describe('editor controller', () => {
     });
 
     it('warns about what the editor drops', async () => {
-      await mount(diffMarkup('&lt;div&gt;&lt;p&gt;x&lt;/p&gt;&lt;/div&gt;'));
+      await mount(diffMarkup('&lt;div data-x=&quot;1&quot;&gt;&lt;p&gt;x&lt;/p&gt;&lt;/div&gt;'));
 
       expect(banner().classList.contains('ut-hidden')).toBe(false);
       expect(banner().textContent).toContain('Lost: tag:div');

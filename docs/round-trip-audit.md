@@ -36,7 +36,7 @@ identifies the content (a table, an id, a locale…).
 ```jsonl
 {"id": 1, "html": "<p style=\"text-align:center\"><b>Hello</b></p>"}
 {"id": 2, "html": "<p><span style=\"color:#f00;font-size:14px\">Red</span></p>"}
-{"id": 3, "html": "<div><ul><li>x</li></ul></div>"}
+{"id": 3, "html": "<div data-x=\"1\"><ul><li>x</li></ul></div>"}
 {"id": 4, "html": "<p style=\"margin-left:40px\">Indented</p>"}
 ```
 
@@ -58,12 +58,12 @@ For the input above:
 ```jsonl
 {"id":1,…,"after":"<p class=\"ut-text-center\"><strong>Hello</strong></p>","textChanged":false,"lost":[]}
 {"id":2,…,"after":"<p>Red</p>","textChanged":false,"lost":[{"signal":"style:color","before":1,"after":0},{"signal":"style:font-size","before":1,"after":0}]}
-{"id":3,…,"after":"<ul class=\"ut-list-tight\"><li><p>x</p></li></ul>","textChanged":false,"lost":[{"signal":"tag:div","before":1,"after":0}]}
+{"id":3,…,"after":"<ul class=\"ut-list-tight\"><li><p>x</p></li></ul>","textChanged":false,"lost":[{"signal":"tag:div","before":1,"after":0},{"signal":"attr:div@data-x","before":1,"after":0}]}
 {"id":4,…,"after":"<p>Indented</p>","textChanged":false,"lost":[{"signal":"style:margin-left","before":1,"after":0}]}
 ```
 
 The first content loses nothing: the alignment became a class and `<b>` became `<strong>`, which is what the editor
-does. The others lose their color and size, their `<div>` wrapper, and their indentation.
+does. The others lose their color and size, their `<div>` wrapper (it carries an attribute), and their indentation.
 
 ## Reading the result
 
@@ -186,7 +186,14 @@ is opt-in: the editor in the browser does not read inline styles unless the opti
   is merged nor split. Only the noise of Word and Google Docs (`Mso*`, `WordSection*`, `SCX*`, `kix-*`) is stripped.
 - A `<div>` which has a class is kept, nested or not, with its content: it is for the needs of a site which the editor
   does not manage (no button in the toolbar, it is written in the source view). A `<div>` without a class, what Word
-  and CKEditor wrap the text in, is not: its content stays, the wrapper does not (`tag:div`).
+  and CKEditor wrap the text in, is not: its content stays, the wrapper does not. That is not reported when the `<div>`
+  has no attribute at all (the wrapper changes nothing on screen); it is when it carries one (`tag:div`).
+- Some signals are not counted as lost, on both sides of the comparison, because dropping them changes nothing on
+  screen: an attribute at its HTML default (`ol start="1"`, `colspan="1"`, `rowspan="1"`); `text-align` `start`, and
+  `left` unless a `dir="rtl"` ancestor says otherwise; an initial value (`font-weight` `normal`/`400`, `font-style`
+  `normal`, `text-decoration` `none`, `white-space` `normal`); the `list-style-type` the browser draws for the level
+  of the list (`disc`, `circle`, then `square` for a `ul`, `decimal` for an `ol`); and a named anchor (`<a id>` /
+  `<a name>`) whose identifier is found as an `id` on an element of the produced content.
 - It uses the schema of the bundle as is: the colors, sizes, styles and templates you configure in PHP are options of
   the toolbar and do not change what the schema accepts.
 - It cannot tell a deliberate omission from a defect: `style:font-family` is dropped by design, only you can say whether
