@@ -12,11 +12,13 @@ const NODE_COMMANDS = { 'image.open': 'image' };
 // Commands whose state is not a node or a mark: the editor tells it with a dedicated method
 // Commands which set a class on the text: they are active when the selection has the class
 const CLASS_COMMANDS = ['setTextColor', 'setTextBgColor', 'setTextSize'];
+const MIN_HEIGHT = 120;
+const RESIZE_STEP = 40;
 const STATE_COMMANDS = { toggleListTight: 'isListTight' };
 
 export default class extends Controller {
   static targets = [
-    'editor', 'input', 'toolbar', 'contextMenu', 'modals',
+    'editor', 'input', 'toolbar', 'path', 'resizeHandle', 'contextMenu', 'modals',
     'tableForm', 'cellForm',
     'linkForm', 'linkUrlGroup', 'linkAnchorGroup',
     'imageForm',
@@ -75,8 +77,12 @@ export default class extends Controller {
         onUpdate: ({ editor }) => {
           this.inputTarget.value = editor.getHTML();
           this.#updateToolbarState();
+          this.#updatePath();
         },
-        onSelectionUpdate: () => this.#updateToolbarState(),
+        onSelectionUpdate: () => {
+          this.#updateToolbarState();
+          this.#updatePath();
+        },
       }, {
         placeholder: this.translationsValue.placeholder || null,
       }, fileManagerAdapter, {
@@ -87,6 +93,7 @@ export default class extends Controller {
       this.#wysiwygEditor.onSourceModeChange((isSourceMode) => this.#updateSourceModeUI(isSourceMode));
 
       this.#setupEventListeners();
+      this.#updatePath();
     } catch (err) {
       throw new Error('Cannot instantiate the TipTap editor', { cause: err });
     }
@@ -122,6 +129,44 @@ export default class extends Controller {
     }
 
     this.#wysiwygEditor.setSourceMode(newMode);
+  }
+
+  /**
+   * Resizes the editing area (and the source view) by dragging the handle of the status bar.
+   *
+   * @param {PointerEvent} event
+   */
+  startResize(event) {
+    event.preventDefault();
+
+    const startY = event.clientY;
+    const startHeight = this.#areaHeight();
+    const { signal } = this.#abortController;
+    const stop = new AbortController();
+    const end = () => stop.abort();
+
+    this.resizeHandleTarget.setPointerCapture?.(event.pointerId);
+    this.resizeHandleTarget.addEventListener(
+      'pointermove',
+      (move) => this.#setAreaHeight(startHeight + move.clientY - startY),
+      { signal: AbortSignal.any([signal, stop.signal]) },
+    );
+    this.resizeHandleTarget.addEventListener('pointerup', end, { signal: stop.signal });
+    this.resizeHandleTarget.addEventListener('pointercancel', end, { signal: stop.signal });
+  }
+
+  /**
+   * @param {KeyboardEvent} event
+   */
+  resizeWithKeyboard(event) {
+    const direction = { ArrowUp: -1, ArrowDown: 1 }[event.key];
+
+    if (undefined === direction) {
+      return;
+    }
+
+    event.preventDefault();
+    this.#setAreaHeight(this.#areaHeight() + direction * RESIZE_STEP);
   }
 
   openDiff() {
@@ -273,10 +318,42 @@ export default class extends Controller {
     }
   }
 
+  /**
+   * @returns {number} The current height of the editing area, in pixels
+   */
+  #areaHeight() {
+    const area = this.#wysiwygEditor.isSourceMode() ? this.inputTarget : this.editorTarget.parentElement;
+
+    return area.getBoundingClientRect().height;
+  }
+
+  /**
+   * The height is a custom property of the root: the editing area and the source view both read it.
+   *
+   * @param {number} height
+   */
+  #setAreaHeight(height) {
+    this.element.style.setProperty('--umanit-tiptap-height', `${Math.max(MIN_HEIGHT, Math.round(height))}px`);
+  }
+
+  #updatePath() {
+    if (!this.hasPathTarget || !this.#wysiwygEditor) {
+      return;
+    }
+
+    this.pathTarget.replaceChildren(...this.#wysiwygEditor.getPath().map((tag) => {
+      const item = document.createElement('li');
+      item.textContent = tag;
+
+      return item;
+    }));
+  }
+
   #updateSourceModeUI(isSourceMode) {
     this.editorTarget.classList.toggle('ut-hidden', isSourceMode);
     this.inputTarget.classList.toggle('ut-hidden', !isSourceMode);
     this.toolbarTarget.classList.toggle('umanit-tiptap__toolbar--disabled', isSourceMode);
+    this.editorTarget.parentElement.classList.toggle('ut-hidden', isSourceMode);
   }
 
   #updateToolbarState() {

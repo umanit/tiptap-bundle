@@ -16,18 +16,15 @@
 
       <div class="umanit-tiptap__list">
         {% for template in this.templates %}
-          <button type="button" class="umanit-tiptap__list-item"
-              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {
-                command: 'template.insert',
-                args: template.content,
-              }) }}>
-            <div class="ut-flex ut-w-full ut-justify-between">
-              <h6 class="umanit-tiptap__list-item-title">{{ template.name|trans }}</h6>
-            </div>
+          <label class="umanit-tiptap__list-item">
+            <input type="radio" class="ut-visually-hidden" name="template" value="{{ template.content }}">
+            <span class="ut-flex ut-w-full ut-justify-between">
+              <span class="umanit-tiptap__list-item-title">{{ template.name|trans }}</span>
+            </span>
             {% if template.description is not null %}
               <small class="umanit-tiptap__muted">{{ template.description|trans }}</small>
             {% endif %}
-          </button>
+          </label>
         {% endfor %}
       </div>
     </form>
@@ -38,6 +35,10 @@
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
               {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
         {{ 'modal.cancel'|trans }}
+      </button>
+      <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--primary"
+              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'template.confirm'}) }}>
+        {{ 'modal.validate'|trans }}
       </button>
     </div>
   {% endblock %}

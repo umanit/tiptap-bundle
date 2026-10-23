@@ -7,6 +7,14 @@
     <twig:ux:icon name="umanit-tiptap:a-large-small" width="{{ iconSize }}" height="{{ iconSize }}" />
   </button>
   <ul class="umanit-tiptap__dropdown-menu">
+    <li>
+      <twig:Umanit:Tiptap:CommandTool
+          :hideLabel="false" title="{{ title }}" label="{{ 'wysiwyg.font_size.reset'|trans }}"
+          class="umanit-tiptap__dropdown-item" command="unsetTextSize" />
+    </li>
+    <li>
+      <hr class="umanit-tiptap__dropdown-divider">
+    </li>
     {% for size in sizes %}
       <li>
         <twig:Umanit:Tiptap:CommandTool
@@ -14,13 +22,5 @@
             class="umanit-tiptap__dropdown-item ut-fs-{{ size }}" command="setTextSize" args="ut-fs-{{ size }}" />
       </li>
     {% endfor %}
-    <li>
-      <hr class="umanit-tiptap__dropdown-divider">
-    </li>
-    <li>
-      <twig:Umanit:Tiptap:CommandTool
-          :hideLabel="false" title="{{ title }}" label="{{ 'wysiwyg.font_size.reset'|trans }}"
-          class="umanit-tiptap__dropdown-item" command="unsetTextSize" />
-    </li>
   </ul>
 </div>

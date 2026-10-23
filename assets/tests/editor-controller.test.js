@@ -20,8 +20,11 @@ const markup = `
         <dialog><form data-umanit--tiptap--editor-target="linkForm"><input name="url"></form></dialog>
       </template>
       <div data-umanit--tiptap--editor-target="toolbar"></div>
-      <div data-umanit--tiptap--editor-target="editor"></div>
+      <div class="umanit-tiptap__surface"><div data-umanit--tiptap--editor-target="editor"></div></div>
       <textarea name="body" data-umanit--tiptap--editor-target="input"><p>Hello</p></textarea>
+      <ol data-umanit--tiptap--editor-target="path"></ol>
+      <button type="button" data-umanit--tiptap--editor-target="resizeHandle"
+        data-action="keydown->umanit--tiptap--editor#resizeWithKeyboard"></button>
     </div>
     <button type="submit" id="save">Save</button>
   </form>`;
@@ -39,6 +42,34 @@ describe('editor controller', () => {
     await mount(markup);
 
     expect(document.querySelector('.ProseMirror').innerHTML).toBe('<p>Hello</p>');
+  });
+
+  it('shows the path of the elements around the cursor', async () => {
+    await mount(markup.replace('<p>Hello</p>', '<ul><li><p><strong>Hello</strong></p></li></ul>'));
+
+    const { editor } = document.querySelector('.ProseMirror');
+    editor.commands.setTextSelection(4);
+
+    const path = [...document.querySelectorAll('ol > li')].map((item) => item.textContent);
+
+    expect(path).toEqual(['ul', 'li', 'p', 'strong']);
+  });
+
+  it('resizes the editing area with the keyboard, down to a minimum', async () => {
+    await mount(markup);
+
+    // jsdom has no layout: the area is given the height its stylesheet would
+    document.querySelector('.umanit-tiptap__surface').getBoundingClientRect = () => ({ height: 120 });
+
+    const handle = document.querySelector('button');
+    const root = document.querySelector('[data-controller]');
+    const press = (key) => handle.dispatchEvent(new KeyboardEvent('keydown', { key, bubbles: true }));
+
+    press('ArrowDown');
+    expect(root.style.getPropertyValue('--umanit-tiptap-height')).toBe('160px');
+
+    press('ArrowUp');
+    expect(root.style.getPropertyValue('--umanit-tiptap-height')).toBe('120px');
   });
 
   it('mounts the modals without leaking their fields into the host form', async () => {

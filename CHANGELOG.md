@@ -9,6 +9,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Template modal: a template is chosen, then inserted with a validation button instead of on click.
+- Font size dropdown: the default size entry comes first, apart from the sizes. Opening a dropdown closes the others.
+- Editor: a border around the whole editor, a status bar showing the path of the elements around the cursor and a handle
+  to resize the editing area in height (drag, or arrow keys). The height defaults to `--umanit-tiptap-height` (500px).
 - Initial repository skeleton and static analysis tooling.
 - Toolbar, styles, colors and templates builders/providers, with neutral default builders.
 - `Umanit:Tiptap:*` Twig components and `TiptapType` form type.

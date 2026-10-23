@@ -8,6 +8,8 @@
   --umanit-tiptap-primary: #0d6efd;
   --umanit-tiptap-primary-light: rgb(13 110 253 / 10%);
   --umanit-tiptap-border-color: #e7eaf3;
+  --umanit-tiptap-frame-color: #ced4da;
+  --umanit-tiptap-height: 300px;
   --umanit-tiptap-btn-color: #757575;
   --umanit-tiptap-btn-hover-bg: #f2f6fd;
   --umanit-tiptap-btn-hover-color: #151b38;
@@ -20,11 +22,25 @@
 }
 
 /* Utilities used by the editor markup */
-.ut-hidden { display: none !important; }
-.ut-flex { display: flex !important; }
-.ut-w-full { width: 100% !important; }
-.ut-justify-between { justify-content: space-between !important; }
-.ut-me-2 { margin-inline-end: 0.5rem !important; }
+.ut-hidden {
+  display: none !important;
+}
+
+.ut-flex {
+  display: flex !important;
+}
+
+.ut-w-full {
+  width: 100% !important;
+}
+
+.ut-justify-between {
+  justify-content: space-between !important;
+}
+
+.ut-me-2 {
+  margin-inline-end: 0.5rem !important;
+}
 
 .ut-visually-hidden {
   position: absolute !important;
@@ -38,19 +54,88 @@
   border: 0;
 }
 
-/* Editing surface */
-.umanit-tiptap__surface {
+/* Frame: the editor is delimited on every side, toolbar and status bar included. */
+.umanit-tiptap {
+  border: 1px solid var(--umanit-tiptap-frame-color);
+  border-radius: var(--umanit-tiptap-radius);
   background: var(--umanit-tiptap-surface-bg);
 }
 
+/* Editing surface. Its height is `--umanit-tiptap-height`, which the resize handle of the status bar overrides. */
+.umanit-tiptap__surface {
+  height: var(--umanit-tiptap-height);
+  overflow-y: auto;
+  background: var(--umanit-tiptap-surface-bg);
+
+  /* The content fills the whole area, so that a click anywhere in it focuses the editor. */
+  display: flex;
+  flex-direction: column;
+
+  & > div {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+  }
+}
+
 .umanit-tiptap__source {
+  display: block;
   width: 100%;
+  height: var(--umanit-tiptap-height);
   box-sizing: border-box;
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  border-radius: 0;
+  resize: none;
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
+/* Status bar: path of the elements around the cursor, resize handle */
+.umanit-tiptap__statusbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 1.75rem;
+  border-top: 1px solid var(--umanit-tiptap-border-color);
+  padding-inline-start: 1rem;
+  font-size: 0.75rem;
+  color: var(--umanit-tiptap-muted-color);
+}
+
+.umanit-tiptap__path {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 600;
+}
+
+.umanit-tiptap__resize {
+  flex-shrink: 0;
+  align-self: flex-end;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-inline-start: auto;
+  padding: 0;
+  border: 0;
+  background: linear-gradient(135deg, transparent 50%, currentcolor 50%) bottom right / 0.5rem 0.5rem no-repeat;
+  color: var(--umanit-tiptap-muted-color);
+  cursor: ns-resize;
+  touch-action: none;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--umanit-tiptap-primary);
+  }
+}
+
 .umanit-tiptap__content {
-  min-height: 500px;
+  flex: 1 0 auto;
+  box-sizing: border-box;
   background: var(--umanit-tiptap-surface-bg);
   padding: 1rem;
   font-size: 1rem;
@@ -78,6 +163,7 @@
   }
 
   /* ProseMirror hides the native selection of a node: without an outline, a selected image (above all a broken one) looks unselected. */
+
   & img.ProseMirror-selectednode {
     outline: 2px solid var(--umanit-tiptap-primary, #8cf);
     outline-offset: 2px;
@@ -122,6 +208,7 @@
     }
 
     /* The "Source" button must stay clickable to leave source mode. */
+
     .umanit-tiptap__btn--source {
       pointer-events: auto;
     }
@@ -249,6 +336,8 @@
   border-radius: var(--umanit-tiptap-radius);
   box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
   min-width: 10rem;
+  max-height: min(400px, 60vh);
+  overflow-y: auto;
   padding: 0.25rem 0;
   list-style: none;
   margin: 0;
@@ -492,6 +581,7 @@
     align-items: end;
 
     /* Same height as the input next to the button */
+
     & .umanit-tiptap__modal-btn {
       display: inline-flex;
       align-items: center;
@@ -613,9 +703,15 @@
   }
 
   &:hover,
-  &:focus {
+  &:focus,
+  &:has(:focus-visible) {
     background-color: var(--umanit-tiptap-btn-hover-bg);
     outline: none;
+  }
+
+  &:has(:checked) {
+    background-color: var(--umanit-tiptap-primary-light);
+    box-shadow: inset 3px 0 0 var(--umanit-tiptap-primary);
   }
 }
 

@@ -204,6 +204,23 @@ describe('template manager', () => {
   const templateForm = () => form('<input type="checkbox" name="replaceContent">');
   const hooks = { open: () => {}, close: () => {} };
 
+  it('inserts the selected template on confirm only', () => {
+    const els = {
+      templateForm: form(
+        '<input type="radio" name="template" value="<h1>A</h1>">'
+        + '<input type="radio" name="template" value="<h1>B</h1>">',
+      ),
+    };
+    create(els, '<p>Hello</p>', null, hooks);
+
+    tiptap.runCommand('template.confirm');
+    expect(tiptap.getHTML()).toBe('<p>Hello</p>');
+
+    els.templateForm.elements.template[1].checked = true;
+    tiptap.runCommand('template.confirm');
+    expect(tiptap.getHTML()).toContain('<h1>B</h1>');
+  });
+
   it('inserts the template content', () => {
     create({ templateForm: templateForm() }, '<p>Hello</p>', null, hooks);
 

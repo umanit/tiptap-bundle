@@ -52,7 +52,7 @@
         {{ stimulus_target('umanit/tiptap/editor', 'diffBanner') }}>
       <span {{ stimulus_target('umanit/tiptap/editor', 'diffMessage') }}></span>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
-              {{ stimulus_action('umanit/tiptap/editor', 'openDiff') }}>
+          {{ stimulus_action('umanit/tiptap/editor', 'openDiff') }}>
         {{ 'wysiwyg.diff.show'|trans }}
       </button>
     </div>
@@ -69,4 +69,14 @@
   <textarea id="{{ this.id }}"{% if this.name %} name="{{ this.name }}"{% endif %}
             class="umanit-tiptap__source ut-hidden" rows="15"
       {{ stimulus_target('umanit/tiptap/editor', 'input') }}>{{ this.content }}</textarea>
+
+  <div class="umanit-tiptap__statusbar">
+    <ol class="umanit-tiptap__path" aria-label="{{ 'wysiwyg.path.label'|trans }}"
+        {{ stimulus_target('umanit/tiptap/editor', 'path') }}></ol>
+    <button type="button" class="umanit-tiptap__resize" title="{{ 'wysiwyg.resize.label'|trans }}"
+            aria-label="{{ 'wysiwyg.resize.label'|trans }}"
+        {{ stimulus_target('umanit/tiptap/editor', 'resizeHandle')
+        |stimulus_action('umanit/tiptap/editor', 'startResize', 'pointerdown')
+        |stimulus_action('umanit/tiptap/editor', 'resizeWithKeyboard', 'keydown') }}></button>
+  </div>
 </div>

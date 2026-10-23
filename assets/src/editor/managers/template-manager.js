@@ -11,6 +11,17 @@ export default class TemplateManager extends AbstractManager {
   }
 
   /**
+   * Inserts the template chosen in the form, if any.
+   */
+  confirm() {
+    const selected = this._formElement?.querySelector('input[name="template"]:checked');
+
+    if (selected) {
+      this.insert(selected.value);
+    }
+  }
+
+  /**
    * @param {string} contentHTML
    */
   insert(contentHTML) {

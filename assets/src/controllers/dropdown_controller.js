@@ -1,9 +1,18 @@
 import { Controller } from '@hotwired/stimulus';
 
 /* stimulusFetch: 'lazy' */
+// Opening a dropdown closes the others: their outside click is stopped by the toggle, so they are told apart.
+const OPEN_EVENT = 'umanit-tiptap:dropdown-open';
+
 export default class extends Controller {
   #onOutsideClick = (event) => {
     if (!this.element.contains(event.target)) {
+      this.close();
+    }
+  };
+
+  #onOtherOpen = (event) => {
+    if (event.detail.dropdown !== this.element) {
       this.close();
     }
   };
@@ -52,13 +61,16 @@ export default class extends Controller {
   }
 
   open() {
+    document.dispatchEvent(new CustomEvent(OPEN_EVENT, { detail: { dropdown: this.element } }));
     this.element.setAttribute('data-open', '');
+    document.addEventListener(OPEN_EVENT, this.#onOtherOpen);
     document.addEventListener('click', this.#onOutsideClick);
     document.addEventListener('keydown', this.#onKeydown);
   }
 
   close() {
     this.element.removeAttribute('data-open');
+    document.removeEventListener(OPEN_EVENT, this.#onOtherOpen);
     document.removeEventListener('click', this.#onOutsideClick);
     document.removeEventListener('keydown', this.#onKeydown);
   }

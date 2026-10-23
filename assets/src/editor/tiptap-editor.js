@@ -20,6 +20,7 @@ import { CustomTable, CustomTableCell, CustomTableHeader } from './extensions/cu
 import CustomImage from './extensions/custom-image.js';
 import CustomListItem from './extensions/custom-list-item.js';
 import { closestList, hasTightClass } from './tight-list.js';
+import { getNodePath } from './node-path.js';
 
 /**
  * @typedef {Object} ManagersElements
@@ -121,6 +122,13 @@ export default class TipTapEditor {
     const list = closestList(this.#editor.state.selection.$from);
 
     return list !== null && hasTightClass(list.node);
+  }
+
+  /**
+   * @returns {string[]} The tags of the elements around the cursor, from the outermost to the innermost
+   */
+  getPath() {
+    return getNodePath(this.#editor.state);
   }
 
   /**
