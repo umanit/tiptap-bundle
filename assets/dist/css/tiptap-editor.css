@@ -52,7 +52,7 @@
 .umanit-tiptap__content {
   min-height: 500px;
   background: var(--umanit-tiptap-surface-bg);
-  padding: 3rem 4rem;
+  padding: 1rem;
   font-size: 1rem;
   color: var(--umanit-tiptap-text-color);
   outline: none;
