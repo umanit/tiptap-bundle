@@ -100,6 +100,28 @@ describe('editor controller', () => {
     expect(active).toEqual([true, false, true, false, false]);
   });
 
+  it('marks the entries of the dropdowns which tell when they are active', async () => {
+    const entry = (cls, descriptor) => `<button class="${cls}"
+      data-umanit--tiptap--editor-command-param="setTextColor"
+      data-umanit--tiptap--editor-active-param='${descriptor}'></button>`;
+
+    await mount(markup
+      .replace('<p>Hello</p>', '<p><span class="ut-color-red">Hello</span></p>')
+      .replace(
+        '<div data-umanit--tiptap--editor-target="toolbar"></div>',
+        `<div data-umanit--tiptap--editor-target="toolbar">
+          ${entry('red', '{"spanClass":"ut-color-red"}')}${entry('blue', '{"spanClass":"ut-color-blue"}')}
+        </div>`,
+      ));
+
+    document.querySelector('.ProseMirror').editor.commands.setTextSelection(3);
+
+    const [red, blue] = document.querySelectorAll('button.red, button.blue');
+
+    expect(red.classList.contains('active')).toBe(true);
+    expect(blue.classList.contains('active')).toBe(false);
+  });
+
   it('marks the tools of the application from the state they registered', async () => {
     registerToolState('toggleHighlight', (editor, args) => editor.isActive('bold') && 'yellow' === args.color);
 

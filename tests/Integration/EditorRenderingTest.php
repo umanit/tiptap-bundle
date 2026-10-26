@@ -126,6 +126,30 @@ final class EditorRenderingTest extends KernelTestCase
         );
     }
 
+    public function testDropdownEntriesTellWhenTheyAreActive(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        // A color, a size and a block style
+        $this->assertStringContainsString(
+            'data-umanit--tiptap--editor-active-param="{&quot;spanClass&quot;:&quot;ut-color-red&quot;}"',
+            $html,
+        );
+        $this->assertStringContainsString(
+            'data-umanit--tiptap--editor-active-param="{&quot;spanClass&quot;:&quot;ut-bg-red&quot;}"',
+            $html,
+        );
+        $this->assertStringContainsString(
+            'data-umanit--tiptap--editor-active-param="{&quot;spanClass&quot;:&quot;ut-fs-12&quot;}"',
+            $html,
+        );
+        $this->assertStringContainsString(
+            'data-umanit--tiptap--editor-active-param="{&quot;blockClass&quot;:&quot;'
+            . OverridingStylesSetsBuilder::CSS_CLASS . '&quot;}"',
+            $html,
+        );
+    }
+
     public function testToolOfTheApplicationIsRenderedAsACommandButton(): void
     {
         $html = $this->getTwig()->createTemplate(

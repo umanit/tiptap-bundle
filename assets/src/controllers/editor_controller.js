@@ -322,7 +322,10 @@ export default class extends Controller {
   }
 
   #updateToolbarState() {
-    this.toolbarTarget.querySelectorAll('[data-wysiwyg-tool]').forEach((button) => {
+    // The tools, and the entries of the dropdowns (a color, a size, a style) which tell when they are active
+    const selector = `[data-wysiwyg-tool], [data-${this.identifier}-active-param]`;
+
+    this.toolbarTarget.querySelectorAll(selector).forEach((button) => {
       const param = (name) => parseToolArgs(button.getAttribute(`data-${this.identifier}-${name}-param`));
       const active = isToolActive(this.#wysiwygEditor, param('command'), param('args'), param('active'));
 

@@ -23,7 +23,8 @@
         <li>
           <twig:Umanit:Tiptap:CommandTool
               :hideLabel="false" title="{{ style.name|trans }}" label="{{ style.name|trans }}"
-              class="umanit-tiptap__dropdown-item" command="setBlockClass" args="{{ style.class }}" />
+              class="umanit-tiptap__dropdown-item" command="setBlockClass" args="{{ style.class }}"
+              :active="{blockClass: style.class}" />
         </li>
       {% endfor %}
 

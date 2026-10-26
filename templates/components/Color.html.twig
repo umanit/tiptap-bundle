@@ -13,7 +13,8 @@
         {% set color_class = this.colorClass(color) %}
         <twig:Umanit:Tiptap:CommandTool
             :hideLabel="false" title="{{ color.label|trans }}" class="umanit-tiptap__color-swatch {{ color_class }}"
-            command="{{ this.command }}" args="{{ color_class }}" label="{{ this.btnLabel }}" />
+            command="{{ this.command }}" args="{{ color_class }}" label="{{ this.btnLabel }}"
+            :active="{spanClass: color_class}" />
       {% endfor %}
 
       <twig:Umanit:Tiptap:CommandTool

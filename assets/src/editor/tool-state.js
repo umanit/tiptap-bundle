@@ -7,11 +7,15 @@ import { getRegisteredToolState } from './registry.js';
  * - `{ name: 'bold' }`: the node or the mark is active;
  * - `{ name: 'heading', attributes: { level: 2 } }`: ... with these attributes;
  * - `{ attributes: { textAlign: 'left' } }`: an attribute which is set, whatever the node;
+ * - `{ spanClass: 'ut-color-red' }`: the selection is in a span which has the class (a color, a size);
+ * - `{ blockClass: 'ut-banner-info' }`: the text block at the cursor has the class (a block style);
  * - `{ state: 'listTight' }`: a state of the editor which is not a node nor a mark (see `STATES`).
  *
  * An application can also register a resolver for a command (`registerToolState()`): it takes precedence.
  *
- * @typedef {{ name?: string, attributes?: Object<string, any>, state?: string }} ActiveDescriptor
+ * @typedef {{
+ *   name?: string, attributes?: Object<string, any>, spanClass?: string, blockClass?: string, state?: string
+ * }} ActiveDescriptor
  * @typedef {import('./registry.js').ToolStateResolver} ToolStateResolver
  */
 
@@ -20,7 +24,7 @@ export const STATES = {
   listTight: (editor) => editor.isListTight(),
 };
 
-const DESCRIPTOR_KEYS = ['name', 'attributes', 'state'];
+const DESCRIPTOR_KEYS = ['name', 'attributes', 'spanClass', 'blockClass', 'state'];
 
 /**
  * @param {import('./tiptap-editor.js').default} editor
@@ -35,7 +39,9 @@ export function resolveActive(editor, descriptor) {
     throw new Error(`Unknown key(s) in the active state of a tool: ${unknown.join(', ')}.`);
   }
 
-  const { name, attributes, state } = descriptor;
+  const {
+    name, attributes, spanClass, blockClass, state,
+  } = descriptor;
 
   if (undefined !== state) {
     if (!(state in STATES)) {
@@ -45,8 +51,16 @@ export function resolveActive(editor, descriptor) {
     return STATES[state](editor);
   }
 
+  if (undefined !== spanClass) {
+    return editor.hasSpanClass(spanClass);
+  }
+
+  if (undefined !== blockClass) {
+    return editor.hasBlockClass(blockClass);
+  }
+
   if (undefined === name && undefined === attributes) {
-    throw new Error('The active state of a tool needs a "name", "attributes" or a "state".');
+    throw new Error('The active state of a tool needs a "name", "attributes", a class or a "state".');
   }
 
   return undefined === name ? editor.isActive(attributes) : editor.isActive(name, attributes);

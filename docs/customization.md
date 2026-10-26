@@ -159,6 +159,8 @@ The button of a tool gets the class `active` when the tool says so, in `active`:
 | `['name' => 'bold']`                                     | the node or the mark is active at the cursor.                |
 | `['name' => 'heading', 'attributes' => ['level' => 2]]`  | … with these attributes.                                      |
 | `['attributes' => ['textAlign' => 'left']]`              | the attribute is set, whatever the node.                      |
+| `['spanClass' => 'ut-color-red']`                        | the selection is in a span which has the class.               |
+| `['blockClass' => 'ut-banner-info']`                     | the text block at the cursor has the class.                   |
 | `['state' => 'listTight']`                               | the state of the editor holds (`assets/src/editor/tool-state.js`). |
 
 For anything else, register a resolver on the JavaScript side. It takes precedence over `active`, and receives the
@@ -171,6 +173,9 @@ registerToolState('toggleHighlight', (editor, args) => editor.isActive('highligh
 ```
 
 A tool without `active` nor resolver has no active state: it is an action, not a toggle.
+
+The entries of the dropdowns of the bundle (a color, a size, a block style) tell when they are active the same way, so
+the color, the size and the style of the selection are highlighted in their menu.
 
 ## Good to know
 

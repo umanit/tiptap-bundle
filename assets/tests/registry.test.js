@@ -148,6 +148,18 @@ describe('tool states', () => {
     expect(stateOf('<p>Hello</p>', { attributes: { textAlign: 'center' } })).toBe(false);
   });
 
+  it('tell when the selection has a color, a size, or the block a style', () => {
+    const span = '<p><span class="ut-color-red">Hello</span></p>';
+
+    expect(stateOf(span, { spanClass: 'ut-color-red' })).toBe(true);
+    expect(stateOf(span, { spanClass: 'ut-color-blue' })).toBe(false);
+    expect(stateOf('<p>Hello</p>', { spanClass: 'ut-color-red' })).toBe(false);
+    expect(stateOf('<p class="ut-banner-info">Hello</p>', { blockClass: 'ut-banner-info' })).toBe(true);
+    expect(stateOf('<h2 class="ut-a ut-banner-info">Hello</h2>', { blockClass: 'ut-banner-info' })).toBe(true);
+    expect(stateOf('<p class="ut-a">Hello</p>', { blockClass: 'ut-banner-info' })).toBe(false);
+    expect(stateOf('<p>Hello</p>', { blockClass: 'ut-banner-info' })).toBe(false);
+  });
+
   it('tell a state of the editor', () => {
     expect(stateOf('<ul class="ut-list-tight"><li><p>Hello</p></li></ul>', { state: 'listTight' }, 4)).toBe(true);
     expect(stateOf('<p>Hello</p>', { state: 'listTight' })).toBe(false);

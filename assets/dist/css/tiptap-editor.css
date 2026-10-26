@@ -289,6 +289,12 @@
     color: var(--umanit-tiptap-muted-color);
     font-weight: 400;
   }
+
+  /* The color of the selection */
+  &.active {
+    border-color: var(--umanit-tiptap-primary);
+    box-shadow: 0 0 0 2px var(--umanit-tiptap-primary);
+  }
 }
 
 .umanit-tiptap__bg-color-grid {
@@ -363,6 +369,13 @@
     background-color: var(--umanit-tiptap-btn-hover-bg);
     color: var(--umanit-tiptap-btn-hover-color);
     outline: none;
+  }
+
+  /* The size or the style of the selection */
+  &.active {
+    background-color: var(--umanit-tiptap-primary-light);
+    color: var(--umanit-tiptap-primary);
+    font-weight: 600;
   }
 }
 

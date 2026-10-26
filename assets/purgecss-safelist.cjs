@@ -16,4 +16,6 @@ module.exports = [
   /selectedCell/,
   /column-resize-handle/,
   /^ut-/,
+  // Set from the code on the buttons which show the state of the selection
+  /^active$/,
 ];

@@ -3,6 +3,15 @@ import HtmlCleaner from '../html-cleaner.js';
 import { marginClassesOf } from '../indent.js';
 import { closestList, hasTightClass, isTightList, TIGHT_LIST_CLASS } from '../tight-list.js';
 
+/**
+ * @param {import('@tiptap/pm/state').EditorState} state
+ * @param {string} className
+ * @returns {boolean} Whether the text block at the cursor (the start of the selection) has the class
+ */
+export const hasBlockClass = (state, className) => (state.selection.$from.parent.attrs.class ?? '')
+  .split(' ')
+  .includes(className);
+
 export default Extension.create({
   name: 'customBlockClasses',
   addGlobalAttributes() {

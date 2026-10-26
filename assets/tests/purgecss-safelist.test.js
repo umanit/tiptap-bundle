@@ -15,5 +15,6 @@ describe('purgecss safelist', () => {
     expect(esmSafelist.every((pattern) => pattern instanceof RegExp)).toBe(true);
     expect(esmSafelist.some((pattern) => pattern.test('ProseMirror'))).toBe(true);
     expect(esmSafelist.some((pattern) => pattern.test('ut-banner-info'))).toBe(true);
+    expect(esmSafelist.some((pattern) => pattern.test('active'))).toBe(true);
   });
 });

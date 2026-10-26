@@ -15,7 +15,7 @@ import AnchorManager from './managers/anchor-manager.js';
 import CustomAnchor from './extensions/custom-anchor.js';
 import CustomDiv from './extensions/custom-div.js';
 import CustomSpan, { hasSpanClass } from './extensions/custom-span.js';
-import CustomBlockClasses from './extensions/custom-block-classes.js';
+import CustomBlockClasses, { hasBlockClass } from './extensions/custom-block-classes.js';
 import { CustomTable, CustomTableCell, CustomTableHeader } from './extensions/custom-table.js';
 import CustomImage from './extensions/custom-image.js';
 import CustomListItem from './extensions/custom-list-item.js';
@@ -155,6 +155,14 @@ export default class TipTapEditor {
    */
   hasSpanClass(className) {
     return hasSpanClass(this.#editor.state, className);
+  }
+
+  /**
+   * @param {string} className
+   * @returns {boolean} Whether the text block at the cursor has the class (a block style)
+   */
+  hasBlockClass(className) {
+    return hasBlockClass(this.#editor.state, className);
   }
 
   /**

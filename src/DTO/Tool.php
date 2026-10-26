@@ -14,7 +14,7 @@ namespace Umanit\TiptapBundle\DTO;
 final readonly class Tool implements \Stringable
 {
     /** Keys of an active state descriptor: see `assets/src/editor/tool-state.js`. */
-    private const array ACTIVE_KEYS = ['name', 'attributes', 'state'];
+    private const array ACTIVE_KEYS = ['name', 'attributes', 'spanClass', 'blockClass', 'state'];
 
     /**
      * @param string                           $name              Identifies the tool (`data-wysiwyg-tool`)
@@ -27,8 +27,8 @@ final readonly class Tool implements \Stringable
      * @param array<string, mixed>             $props             Props of the component, besides the title, icon, label
      * @param array<string, string>            $context           Props taken from the editor, `prop => key`: the key is
      *                                                            `stylesSet`, `colorsSet` or `backgroundColorsSet`
-     * @param array<string, mixed>|null        $active            When the button shows as active at the cursor: `name`
-     *                                                            (and `attributes`) of a node or a mark, or a `state`
+     * @param array<string, mixed>|null        $active            When the button shows as active at the cursor: a node,
+     *                                                            a mark, a class, or a state of the editor
      * @param string                           $translationDomain Domain of the title and of the label
      */
     public function __construct(

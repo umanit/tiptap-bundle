@@ -19,7 +19,8 @@
       <li>
         <twig:Umanit:Tiptap:CommandTool
             :hideLabel="false" title="{{ title|trans }}" label="{{ size }}px"
-            class="umanit-tiptap__dropdown-item ut-fs-{{ size }}" command="setTextSize" args="ut-fs-{{ size }}" />
+            class="umanit-tiptap__dropdown-item ut-fs-{{ size }}" command="setTextSize" args="ut-fs-{{ size }}"
+            :active="{spanClass: 'ut-fs-' ~ size}" />
       </li>
     {% endfor %}
   </ul>

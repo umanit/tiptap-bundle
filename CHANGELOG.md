@@ -17,7 +17,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   add a TipTap extension, a manager (`<name>.<method>` commands) and the active state of a tool to every editor.
   `TipTapEditor.hasCommand()` tells whether a command can be run.
 - A tool says when it shows as active at the cursor (`Tool::$active`): a node or a mark (with attributes), an
-  attribute, or a state of the editor.
+  attribute, a color or size class, a block class, or a state of the editor.
+- The color, the size and the style of the selection are highlighted in the dropdowns of the toolbar (their entries
+  had no active state, as the code which should have set it never reached them). `active` joins the PurgeCSS safelist.
 - Test of the commands: the editor must run every command of the tools of the bundle (read from a snapshot which
   PHPUnit keeps up to date) and of the templates.
 
@@ -109,8 +111,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   replaces the `Umanit:Tiptap:Tool` component and its table of tools. A component tool (`styles`, `color`, `fontSize`,
   `source`) is named by its definition, and translates its title itself.
 - The active state of the toolbar tools is declared by the tool (`Tool::$active`), not deduced from the name of the
-  command: a tool without it has no active state. The color and size entries of the dropdowns had no active state
-  either, and still have none.
+  command: a tool without it has no active state.
 - The modal callbacks are given to the constructor of the managers (third argument) instead of being set on them
   afterwards.
 
