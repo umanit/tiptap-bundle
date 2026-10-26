@@ -73,6 +73,55 @@ final class MigrateCommandTest extends TestCase
         $this->assertStringContainsString('Contents saved', $tester->getDisplay());
     }
 
+    public function testPurgingAMigrationIsASimulationUntilItIsForced(): void
+    {
+        $backup = new InMemoryMigrationBackup();
+        $tester = $this->tester($backup);
+        $tester->execute(['--force' => true]);
+        $migration = array_values($backup->records)[0]['migration'];
+
+        $this->assertSame(Command::SUCCESS, $tester->execute(['--purge' => $migration]));
+        $this->assertCount(1, $backup->records);
+        $this->assertStringContainsString('Simulation: nothing has been deleted', $tester->getDisplay());
+        $this->assertStringContainsString($migration, $tester->getDisplay());
+
+        $this->assertSame(Command::SUCCESS, $tester->execute(['--purge' => $migration, '--force' => true]));
+        $this->assertSame([], $backup->records);
+        $this->assertStringContainsString('1 content(s) of 1 migration(s) purged', $tester->getDisplay());
+    }
+
+    public function testOnlyTheMigrationsOlderThanTheGivenDaysArePurged(): void
+    {
+        $backup = new InMemoryMigrationBackup();
+        $backup->record('old', 's', '1', '', 'a', 'b');
+        $backup->record('recent', 's', '2', '', 'c', 'd');
+        $backup->dates = [
+            'old'    => new \DateTimeImmutable('-40 days')->format('Y-m-d H:i:s'),
+            'recent' => new \DateTimeImmutable('-2 days')->format('Y-m-d H:i:s'),
+        ];
+        $tester = $this->tester($backup);
+
+        $this->assertSame(Command::SUCCESS, $tester->execute(['--purge-older-than' => '30', '--force' => true]));
+
+        $this->assertSame(['recent|s|2|'], array_keys($backup->records));
+    }
+
+    public function testPurgeRefusesWhatItCannotUnderstand(): void
+    {
+        $backup = new InMemoryMigrationBackup();
+        $backup->record('m1', 's', '1', '', 'a', 'b');
+        $tester = $this->tester($backup);
+
+        $this->assertSame(Command::FAILURE, $tester->execute(['--purge' => 'unknown', '--force' => true]));
+        $this->assertStringContainsString('No saved migration has this identifier', $tester->getDisplay());
+        $this->assertSame(Command::FAILURE, $tester->execute(['--purge' => 'm1', '--purge-older-than' => '5']));
+        $this->assertSame(Command::FAILURE, $tester->execute(['--purge-older-than' => '0']));
+        $this->assertSame(Command::FAILURE, $tester->execute(['--purge' => 'm1', '--rollback' => 'm1']));
+        $this->assertSame(Command::FAILURE, $tester->execute(['--purge' => 'm1', '--history' => true]));
+        $this->assertCount(1, $backup->records);
+        $this->assertSame(Command::FAILURE, $this->tester(null)->execute(['--purge' => 'm1']));
+    }
+
     public function testAnAcceptedLossIsExplainedWhenItBlocks(): void
     {
         $html = '<p style="margin-left:40px">x</p>';

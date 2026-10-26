@@ -12,6 +12,7 @@ bin/console umanit:tiptap:migrate --legacy-styles=var/palette/legacy-styles.json
 bin/console umanit:tiptap:migrate --force --legacy-styles=… # writes
 bin/console umanit:tiptap:migrate --rollback=20261019101500-a1b2c3 --force
 bin/console umanit:tiptap:migrate --history
+bin/console umanit:tiptap:migrate --purge=20261019101500-a1b2c3 --force # deletes the backup of a migration
 ```
 
 ## What is rewritten
@@ -113,8 +114,20 @@ Doctrine, the bundle provides one which stores them in the table `umanit_tiptap_
 installed), so `doctrine:migrations:diff` writes the migration, and `doctrine:schema:validate` does not mistake it for a
 stray table. `umanit:tiptap:migrate --force` refuses to start until it exists.
 
-Without Doctrine, define a service `umanit_tiptap.migration.backup` implementing `MigrationBackupInterface`. The command
-can still simulate without a backup.
+The table grows with every migration (and every `umanit:tiptap:clean --force`, which saves its contents the same way).
+Once the result is accepted, delete what a migration saved:
+
+```bash
+bin/console umanit:tiptap:migrate --purge=20261019101500-a1b2c3          # simulation
+bin/console umanit:tiptap:migrate --purge-older-than=90 --force          # every migration older than 90 days
+```
+
+`--purge` takes the identifier shown by `--history`, `--purge-older-than` a number of days; one of them is required, so
+that nothing is deleted by default. Without `--force` the command only lists what it would delete. **A purged migration
+can no longer be rolled back**, whether its contents were restored or not.
+
+Without Doctrine, define a service `umanit_tiptap.migration.backup` implementing `MigrationBackupInterface` (including
+`purge()`, which deletes everything saved for a migration). The command can still simulate without a backup.
 
 The contents are saved before they are written, not in the same transaction: should the process stop in between, the
 backup of a content which has not been rewritten is harmless, as a rollback only restores a content which is still the

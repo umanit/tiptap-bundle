@@ -12,6 +12,9 @@ final class InMemoryMigrationBackup implements MigrationBackupInterface
     /** @var array<string, array{migration: string, entry: BackupEntry, restored: bool}> */
     public array $records = [];
 
+    /** @var array<string, string> Date of a migration, by identifier (`2026-01-01` by default) */
+    public array $dates = [];
+
     public function __construct(
         private readonly bool $ready = true,
     ) {
@@ -68,11 +71,30 @@ final class InMemoryMigrationBackup implements MigrationBackupInterface
 
         foreach ($this->records as $record) {
             $id = $record['migration'];
-            $history[$id] ??= ['migration_id' => $id, 'contents' => 0, 'restored' => 0, 'migrated_at' => '2026-01-01'];
+            $history[$id] ??= [
+                'migration_id' => $id,
+                'contents'     => 0,
+                'restored'     => 0,
+                'migrated_at'  => $this->dates[$id] ?? '2026-01-01',
+            ];
             ++$history[$id]['contents'];
             $history[$id]['restored'] += $record['restored'] ? 1 : 0;
         }
 
         return array_values($history);
+    }
+
+    public function purge(string $migrationId): int
+    {
+        $purged = 0;
+
+        foreach ($this->records as $key => $record) {
+            if ($record['migration'] === $migrationId) {
+                unset($this->records[$key]);
+                ++$purged;
+            }
+        }
+
+        return $purged;
     }
 }

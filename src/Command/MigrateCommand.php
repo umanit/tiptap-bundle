@@ -41,6 +41,11 @@ use Umanit\TiptapBundle\Migration\MigrationReport;
         <info>--rollback=<identifier></info> puts the original contents back, except the ones edited since.
         <info>--history</info> lists the migrations. Only the sources which can be written are migrated.
 
+        <info>--purge=<identifier></info> or <info>--purge-older-than=<days></info> deletes what was saved for a
+        migration (or for the ones older than that many days) so that the backup does not grow forever. The migration
+        can then no longer be rolled back: do it once the result is accepted. Without --force, it only lists what it
+        would delete.
+
         See <info>docs/migration.md</info>.
         HELP,
 )]
@@ -66,6 +71,8 @@ class MigrateCommand extends Command
             ->addOption('accept', null, $required | InputOption::VALUE_IS_ARRAY, 'Category or status of loss accepted')
             ->addOption('rollback', null, $required, 'Undoes the migration with this identifier')
             ->addOption('history', null, InputOption::VALUE_NONE, 'Lists the migrations which have been saved')
+            ->addOption('purge', null, $required, 'Deletes the backup of the migration with this identifier')
+            ->addOption('purge-older-than', null, $required, 'Deletes the backup of the migrations older than N days')
             ->addOption('workers', 'w', $required, 'Number of Node processes in parallel', '4')
             ->addOption('examples', null, $required, 'Number of references given by outcome', '3')
             ->addOption('limit', null, $required, 'Maximum number of contents read by source (quick try)')
@@ -78,7 +85,22 @@ class MigrateCommand extends Command
         $io = new SymfonyStyle($input, $output);
         $apply = true === $input->getOption('force');
         $rollback = $input->getOption('rollback');
-        $needsBackup = $apply || \is_string($rollback) || true === $input->getOption('history');
+        $purge = $this->stringOption($input, 'purge');
+        $purgeOlderThan = $this->stringOption($input, 'purge-older-than');
+        $purging = null !== $purge || null !== $purgeOlderThan;
+        $needsBackup = $apply || \is_string($rollback) || true === $input->getOption('history') || $purging;
+
+        if ($purging && (null !== $rollback || true === $input->getOption('history'))) {
+            $io->error('--purge and --purge-older-than cannot be used with --rollback or --history.');
+
+            return Command::FAILURE;
+        }
+
+        if (null !== $purge && null !== $purgeOlderThan) {
+            $io->error('Choose between --purge and --purge-older-than.');
+
+            return Command::FAILURE;
+        }
 
         if ($needsBackup && !$this->backup?->isReady()) {
             $io->error(
@@ -94,6 +116,10 @@ class MigrateCommand extends Command
 
         if (true === $input->getOption('history')) {
             return $this->renderHistory($io);
+        }
+
+        if ($purging) {
+            return $this->purge($io, $apply, $purge, $purgeOlderThan);
         }
 
         $workers = $this->positiveInt($input->getOption('workers'));
@@ -256,6 +282,16 @@ class MigrateCommand extends Command
 
     private function renderHistory(SymfonyStyle $io): int
     {
+        $this->renderMigrations($io, $this->backup?->getHistory() ?? []);
+
+        return Command::SUCCESS;
+    }
+
+    /**
+     * @param list<array{migration_id: string, contents: int, restored: int, migrated_at: string}> $migrations
+     */
+    private function renderMigrations(SymfonyStyle $io, array $migrations): void
+    {
         $io->table(
             ['Migration', 'Date', 'Contents saved', 'Of which restored'],
             array_map(
@@ -265,11 +301,91 @@ class MigrateCommand extends Command
                     $row['contents'],
                     $row['restored'],
                 ],
-                $this->backup?->getHistory() ?? [],
+                $migrations,
+            ),
+        );
+    }
+
+    private function purge(SymfonyStyle $io, bool $apply, ?string $identifier, ?string $olderThan): int
+    {
+        if (null === $this->backup) {
+            return Command::FAILURE;
+        }
+
+        $days = null === $olderThan ? null : $this->positiveInt($olderThan);
+
+        if (null !== $olderThan && null === $days) {
+            $io->error('The option --purge-older-than expects a strictly positive number of days.');
+
+            return Command::FAILURE;
+        }
+
+        try {
+            $migrations = $this->selectMigrationsToPurge($this->backup->getHistory(), $identifier, $days);
+        } catch (\Exception $exception) {
+            $io->error($exception->getMessage());
+
+            return Command::FAILURE;
+        }
+
+        if ([] === $migrations) {
+            $io->note(
+                null === $identifier ? 'No saved migration is that old.' : 'No saved migration has this identifier.',
+            );
+
+            return null === $identifier ? Command::SUCCESS : Command::FAILURE;
+        }
+
+        $io->title('Backup of the migrations to purge' . ($apply ? '' : ' (simulation)'));
+        $this->renderMigrations($io, $migrations);
+
+        if (!$apply) {
+            $io->note('Simulation: nothing has been deleted. Run it again with --force to delete these backups.');
+
+            return Command::SUCCESS;
+        }
+
+        $purged = 0;
+
+        foreach ($migrations as $migration) {
+            $purged += $this->backup->purge($migration['migration_id']);
+        }
+
+        $io->success(
+            \sprintf(
+                '%d content(s) of %d migration(s) purged: they can no longer be rolled back.',
+                $purged,
+                \count($migrations),
             ),
         );
 
         return Command::SUCCESS;
+    }
+
+    /**
+     * @param list<array{migration_id: string, contents: int, restored: int, migrated_at: string}> $history
+     * @param int<1, max>|null                                                                     $days
+     *
+     * @return list<array{migration_id: string, contents: int, restored: int, migrated_at: string}>
+     *
+     * @throws \Exception If the date of a migration cannot be read
+     */
+    private function selectMigrationsToPurge(array $history, ?string $identifier, ?int $days): array
+    {
+        if (null !== $identifier) {
+            return array_values(
+                array_filter($history, static fn(array $row): bool => $row['migration_id'] === $identifier),
+            );
+        }
+
+        $limit = new \DateTimeImmutable()->modify(\sprintf('-%d days', $days ?? 0));
+
+        return array_values(
+            array_filter(
+                $history,
+                static fn(array $row): bool => new \DateTimeImmutable($row['migrated_at']) < $limit,
+            ),
+        );
     }
 
     /**

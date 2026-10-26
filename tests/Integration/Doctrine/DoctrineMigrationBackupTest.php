@@ -54,6 +54,20 @@ final class DoctrineMigrationBackupTest extends TestCase
         $this->assertSame('2', $entries[0]->id);
     }
 
+    public function testAMigrationCanBePurged(): void
+    {
+        $backup = $this->backup(true);
+        $backup->record('m1', 's', '1', '', 'a', 'b');
+        $backup->record('m1', 's', '2', '', 'c', 'd');
+        $backup->record('m2', 's', '3', '', 'e', 'f');
+        $backup->markRestored($backup->findToRestore('m1')[0]);
+
+        $this->assertSame(2, $backup->purge('m1'));
+        $this->assertSame(0, $backup->purge('m1'));
+        $this->assertSame([], $backup->findToRestore('m1'));
+        $this->assertCount(1, $backup->findToRestore('m2'));
+    }
+
     public function testHistoryCountsTheContentsOfEachMigration(): void
     {
         $backup = $this->backup(true);

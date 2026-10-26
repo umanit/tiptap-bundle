@@ -122,6 +122,11 @@ final readonly class DoctrineMigrationBackup implements MigrationBackupInterface
         return $history;
     }
 
+    public function purge(string $migrationId): int
+    {
+        return (int) $this->getConnection()->delete(BackupRecord::TABLE, ['migration_id' => $migrationId]);
+    }
+
     private function getConnection(): Connection
     {
         $connection = $this->registry->getConnection();

@@ -47,4 +47,11 @@ interface MigrationBackupInterface
      * @return list<array{migration_id: string, contents: int, restored: int, migrated_at: string}>
      */
     public function getHistory(): array;
+
+    /**
+     * Deletes everything saved for a migration, whether restored or not: it can no longer be rolled back.
+     *
+     * @return int The number of contents deleted
+     */
+    public function purge(string $migrationId): int;
 }
