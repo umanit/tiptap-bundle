@@ -13,6 +13,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   by a builder of tools (`ToolsBuilderInterface`, autoconfigured; `ToolProviderInterface` to pick one by name).
   An application adds its own tools, or replaces one of the bundle by giving it the same name. See
   `docs/customization.md`.
+- The editor is exposed on the root element of its controller: `getTipTapEditor(element)` finds it from the root or
+  from an element inside, and the `umanit-tiptap:ready` event (`READY_EVENT`) tells when it has been created. No need to
+  ask the Stimulus application for the controller anymore.
 - JavaScript registry: `registerExtension()`, `registerManager()` and `registerToolState()`, exported by the package,
   add a TipTap extension, a manager (`<name>.<method>` commands) and the active state of a tool to every editor.
   `TipTapEditor.hasCommand()` tells whether a command can be run.

@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Application } from '@hotwired/stimulus';
 import EditorController from '../src/controllers/editor_controller.js';
-import { registerToolState } from '../src/index.js';
+import { READY_EVENT, getTipTapEditor, registerToolState } from '../src/index.js';
 import { resetRegistry } from '../src/editor/registry.js';
 
 let application;
@@ -41,6 +41,42 @@ afterEach(() => {
 });
 
 describe('editor controller', () => {
+  it('exposes the editor on its root element, and finds it from inside', async () => {
+    await mount(markup);
+
+    const root = document.querySelector('[data-controller]');
+    const editor = getTipTapEditor(document.querySelector('textarea'));
+
+    expect(editor).toBe(root.umanitTiptapEditor);
+    expect(editor.getEditor()).toBe(document.querySelector('.ProseMirror').editor);
+    expect(getTipTapEditor(root)).toBe(editor);
+    expect(getTipTapEditor(document.getElementById('save'))).toBeNull();
+    expect(getTipTapEditor(null)).toBeNull();
+  });
+
+  it('tells when the editor is ready, with the editor', async () => {
+    const heard = [];
+
+    document.addEventListener(READY_EVENT, (event) => heard.push(event.detail.editor));
+    await mount(markup);
+
+    expect(heard).toHaveLength(1);
+    expect(heard[0]).toBe(document.querySelector('[data-controller]').umanitTiptapEditor);
+  });
+
+  it('forgets the editor when the controller disconnects', async () => {
+    await mount(markup);
+
+    const root = document.querySelector('[data-controller]');
+
+    root.remove();
+    await new Promise((resolve) => {
+      setTimeout(resolve, 20);
+    });
+
+    expect(root.umanitTiptapEditor).toBeUndefined();
+  });
+
   it('mounts the editor from the textarea content', async () => {
     await mount(markup);
 

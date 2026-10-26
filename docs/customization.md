@@ -177,6 +177,31 @@ A tool without `active` nor resolver has no active state: it is an action, not a
 The entries of the dropdowns of the bundle (a color, a size, a block style) tell when they are active the same way, so
 the color, the size and the style of the selection are highlighted in their menu.
 
+## Reaching the editor from your code
+
+The editor is exposed on the root element of its controller (the one with `data-controller`), so your own Stimulus
+controller does not have to ask the Stimulus application for it. `getTipTapEditor()` finds it from the root or from any
+element inside (the textarea, a button of the toolbar…):
+
+```js
+import { getTipTapEditor } from '@umanit/tiptap-bundle';
+
+const editor = getTipTapEditor(this.element); // a `TipTapEditor`, or null
+editor.getEditor();                           // the TipTap `Editor`
+editor.runCommand('toggleBold');              // the commands of the toolbar tools
+```
+
+The editor exists once its controller has connected. When your code may run before, listen to the event the root
+dispatches (it bubbles, so `document` is enough):
+
+```js
+import { READY_EVENT } from '@umanit/tiptap-bundle';
+
+document.addEventListener(READY_EVENT, ({ detail }) => detail.editor.getEditor().commands.focus());
+```
+
+The property is removed when the controller disconnects.
+
 ## Good to know
 
 - **Registration time**: the registry is read when an editor connects (the `connect()` of its Stimulus controller).

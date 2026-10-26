@@ -1,5 +1,7 @@
 import { Controller } from '@hotwired/stimulus';
-import { MODAL_PROPERTY, SET_CONTENT_EVENT } from '../constants.js';
+import {
+  EDITOR_PROPERTY, MODAL_PROPERTY, READY_EVENT, SET_CONTENT_EVENT,
+} from '../constants.js';
 import TipTapEditor from '../editor/tiptap-editor.js';
 import HtmlCleaner from '../editor/html-cleaner.js';
 import HtmlFormatter from '../editor/html-formatter.js';
@@ -95,12 +97,18 @@ export default class extends Controller {
       throw new Error('Cannot instantiate the TipTap editor', { cause: err });
     }
 
+    this.element[EDITOR_PROPERTY] = this.#wysiwygEditor;
+    this.element.dispatchEvent(
+      new CustomEvent(READY_EVENT, { bubbles: true, detail: { editor: this.#wysiwygEditor } }),
+    );
+
     if (this.migrationDiffValue) {
       this.#checkMigration(storedContent);
     }
   }
 
   disconnect() {
+    delete this.element[EDITOR_PROPERTY];
     this.#abortController.abort();
     this.#wysiwygEditor?.destroy();
   }
