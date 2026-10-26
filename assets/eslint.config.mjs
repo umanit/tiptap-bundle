@@ -27,6 +27,13 @@ export default [...compat.extends('@umanit'), {
     // Shared constants live in their own module.
     'import/prefer-default-export': 'off',
     'no-new': 'off',
+    // Same as the preset, except that an import may stay on one line whatever the number of its names.
+    'object-curly-newline': ['error', {
+      ObjectExpression: { minProperties: 4, multiline: true, consistent: true },
+      ObjectPattern: { minProperties: 4, multiline: true, consistent: true },
+      ImportDeclaration: { multiline: true, consistent: true },
+      ExportDeclaration: { minProperties: 4, multiline: true, consistent: true },
+    }],
     'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
   },
 }];
