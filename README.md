@@ -9,7 +9,8 @@ or on any application framework.
 
 ## Requirements
 
-- PHP `^8.4` with `ext-dom` and `ext-libxml`
+- PHP `^8.4` with `ext-dom` and `ext-libxml` (a hard requirement: the cleaning relies on the HTML5 parser
+  `\Dom\HTMLDocument`, which only exists since PHP 8.4)
 - Symfony `^7.4 || ^8.0`, with `symfony/stimulus-bundle`, `symfony/ux-twig-component` and `symfony/ux-icons`
 - Webpack Encore or AssetMapper
 - Optional: `symfony/process` + Node (audit, clean and palette commands), `doctrine/dbal` and `doctrine/orm` (read and

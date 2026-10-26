@@ -11,6 +11,8 @@
 /.phpcs-cache
 /.php-cs-fixer.cache
 /var
+# Written by the MicroKernelTrait of the kernels of the tests, whichever the installed packages
+/config/reference.php
 /.twig-cs-fixer.cache
 /playground/vendor
 /playground/node_modules
