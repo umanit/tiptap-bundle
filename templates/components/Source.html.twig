@@ -1,4 +1,6 @@
-<button type="button" class="umanit-tiptap__btn umanit-tiptap__btn--source" title="{{ title }}" {{ stimulus_target('umanit/tiptap/editor', 'sourceBtn')
+{% trans_default_domain 'UmanitTiptapBundle' %}
+
+<button type="button" class="umanit-tiptap__btn umanit-tiptap__btn--source" title="{{ title|trans }}" {{ stimulus_target('umanit/tiptap/editor', 'sourceBtn')
 |stimulus_action('umanit/tiptap/editor', 'toggleSource', 'click') }} {{ attributes }}>
   <twig:ux:icon name="{{ icon }}" width="{{ iconSize }}" height="{{ iconSize }}" />
 </button>

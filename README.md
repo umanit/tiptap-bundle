@@ -59,9 +59,9 @@ Standalone, in Twig:
 
 ### Customizing the editor
 
-The toolbar, the styles, the colors and the templates are built by services you can replace. Implement one of
-`ToolbarBuilderInterface`, `StylesSetsBuilderInterface`, `ColorsSetBuilderInterface` or
-`TemplatesSetBuilderInterface` (`src/Builder`): it is picked up by autoconfiguration. The default builders are neutral.
+The tools, the toolbar, the styles, the colors and the templates are built by services you can replace. Implement
+one of `ToolsBuilderInterface`, `ToolbarBuilderInterface`, `StylesSetsBuilderInterface`, `ColorsSetBuilderInterface`
+or `TemplatesSetBuilderInterface` (`src/Builder`): it is picked up by autoconfiguration. The default builders are neutral.
 
 To add a tool to the toolbar, a TipTap extension or a manager of your own, see [customization.md](docs/customization.md).
 

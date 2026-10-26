@@ -3,7 +3,7 @@ import { Mark } from '@tiptap/core';
 import TipTapEditor from '../src/editor/tiptap-editor.js';
 import { registerExtension, registerManager, registerToolState } from '../src/index.js';
 import { resetRegistry } from '../src/editor/registry.js';
-import { getToolState, parseToolArgs } from '../src/editor/tool-state.js';
+import { isToolActive, parseToolArgs, resolveActive } from '../src/editor/tool-state.js';
 
 let editor;
 
@@ -129,19 +129,58 @@ describe('modal callbacks', () => {
 });
 
 describe('tool states', () => {
-  it('are declared for the commands of the bundle', () => {
-    expect(getToolState('toggleBold')).toBeTypeOf('function');
-    expect(getToolState('undo')).toBeUndefined();
+  const stateOf = (content, active, selection = 2) => {
+    create(content);
+    editor.getEditor().commands.setTextSelection(selection);
+
+    return resolveActive(editor, active);
+  };
+
+  it('tell when a node or a mark is active, with or without attributes', () => {
+    expect(stateOf('<p><strong>Hello</strong></p>', { name: 'bold' })).toBe(true);
+    expect(stateOf('<p>Hello</p>', { name: 'bold' })).toBe(false);
+    expect(stateOf('<h2>Hello</h2>', { name: 'heading', attributes: { level: 2 } })).toBe(true);
+    expect(stateOf('<h2>Hello</h2>', { name: 'heading', attributes: { level: 1 } })).toBe(false);
   });
 
-  it('can be registered by the application, and win over the ones of the bundle', () => {
-    const resolver = () => true;
+  it('tell when an attribute is set, whatever the node', () => {
+    expect(stateOf('<p style="text-align:center">Hello</p>', { attributes: { textAlign: 'center' } })).toBe(true);
+    expect(stateOf('<p>Hello</p>', { attributes: { textAlign: 'center' } })).toBe(false);
+  });
 
-    registerToolState('toggleHighlight', resolver);
-    registerToolState('toggleBold', resolver);
+  it('tell a state of the editor', () => {
+    expect(stateOf('<ul class="ut-list-tight"><li><p>Hello</p></li></ul>', { state: 'listTight' }, 4)).toBe(true);
+    expect(stateOf('<p>Hello</p>', { state: 'listTight' })).toBe(false);
+  });
 
-    expect(getToolState('toggleHighlight')).toBe(resolver);
-    expect(getToolState('toggleBold')).toBe(resolver);
+  it('refuse a descriptor they do not understand', () => {
+    create();
+
+    expect(() => resolveActive(editor, { state: 'nope' })).toThrow(/Unknown editor state "nope"/);
+    expect(() => resolveActive(editor, { nope: 1 })).toThrow(/Unknown key\(s\).*nope/);
+    expect(() => resolveActive(editor, {})).toThrow(/needs a "name"/);
+  });
+
+  it('have no active state without descriptor nor registered resolver', () => {
+    create();
+
+    expect(isToolActive(editor, 'undo', null, null)).toBeNull();
+  });
+
+  it('come from the descriptor of the tool', () => {
+    create('<p><strong>Hello</strong></p>');
+    editor.getEditor().commands.setTextSelection(2);
+
+    expect(isToolActive(editor, 'toggleBold', null, { name: 'bold' })).toBe(true);
+  });
+
+  it('can be registered by the application, which wins over the descriptor', () => {
+    create('<p><strong>Hello</strong></p>');
+    editor.getEditor().commands.setTextSelection(2);
+    registerToolState('toggleBold', (_, args) => 'no' === args);
+
+    expect(isToolActive(editor, 'toggleBold', 'yes', { name: 'bold' })).toBe(false);
+    expect(isToolActive(editor, 'toggleBold', 'no', { name: 'bold' })).toBe(true);
   });
 
   it('read the arguments of a tool back', () => {

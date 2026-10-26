@@ -6,16 +6,20 @@ namespace Playground\Toolbar;
 
 use Umanit\TiptapBundle\Builder\DefaultToolbarBuilder;
 use Umanit\TiptapBundle\Builder\ToolbarBuilderInterface;
-use Umanit\TiptapBundle\DTO\Tool;
 use Umanit\TiptapBundle\DTO\Toolbar;
 use Umanit\TiptapBundle\DTO\ToolbarSection;
+use Umanit\TiptapBundle\Provider\ToolProviderInterface;
 
 /**
- * The default toolbar of the bundle plus two tools of the application, whose JavaScript side is in
- * `assets/tiptap-custom.js`: a TipTap command (`toggleHighlight`) and a manager command (`callout.insert`).
+ * The default toolbar of the bundle plus the two tools of `PlaygroundToolsBuilder`.
  */
 final readonly class PlaygroundToolbarBuilder implements ToolbarBuilderInterface
 {
+    public function __construct(
+        private ToolProviderInterface $tools,
+    ) {
+    }
+
     public static function getDefaultIndexName(): string
     {
         return 'default';
@@ -23,20 +27,11 @@ final readonly class PlaygroundToolbarBuilder implements ToolbarBuilderInterface
 
     public function build(): Toolbar
     {
-        $default = new DefaultToolbarBuilder()->build();
+        $default = new DefaultToolbarBuilder($this->tools)->build();
 
         return new Toolbar([
             ...$default->sections,
-            new ToolbarSection([
-                new Tool('highlight', command: 'toggleHighlight', title: 'Highlight', label: 'HL'),
-                new Tool(
-                    'callout',
-                    command: 'callout.insert',
-                    title: 'Callout',
-                    icon: 'umanit-tiptap:square-pen',
-                    args: ['text' => 'Callout'],
-                ),
-            ]),
+            new ToolbarSection(array_map($this->tools->getTool(...), ['highlight', 'callout'])),
         ]);
     }
 }

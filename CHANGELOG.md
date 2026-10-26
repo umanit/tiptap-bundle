@@ -9,13 +9,17 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- Tools of the application: a `Tool` with a `command` (and a `title`, an `icon`, a `label`, `args`) is rendered as a
-  button which runs that TipTap command or manager command. See `docs/customization.md`.
+- Tools are complete definitions: a `Tool` has a name, a title and a command (or a Twig component), and is listed
+  by a builder of tools (`ToolsBuilderInterface`, autoconfigured; `ToolProviderInterface` to pick one by name).
+  An application adds its own tools, or replaces one of the bundle by giving it the same name. See
+  `docs/customization.md`.
 - JavaScript registry: `registerExtension()`, `registerManager()` and `registerToolState()`, exported by the package,
   add a TipTap extension, a manager (`<name>.<method>` commands) and the active state of a tool to every editor.
   `TipTapEditor.hasCommand()` tells whether a command can be run.
-- Test of the commands of the templates: each one must be run by the editor and declare whether its tool has an active
-  state.
+- A tool says when it shows as active at the cursor (`Tool::$active`): a node or a mark (with attributes), an
+  attribute, or a state of the editor.
+- Test of the commands: the editor must run every command of the tools of the bundle (read from a snapshot which
+  PHPUnit keeps up to date) and of the templates.
 
 - `umanit:tiptap:migrate --purge=<identifier>` and `--purge-older-than=<days>` delete what a migration saved, so
   that the backup table does not grow forever (simulation unless `--force`). `MigrationBackupInterface` gains `purge()`.
@@ -99,8 +103,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- The active state of the toolbar tools comes from an explicit table (`tool-state.js`) instead of being deduced from
-  the name of the command: a command which is not declared there has no active state.
+- The toolbar builders pick their tools by name (`$tools->getTool('bold')`) instead of creating them: a name which no
+  builder of tools lists is an error when the toolbar is built. `DefaultToolbarBuilder` takes a `ToolProviderInterface`.
+- The tools of the bundle are listed in PHP (`DefaultToolsBuilder`) and rendered by `Toolbar.html.twig`, which
+  replaces the `Umanit:Tiptap:Tool` component and its table of tools. A component tool (`styles`, `color`, `fontSize`,
+  `source`) is named by its definition, and translates its title itself.
+- The active state of the toolbar tools is declared by the tool (`Tool::$active`), not deduced from the name of the
+  command: a tool without it has no active state. The color and size entries of the dropdowns had no active state
+  either, and still have none.
 - The modal callbacks are given to the constructor of the managers (third argument) instead of being set on them
   afterwards.
 

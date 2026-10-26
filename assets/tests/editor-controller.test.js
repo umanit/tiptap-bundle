@@ -75,18 +75,21 @@ describe('editor controller', () => {
     expect(root.style.getPropertyValue('--umanit-tiptap-height')).toBe('120px');
   });
 
-  it('marks the tools which are active at the cursor, from their command', async () => {
-    const button = (command, args = '') => `<button data-wysiwyg-tool="x"
+  it('marks the tools which are active at the cursor, from their active state', async () => {
+    const button = (command, active = null, args = null) => `<button data-wysiwyg-tool="x"
       data-umanit--tiptap--editor-command-param="${command}"
-      ${args ? `data-umanit--tiptap--editor-args-param='${args}'` : ''}></button>`;
+      ${args ? `data-umanit--tiptap--editor-args-param='${args}'` : ''}
+      ${active ? `data-umanit--tiptap--editor-active-param='${active}'` : ''}></button>`;
 
     await mount(markup
       .replace('<p>Hello</p>', '<h2><strong>Hello</strong></h2>')
       .replace(
         '<div data-umanit--tiptap--editor-target="toolbar"></div>',
         `<div data-umanit--tiptap--editor-target="toolbar">
-          ${button('toggleBold')}${button('toggleItalic')}${button('toggleHeading', '{"level":2}')}
-          ${button('toggleHeading', '{"level":1}')}${button('undo')}${button('toggleHighlight')}
+          ${button('toggleBold', '{"name":"bold"}')}${button('toggleItalic', '{"name":"italic"}')}
+          ${button('toggleHeading', '{"name":"heading","attributes":{"level":2}}', '{"level":2}')}
+          ${button('toggleHeading', '{"name":"heading","attributes":{"level":1}}', '{"level":1}')}
+          ${button('undo')}
         </div>`,
       ));
 
@@ -94,7 +97,7 @@ describe('editor controller', () => {
 
     const active = [...document.querySelectorAll('[data-wysiwyg-tool]')].map((el) => el.classList.contains('active'));
 
-    expect(active).toEqual([true, false, true, false, false, false]);
+    expect(active).toEqual([true, false, true, false, false]);
   });
 
   it('marks the tools of the application from the state they registered', async () => {

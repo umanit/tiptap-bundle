@@ -8,6 +8,7 @@ use Umanit\TiptapBundle\Builder\DefaultColorsSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultStylesSetsBuilder;
 use Umanit\TiptapBundle\Builder\DefaultTemplatesSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultToolbarBuilder;
+use Umanit\TiptapBundle\Builder\DefaultToolsBuilder;
 use Umanit\TiptapBundle\Form\Type\TiptapType;
 use Umanit\TiptapBundle\Provider\ColorsSetProvider;
 use Umanit\TiptapBundle\Provider\ColorsSetProviderInterface;
@@ -17,6 +18,8 @@ use Umanit\TiptapBundle\Provider\TemplatesSetProvider;
 use Umanit\TiptapBundle\Provider\TemplatesSetProviderInterface;
 use Umanit\TiptapBundle\Provider\ToolbarProvider;
 use Umanit\TiptapBundle\Provider\ToolbarProviderInterface;
+use Umanit\TiptapBundle\Provider\ToolProvider;
+use Umanit\TiptapBundle\Provider\ToolProviderInterface;
 use Umanit\TiptapBundle\Twig\Components\Color;
 use Umanit\TiptapBundle\Twig\Components\CommandTool;
 use Umanit\TiptapBundle\Twig\Components\ContextMenu\Table as ContextMenuTable;
@@ -30,7 +33,6 @@ use Umanit\TiptapBundle\Twig\Components\Modal\Table as ModalTable;
 use Umanit\TiptapBundle\Twig\Components\Modal\Template as ModalTemplate;
 use Umanit\TiptapBundle\Twig\Components\Source;
 use Umanit\TiptapBundle\Twig\Components\Styles;
-use Umanit\TiptapBundle\Twig\Components\Tool;
 use Umanit\TiptapBundle\Twig\Components\Toolbar;
 
 use function Symfony\Component\DependencyInjection\Loader\Configurator\param;
@@ -44,7 +46,12 @@ return static function (ContainerConfigurator $container): void {
 
     // Default builders: the lowest priority, an application builder with the same name takes precedence over them
     $services
+        ->set('umanit_tiptap.builder.default_tools', DefaultToolsBuilder::class)
+        ->tag('umanit_tiptap.tools_builder')
+    ;
+    $services
         ->set('umanit_tiptap.builder.default_toolbar', DefaultToolbarBuilder::class)
+        ->args([service(ToolProviderInterface::class)])
         ->tag('umanit_tiptap.toolbar_builder')
     ;
     $services
@@ -61,6 +68,12 @@ return static function (ContainerConfigurator $container): void {
     ;
 
     // Providers: the interfaces are aliased so that an application can inject them
+    $services
+        ->set('umanit_tiptap.provider.tool', ToolProvider::class)
+        ->args([tagged_iterator('umanit_tiptap.tools_builder')])
+        ->alias(ToolProviderInterface::class, 'umanit_tiptap.provider.tool')
+    ;
+
     $services
         ->set('umanit_tiptap.provider.toolbar', ToolbarProvider::class)
         ->args([tagged_iterator('umanit_tiptap.toolbar_builder')])
@@ -101,7 +114,6 @@ return static function (ContainerConfigurator $container): void {
         'modal_template'     => [ModalTemplate::class, 'umanit_tiptap.provider.templates_set'],
         'source'             => [Source::class, null],
         'styles'             => [Styles::class, 'umanit_tiptap.provider.styles_set'],
-        'tool'               => [Tool::class, null],
         'toolbar'            => [Toolbar::class, 'umanit_tiptap.provider.toolbar'],
     ];
 

@@ -1,0 +1,315 @@
+[
+    {
+        "name": "undo",
+        "command": "undo",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "redo",
+        "command": "redo",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "cut",
+        "command": "clipboard.cut",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "copy",
+        "command": "clipboard.copy",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "paste",
+        "command": "clipboard.paste",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "paragraph",
+        "command": "setParagraph",
+        "args": null,
+        "active": {
+            "name": "paragraph"
+        },
+        "component": null
+    },
+    {
+        "name": "heading1",
+        "command": "toggleHeading",
+        "args": {
+            "level": 1
+        },
+        "active": {
+            "name": "heading",
+            "attributes": {
+                "level": 1
+            }
+        },
+        "component": null
+    },
+    {
+        "name": "heading2",
+        "command": "toggleHeading",
+        "args": {
+            "level": 2
+        },
+        "active": {
+            "name": "heading",
+            "attributes": {
+                "level": 2
+            }
+        },
+        "component": null
+    },
+    {
+        "name": "heading3",
+        "command": "toggleHeading",
+        "args": {
+            "level": 3
+        },
+        "active": {
+            "name": "heading",
+            "attributes": {
+                "level": 3
+            }
+        },
+        "component": null
+    },
+    {
+        "name": "blockquote",
+        "command": "toggleBlockquote",
+        "args": null,
+        "active": {
+            "name": "blockquote"
+        },
+        "component": null
+    },
+    {
+        "name": "bold",
+        "command": "toggleBold",
+        "args": null,
+        "active": {
+            "name": "bold"
+        },
+        "component": null
+    },
+    {
+        "name": "italic",
+        "command": "toggleItalic",
+        "args": null,
+        "active": {
+            "name": "italic"
+        },
+        "component": null
+    },
+    {
+        "name": "underline",
+        "command": "toggleUnderline",
+        "args": null,
+        "active": {
+            "name": "underline"
+        },
+        "component": null
+    },
+    {
+        "name": "strike",
+        "command": "toggleStrike",
+        "args": null,
+        "active": {
+            "name": "strike"
+        },
+        "component": null
+    },
+    {
+        "name": "subscript",
+        "command": "toggleSubscript",
+        "args": null,
+        "active": {
+            "name": "subscript"
+        },
+        "component": null
+    },
+    {
+        "name": "superscript",
+        "command": "toggleSuperscript",
+        "args": null,
+        "active": {
+            "name": "superscript"
+        },
+        "component": null
+    },
+    {
+        "name": "alignLeft",
+        "command": "toggleTextAlign",
+        "args": "left",
+        "active": {
+            "attributes": {
+                "textAlign": "left"
+            }
+        },
+        "component": null
+    },
+    {
+        "name": "alignCenter",
+        "command": "toggleTextAlign",
+        "args": "center",
+        "active": {
+            "attributes": {
+                "textAlign": "center"
+            }
+        },
+        "component": null
+    },
+    {
+        "name": "alignRight",
+        "command": "toggleTextAlign",
+        "args": "right",
+        "active": {
+            "attributes": {
+                "textAlign": "right"
+            }
+        },
+        "component": null
+    },
+    {
+        "name": "alignJustify",
+        "command": "toggleTextAlign",
+        "args": "justify",
+        "active": {
+            "attributes": {
+                "textAlign": "justify"
+            }
+        },
+        "component": null
+    },
+    {
+        "name": "bulletList",
+        "command": "toggleBulletList",
+        "args": null,
+        "active": {
+            "name": "bulletList"
+        },
+        "component": null
+    },
+    {
+        "name": "orderedList",
+        "command": "toggleOrderedList",
+        "args": null,
+        "active": {
+            "name": "orderedList"
+        },
+        "component": null
+    },
+    {
+        "name": "indent",
+        "command": "sinkListItem",
+        "args": "listItem",
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "outdent",
+        "command": "liftListItem",
+        "args": "listItem",
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "listTight",
+        "command": "toggleListTight",
+        "args": null,
+        "active": {
+            "state": "listTight"
+        },
+        "component": null
+    },
+    {
+        "name": "anchor",
+        "command": "anchor.open",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "link",
+        "command": "link.open",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "unlink",
+        "command": "link.unset",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "image",
+        "command": "image.open",
+        "args": null,
+        "active": {
+            "name": "image"
+        },
+        "component": null
+    },
+    {
+        "name": "table",
+        "command": "table.openAddModal",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "template",
+        "command": "template.open",
+        "args": null,
+        "active": null,
+        "component": null
+    },
+    {
+        "name": "styles",
+        "command": null,
+        "args": null,
+        "active": null,
+        "component": "Umanit:Tiptap:Styles"
+    },
+    {
+        "name": "color",
+        "command": null,
+        "args": null,
+        "active": null,
+        "component": "Umanit:Tiptap:Color"
+    },
+    {
+        "name": "bgColor",
+        "command": null,
+        "args": null,
+        "active": null,
+        "component": "Umanit:Tiptap:Color"
+    },
+    {
+        "name": "fontSize",
+        "command": null,
+        "args": null,
+        "active": null,
+        "component": "Umanit:Tiptap:FontSize"
+    },
+    {
+        "name": "source",
+        "command": null,
+        "args": null,
+        "active": null,
+        "component": "Umanit:Tiptap:Source"
+    }
+]

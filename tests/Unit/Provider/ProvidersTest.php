@@ -20,6 +20,7 @@ use Umanit\TiptapBundle\Provider\ColorsSetProvider;
 use Umanit\TiptapBundle\Provider\StylesSetProvider;
 use Umanit\TiptapBundle\Provider\TemplatesSetProvider;
 use Umanit\TiptapBundle\Provider\ToolbarProvider;
+use Umanit\TiptapBundle\Tests\Fixtures\Tools;
 
 #[CoversClass(ColorsSetProvider::class)]
 #[CoversClass(StylesSetProvider::class)]
@@ -32,7 +33,7 @@ final class ProvidersTest extends TestCase
      */
     public static function provideUnknownNames(): iterable
     {
-        $toolbars = new ToolbarProvider([new DefaultToolbarBuilder()]);
+        $toolbars = new ToolbarProvider([new DefaultToolbarBuilder(Tools::provider())]);
         $styles = new StylesSetProvider([new DefaultStylesSetsBuilder()]);
         $templates = new TemplatesSetProvider([new DefaultTemplatesSetBuilder()]);
         $colors = new ColorsSetProvider([new DefaultColorsSetBuilder()]);

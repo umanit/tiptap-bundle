@@ -1,6 +1,6 @@
 {% trans_default_domain 'UmanitTiptapBundle' %}
 
-<div class="umanit-tiptap__color-wrapper umanit-tiptap__dropdown" title="{{ this.title }}"
+<div class="umanit-tiptap__color-wrapper umanit-tiptap__dropdown" title="{{ this.title|trans }}"
     {{ stimulus_controller('umanit/tiptap/dropdown') }} {{ attributes }}>
   <button type="button" class="umanit-tiptap__btn"
       {{ stimulus_action('umanit/tiptap/dropdown', 'toggle') }} aria-expanded="false">

@@ -11,6 +11,7 @@ use Umanit\TiptapBundle\Builder\ColorsSetBuilderInterface;
 use Umanit\TiptapBundle\Builder\StylesSetsBuilderInterface;
 use Umanit\TiptapBundle\Builder\TemplatesSetBuilderInterface;
 use Umanit\TiptapBundle\Builder\ToolbarBuilderInterface;
+use Umanit\TiptapBundle\Builder\ToolsBuilderInterface;
 use Umanit\TiptapBundle\UmanitTiptapBundle;
 
 /**
@@ -72,6 +73,7 @@ final readonly class EditorFeature implements FeatureInterface
     {
         return [
             ToolbarBuilderInterface::class      => 'umanit_tiptap.toolbar_builder',
+            ToolsBuilderInterface::class        => 'umanit_tiptap.tools_builder',
             StylesSetsBuilderInterface::class   => 'umanit_tiptap.styles_sets_builder',
             TemplatesSetBuilderInterface::class => 'umanit_tiptap.templates_set_builder',
             ColorsSetBuilderInterface::class    => 'umanit_tiptap.colors_set_builder',

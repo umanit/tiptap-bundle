@@ -67,8 +67,9 @@ class TestKernel extends Kernel
             'translator'            => ['enabled' => true],
         ]);
         $container->register('logger', NullLogger::class);
-        $container->register(CompactToolbarBuilder::class)->setAutoconfigured(true);
-        $container->register(CustomToolToolbarBuilder::class)->setAutoconfigured(true);
+        $container->register(CompactToolbarBuilder::class)->setAutoconfigured(true)->setAutowired(true);
+        $container->register(CustomToolToolbarBuilder::class)->setAutoconfigured(true)->setAutowired(true);
+        $container->register(CustomToolsBuilder::class)->setAutoconfigured(true);
         $container->register(OverridingStylesSetsBuilder::class)->setAutoconfigured(true);
         $container->register(FixtureContentSourceProvider::class)->setAutoconfigured(true);
         $container->register(BrandLossRule::class)->setAutoconfigured(true);

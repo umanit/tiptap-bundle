@@ -1,10 +1,22 @@
+{% set context = {
+  stylesSet: this.stylesSet,
+  colorsSet: this.colorsSet,
+  backgroundColorsSet: this.backgroundColorsSet,
+} %}
+
 <div class="umanit-tiptap__toolbar" role="toolbar" {{ stimulus_target('umanit/tiptap/editor', 'toolbar') }} {{ attributes }}>
   {% for section in this.toolbar.sections %}
     <div class="ut-flex">
       {% for tool in section.tools %}
-        <twig:Umanit:Tiptap:Tool
-            :definition="tool" tool="{{ tool }}" stylesSet="{{ this.stylesSet }}" colorsSet="{{ this.colorsSet }}"
-            backgroundColorsSet="{{ this.backgroundColorsSet }}" />
+        {% if tool.component is not null %}
+          {{ component(tool.component, tool.propsFor(context)) }}
+        {% else %}
+          <twig:Umanit:Tiptap:CommandTool
+              class="umanit-tiptap__btn" title="{{ tool.title|trans({}, tool.translationDomain) }}"
+              command="{{ tool.command }}" :args="tool.args" :icon="tool.icon" :active="tool.active"
+              :label="tool.label is not null ? tool.label|trans({}, tool.translationDomain) : null"
+              :hideLabel="tool.icon is not null" data-wysiwyg-tool="{{ tool.name }}" />
+        {% endif %}
       {% endfor %}
     </div>
 

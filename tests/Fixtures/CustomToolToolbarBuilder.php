@@ -5,12 +5,17 @@ declare(strict_types=1);
 namespace Umanit\TiptapBundle\Tests\Fixtures;
 
 use Umanit\TiptapBundle\Builder\ToolbarBuilderInterface;
-use Umanit\TiptapBundle\DTO\Tool;
 use Umanit\TiptapBundle\DTO\Toolbar;
 use Umanit\TiptapBundle\DTO\ToolbarSection;
+use Umanit\TiptapBundle\Provider\ToolProviderInterface;
 
 final readonly class CustomToolToolbarBuilder implements ToolbarBuilderInterface
 {
+    public function __construct(
+        private ToolProviderInterface $tools,
+    ) {
+    }
+
     public static function getDefaultIndexName(): string
     {
         return 'custom';
@@ -19,11 +24,7 @@ final readonly class CustomToolToolbarBuilder implements ToolbarBuilderInterface
     public function build(): Toolbar
     {
         return new Toolbar([
-            new ToolbarSection([
-                new Tool('bold'),
-                new Tool('highlight', command: 'toggleHighlight', title: 'Highlight', args: ['color' => 'yellow']),
-                new Tool('callout', command: 'callout.open', title: 'Callout', label: 'Callout'),
-            ]),
+            new ToolbarSection(array_map($this->tools->getTool(...), ['bold', 'highlight', 'callout'])),
         ]);
     }
 }

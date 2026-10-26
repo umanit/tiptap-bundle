@@ -4,6 +4,10 @@
   {% set action_parameters = action_parameters|merge({args: args}) %}
 {% endif %}
 
+{% if active is not null %}
+  {% set action_parameters = action_parameters|merge({active: active}) %}
+{% endif %}
+
 <button type="button" class="{{ class }}" title="{{ title }}"
     {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', action_parameters) }} {{ attributes }}>
   {% if icon is not null %}

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Twig\Environment;
+use Umanit\TiptapBundle\Builder\DefaultToolsBuilder;
 use Umanit\TiptapBundle\Form\Type\TiptapType;
 use Umanit\TiptapBundle\Tests\Fixtures\OverridingStylesSetsBuilder;
 use Umanit\TiptapBundle\Tests\Fixtures\TestKernel;
@@ -83,6 +84,48 @@ final class EditorRenderingTest extends KernelTestCase
         $this->assertStringNotContainsString('data-wysiwyg-tool="italic"', $html);
     }
 
+    public function testEveryToolOfTheDefaultToolbarIsRendered(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        foreach (new DefaultToolsBuilder()->build() as $tool) {
+            if (null !== $tool->command) {
+                $this->assertStringContainsString('data-wysiwyg-tool="' . $tool->name . '"', $html, $tool->name);
+            }
+        }
+
+        // The tools which are rendered by a component
+        $this->assertSame(2, substr_count($html, 'umanit-tiptap__color-palette umanit-tiptap__dropdown-menu'));
+        $this->assertStringContainsString('title="Choose a Color"', $html);
+        $this->assertStringContainsString('title="Background color"', $html);
+        $this->assertStringContainsString('umanit-tiptap__styles-btn', $html);
+        $this->assertStringContainsString('title="Block Styles"', $html);
+        $this->assertMatchesRegularExpression('#umanit-tiptap__styles-btn[^>]*>\s*Styles\s*</button>#', $html);
+        $this->assertStringContainsString('ut-fs-12', $html);
+        $this->assertStringContainsString('title="Font size"', $html);
+        $this->assertStringContainsString('umanit-tiptap__btn--source" title="Source Mode"', $html);
+    }
+
+    public function testToolsTellWhenTheyAreActive(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        $this->assertStringContainsString(
+            'data-umanit--tiptap--editor-active-param="{&quot;name&quot;:&quot;bold&quot;}"',
+            $html,
+        );
+        $this->assertStringContainsString(
+            'data-umanit--tiptap--editor-active-param="{&quot;name&quot;:&quot;heading&quot;,'
+            . '&quot;attributes&quot;:{&quot;level&quot;:2}}"',
+            $html,
+        );
+        $this->assertStringContainsString(
+            'data-umanit--tiptap--editor-active-param="{&quot;attributes&quot;:{&quot;textAlign&quot;:'
+            . '&quot;center&quot;}}"',
+            $html,
+        );
+    }
+
     public function testToolOfTheApplicationIsRenderedAsACommandButton(): void
     {
         $html = $this->getTwig()->createTemplate(
@@ -90,6 +133,10 @@ final class EditorRenderingTest extends KernelTestCase
         )->render();
 
         $this->assertStringContainsString('data-wysiwyg-tool="highlight"', $html);
+        $this->assertStringContainsString(
+            'data-umanit--tiptap--editor-active-param="{&quot;name&quot;:&quot;highlight&quot;}"',
+            $html,
+        );
         $this->assertStringContainsString('title="Highlight"', $html);
         $this->assertStringContainsString('data-umanit--tiptap--editor-command-param="toggleHighlight"', $html);
         $this->assertStringContainsString(

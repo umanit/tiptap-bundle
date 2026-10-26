@@ -7,7 +7,7 @@ import { analyzeContent } from '../editor/migration-diff.js';
 import { renderDiffLists, renderDiffPreviews } from '../editor/diff-viewer.js';
 import { DEFAULT_ADAPTER_NAME } from '../file-manager/default-adapter.js';
 import { createFileManagerAdapter } from '../file-manager/registry.js';
-import { getToolState, parseToolArgs } from '../editor/tool-state.js';
+import { isToolActive, parseToolArgs } from '../editor/tool-state.js';
 import '../index.js';
 
 const MIN_HEIGHT = 120;
@@ -323,16 +323,12 @@ export default class extends Controller {
 
   #updateToolbarState() {
     this.toolbarTarget.querySelectorAll('[data-wysiwyg-tool]').forEach((button) => {
-      const command = button.getAttribute(`data-${this.identifier}-command-param`);
-      const resolve = command ? getToolState(command) : undefined;
+      const param = (name) => parseToolArgs(button.getAttribute(`data-${this.identifier}-${name}-param`));
+      const active = isToolActive(this.#wysiwygEditor, param('command'), param('args'), param('active'));
 
-      if (!resolve) {
-        return;
+      if (null !== active) {
+        button.classList.toggle('active', active);
       }
-
-      const args = parseToolArgs(button.getAttribute(`data-${this.identifier}-args-param`));
-
-      button.classList.toggle('active', resolve(this.#wysiwygEditor, args));
     });
   }
 }

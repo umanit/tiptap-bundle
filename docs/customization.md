@@ -7,7 +7,45 @@ Three kinds of customization, from the lightest to the deepest:
 2. **Add a tool** to the toolbar: a button which runs a command.
 3. **Add a behavior** to the editor: a TipTap extension, or a manager which opens a modal and talks to the document.
 
-Adding a tool takes a PHP side (the button) and a JavaScript side (what it runs).
+Adding a tool takes a PHP side (the tool) and a JavaScript side (what it runs).
+
+## How the toolbar is made
+
+- A **tool** (`Tool`) is a complete definition: a name, a title, and a command (or a Twig component).
+- A **builder of tools** (`ToolsBuilderInterface`) lists tools. The bundle has one (`DefaultToolsBuilder`) for its own
+  tools; yours is picked up by autoconfiguration. A tool with the name of another replaces it: the one of the
+  application wins over the one of the bundle.
+- A **builder of toolbars** (`ToolbarBuilderInterface`) picks tools by name, through `ToolProviderInterface`, and
+  groups them in sections. A name which no builder lists is an error when the toolbar is built, in every environment.
+
+```php
+use Umanit\TiptapBundle\Builder\ToolbarBuilderInterface;
+use Umanit\TiptapBundle\DTO\Toolbar;
+use Umanit\TiptapBundle\DTO\ToolbarSection;
+use Umanit\TiptapBundle\Provider\ToolProviderInterface;
+
+final readonly class AppToolbarBuilder implements ToolbarBuilderInterface
+{
+    public function __construct(private ToolProviderInterface $tools)
+    {
+    }
+
+    public static function getDefaultIndexName(): string
+    {
+        return 'article';
+    }
+
+    public function build(): Toolbar
+    {
+        return new Toolbar([
+            new ToolbarSection(array_map($this->tools->getTool(...), ['bold', 'italic', 'link'])),
+        ]);
+    }
+}
+```
+
+The names of the tools of the bundle are listed in `src/Builder/DefaultToolsBuilder.php`. To start from its toolbar,
+build `new DefaultToolbarBuilder($tools)` and add your sections to `$toolbar->sections`.
 
 ## 1. A tool which runs a TipTap command
 
@@ -19,36 +57,44 @@ which imports the package.
 ```js
 // assets/app.js
 import Highlight from '@tiptap/extension-highlight';
-import { registerExtension, registerToolState } from '@umanit/tiptap-bundle';
+import { registerExtension } from '@umanit/tiptap-bundle';
 
 registerExtension(Highlight);
-
-// Optional: when the tool shows as active at the cursor
-registerToolState('toggleHighlight', (editor) => editor.isActive('highlight'));
 ```
 
-Then declare the tool in your toolbar builder. A `Tool` which has a `command` is a tool of your application: it is
-rendered as a button which runs the command.
+Then list the tool.
 
 ```php
+use Umanit\TiptapBundle\Builder\ToolsBuilderInterface;
 use Umanit\TiptapBundle\DTO\Tool;
-use Umanit\TiptapBundle\DTO\ToolbarSection;
 
-new ToolbarSection([
-    new Tool('highlight', command: 'toggleHighlight', title: 'Highlight', icon: 'app:highlighter'),
-]);
+final readonly class AppToolsBuilder implements ToolsBuilderInterface
+{
+    public function build(): iterable
+    {
+        yield new Tool(
+            'highlight',
+            'Highlight',
+            command: 'toggleHighlight',
+            icon: 'app:highlighter',
+            active: ['name' => 'highlight'],
+        );
+    }
+}
 ```
 
-| Argument  | Role                                                                                           |
-|-----------|------------------------------------------------------------------------------------------------|
-| `name`    | Identifies the tool (`data-wysiwyg-tool`). Without `command`, it selects a tool of the bundle. |
-| `command` | A TipTap command (`toggleHighlight`) or `<manager>.<method>` (below).                          |
-| `title`   | The tooltip and the accessible name of the button. Required, and translated by you.            |
-| `icon`    | Name of a [UX icon](https://ux.symfony.com/icons) (`app:highlighter`).                         |
-| `label`   | Text of the button. Hidden visually, the icon is shown instead.                                |
-| `args`    | The argument of the command: a string, or an array rendered as JSON (`['color' => 'yellow']`). |
+| Argument            | Role                                                                                              |
+|---------------------|---------------------------------------------------------------------------------------------------|
+| `name`              | Identifies the tool (`data-wysiwyg-tool`), and picks it in a toolbar.                            |
+| `title`             | The tooltip and the accessible name of the button: a translation key, or a text.                 |
+| `command`           | A TipTap command (`toggleHighlight`) or `<manager>.<method>` (below).                            |
+| `icon`              | Name of a [UX icon](https://ux.symfony.com/icons) (`app:highlighter`).                           |
+| `label`             | Text of the button: a translation key, or a text. Hidden visually when there is an icon.         |
+| `args`              | The argument of the command: a string, or an array rendered as JSON (`['level' => 2]`).          |
+| `active`            | When the button shows as active at the cursor (see below).                                       |
+| `translationDomain` | The domain of the title and of the label (the one of the bundle by default).                     |
 
-A tool of your application which has the name of a tool of the bundle replaces it.
+Add `highlight` to your toolbar builder, with `$this->tools->getTool('highlight')`.
 
 ## 2. A tool which opens a modal or needs more than a command: a manager
 
@@ -69,26 +115,62 @@ registerManager('callout', ({ editor, elements, modal }) => ({
 ```
 
 ```php
-new Tool('callout', command: 'callout.insert', title: 'Callout', args: ['text' => 'Note']);
+new Tool('callout', 'Callout', command: 'callout.insert', args: ['text' => 'Note']);
 ```
 
 The factory is called once per editor with:
 
-| Key                  | Content                                                                                 |
-|----------------------|-----------------------------------------------------------------------------------------|
-| `editor`             | The TipTap `Editor`.                                                                    |
-| `elements`           | The forms and groups of the editor which the bundle found (`linkForm`, `imageForm`…).   |
-| `fileManagerAdapter` | The file manager adapter of the editor, or `null`.                                      |
-| `modal`              | `{ open(element), close(element) }`: open or close the modal which contains an element. |
+| Key                  | Content                                                                                     |
+|----------------------|---------------------------------------------------------------------------------------------|
+| `editor`             | The TipTap `Editor`.                                                                        |
+| `elements`           | The forms and groups of the editor which the bundle found (`linkForm`, `imageForm`…).       |
+| `fileManagerAdapter` | The file manager adapter of the editor, or `null`.                                          |
+| `modal`              | `{ open(element), close(element) }`: open or close the modal which contains an element.     |
 
 A manager registered under the name of a manager of the bundle (`table`, `link`, `image`, `template`, `clipboard`,
 `anchor`) replaces it. A name cannot contain a dot.
 
+## 3. A tool which is more than a button: a component
+
+A dropdown or a palette is a Twig component (`#[AsTwigComponent]`). The tool names it, and gives it its props.
+
+```php
+new Tool(
+    'palette',
+    'wysiwyg.color.choose',
+    icon: 'app:palette',
+    component: 'App:Palette',
+    props: ['type' => 'text'],
+    context: ['name' => 'colorsSet'],
+);
+```
+
+The component receives the `title`, the `icon` and the `label` of the tool as props, then the `props`, then the ones
+named in `context`, which are taken from the editor: `stylesSet`, `colorsSet` or `backgroundColorsSet`. The component
+translates the title and the label itself. The tools of the bundle which are not plain buttons (`styles`, `color`,
+`bgColor`, `fontSize`, `source`) are made this way.
+
 ## The active state of a tool
 
-The button of a tool gets the class `active` when `registerToolState(command, resolver)` says so. The resolver receives
-the editor and the `args` of the tool, and returns a boolean. The commands of the bundle are declared in
-`assets/src/editor/tool-state.js`; one which is not declared has no active state.
+The button of a tool gets the class `active` when the tool says so, in `active`:
+
+| `active`                                                 | The button is active when…                                    |
+|----------------------------------------------------------|---------------------------------------------------------------|
+| `['name' => 'bold']`                                     | the node or the mark is active at the cursor.                |
+| `['name' => 'heading', 'attributes' => ['level' => 2]]`  | … with these attributes.                                      |
+| `['attributes' => ['textAlign' => 'left']]`              | the attribute is set, whatever the node.                      |
+| `['state' => 'listTight']`                               | the state of the editor holds (`assets/src/editor/tool-state.js`). |
+
+For anything else, register a resolver on the JavaScript side. It takes precedence over `active`, and receives the
+editor and the `args` of the tool:
+
+```js
+import { registerToolState } from '@umanit/tiptap-bundle';
+
+registerToolState('toggleHighlight', (editor, args) => editor.isActive('highlight', args));
+```
+
+A tool without `active` nor resolver has no active state: it is an action, not a toggle.
 
 ## Good to know
 
@@ -96,8 +178,8 @@ the editor and the `args` of the tool, and returns a boolean. The commands of th
   `registerExtension()`, `registerManager()` and `registerToolState()` only apply to the editors which connect
   afterwards; an editor which is already connected is not rebuilt.
 
-  Called synchronously at the top level of the entrypoint, they are in time: Stimulus connects the controllers once the
-  DOM is ready, after the modules are evaluated.
+  Called synchronously at the top level of the entrypoint, they are in time: Stimulus connects the controllers once
+  the DOM is ready, after the modules are evaluated.
 
   ```js
   // assets/app.js
@@ -115,6 +197,7 @@ the editor and the `args` of the tool, and returns a boolean. The commands of th
 - **Every editor of the page** gets the registered extensions, whatever its toolbar: an extension only adds to the
   schema, a tool is what shows it.
 - **A wrong command fails loudly**: an unknown TipTap command or manager throws when the button is clicked. The bundle
-  checks its own templates in a test (`assets/tests/toolbar-commands.test.js`); do the same for yours if they matter.
-- **The HTML you add must survive the cleaners**: if you store a custom node or mark, the migration and cleaning tooling
-  does not know it. Run `umanit:tiptap:audit` on contents which use it.
+  checks its own tools in a test (`assets/tests/toolbar-commands.test.js`, fed by a snapshot of the tools that
+  PHPUnit keeps up to date); do the same for yours if they matter.
+- **The HTML you add must survive the cleaners**: if you store a custom node or mark, the migration and cleaning
+  tooling does not know it. Run `umanit:tiptap:audit` on contents which use it.

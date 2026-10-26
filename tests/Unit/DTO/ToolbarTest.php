@@ -28,11 +28,16 @@ final class ToolbarTest extends TestCase
         yield 'anchor' => ['anchor', 'hasAnchorTool'];
     }
 
+    private static function tool(string $name): Tool
+    {
+        return new Tool($name, $name, command: 'run');
+    }
+
     #[DataProvider('provideSpecificTools')]
     public function testSpecificToolDetection(string $tool, string $method): void
     {
-        $with = new Toolbar([new ToolbarSection([new Tool('bold')]), new ToolbarSection([new Tool($tool)])]);
-        $without = new Toolbar([new ToolbarSection([new Tool('bold')])]);
+        $with = new Toolbar([new ToolbarSection([self::tool('bold')]), new ToolbarSection([self::tool($tool)])]);
+        $without = new Toolbar([new ToolbarSection([self::tool('bold')])]);
 
         $this->assertTrue($with->{$method}());
         $this->assertFalse($without->{$method}());
@@ -45,34 +50,6 @@ final class ToolbarTest extends TestCase
 
     public function testToolIsStringable(): void
     {
-        $this->assertSame('bold', (string) new Tool('bold'));
-    }
-
-    public function testToolWithoutCommandIsOneOfTheBundle(): void
-    {
-        $this->assertFalse(new Tool('bold')->isCustom());
-    }
-
-    public function testToolWithACommandIsCustom(): void
-    {
-        $tool = new Tool('highlight', command: 'toggleHighlight', title: 'Highlight', args: ['color' => 'yellow']);
-
-        $this->assertTrue($tool->isCustom());
-        $this->assertSame(['color' => 'yellow'], $tool->args);
-    }
-
-    public function testToolWithACommandNeedsATitle(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('needs a title');
-
-        new Tool('highlight', command: 'toggleHighlight');
-    }
-
-    public function testToolNeedsAName(): void
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        new Tool('');
+        $this->assertSame('bold', (string) self::tool('bold'));
     }
 }

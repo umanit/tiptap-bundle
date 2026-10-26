@@ -1,63 +1,77 @@
 import { getRegisteredToolState } from './registry.js';
 
 /**
- * Tells when a toolbar tool is active, from the command it runs. The commands of the bundle are listed here; an
- * application adds its own with `registerToolState()`. A command which is not listed has no active state.
+ * Tells when a toolbar tool is active, at the cursor. The tool says how, in the `active` of its definition
+ * (`Tool::$active` on the PHP side), rendered as a JSON attribute of its button:
  *
+ * - `{ name: 'bold' }`: the node or the mark is active;
+ * - `{ name: 'heading', attributes: { level: 2 } }`: ... with these attributes;
+ * - `{ attributes: { textAlign: 'left' } }`: an attribute which is set, whatever the node;
+ * - `{ state: 'listTight' }`: a state of the editor which is not a node nor a mark (see `STATES`).
+ *
+ * An application can also register a resolver for a command (`registerToolState()`): it takes precedence.
+ *
+ * @typedef {{ name?: string, attributes?: Object<string, any>, state?: string }} ActiveDescriptor
  * @typedef {import('./registry.js').ToolStateResolver} ToolStateResolver
  */
 
-/** @type {(name: string) => ToolStateResolver} */
-const node = (name) => (editor) => editor.isActive(name);
-
-/** @type {ToolStateResolver} */
-const spanClass = (editor, className) => 'string' === typeof className && '' !== className
-  && editor.hasSpanClass(className);
-
-/** @type {Object<string, ToolStateResolver>} */
-export const TOOL_STATES = {
-  setParagraph: node('paragraph'),
-  toggleHeading: (editor, attributes) => editor.isActive('heading', attributes),
-  toggleBold: node('bold'),
-  toggleItalic: node('italic'),
-  toggleUnderline: node('underline'),
-  toggleStrike: node('strike'),
-  toggleSubscript: node('subscript'),
-  toggleSuperscript: node('superscript'),
-  toggleBulletList: node('bulletList'),
-  toggleOrderedList: node('orderedList'),
-  toggleBlockquote: node('blockquote'),
-  // Only matched on its attribute
-  toggleTextAlign: (editor, textAlign) => editor.isActive({ textAlign }),
-  toggleListTight: (editor) => editor.isListTight(),
-  'image.open': node('image'),
-  // These commands set a class on the text: they are active when the selection has it
-  setTextColor: spanClass,
-  setTextBgColor: spanClass,
-  setTextSize: spanClass,
+/** @type {Object<string, (editor: import('./tiptap-editor.js').default) => boolean>} */
+export const STATES = {
+  listTight: (editor) => editor.isListTight(),
 };
 
-/**
- * Commands which, on purpose, have no active state: an action (not a toggle), or a modal which opens.
- */
-export const STATELESS_COMMANDS = [
-  'undo', 'redo', 'sinkListItem', 'liftListItem',
-  'clipboard.cut', 'clipboard.copy', 'clipboard.paste',
-  'link.open', 'link.unset', 'anchor.open', 'template.open', 'table.openAddModal',
-  'setBlockClass', 'unsetTextColor', 'unsetTextBgColor', 'unsetTextSize',
-];
+const DESCRIPTOR_KEYS = ['name', 'attributes', 'state'];
 
 /**
- * @param {string} command
+ * @param {import('./tiptap-editor.js').default} editor
+ * @param {ActiveDescriptor} descriptor
  *
- * @returns {ToolStateResolver|undefined}
+ * @returns {boolean}
  */
-export function getToolState(command) {
-  return getRegisteredToolState(command) ?? TOOL_STATES[command];
+export function resolveActive(editor, descriptor) {
+  const unknown = Object.keys(descriptor).filter((key) => !DESCRIPTOR_KEYS.includes(key));
+
+  if (unknown.length > 0) {
+    throw new Error(`Unknown key(s) in the active state of a tool: ${unknown.join(', ')}.`);
+  }
+
+  const { name, attributes, state } = descriptor;
+
+  if (undefined !== state) {
+    if (!(state in STATES)) {
+      throw new Error(`Unknown editor state "${state}". Known states: ${Object.keys(STATES).join(', ')}.`);
+    }
+
+    return STATES[state](editor);
+  }
+
+  if (undefined === name && undefined === attributes) {
+    throw new Error('The active state of a tool needs a "name", "attributes" or a "state".');
+  }
+
+  return undefined === name ? editor.isActive(attributes) : editor.isActive(name, attributes);
 }
 
 /**
- * Reads the arguments of a tool back from its attribute: Stimulus renders a string as it is and the rest as JSON.
+ * @param {import('./tiptap-editor.js').default} editor
+ * @param {string|null} command The command the tool runs
+ * @param {any} args The arguments of the tool
+ * @param {ActiveDescriptor|null} descriptor
+ *
+ * @returns {boolean|null} Whether the tool is active, or null when it has no active state
+ */
+export function isToolActive(editor, command, args, descriptor) {
+  const registered = command ? getRegisteredToolState(command) : undefined;
+
+  if (registered) {
+    return registered(editor, args);
+  }
+
+  return null === descriptor ? null : resolveActive(editor, descriptor);
+}
+
+/**
+ * Reads the value of an attribute of a tool back: Stimulus renders a string as it is and the rest as JSON.
  *
  * @param {string|null} raw
  *

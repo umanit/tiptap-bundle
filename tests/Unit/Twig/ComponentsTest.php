@@ -14,6 +14,7 @@ use Umanit\TiptapBundle\Provider\ColorsSetProvider;
 use Umanit\TiptapBundle\Provider\StylesSetProvider;
 use Umanit\TiptapBundle\Provider\ToolbarProvider;
 use Umanit\TiptapBundle\Tests\Fixtures\CompactToolbarBuilder;
+use Umanit\TiptapBundle\Tests\Fixtures\Tools;
 use Umanit\TiptapBundle\Twig\Components\Color;
 use Umanit\TiptapBundle\Twig\Components\ColorType;
 use Umanit\TiptapBundle\Twig\Components\Editor;
@@ -28,7 +29,10 @@ final class ComponentsTest extends TestCase
 {
     public function testEditorDetectsToolbarTools(): void
     {
-        $provider = new ToolbarProvider([new DefaultToolbarBuilder(), new CompactToolbarBuilder()]);
+        $provider = new ToolbarProvider([
+            new DefaultToolbarBuilder(Tools::provider()),
+            new CompactToolbarBuilder(Tools::provider()),
+        ]);
 
         $full = new Editor($provider);
         $this->assertTrue($full->hasTableTool());
@@ -85,7 +89,7 @@ final class ComponentsTest extends TestCase
         $styles = new Styles(new StylesSetProvider([new DefaultStylesSetsBuilder()]));
         $this->assertCount(3, $styles->getStylesSet());
 
-        $toolbar = new Toolbar(new ToolbarProvider([new CompactToolbarBuilder()]));
+        $toolbar = new Toolbar(new ToolbarProvider([new CompactToolbarBuilder(Tools::provider())]));
         $toolbar->name = 'compact';
         $this->assertTrue($toolbar->getToolbar()->hasTool('bold'));
     }

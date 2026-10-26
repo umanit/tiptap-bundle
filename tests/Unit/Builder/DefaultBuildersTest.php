@@ -11,11 +11,14 @@ use Umanit\TiptapBundle\Builder\DefaultColorsSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultStylesSetsBuilder;
 use Umanit\TiptapBundle\Builder\DefaultTemplatesSetBuilder;
 use Umanit\TiptapBundle\Builder\DefaultToolbarBuilder;
+use Umanit\TiptapBundle\Builder\DefaultToolsBuilder;
+use Umanit\TiptapBundle\Tests\Fixtures\Tools;
 
 #[CoversClass(DefaultColorsSetBuilder::class)]
 #[CoversClass(DefaultStylesSetsBuilder::class)]
 #[CoversClass(DefaultTemplatesSetBuilder::class)]
 #[CoversClass(DefaultToolbarBuilder::class)]
+#[CoversClass(DefaultToolsBuilder::class)]
 final class DefaultBuildersTest extends TestCase
 {
     public function testDefaultBuildersAreRegisteredUnderTheDefaultName(): void
@@ -28,7 +31,7 @@ final class DefaultBuildersTest extends TestCase
 
     public function testDefaultToolbarContainsTheOptionalTools(): void
     {
-        $toolbar = new DefaultToolbarBuilder()->build();
+        $toolbar = new DefaultToolbarBuilder(Tools::provider())->build();
 
         $this->assertTrue($toolbar->hasTableTool());
         $this->assertTrue($toolbar->hasImageTool());
@@ -68,6 +71,11 @@ final class DefaultBuildersTest extends TestCase
         foreach (new DefaultTemplatesSetBuilder()->build() as $template) {
             $keys[] = $template->name;
             $keys[] = $template->description;
+        }
+
+        foreach (new DefaultToolsBuilder()->build() as $tool) {
+            $keys[] = $tool->title;
+            $keys[] = $tool->label;
         }
 
         foreach (['en', 'fr'] as $locale) {
