@@ -58,6 +58,11 @@ Some of them are choices rather than facts, and can be skipped:
 - `small-indent` treats up to 12px as noise; 30px or 40px, which somebody picked, stay.
 - A black text color is only removed when nothing else colors the text around it.
 
+The editor does its own cleaning of what is pasted or loaded (`assets/src/editor/html-cleaner.js`): it drops the same
+`Mso*` and `WordSection*` classes, plus the ones of Word Online (`SCX*`) and Google Docs (`kix-*`) and the hashes, and
+only at the time of a paste it turns a huge left margin into a right alignment and inlines the alignment of a `<style>`
+block. What the editor drops anyway is not cleaned in the database: it is not counted as a loss by the audit.
+
 ## Adding a rule
 
 Implement `CleaningRuleInterface` and tag the service `umanit_tiptap.cleaning_rule` (the higher the priority, the

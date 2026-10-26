@@ -11,6 +11,10 @@ use Umanit\TiptapBundle\Cleaning\Html;
 /**
  * Word styles its elements with classes of its own (`MsoTableGrid`, `MsoNormal`…) and wraps the document in a
  * `<div class="WordSection1">`: nothing in an application stylesheet targets them.
+ *
+ * The editor drops the same classes when it loads a content (`assets/src/editor/html-cleaner.js`), and a few more (Word
+ * Online, Google Docs, hashes) which this rule leaves alone: the editor drops them anyway. The cases of
+ * `tests/Fixtures/Cleaning/word-classes-cases.json` are replayed on both sides.
  */
 final class WordClassesRule implements CleaningRuleInterface
 {

@@ -1,0 +1,14 @@
+{
+  "comment": "The classes of Word which the editor (assets/src/editor/html-cleaner.js) and umanit:tiptap:clean (WordClassesRule) both drop. `kept` is null when no class is left.",
+  "cases": [
+    { "classes": "MsoNormal", "kept": null },
+    { "classes": "WordSection1", "kept": null },
+    { "classes": "MsoNormal keep", "kept": "keep" },
+    { "classes": "keep MsoListParagraph", "kept": "keep" },
+    { "classes": "MsoTableGrid foo WordSection2", "kept": "foo" },
+    { "classes": "ut-banner-info MsoNormal ut-text-center", "kept": "ut-banner-info ut-text-center" },
+    { "classes": "keep other", "kept": "keep other" },
+    { "classes": "mso-lowercase", "kept": "mso-lowercase" },
+    { "classes": "NotMso", "kept": "NotMso" }
+  ]
+}

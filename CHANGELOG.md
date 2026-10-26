@@ -91,6 +91,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Paste: the alignment given by a `<style>` block is applied whatever the attributes or the case of the tag (it was
+  only read from a bare `<style>`).
 - The audit counted as lost what changes nothing on screen: attributes at their default (`ol start="1"`, `colspan="1"`,
   `rowspan="1"`), `text-align` `start`/`left`, initial values (`font-weight`, `font-style`, `text-decoration`,
   `white-space`), CSS-wide keywords (`inherit`, `initial`, `unset`) which are the default, `font-size: medium`, `background-color: transparent`, the default `list-style-type` of a list level, a named anchor whose `id` moved to another element, and
