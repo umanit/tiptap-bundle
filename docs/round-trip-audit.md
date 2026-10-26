@@ -190,7 +190,7 @@ is opt-in: the editor in the browser does not read inline styles unless the opti
   has no attribute at all (the wrapper changes nothing on screen); it is when it carries one (`tag:div`).
 - Some signals are not counted as lost, on both sides of the comparison, because dropping them changes nothing on
   screen: an attribute at its HTML default (`ol start="1"`, `colspan="1"`, `rowspan="1"`); `text-align` `start`, and
-  `left` unless a `dir="rtl"` ancestor says otherwise; an initial value (`font-weight` `normal`/`400`, `font-style`
+  `left` unless a `dir="rtl"` ancestor says otherwise; the CSS-wide keywords which are the default (`inherit` on an inherited property, `initial` on one with an initial value, `unset`); an initial value (`font-size` `medium`, `background-color` `transparent`, `font-weight` `normal`/`400`, `font-style`
   `normal`, `text-decoration` `none`, `white-space` `normal`); the `list-style-type` the browser draws for the level
   of the list (`disc`, `circle`, then `square` for a `ul`, `decimal` for an `ol`); and a named anchor (`<a id>` /
   `<a name>`) whose identifier is found as an `id` on an element of the produced content.

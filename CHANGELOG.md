@@ -86,7 +86,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - The audit counted as lost what changes nothing on screen: attributes at their default (`ol start="1"`, `colspan="1"`,
   `rowspan="1"`), `text-align` `start`/`left`, initial values (`font-weight`, `font-style`, `text-decoration`,
-  `white-space`), the default `list-style-type` of a list level, a named anchor whose `id` moved to another element, and
+  `white-space`), CSS-wide keywords (`inherit`, `initial`, `unset`) which are the default, `font-size: medium`, `background-color: transparent`, the default `list-style-type` of a list level, a named anchor whose `id` moved to another element, and
   a `<div>` without attribute.
 - The reset button of the background color palette removed the text color, not the background.
 - A new table width class or column width was not shown in the editor (the TipTap table view ignored updates), and the

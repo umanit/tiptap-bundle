@@ -107,7 +107,12 @@ const INITIAL_VALUES = [
   [/^font-style$/, ['normal']],
   [/^text-decoration/, ['none']],
   [/^white-space$/, ['normal']],
+  [/^font-size$/, ['medium']],
+  [/^background-color$/, ['transparent']],
 ];
+
+// Properties an element inherits from its parent: `inherit` (and `unset`) on them is the default behavior.
+const INHERITED_PROPERTIES = /^(font-size|font-weight|font-style|color|white-space|text-align|list-style-type|line-height)$/;
 
 // Attributes whose HTML default value is the one written.
 const DEFAULT_ATTRIBUTES = {
@@ -150,7 +155,16 @@ const isDefaultStyle = (el, rawTag, property) => {
     return LIST_TAGS.has(rawTag) && value === defaultListStyleType(rawTag, listLevel(el));
   }
 
-  return INITIAL_VALUES.some(([pattern, values]) => pattern.test(property) && values.includes(value));
+  const initials = INITIAL_VALUES.find(([pattern]) => pattern.test(property))?.[1];
+
+  // CSS-wide keywords: `unset` is `inherit` or `initial` depending on the property, both being the default one
+  const isInherited = INHERITED_PROPERTIES.test(property);
+
+  if (value === 'unset' || (value === 'initial' && initials) || (value === 'inherit' && isInherited)) {
+    return true;
+  }
+
+  return initials?.includes(value) ?? false;
 };
 
 const isDefaultAttribute = (el, rawTag, name) => DEFAULT_ATTRIBUTES[`${rawTag}@${name}`] === el.getAttribute(name).trim();
@@ -172,7 +186,9 @@ const increment = (signals, key, by = 1) => signals.set(key, (signals.get(key) ?
 const coverageSignalsOf = (el) => {
   const found = new Set();
 
-  Array.from(el.style).filter((property) => COVERAGE_STYLES.has(property)).forEach((p) => found.add(`style:${p}`));
+  Array.from(el.style)
+    .filter((property) => COVERAGE_STYLES.has(property) && !isDefaultStyle(el, el.tagName.toLowerCase(), property))
+    .forEach((p) => found.add(`style:${p}`));
   el.classList.forEach((cls) => {
     CLASS_EQUIVALENCES.filter(([pattern, style]) => pattern.test(cls) && COVERAGE_STYLES.has(style.slice(6)))
       .forEach(([, style]) => found.add(style));
