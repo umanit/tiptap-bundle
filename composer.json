@@ -22,6 +22,7 @@
     "php": "^8.4",
     "ext-dom": "*",
     "ext-libxml": "*",
+    "symfony/console": "^7.4 || ^8.0",
     "symfony/form": "^7.4 || ^8.0",
     "symfony/framework-bundle": "^7.4 || ^8.0",
     "symfony/stimulus-bundle": "^2.0",

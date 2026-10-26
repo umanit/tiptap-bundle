@@ -123,6 +123,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- `symfony/console` is a declared requirement: the commands rely on it (`#[AsCommand(help: …)]` needs 7.3 or later),
+  but it was only pulled in indirectly and could resolve to an older version.
 - Changing the alignment of a paragraph or a heading which came from existing content replaced the class only in
   part: the previous `ut-text-*` class stayed next to the new one.
 - Paste: the alignment given by a `<style>` block is applied whatever the attributes or the case of the tag (it was
