@@ -167,7 +167,8 @@ const isDefaultStyle = (el, rawTag, property) => {
   return initials?.includes(value) ?? false;
 };
 
-const isDefaultAttribute = (el, rawTag, name) => DEFAULT_ATTRIBUTES[`${rawTag}@${name}`] === el.getAttribute(name).trim();
+const isDefaultAttribute = (el, rawTag, name) => DEFAULT_ATTRIBUTES[`${rawTag}@${name}`]
+  === el.getAttribute(name).trim();
 
 // Ids of the elements which are not anchors: where the editor moves the identifier of an `<a id>`.
 const idsOfContent = (body) => new Set(
@@ -224,11 +225,6 @@ const countMarkedCharacters = (root, signals) => {
   }
 };
 
-/**
- * @param {string} html
- * @param {DOMParser} parser
- * @returns {{ signals: Map<string, number>, text: string, ids: Set<string> }}
- */
 // The `align` attribute of a table (center, right) and of a cell is kept by the editor, as a class.
 const isConvertedAlign = (el, rawTag, name) => {
   if (name !== 'align') {
@@ -244,6 +240,12 @@ const isConvertedAlign = (el, rawTag, name) => {
   return ['td', 'th'].includes(rawTag) && ['left', 'center', 'right', 'justify'].includes(align);
 };
 
+/**
+ * @param {string} html
+ * @param {DOMParser} parser
+ * @param {{convertCellWidths: boolean, producedIds: Set<string>|null}}
+ * @returns {{ signals: Map<string, number>, text: string, ids: Set<string> }}
+ */
 // In legacy import mode, the width of a cell becomes the width of its column.
 export const collectSignals = (html, parser, { convertCellWidths = false, producedIds = null } = {}) => {
   const { body } = parser.parseFromString(html, 'text/html');

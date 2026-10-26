@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Umanit\TiptapBundle\Audit\RoundTrip;
 
+use Symfony\Component\Process\Process;
 use Umanit\TiptapBundle\Audit\Source\AuditedContent;
 
 /**
@@ -39,6 +40,8 @@ final readonly class NodeRoundTripRunner implements RoundTripRunnerInterface
         if (null !== $legacyStylesFile) {
             $command[] = '--legacy-styles=' . $legacyStylesFile;
         }
+
+        $this->assertProtocolVersion($command);
 
         /** @var list<NodeWorker> $pool */
         $pool = [];
@@ -95,6 +98,41 @@ final readonly class NodeRoundTripRunner implements RoundTripRunnerInterface
     }
 
     /**
+     * @param list<string> $command
+     *
+     * @throws \RuntimeException If the script does not speak the protocol of this version of the bundle
+     */
+    private function assertProtocolVersion(array $command): void
+    {
+        $process = new Process([...$command, '--protocol-version']);
+        $process->setTimeout(60);
+        $process->run();
+
+        $version = trim($process->getOutput());
+
+        if ('' === $version && !$process->isSuccessful()) {
+            throw new \RuntimeException(
+                \sprintf(
+                    'The script of the editor cannot be started (code %s): %s',
+                    $process->getExitCode() ?? '?',
+                    trim($process->getErrorOutput()) ?: 'no error message',
+                ),
+            );
+        }
+
+        if (((string) RoundTripProtocol::VERSION) !== $version) {
+            throw new \RuntimeException(
+                \sprintf(
+                    'The script of the editor speaks the protocol "%s" while the bundle expects the version %d: '
+                    . 'the Composer and the JavaScript packages of the bundle must be updated together.',
+                    '' === $version ? 'unknown' : $version,
+                    RoundTripProtocol::VERSION,
+                ),
+            );
+        }
+    }
+
+    /**
      * @param non-empty-list<NodeWorker> $pool
      */
     private function leastBusy(array $pool): NodeWorker
@@ -115,66 +153,16 @@ final readonly class NodeRoundTripRunner implements RoundTripRunnerInterface
         $results = [];
 
         foreach ($pool as $worker) {
-            foreach ($worker->poll() as $row) {
-                $reference = $row['ref'] ?? null;
-
-                if (!\is_int($reference) || !isset($pending[$reference])) {
+            foreach ($worker->poll() as $response) {
+                if (!isset($pending[$response->ref])) {
                     throw new \RuntimeException('The editor answered for a content which was not sent.');
                 }
 
-                $results[] = $this->toResult($pending[$reference], $row);
-                unset($pending[$reference]);
+                $results[] = $response->toResult($pending[$response->ref]);
+                unset($pending[$response->ref]);
             }
         }
 
         return $results;
-    }
-
-    /**
-     * @param array<string, mixed> $row
-     */
-    private function toResult(AuditedContent $content, array $row): RoundTripResult
-    {
-        if (isset($row['error']) && \is_string($row['error'])) {
-            return new RoundTripResult($content, null, false, [], $row['error']);
-        }
-
-        $lost = [];
-
-        foreach (\is_array($row['lost'] ?? null) ? $row['lost'] : [] as $item) {
-            if (
-                \is_array($item)
-                && \is_string($item['signal'] ?? null)
-                && \is_int($item['before'] ?? null)
-                && \is_int($item['after'] ?? null)
-            ) {
-                $lost[] = new LostSignal($item['signal'], $item['before'], $item['after']);
-            }
-        }
-
-        return new RoundTripResult(
-            $content,
-            \is_string($row['after'] ?? null) ? $row['after'] : null,
-            true === ($row['textChanged'] ?? false),
-            $lost,
-            null,
-            $this->inlineStyles($row['inlineStyles'] ?? null),
-        );
-    }
-
-    /**
-     * @return array<string, list<string>>
-     */
-    private function inlineStyles(mixed $styles): array
-    {
-        $result = [];
-
-        foreach (\is_array($styles) ? $styles : [] as $property => $values) {
-            if (\is_string($property) && \is_array($values)) {
-                $result[$property] = array_values(array_filter($values, \is_string(...)));
-            }
-        }
-
-        return $result;
     }
 }

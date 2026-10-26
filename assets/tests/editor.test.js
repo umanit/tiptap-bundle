@@ -1,6 +1,4 @@
-import {
-  afterEach, beforeEach, describe, expect, it,
-} from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import TipTapEditor from '../src/editor/tiptap-editor.js';
 
 let editor;

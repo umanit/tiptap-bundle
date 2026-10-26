@@ -1,8 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import path from 'node:path';
-import {
-  afterEach, beforeEach, describe, expect, it,
-} from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import RoundTripper from '../src/audit/round-trip.js';
 import { collectSignals, lostSignals } from '../src/audit/signals.js';
 
@@ -348,7 +346,11 @@ describe('bin/roundtrip.js', () => {
   const run = (input) => spawnSync(process.execPath, [bin], { input, encoding: 'utf8' });
 
   it('echoes the input fields and adds the round trip result', () => {
-    const { status, stdout } = run(`${JSON.stringify({ id: 7, field: 'text.text', html: '<p style="color:red">x</p>' })}\n\n`);
+    const { status, stdout } = run(`${JSON.stringify({
+      id: 7,
+      field: 'text.text',
+      html: '<p style="color:red">x</p>',
+    })}\n\n`);
     const lines = stdout.trim().split('\n').map((line) => JSON.parse(line));
 
     expect(status).toBe(0);

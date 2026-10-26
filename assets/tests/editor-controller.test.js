@@ -1,6 +1,4 @@
-import {
-  afterEach, beforeEach, describe, expect, it,
-} from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Application } from '@hotwired/stimulus';
 import EditorController from '../src/controllers/editor_controller.js';
 
@@ -10,7 +8,9 @@ const mount = async (html) => {
   document.body.innerHTML = html;
   application = Application.start();
   application.register('umanit--tiptap--editor', EditorController);
-  await new Promise((resolve) => { setTimeout(resolve, 20); });
+  await new Promise((resolve) => {
+    setTimeout(resolve, 20);
+  });
 };
 
 const markup = `

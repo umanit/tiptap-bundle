@@ -40,9 +40,7 @@ final class NodeWorker
 
     public function send(int $reference, string $html): void
     {
-        $line = \json_encode(['ref' => $reference, 'html' => $html], \JSON_THROW_ON_ERROR | \JSON_UNESCAPED_UNICODE);
-
-        $this->input->write($line . "\n");
+        $this->input->write(RoundTripProtocol::encodeRequest($reference, $html) . "\n");
         ++$this->inFlight;
     }
 
@@ -55,9 +53,10 @@ final class NodeWorker
     /**
      * Complete results received since the last call.
      *
-     * @return list<array<string, mixed>>
+     * @return list<RoundTripResponse>
      *
-     * @throws \RuntimeException If the process stopped leaving contents without an answer
+     * @throws \RuntimeException If the process stopped leaving contents without an answer, or answered what is not
+     *                           a response of the protocol
      */
     public function poll(): array
     {
@@ -95,7 +94,7 @@ final class NodeWorker
     }
 
     /**
-     * @return list<array<string, mixed>>
+     * @return list<RoundTripResponse>
      */
     private function readLines(): array
     {
@@ -111,9 +110,7 @@ final class NodeWorker
                 continue;
             }
 
-            /** @var array<string, mixed> $decoded */
-            $decoded = \json_decode($line, true, 512, \JSON_THROW_ON_ERROR);
-            $results[] = $decoded;
+            $results[] = RoundTripProtocol::decodeResponse($line);
             --$this->inFlight;
             ++$this->answers;
         }

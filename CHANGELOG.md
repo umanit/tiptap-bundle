@@ -9,6 +9,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Round-trip protocol: `bin/roundtrip.js --protocol-version` tells the version of the JSON lines it speaks, and the
+  commands which start it (`audit`, `migrate`, `palette`) stop with an explicit message when it is not the one
+  of the bundle. A response which does not have the expected shape is refused instead of being read leniently.
 - `ContentColumn`: the `connection` argument names the Doctrine connection which holds the column (the default one
   otherwise). The name of the source is then prefixed with it (`reporting:article.body`).
 - Template modal: a template is chosen, then inserted with a validation button instead of on click.

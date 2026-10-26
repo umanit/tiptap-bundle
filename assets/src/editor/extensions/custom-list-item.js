@@ -2,7 +2,7 @@ import { getNodeType } from '@tiptap/core';
 import { ListItem } from '@tiptap/extension-list';
 import { sinkListItem } from '@tiptap/pm/schema-list';
 import { withItemAlign } from '../list-item-align.js';
-import { TIGHT_LIST_CLASS, closestList, hasTightClass } from '../tight-list.js';
+import { closestList, hasTightClass, TIGHT_LIST_CLASS } from '../tight-list.js';
 
 // Like sinkListItem, whether the previous item already ends with a list of the same kind: the item then joins it
 const isSunkIntoExistingList = ($from, type) => {

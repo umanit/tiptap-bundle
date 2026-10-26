@@ -1,6 +1,4 @@
-import {
-  afterEach, beforeEach, describe, expect, it,
-} from 'vitest';
+import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { spawnSync } from 'node:child_process';
 import { mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
@@ -320,7 +318,8 @@ describe('column widths read on the cells', () => {
     return editor.getHTML();
   };
 
-  const table = (...rows) => `<table><tbody>${rows.map((cells) => `<tr>${cells.join('')}</tr>`).join('')}</tbody></table>`;
+  const table = (...rows) => `<table><tbody>${rows.map((cells) => `<tr>${cells.join('')}</tr>`)
+    .join('')}</tbody></table>`;
   const cols = (html) => [...html.matchAll(/<col(?: width="(\d+)")?>/g)].map(([, width]) => width ?? null);
 
   afterEach(() => editor?.destroy());

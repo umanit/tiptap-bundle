@@ -1,6 +1,4 @@
-import {
-  afterEach, describe, expect, it,
-} from 'vitest';
+import { afterEach, describe, expect, it } from 'vitest';
 import { Application } from '@hotwired/stimulus';
 import DropdownController from '../src/controllers/dropdown_controller.js';
 
@@ -18,7 +16,9 @@ describe('dropdown controller', () => {
       </div>`).join('');
     application = Application.start();
     application.register('dropdown', DropdownController);
-    await new Promise((resolve) => { setTimeout(resolve, 20); });
+    await new Promise((resolve) => {
+      setTimeout(resolve, 20);
+    });
 
     const [first, second] = document.querySelectorAll('[data-controller]');
 

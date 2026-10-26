@@ -1,6 +1,4 @@
-import {
-  afterEach, describe, expect, it, vi,
-} from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { createFileManagerAdapter, registerFileManagerAdapter } from '../src/file-manager/registry.js';
 import defaultAdapter, { DEFAULT_ADAPTER_NAME, MESSAGE_TYPE } from '../src/file-manager/default-adapter.js';
 import '../src/index.js';

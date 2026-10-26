@@ -1,0 +1,199 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "name": "unchanged",
+      "request": {
+        "ref": 0,
+        "html": "<p>ok</p>"
+      },
+      "response": {
+        "ref": 0,
+        "html": "<p>ok</p>",
+        "after": "<p>ok</p>",
+        "textChanged": false,
+        "lost": [ ],
+        "inlineStyles": {
+          "color": [ ],
+          "backgroundColor": [ ],
+          "fontSize": [ ]
+        }
+      },
+      "node": true
+    },
+    {
+      "name": "a lost style",
+      "request": {
+        "ref": 1,
+        "html": "<p style=\"color:red\">rouge</p>"
+      },
+      "response": {
+        "ref": 1,
+        "html": "<p style=\"color:red\">rouge</p>",
+        "after": "<p>rouge</p>",
+        "textChanged": false,
+        "lost": [
+          {
+            "signal": "style:color",
+            "before": 5,
+            "after": 0
+          }
+        ],
+        "inlineStyles": {
+          "color": [
+            "#ff0000"
+          ],
+          "backgroundColor": [ ],
+          "fontSize": [ ]
+        }
+      },
+      "node": true
+    },
+    {
+      "name": "characters to escape",
+      "request": {
+        "ref": 2,
+        "html": "<p>é à 日本 \"q\" \\ /</p>"
+      },
+      "response": {
+        "ref": 2,
+        "html": "<p>é à 日本 \"q\" \\ /</p>",
+        "after": "<p>é à 日本 \"q\" \\ /</p>",
+        "textChanged": false,
+        "lost": [ ],
+        "inlineStyles": {
+          "color": [ ],
+          "backgroundColor": [ ],
+          "fontSize": [ ]
+        }
+      },
+      "node": true
+    },
+    {
+      "name": "tags and attributes dropped",
+      "request": {
+        "ref": 3,
+        "html": "<div>texte<table><tr><td>a</td></tr></table></div><iframe src=x>t</iframe>"
+      },
+      "response": {
+        "ref": 3,
+        "html": "<div>texte<table><tr><td>a</td></tr></table></div><iframe src=x>t</iframe>",
+        "after": "<p>texte</p><table><tbody><tr><td><p>a</p></td></tr></tbody></table><p>t</p>",
+        "textChanged": false,
+        "lost": [
+          {
+            "signal": "tag:iframe",
+            "before": 1,
+            "after": 0
+          },
+          {
+            "signal": "attr:iframe@src",
+            "before": 1,
+            "after": 0
+          }
+        ],
+        "inlineStyles": {
+          "color": [ ],
+          "backgroundColor": [ ],
+          "fontSize": [ ]
+        }
+      },
+      "node": true
+    },
+    {
+      "name": "empty content",
+      "request": {
+        "ref": 4,
+        "html": ""
+      },
+      "response": {
+        "ref": 4,
+        "html": "",
+        "after": "<p></p>",
+        "textChanged": false,
+        "lost": [ ],
+        "inlineStyles": {
+          "color": [ ],
+          "backgroundColor": [ ],
+          "fontSize": [ ]
+        }
+      },
+      "node": true
+    },
+    {
+      "name": "every inline style",
+      "request": {
+        "ref": 5,
+        "html": "<p style=\"font-size:14px;background-color:#00f\">x</p><p style=\"color:red\">y</p>"
+      },
+      "response": {
+        "ref": 5,
+        "html": "<p style=\"font-size:14px;background-color:#00f\">x</p><p style=\"color:red\">y</p>",
+        "after": "<p>x</p><p>y</p>",
+        "textChanged": false,
+        "lost": [
+          {
+            "signal": "style:font-size",
+            "before": 1,
+            "after": 0
+          },
+          {
+            "signal": "style:background-color",
+            "before": 1,
+            "after": 0
+          },
+          {
+            "signal": "style:color",
+            "before": 1,
+            "after": 0
+          }
+        ],
+        "inlineStyles": {
+          "color": [
+            "#ff0000"
+          ],
+          "backgroundColor": [
+            "#0000ff"
+          ],
+          "fontSize": [
+            "14px"
+          ]
+        }
+      },
+      "node": true
+    },
+    {
+      "name": "text changed (answer written by hand)",
+      "request": {
+        "ref": 6,
+        "html": "<p>a</p>"
+      },
+      "response": {
+        "ref": 6,
+        "html": "<p>a</p>",
+        "after": "<p>b</p>",
+        "textChanged": true,
+        "lost": [ ],
+        "inlineStyles": {
+          "color": [ ],
+          "backgroundColor": [ ],
+          "fontSize": [ ]
+        }
+      },
+      "node": false
+    },
+    {
+      "name": "content the editor cannot load (answer written by hand)",
+      "request": {
+        "ref": 7,
+        "html": "<p>a</p>"
+      },
+      "response": {
+        "ref": 7,
+        "html": "<p>a</p>",
+        "error": "Invalid content"
+      },
+      "node": false
+    }
+  ]
+}

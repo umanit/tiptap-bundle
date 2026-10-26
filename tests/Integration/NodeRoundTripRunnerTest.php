@@ -6,8 +6,10 @@ namespace Umanit\TiptapBundle\Tests\Integration;
 
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Process\Process;
 use Umanit\TiptapBundle\Audit\RoundTrip\NodeRoundTripRunner;
 use Umanit\TiptapBundle\Audit\RoundTrip\NodeWorker;
+use Umanit\TiptapBundle\Audit\RoundTrip\RoundTripProtocol;
 use Umanit\TiptapBundle\Audit\RoundTrip\RoundTripResult;
 use Umanit\TiptapBundle\Audit\Source\AuditedContent;
 
@@ -86,8 +88,51 @@ final class NodeRoundTripRunnerTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('stopped');
 
-        // `false` exits at once without answering
+        // Speaks the protocol of the bundle, then exits without answering
+        $runner = new NodeRoundTripRunner(__DIR__ . '/../../assets/tests/fixtures/round-trip-dying-script.js');
+
+        iterator_to_array($runner->run($this->contents(['<p>x</p>']), 1));
+    }
+
+    public function testAScriptWhichCannotBeStartedIsReported(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('cannot be started');
+
+        // `false` exits at once
         iterator_to_array(new NodeRoundTripRunner(self::SCRIPT, 'false')->run($this->contents(['<p>x</p>']), 1));
+    }
+
+    public function testAScriptWhichSpeaksAnotherProtocolIsRefused(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage(
+            'speaks the protocol "0" while the bundle expects the version ' . RoundTripProtocol::VERSION,
+        );
+
+        iterator_to_array(
+            new NodeRoundTripRunner(__DIR__ . '/../../assets/tests/fixtures/round-trip-other-protocol-script.js')
+                ->run($this->contents(['<p>x</p>']), 1),
+        );
+    }
+
+    public function testAScriptWhichDoesNotTellItsProtocolIsRefused(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('speaks the protocol "unknown"');
+
+        // Exits successfully and says nothing, as a script from before the version existed would do
+        iterator_to_array(new NodeRoundTripRunner(self::SCRIPT, 'true')->run($this->contents(['<p>x</p>']), 1));
+    }
+
+    public function testTheScriptSpeaksTheProtocolOfTheBundle(): void
+    {
+        $this->runner();
+
+        $process = new Process(['node', self::SCRIPT, '--protocol-version']);
+        $process->mustRun();
+
+        $this->assertSame((string) RoundTripProtocol::VERSION, trim($process->getOutput()));
     }
 
     private function runner(): NodeRoundTripRunner

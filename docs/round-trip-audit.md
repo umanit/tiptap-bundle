@@ -130,6 +130,18 @@ The CLI only deals with HTML. In a Symfony application, the `umanit:tiptap:audit
 contents from the sources you declare, spreads them over several processes, runs this script and sorts what is lost by
 category. See [Auditing the contents before migrating to TipTap](migration-audit.md).
 
+## Protocol
+
+`umanit:tiptap:audit`, `umanit:tiptap:migrate` and `umanit:tiptap:palette` drive this script from PHP with the lines
+described above, plus a `ref` (an integer which identifies the content) that the script echoes back. The format is
+versioned: `node assets/bin/roundtrip.js --protocol-version` prints the version of the script, which the bundle compares
+with its own (`RoundTripProtocol::VERSION`) before sending any content, and it refuses to go on if they differ. The
+Composer package and the JavaScript package of the bundle must be updated together.
+
+When you change the shape of a request or of a response, increment both versions (`assets/src/audit/protocol.js` and
+`RoundTripProtocol`) and update `tests/Fixtures/RoundTrip/protocol-cases.json`: that file is replayed by PHPUnit and by
+Vitest, so that a side which drifts breaks the tests of the other.
+
 ## Using it from JavaScript
 
 The CLI is a thin wrapper around two modules which can be imported without it, for instance in a test of your own
@@ -203,5 +215,5 @@ is opt-in: the editor in the browser does not read inline styles unless the opti
 
 ```bash
 cd assets
-node node_modules/vitest/vitest.mjs run tests/audit.test.js
+node node_modules/vitest/vitest.mjs run tests/audit.test.js tests/protocol.test.js
 ```

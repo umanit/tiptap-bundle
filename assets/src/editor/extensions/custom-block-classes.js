@@ -1,9 +1,7 @@
 import { Extension } from '@tiptap/core';
 import HtmlCleaner from '../html-cleaner.js';
 import { marginClassesOf } from '../indent.js';
-import {
-  TIGHT_LIST_CLASS, closestList, hasTightClass, isTightList,
-} from '../tight-list.js';
+import { closestList, hasTightClass, isTightList, TIGHT_LIST_CLASS } from '../tight-list.js';
 
 export default Extension.create({
   name: 'customBlockClasses',

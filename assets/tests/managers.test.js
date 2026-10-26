@@ -1,6 +1,4 @@
-import {
-  afterEach, beforeEach, describe, expect, it, vi,
-} from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import TipTapEditor from '../src/editor/tiptap-editor.js';
 import { MODAL_PROPERTY } from '../src/constants.js';
 
