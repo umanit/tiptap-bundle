@@ -46,7 +46,9 @@ Nothing in the project requires Nix: the `Makefile` and the tools only need PHP,
 
 - PHP 8.4 (`.php-version`) with `ext-dom` and `ext-libxml`.
 - Node and Yarn at the versions of `mise.toml` (`mise install`, or any other version manager; Yarn through Corepack).
-- Setup: `composer install`, then `cd assets && yarn install`.
+- Setup: `make install` (`composer install`, then `yarn install` in `assets/`). `make help` lists the targets, and
+  `make fix` applies the automatic fixes (PHPCBF, Twig CS Fixer, Rector, ESLint).
+- CI (`.github/workflows/ci.yml`) runs the same checks, plus the playground build and a request on each of its pages.
 
 A Nix flake (`flake.nix`, loaded by `.envrc` when Nix is available) is provided as a convenience for contributors who use
 it: `direnv allow` or `nix develop`. Do not assume it is active, and do not make a command depend on it.

@@ -51,26 +51,28 @@ $builder->add('body', TiptapType::class, [
 Other options: `background_colors_set`, `cell_background_colors_set`, `templates_set`, `file_manager_url`,
 `file_manager_adapter` and `migration_diff`.
 
-The `attr` of the widget land on the `<textarea>` which holds the content (the field a form submits), as with any
-field. A `class` is added to the ones of the editor:
+The `attr` of the widget land on the `<textarea>` which holds the content (the field a form submits), as with any field.
+A `class` is added to the ones of the editor:
 
-```twig
+```
 {{ form_widget(form.body, {attr: {'data-my-controller-target': 'input'}}) }}
 ```
 
 Standalone, in Twig:
 
-```twig
+```
 <twig:Umanit:Tiptap:Editor id="body" name="body" :content="html" />
 ```
 
 ### Customizing the editor
 
-The tools, the toolbar, the styles, the colors and the templates are built by services you can replace. Implement
-one of `ToolsBuilderInterface`, `ToolbarBuilderInterface`, `StylesSetsBuilderInterface`, `ColorsSetBuilderInterface`
-or `TemplatesSetBuilderInterface` (`src/Builder`): it is picked up by autoconfiguration. The default builders are neutral.
+The tools, the toolbar, the styles, the colors and the templates are built by services you can replace. Implement one of
+`ToolsBuilderInterface`, `ToolbarBuilderInterface`, `StylesSetsBuilderInterface`, `ColorsSetBuilderInterface`
+or `TemplatesSetBuilderInterface` (`src/Builder`): it is picked up by autoconfiguration. The default builders are
+neutral.
 
-To add a tool to the toolbar, a TipTap extension or a manager of your own, see [customization.md](docs/customization.md).
+To add a tool to the toolbar, a TipTap extension or a manager of your own,
+see [customization.md](docs/customization.md).
 
 ### Configuration
 
@@ -112,10 +114,11 @@ You need PHP 8.4 (`ext-dom`, `ext-libxml`), Composer, and Node and Yarn at the v
 (`mise install` works, so does any other version manager):
 
 ```shell
-composer install
-cd assets && yarn install
+make install
 make full_static_analyze
 ```
+
+`make help` lists the targets; `make fix` applies the automatic fixes, `make playground` serves the demo application.
 
 A Nix flake is provided for those who use Nix (`direnv allow` or `nix develop`); it is optional.
 

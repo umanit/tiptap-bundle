@@ -16,4 +16,10 @@ Encore
     '@hotwired/stimulus': path.resolve(__dirname, 'node_modules/@hotwired/stimulus'),
   });
 
-module.exports = Encore.getWebpackConfig();
+const config = Encore.getWebpackConfig();
+
+// Webpack follows the symlink to the real path of the bundle, which lies outside of this application: let it find the
+// dependencies of the bundle in the `node_modules` of the playground. Not needed with a real installation.
+config.resolve.modules = [...(config.resolve.modules ?? ['node_modules']), path.resolve(__dirname, 'node_modules')];
+
+module.exports = config;

@@ -1,7 +1,7 @@
 # Playground
 
-Plain Symfony application used to validate that `umanit/tiptap-bundle` installs and works on
-any project, with both front-end pipelines:
+Plain Symfony application used to validate that `umanit/tiptap-bundle` installs and works on any project, with both
+front-end pipelines:
 
 | URL            | Pipeline                                                             |
 |----------------|----------------------------------------------------------------------|
@@ -11,16 +11,15 @@ any project, with both front-end pipelines:
 Each page renders a `TiptapType` field inside a regular form plus a standalone `<twig:Umanit:Tiptap:Editor>`.
 
 ```shell
-cd playground
-composer install        # the bundle is symlinked from ..
-php bin/console importmap:install
-npm install && npm run build
-php -S 127.0.0.1:8000 -t public
+make playground         # from the root of the repository; http://127.0.0.1:8765 (PORT=… to change it)
 ```
 
+It installs the dependencies (the bundle is symlinked from `..`), builds the Encore entrypoint and starts the PHP
+server. In CI, `make -C playground smoke` requests each page of the running server and expects a 200.
+
 Both pages also load `assets/tiptap-custom.js`, which shows how an application extends the editor (see
-`docs/customization.md`): a TipTap mark and a manager registered from the entrypoint, and the two matching tools
-listed by `src/Toolbar/PlaygroundToolsBuilder.php` and added to the default toolbar by
+`docs/customization.md`): a TipTap mark and a manager registered from the entrypoint, and the two matching tools listed
+by `src/Toolbar/PlaygroundToolsBuilder.php` and added to the default toolbar by
 `src/Toolbar/PlaygroundToolbarBuilder.php`.
 
 ## Installation notes (what a host application has to do)
@@ -37,7 +36,9 @@ listed by `src/Toolbar/PlaygroundToolsBuilder.php` and added to the default tool
   ```
 
   and map `@symfony/stimulus-bundle` and `@umanit/tiptap-bundle` (see `importmap.php`).
-- Encore: `"@umanit/tiptap-bundle": "file:vendor/umanit/tiptap-bundle/assets"` in `package.json`.
+- Encore: `"@umanit/tiptap-bundle": "file:vendor/umanit/tiptap-bundle/assets"` in `package.json`, **and** the
+  `dependencies` of that package (`@tiptap/*`, `@intevation/tiptap-extension-office-paste`): npm links a `file:`
+  directory without installing what it depends on, so the build fails with "Module not found" otherwise.
 - Dev checkout caveat: `npm install` here follows the `file:` symlink and can alter `../assets/node_modules`
   (the bundle's own Yarn install). If `make eslint` breaks afterwards, run `rm -rf assets/node_modules && yarn install`
   in `assets/`. A real installation (copy under `vendor/`) is not affected.

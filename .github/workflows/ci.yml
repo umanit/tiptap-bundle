@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version-file: .php-version
+          extensions: dom, libxml, mbstring, intl
+          tools: composer
+          coverage: none
+
+      - uses: ramsey/composer-install@v3
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - run: corepack enable
+
+      - run: yarn install --immutable
+        working-directory: assets
+
+      # Every tool reports, even when an earlier one failed
+      - run: make phpstan
+      - run: make phpcs
+        if: ${{ !cancelled() }}
+      - run: make phparkitect
+        if: ${{ !cancelled() }}
+      - run: make twigcs
+        if: ${{ !cancelled() }}
+      - run: make rector
+        if: ${{ !cancelled() }}
+      - run: make eslint
+        if: ${{ !cancelled() }}
+      - run: make phpunit
+        if: ${{ !cancelled() }}
+      - run: make vitest
+        if: ${{ !cancelled() }}
+
+  playground:
+    name: Playground (AssetMapper and Encore)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version-file: .php-version
+          extensions: dom, libxml, mbstring, intl
+          tools: composer
+          coverage: none
+
+      - uses: ramsey/composer-install@v3
+        with:
+          working-directory: playground
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - run: npm install
+        working-directory: playground
+
+      - run: php bin/console importmap:install
+        working-directory: playground
+
+      - run: make build
+        working-directory: playground
+
+      - name: Serve and request every page
+        working-directory: playground
+        run: |
+          make serve &
+          sleep 3
+          make smoke
