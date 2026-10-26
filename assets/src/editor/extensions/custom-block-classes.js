@@ -1,6 +1,7 @@
 import { Extension } from '@tiptap/core';
 import HtmlCleaner from '../html-cleaner.js';
 import { marginClassesOf } from '../indent.js';
+import { isAlignClass } from './custom-text-align.js';
 import { closestList, hasTightClass, isTightList, TIGHT_LIST_CLASS } from '../tight-list.js';
 
 /**
@@ -23,7 +24,8 @@ export default Extension.create({
             default: null,
             renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
             parseHTML: (element) => {
-              const classes = (HtmlCleaner.parseClass(element) ?? '').split(' ').filter(Boolean);
+              const classes = (HtmlCleaner.parseClass(element) ?? '').split(' ').filter(Boolean)
+                .filter((cls) => !isAlignClass(cls));
               // The margins another editor wrote inline, unless the content already has its own indentation class
               const margins = marginClassesOf(element.style).classes
                 .filter((cls) => !classes.some((existing) => existing.startsWith(cls.replace(/\d+$/, ''))));

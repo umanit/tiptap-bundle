@@ -95,6 +95,17 @@ describe('content schema', () => {
       .toEqual(['textSpan']);
   });
 
+  it('replaces the alignment of a paragraph read from its class instead of adding a second one', () => {
+    create('<p class="ut-text-center keep">a</p>');
+    editor.getEditor()
+      .chain()
+      .focus()
+      .setTextAlign('left')
+      .run();
+
+    expect(editor.getHTML()).toBe('<p class="keep ut-text-left">a</p>');
+  });
+
   it('keeps the classes of the items, quotes, code, rules and divs', () => {
     expect(roundTrip('<blockquote class="q"><p>a</p></blockquote>'))
       .toBe('<blockquote class="q"><p>a</p></blockquote>');

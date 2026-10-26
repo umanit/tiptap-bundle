@@ -117,6 +117,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Changing the alignment of a paragraph or a heading which came from existing content replaced the class only in
+  part: the previous `ut-text-*` class stayed next to the new one.
 - Paste: the alignment given by a `<style>` block is applied whatever the attributes or the case of the tag (it was
   only read from a bare `<style>`).
 - The audit counted as lost what changes nothing on screen: attributes at their default (`ol start="1"`, `colspan="1"`,

@@ -7,6 +7,9 @@ const CLASS_MAP = {
   justify: 'ut-text-justify',
 };
 
+/** The alignment classes belong to the `textAlign` attribute: no other attribute may keep a copy of them. */
+export const isAlignClass = (cls) => Object.values(CLASS_MAP).includes(cls);
+
 export default TextAlign.extend({
   addGlobalAttributes() {
     return (this.parent?.() ?? []).map((config) => ({
