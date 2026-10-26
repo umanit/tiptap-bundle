@@ -32,14 +32,20 @@ final class ContentSourceRegistryTest extends TestCase
     {
         $registry = $this->registry([new FakeContentSource('a.body'), new FakeContentSource('b.body', 'emailing')]);
 
-        $this->assertSame(['b.body'], array_map(
-            static fn(ContentSourceInterface $source): string => $source->getName(),
-            $registry->getSources('emailing'),
-        ));
-        $this->assertSame(['a.body'], array_map(
-            static fn(ContentSourceInterface $source): string => $source->getName(),
-            $registry->getSources(null, ['a.body']),
-        ));
+        $this->assertSame(
+            ['b.body'],
+            array_map(
+                static fn(ContentSourceInterface $source): string => $source->getName(),
+                $registry->getSources('emailing'),
+            ),
+        );
+        $this->assertSame(
+            ['a.body'],
+            array_map(
+                static fn(ContentSourceInterface $source): string => $source->getName(),
+                $registry->getSources(null, ['a.body']),
+            ),
+        );
     }
 
     public function testUnknownSourceIsRejected(): void
@@ -66,9 +72,11 @@ final class ContentSourceRegistryTest extends TestCase
      */
     private function registry(array ...$sources): ContentSourceRegistry
     {
-        return new ContentSourceRegistry(array_map(
-            static fn(array $list): ContentSourceProviderInterface => new FakeContentSourceProvider($list),
-            $sources,
-        ));
+        return new ContentSourceRegistry(
+            array_map(
+                static fn(array $list): ContentSourceProviderInterface => new FakeContentSourceProvider($list),
+                $sources,
+            ),
+        );
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Umanit\TiptapBundle\Tests\Fixtures;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Bundle\TwigBundle\TwigBundle;
@@ -56,15 +57,16 @@ class TestKernel extends Kernel
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
     {
         $container->loadFromExtension('framework', [
-            'secret'     => 'test',
-            'test'       => true,
-            'http_method_override' => false,
+            'secret'                => 'test',
+            'test'                  => true,
+            'http_method_override'  => false,
             'handle_all_throwables' => true,
-            'php_errors' => ['log' => true],
-            'form'       => ['enabled' => true],
-            'default_locale' => 'en',
-            'translator' => ['enabled' => true],
+            'php_errors'            => ['log' => true],
+            'form'                  => ['enabled' => true],
+            'default_locale'        => 'en',
+            'translator'            => ['enabled' => true],
         ]);
+        $container->register('logger', NullLogger::class);
         $container->register(CompactToolbarBuilder::class)->setAutoconfigured(true);
         $container->register(OverridingStylesSetsBuilder::class)->setAutoconfigured(true);
         $container->register(FixtureContentSourceProvider::class)->setAutoconfigured(true);

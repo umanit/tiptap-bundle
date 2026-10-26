@@ -99,6 +99,83 @@ final class ContentColumnSourceTest extends TestCase
         $this->assertSame(['parameter.value' => 'project', 'block.content' => 'content'], $groups);
     }
 
+    public function testTheRowsAreReadPageByPageInTheOrderOfTheirIdentifier(): void
+    {
+        $this->connection->beginTransaction();
+
+        for ($id = 1; $id <= 1203; ++$id) {
+            $this->connection->insert('parameter', ['id' => $id, 'name' => 'n' . $id, 'value' => '<p>' . $id . '</p>']);
+        }
+
+        $this->connection->commit();
+
+        $ids = array_map(
+            static fn($content): string => $content->id,
+            iterator_to_array($this->source(new ContentColumn('parameter', 'value'))->read(), false),
+        );
+
+        $this->assertSame(array_map(strval(...), range(1, 1203)), $ids);
+    }
+
+    public function testRowsWrittenWhileReadingAreNeitherSkippedNorReadTwice(): void
+    {
+        for ($id = 1; $id <= 700; ++$id) {
+            $this->connection->insert('parameter', ['id' => $id, 'name' => 'n', 'value' => '<p><b>x</b></p>']);
+        }
+
+        $source = $this->source(new ContentColumn('parameter', 'value'));
+        $seen = [];
+
+        foreach ($source->read() as $content) {
+            $seen[] = $content->id;
+            $source->replace($content->id, ['' => [$content->html, '<p><strong>x</strong></p>']]);
+        }
+
+        $this->assertSame(array_map(strval(...), range(1, 700)), $seen);
+        $this->assertSame(
+            0,
+            $this->connection->fetchOne('SELECT COUNT(*) FROM parameter WHERE value LIKE \'%<b>%\''),
+        );
+    }
+
+    public function testIdentifiersWhichAreNotIntegersArePaged(): void
+    {
+        $this->connection->executeStatement('CREATE TABLE token (id TEXT PRIMARY KEY, value TEXT)');
+
+        for ($i = 0; $i < 1100; ++$i) {
+            $this->connection->insert('token', ['id' => \sprintf('uuid-%05d', $i), 'value' => '<p>x</p>']);
+        }
+
+        $contents = iterator_to_array($this->source(new ContentColumn('token', 'value'))->read(), false);
+
+        $this->assertCount(1100, $contents);
+        $this->assertSame('uuid-01099', $contents[1099]->id);
+    }
+
+    public function testTheColumnIsReadOnTheConnectionItNames(): void
+    {
+        $this->connection->insert('parameter', ['id' => 1, 'name' => 'a', 'value' => '<p>x</p>']);
+
+        $registry = $this->createMock(ManagerRegistry::class);
+        $registry
+            ->expects($this->atLeastOnce())
+            ->method('getConnection')
+            ->with('reporting')
+            ->willReturn($this->connection)
+        ;
+
+        $column = new ContentColumn('parameter', 'value', connection: 'reporting');
+        $source = new ContentColumnSource(
+            $column,
+            new ScalarColumnStorage(),
+            $registry,
+            new HtmlContentExtractor(),
+        );
+
+        $this->assertCount(1, iterator_to_array($source->read(), false));
+        $this->assertSame('reporting:parameter.value', $source->getName());
+    }
+
     private function source(ContentColumn $column): ContentColumnSource
     {
         $storages = new ColumnStorageRegistry([new ScalarColumnStorage(), new JsonColumnStorage()]);

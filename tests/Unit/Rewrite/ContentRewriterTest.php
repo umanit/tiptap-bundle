@@ -47,11 +47,13 @@ final class ContentRewriterTest extends TestCase
 
         foreach ($source->rows as $id => $paths) {
             foreach ($paths as $path => $html) {
-                $plan->add(new PlannedChange(
-                    new AuditedContent('db', 'default', (string) $id, null, (string) $path, $html),
-                    $html . '!',
-                    $id . '/' . $path,
-                ));
+                $plan->add(
+                    new PlannedChange(
+                        new AuditedContent('db', 'default', (string) $id, null, (string) $path, $html),
+                        $html . '!',
+                        $id . '/' . $path,
+                    ),
+                );
             }
         }
 

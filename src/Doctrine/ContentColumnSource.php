@@ -16,6 +16,9 @@ use Umanit\TiptapBundle\Doctrine\Storage\ColumnStorageInterface;
  */
 final readonly class ContentColumnSource implements WritableContentSourceInterface
 {
+    /** Number of rows fetched at once. */
+    private const int PAGE_SIZE = 500;
+
     public function __construct(
         private ContentColumn $column,
         private ColumnStorageInterface $storage,
@@ -40,21 +43,31 @@ final readonly class ContentColumnSource implements WritableContentSourceInterfa
     }
 
     /**
+     * The rows are read page by page, each one fetched before its contents are yielded: nothing stays open on the
+     * connection while the caller writes on it.
+     *
      * @throws \JsonException If a cell does not hold a valid value for its storage
      */
     public function read(): \Generator
     {
         $connection = $this->getConnection();
+        $last = null;
 
-        foreach ($connection->iterateNumeric($this->buildQuery($connection)) as [$id, $label, $raw]) {
-            yield from $this->extractor->extract(
-                $this->getName(),
-                $this->getGroup(),
-                Value::toString($id),
-                null === $label ? null : Value::toString($label),
-                $this->storage->decode(Value::toString($raw)),
-            );
-        }
+        do {
+            $rows = $this->fetchPage($connection, $last);
+
+            foreach ($rows as [$id, $label, $raw]) {
+                $last = $id;
+
+                yield from $this->extractor->extract(
+                    $this->getName(),
+                    $this->getGroup(),
+                    Value::toString($id),
+                    null === $label ? null : Value::toString($label),
+                    $this->storage->decode(Value::toString($raw)),
+                );
+            }
+        } while (self::PAGE_SIZE === \count($rows));
     }
 
     public function replace(string $id, array $changes): array
@@ -62,32 +75,47 @@ final readonly class ContentColumnSource implements WritableContentSourceInterfa
         return $this->storage->write($this->getConnection(), $this->column, $id, $changes);
     }
 
-    private function buildQuery(Connection $connection): string
+    /**
+     * @param mixed $last Identifier of the last row of the previous page, as the database gave it
+     *
+     * @return list<list<mixed>> The identifier, the label and the value of the rows which follow it
+     */
+    private function fetchPage(Connection $connection, mixed $last): array
     {
-        $column = $connection->getDatabasePlatform()->quoteSingleIdentifier($this->column->column);
-        $id = $connection->getDatabasePlatform()->quoteSingleIdentifier($this->column->idColumn);
+        $platform = $connection->getDatabasePlatform();
+        $column = $platform->quoteSingleIdentifier($this->column->column);
+        $id = $platform->quoteSingleIdentifier($this->column->idColumn);
 
         $label = null === $this->column->labelColumn
             ? 'NULL'
-            : $connection->getDatabasePlatform()->quoteSingleIdentifier($this->column->labelColumn);
+            : $platform->quoteSingleIdentifier($this->column->labelColumn);
 
-        return \sprintf(
-            'SELECT %s, %s, %s FROM %s WHERE %s IS NOT NULL ORDER BY %s',
-            $id,
-            $label,
-            $this->storage->getSelectExpression($connection, $column),
-            $connection->getDatabasePlatform()->quoteSingleIdentifier($this->column->table),
-            $column,
-            $id,
-        );
+        $query = $connection
+            ->createQueryBuilder()
+            ->select($id, $label, $this->storage->getSelectExpression($connection, $column))
+            ->from($platform->quoteSingleIdentifier($this->column->table))
+            ->where($column . ' IS NOT NULL')
+            ->orderBy($id)
+            ->setMaxResults(self::PAGE_SIZE)
+        ;
+
+        if (null !== $last) {
+            $query->andWhere($id . ' > :last')->setParameter('last', $last);
+        }
+
+        return $query->executeQuery()->fetchAllNumeric();
     }
 
     private function getConnection(): Connection
     {
-        $connection = $this->registry->getConnection();
+        $connection = $this->registry->getConnection($this->column->connection);
 
         if (!$connection instanceof Connection) {
-            throw new \LogicException('The default connection is not a DBAL connection.');
+            $name = null === $this->column->connection
+                ? 'default connection'
+                : \sprintf('connection "%s"', $this->column->connection);
+
+            throw new \LogicException(\sprintf('The %s is not a DBAL connection.', $name));
         }
 
         return $connection;

@@ -121,15 +121,17 @@ final class AuditCommandTest extends TestCase
     {
         $this->runner = new FakeRoundTripRunner($runnerFailure);
 
-        return new CommandTester(new AuditCommand(
-            new ContentSourceRegistry([
-                new FakeContentSourceProvider([
-                    new FakeContentSource('article.body'),
-                    new FakeContentSource('newsletter.content', 'emailing'),
+        return new CommandTester(
+            new AuditCommand(
+                new ContentSourceRegistry([
+                    new FakeContentSourceProvider([
+                        new FakeContentSource('article.body'),
+                        new FakeContentSource('newsletter.content', 'emailing'),
+                    ]),
                 ]),
-            ]),
-            $this->runner,
-            new LossClassifier([new CkeditorLossRule()]),
-        ));
+                $this->runner,
+                new LossClassifier([new CkeditorLossRule()]),
+            ),
+        );
     }
 }

@@ -91,9 +91,11 @@ final class DoctrineMigrationBackupTest extends TestCase
 
     private function backup(bool $withTable): DoctrineMigrationBackup
     {
-        return new DoctrineMigrationBackup(SqliteDatabase::registryOf(
-            SqliteDatabase::create($withTable),
-            $this->createStub(ManagerRegistry::class),
-        ));
+        return new DoctrineMigrationBackup(
+            SqliteDatabase::registryOf(
+                SqliteDatabase::create($withTable),
+                $this->createStub(ManagerRegistry::class),
+            ),
+        );
     }
 }

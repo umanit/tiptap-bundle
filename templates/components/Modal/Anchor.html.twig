@@ -18,8 +18,8 @@
         <div>
           <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--danger"
                   id="umanit-tiptap-delete-anchor-{{ id }}" title="{{ 'wysiwyg.modal.anchor.remove'|trans }}"
-                  {{ stimulus_action('umanit/tiptap/modal', 'close') }}
-                  {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'anchor.remove'}) }}>
+              {{ stimulus_action('umanit/tiptap/modal', 'close') }}
+              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'anchor.remove'}) }}>
             <twig:ux:icon name="umanit-tiptap:trash-2" />
           </button>
         </div>
@@ -30,11 +30,11 @@
   {% block footer %}
     <div class="umanit-tiptap__modal-footer">
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--secondary"
-              {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
+          {{ stimulus_action('umanit/tiptap/modal', 'close') }}>
         {{ 'modal.cancel'|trans }}
       </button>
       <button type="button" class="umanit-tiptap__modal-btn umanit-tiptap__modal-btn--primary"
-              {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'anchor.confirm'}) }}>
+          {{ stimulus_action('umanit/tiptap/editor', 'run', 'click', {command: 'anchor.confirm'}) }}>
         {{ 'modal.validate'|trans }}
       </button>
     </div>

@@ -144,10 +144,12 @@ final class MigrateCommandTest extends TestCase
 
         $registry = new ContentSourceRegistry([new FakeContentSourceProvider([$this->source, ...$others])]);
 
-        return new CommandTester(new MigrateCommand(
-            $registry,
-            new ContentMigrator($this->runner, new LossClassifier([new CkeditorLossRule()]), $registry, $backup),
-            $backup,
-        ));
+        return new CommandTester(
+            new MigrateCommand(
+                $registry,
+                new ContentMigrator($this->runner, new LossClassifier([new CkeditorLossRule()]), $registry, $backup),
+                $backup,
+            ),
+        );
     }
 }

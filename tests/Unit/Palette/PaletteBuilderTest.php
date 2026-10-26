@@ -149,14 +149,16 @@ final class PaletteBuilderTest extends TestCase
         }
 
         foreach ($contents as $inlineStyles) {
-            $inventory->add(new RoundTripResult(
-                new AuditedContent('s', 'content', '1', null, '', '<p>x</p>'),
-                '<p>x</p>',
-                false,
-                [],
-                null,
-                $inlineStyles,
-            ));
+            $inventory->add(
+                new RoundTripResult(
+                    new AuditedContent('s', 'content', '1', null, '', '<p>x</p>'),
+                    '<p>x</p>',
+                    false,
+                    [],
+                    null,
+                    $inlineStyles,
+                ),
+            );
         }
 
         return $inventory;

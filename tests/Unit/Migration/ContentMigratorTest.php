@@ -53,14 +53,14 @@ final class ContentMigratorTest extends TestCase
         $this->backup = new InMemoryMigrationBackup();
 
         $this->migrator(new ScriptedRoundTripRunner(['<p><b>x</b></p>' => ['<p><strong>x</strong></p>', [], false]]))
-            ->migrate(
-                [$this->source],
-                'm1',
-                new MigrationOptions(apply: true),
-                static function (MigrationPhase $phase, int $done, ?int $total) use (&$steps): void {
-                    $steps[] = [$phase, $done, $total];
-                },
-            )
+             ->migrate(
+                 [$this->source],
+                 'm1',
+                 new MigrationOptions(apply: true),
+                 static function (MigrationPhase $phase, int $done, ?int $total) use (&$steps): void {
+                     $steps[] = [$phase, $done, $total];
+                 },
+             )
         ;
 
         $this->assertSame([[MigrationPhase::Analysis, 1, null], [MigrationPhase::Writing, 1, 1]], $steps);

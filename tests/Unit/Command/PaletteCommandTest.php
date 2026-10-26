@@ -87,13 +87,17 @@ final class PaletteCommandTest extends TestCase
 
     private function tester(): CommandTester
     {
-        return new CommandTester(new PaletteCommand(
-            new ContentSourceRegistry([new FakeContentSourceProvider([
-                new FakeContentSource('article.body', 'content', ['<p>a</p>', '<p>b</p>', '<p>c</p>']),
-            ])]),
-            new FakeRoundTripRunner(),
-            new PaletteBuilder(),
-            new PaletteRenderer(),
-        ));
+        return new CommandTester(
+            new PaletteCommand(
+                new ContentSourceRegistry([
+                    new FakeContentSourceProvider([
+                        new FakeContentSource('article.body', 'content', ['<p>a</p>', '<p>b</p>', '<p>c</p>']),
+                    ]),
+                ]),
+                new FakeRoundTripRunner(),
+                new PaletteBuilder(),
+                new PaletteRenderer(),
+            ),
+        );
     }
 }

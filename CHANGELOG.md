@@ -9,6 +9,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- `ContentColumn`: the `connection` argument names the Doctrine connection which holds the column (the default one
+  otherwise). The name of the source is then prefixed with it (`reporting:article.body`).
 - Template modal: a template is chosen, then inserted with a validation button instead of on click.
 - Font size dropdown: the default size entry comes first, apart from the sizes. Opening a dropdown closes the others.
 - Editor: a border around the whole editor, a status bar showing the path of the elements around the cursor and a handle

@@ -66,7 +66,13 @@ final class ArticleColumns implements ContentColumnProviderInterface
 
 These columns are audited too. The storages the bundle knows are `scalar` (one content per row, the default) and
 `json` (contents scattered in a JSON document; the path of a content is the keys which lead to it, `items.0.body`). It
-works on PostgreSQL, MySQL, MariaDB and SQLite. The rows are identified by a single column (`id` by default).
+works on PostgreSQL, MySQL, MariaDB and SQLite. The rows are identified by a single column (`id` by default), which
+must be sortable (an integer, a UUID as text…): they are read page by page, in the order of that column, so that nothing
+stays open on the connection while the contents are written.
+
+A column of another database is declared with the name of its Doctrine connection, which then prefixes the name of the
+source (`reporting:article.body`): `new ContentColumn('article', 'body', connection: 'reporting')`. Without it, the
+default connection is used. The backup of a migration is always kept in the default one.
 
 ### Another storage
 

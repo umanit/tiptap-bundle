@@ -25,6 +25,7 @@ final readonly class ContentColumn
      * @param string      $idColumn    Column which identifies the row (a single column)
      * @param string|null $labelColumn Readable column which completes the identifier in the examples of a report
      * @param string      $group       Lets the columns be audited and migrated by batches (a field handled apart)
+     * @param string|null $connection  Name of the Doctrine connection which holds the table (`null`: the default one)
      */
     public function __construct(
         public string $table,
@@ -33,11 +34,12 @@ final readonly class ContentColumn
         public string $idColumn = 'id',
         public ?string $labelColumn = null,
         public string $group = ContentSourceRegistry::DEFAULT_GROUP,
+        public ?string $connection = null,
     ) {
     }
 
     public function getName(): string
     {
-        return $this->table . '.' . $this->column;
+        return (null === $this->connection ? '' : $this->connection . ':') . $this->table . '.' . $this->column;
     }
 }
