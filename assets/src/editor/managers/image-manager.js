@@ -20,9 +20,10 @@ export default class ImageManager extends AbstractManager {
    * @param {Object} options
    * @param {HTMLFormElement|null} options.form
    * @param {FileManagerAdapter} options.fileManagerAdapter
+   * @param {Object} modal
    */
-  constructor(editor, { form = null, fileManagerAdapter = null } = {}) {
-    super(editor, form);
+  constructor(editor, { form = null, fileManagerAdapter = null } = {}, modal = {}) {
+    super(editor, form, modal);
 
     this.#fileManagerAdapter = fileManagerAdapter;
   }

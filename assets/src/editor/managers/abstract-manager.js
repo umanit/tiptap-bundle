@@ -14,10 +14,19 @@ export default class AbstractManager {
   /**
    * @param {import('@tiptap/core').Editor} editor
    * @param {HTMLFormElement|null} formElement
+   * @param {{ open?: (element: HTMLElement) => void, close?: (element: HTMLElement) => void }} modal Opens and closes
+   *   the modal which contains an element; the modal of the bundle by default.
    */
-  constructor(editor, formElement = null) {
+  constructor(editor, formElement = null, modal = {}) {
     this._editor = editor;
     this._formElement = formElement;
+
+    if (modal.open) {
+      this._openModal = modal.open;
+    }
+    if (modal.close) {
+      this._closeModal = modal.close;
+    }
   }
 
   /**

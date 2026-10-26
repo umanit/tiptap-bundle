@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { Application } from '@hotwired/stimulus';
 import EditorController from '../src/controllers/editor_controller.js';
+import { registerToolState } from '../src/index.js';
+import { resetRegistry } from '../src/editor/registry.js';
 
 let application;
 
@@ -35,6 +37,7 @@ beforeEach(() => {
 
 afterEach(() => {
   application?.stop();
+  resetRegistry();
 });
 
 describe('editor controller', () => {
@@ -70,6 +73,45 @@ describe('editor controller', () => {
 
     press('ArrowUp');
     expect(root.style.getPropertyValue('--umanit-tiptap-height')).toBe('120px');
+  });
+
+  it('marks the tools which are active at the cursor, from their command', async () => {
+    const button = (command, args = '') => `<button data-wysiwyg-tool="x"
+      data-umanit--tiptap--editor-command-param="${command}"
+      ${args ? `data-umanit--tiptap--editor-args-param='${args}'` : ''}></button>`;
+
+    await mount(markup
+      .replace('<p>Hello</p>', '<h2><strong>Hello</strong></h2>')
+      .replace(
+        '<div data-umanit--tiptap--editor-target="toolbar"></div>',
+        `<div data-umanit--tiptap--editor-target="toolbar">
+          ${button('toggleBold')}${button('toggleItalic')}${button('toggleHeading', '{"level":2}')}
+          ${button('toggleHeading', '{"level":1}')}${button('undo')}${button('toggleHighlight')}
+        </div>`,
+      ));
+
+    document.querySelector('.ProseMirror').editor.commands.setTextSelection(2);
+
+    const active = [...document.querySelectorAll('[data-wysiwyg-tool]')].map((el) => el.classList.contains('active'));
+
+    expect(active).toEqual([true, false, true, false, false, false]);
+  });
+
+  it('marks the tools of the application from the state they registered', async () => {
+    registerToolState('toggleHighlight', (editor, args) => editor.isActive('bold') && 'yellow' === args.color);
+
+    await mount(markup
+      .replace('<p>Hello</p>', '<p><strong>Hello</strong></p>')
+      .replace(
+        '<div data-umanit--tiptap--editor-target="toolbar"></div>',
+        `<div data-umanit--tiptap--editor-target="toolbar"><button data-wysiwyg-tool="highlight"
+          data-umanit--tiptap--editor-command-param="toggleHighlight"
+          data-umanit--tiptap--editor-args-param='{"color":"yellow"}'></button></div>`,
+      ));
+
+    document.querySelector('.ProseMirror').editor.commands.setTextSelection(2);
+
+    expect(document.querySelector('[data-wysiwyg-tool]').classList.contains('active')).toBe(true);
   });
 
   it('mounts the modals without leaking their fields into the host form', async () => {

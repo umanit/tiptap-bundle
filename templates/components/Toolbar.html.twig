@@ -3,7 +3,7 @@
     <div class="ut-flex">
       {% for tool in section.tools %}
         <twig:Umanit:Tiptap:Tool
-            tool="{{ tool }}" stylesSet="{{ this.stylesSet }}" colorsSet="{{ this.colorsSet }}"
+            :definition="tool" tool="{{ tool }}" stylesSet="{{ this.stylesSet }}" colorsSet="{{ this.colorsSet }}"
             backgroundColorsSet="{{ this.backgroundColorsSet }}" />
       {% endfor %}
     </div>

@@ -68,6 +68,7 @@ class TestKernel extends Kernel
         ]);
         $container->register('logger', NullLogger::class);
         $container->register(CompactToolbarBuilder::class)->setAutoconfigured(true);
+        $container->register(CustomToolToolbarBuilder::class)->setAutoconfigured(true);
         $container->register(OverridingStylesSetsBuilder::class)->setAutoconfigured(true);
         $container->register(FixtureContentSourceProvider::class)->setAutoconfigured(true);
         $container->register(BrandLossRule::class)->setAutoconfigured(true);

@@ -21,6 +21,7 @@ import CustomImage from './extensions/custom-image.js';
 import CustomListItem from './extensions/custom-list-item.js';
 import { closestList, hasTightClass } from './tight-list.js';
 import { getNodePath } from './node-path.js';
+import { getRegisteredExtensions, getRegisteredManagers } from './registry.js';
 
 /**
  * @typedef {Object} ManagersElements
@@ -111,7 +112,24 @@ export default class TipTapEditor {
     }
   }
 
+  /**
+   * A command is either `<manager>.<method>` (a manager of the bundle or a registered one) or a TipTap command.
+   *
+   * @param {string} command
+   * @returns {boolean} Whether the command can be run
+   */
+  hasCommand(command) {
+    if (command.includes('.')) {
+      const [managerName, methodName] = command.split('.');
+
+      return 'function' === typeof this.#managers[managerName]?.[methodName];
+    }
+
+    return 'function' === typeof this.#editor.commands[command];
+  }
+
   destroy() {
+    Object.values(this.#managers).forEach((manager) => manager.destroy?.(this.#editor));
     this.#editor.destroy();
   }
 
@@ -222,45 +240,46 @@ export default class TipTapEditor {
       OfficePaste,
       CustomAnchor,
       CustomSpan.configure({ legacyStyles }),
+      ...getRegisteredExtensions(),
     ];
   }
 
   /**
+   * The managers of the bundle, then the registered ones: a registered manager replaces one of the same name.
+   *
    * @param {ManagersElements} elements
    * @param {FileManagerAdapter} fileManagerAdapter
-   * @param {{ open?: Function, close?: Function }} modalCallbacks
+   * @param {{ open?: Function, close?: Function }} modal
    */
-  #initManagers(elements, fileManagerAdapter, modalCallbacks) {
-    this.#managers = {
-      table: new TableManager(this.#editor, {
+  #initManagers(elements, fileManagerAdapter, modal) {
+    const editor = this.#editor;
+    const factories = new Map([
+      ['table', () => new TableManager(editor, {
         tableForm: elements.tableForm || null,
         cellForm: elements.cellForm || null,
         contextMenu: elements.contextMenu || null,
-      }),
-      link: new LinkManager(this.#editor, {
+      }, modal)],
+      ['link', () => new LinkManager(editor, {
         form: elements.linkForm || null,
         urlGroup: elements.linkUrlGroup || null,
         anchorGroup: elements.linkAnchorGroup || null,
-      }),
-      image: new ImageManager(this.#editor, {
+      }, modal)],
+      ['image', () => new ImageManager(editor, {
         form: elements.imageForm || null,
         fileManagerAdapter: fileManagerAdapter || null,
-      }),
-      template: new TemplateManager(this.#editor, elements.templateForm),
-      clipboard: new ClipboardManager(this.#editor),
-      anchor: new AnchorManager(this.#editor, elements.anchorForm || null),
-    };
+      }, modal)],
+      ['template', () => new TemplateManager(editor, elements.templateForm || null, modal)],
+      ['clipboard', () => new ClipboardManager(editor, null, modal)],
+      ['anchor', () => new AnchorManager(editor, elements.anchorForm || null, modal)],
+      ...[...getRegisteredManagers()].map(([name, factory]) => [
+        name,
+        () => factory({
+          editor, elements, fileManagerAdapter: fileManagerAdapter || null, modal,
+        }),
+      ]),
+    ]);
 
-    if (modalCallbacks.open) {
-      Object.values(this.#managers).forEach((m) => {
-        m._openModal = modalCallbacks.open;
-      });
-    }
-    if (modalCallbacks.close) {
-      Object.values(this.#managers).forEach((m) => {
-        m._closeModal = modalCallbacks.close;
-      });
-    }
+    this.#managers = Object.fromEntries([...factories].map(([name, create]) => [name, create()]));
   }
 
   #runManagerCommand(command, args = null) {

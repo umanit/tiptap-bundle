@@ -83,6 +83,25 @@ final class EditorRenderingTest extends KernelTestCase
         $this->assertStringNotContainsString('data-wysiwyg-tool="italic"', $html);
     }
 
+    public function testToolOfTheApplicationIsRenderedAsACommandButton(): void
+    {
+        $html = $this->getTwig()->createTemplate(
+            '<twig:Umanit:Tiptap:Editor id="foo" toolbar="custom" />',
+        )->render();
+
+        $this->assertStringContainsString('data-wysiwyg-tool="highlight"', $html);
+        $this->assertStringContainsString('title="Highlight"', $html);
+        $this->assertStringContainsString('data-umanit--tiptap--editor-command-param="toggleHighlight"', $html);
+        $this->assertStringContainsString(
+            'data-umanit--tiptap--editor-args-param="{&quot;color&quot;:&quot;yellow&quot;}"',
+            $html,
+        );
+        $this->assertStringContainsString('data-umanit--tiptap--editor-command-param="callout.open"', $html);
+        $this->assertStringContainsString('>Callout</span>', $html);
+        $this->assertStringNotContainsString('ut-visually-hidden">Callout', $html);
+        $this->assertStringContainsString('data-wysiwyg-tool="bold"', $html);
+    }
+
     public function testApplicationBuilderNamedDefaultReplacesTheBundleOne(): void
     {
         $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();

@@ -21,9 +21,10 @@ export default class TableManager extends AbstractManager {
    * @param {HTMLFormElement|null} elements.tableForm
    * @param {HTMLFormElement|null} elements.cellForm
    * @param {HTMLElement|null} elements.contextMenu
+   * @param {Object} modal
    */
-  constructor(editor, { tableForm = null, cellForm = null, contextMenu = null } = {}) {
-    super(editor, tableForm);
+  constructor(editor, { tableForm = null, cellForm = null, contextMenu = null } = {}, modal = {}) {
+    super(editor, tableForm, modal);
 
     this.#cellFormElement = cellForm;
     this.#contextMenuElement = contextMenu;

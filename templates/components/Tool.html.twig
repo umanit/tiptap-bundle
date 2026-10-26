@@ -191,7 +191,13 @@
 
 {% set tool_configuration = tools[tool]|default(null) %}
 
-{% if not tool_configuration %}
+{% if definition is not null and definition.isCustom %}
+  <twig:Umanit:Tiptap:CommandTool
+      class="umanit-tiptap__btn" title="{{ definition.title }}" command="{{ definition.command }}"
+      :args="definition.args" :icon="definition.icon" :label="definition.label"
+      :hideLabel="definition.icon is not null"
+      data-wysiwyg-tool="{{ tool }}" {{ ...attributes }} />
+{% elseif not tool_configuration %}
   {% if app.environment == 'dev' %}
     <p class="umanit-tiptap__alert">{{ 'wysiwyg.error.unknown_tool'|trans({'{tool}': tool}) }}</p>
   {% endif %}

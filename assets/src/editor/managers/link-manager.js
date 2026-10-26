@@ -13,9 +13,10 @@ export default class LinkManager extends AbstractManager {
    * @param {HTMLFormElement|null} elements.form
    * @param {HTMLElement|null} elements.urlGroup
    * @param {HTMLElement|null} elements.anchorGroup
+   * @param {Object} modal
    */
-  constructor(editor, { form = null, urlGroup = null, anchorGroup = null } = {}) {
-    super(editor, form);
+  constructor(editor, { form = null, urlGroup = null, anchorGroup = null } = {}, modal = {}) {
+    super(editor, form, modal);
 
     this.#urlGroupElement = urlGroup;
     this.#anchorGroupElement = anchorGroup;

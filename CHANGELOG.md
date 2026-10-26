@@ -9,6 +9,14 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Tools of the application: a `Tool` with a `command` (and a `title`, an `icon`, a `label`, `args`) is rendered as a
+  button which runs that TipTap command or manager command. See `docs/customization.md`.
+- JavaScript registry: `registerExtension()`, `registerManager()` and `registerToolState()`, exported by the package,
+  add a TipTap extension, a manager (`<name>.<method>` commands) and the active state of a tool to every editor.
+  `TipTapEditor.hasCommand()` tells whether a command can be run.
+- Test of the commands of the templates: each one must be run by the editor and declare whether its tool has an active
+  state.
+
 - `umanit:tiptap:migrate --purge=<identifier>` and `--purge-older-than=<days>` delete what a migration saved, so
   that the backup table does not grow forever (simulation unless `--force`). `MigrationBackupInterface` gains `purge()`.
 - Round-trip protocol: `bin/roundtrip.js --protocol-version` tells the version of the JSON lines it speaks, and the
@@ -88,6 +96,13 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   (`<strong style="font-size:10pt">`, `<em>`, `<u>`…) are converted like the ones of a span, and a CSS color name (`red`) is read as its hex value.
 - A list whose items are all written without a paragraph (CKEditor) is rewritten with `ut-list-tight`, which cancels
   the margin of the paragraphs of the items; see `docs/migration.md`.
+
+### Changed
+
+- The active state of the toolbar tools comes from an explicit table (`tool-state.js`) instead of being deduced from
+  the name of the command: a command which is not declared there has no active state.
+- The modal callbacks are given to the constructor of the managers (third argument) instead of being set on them
+  afterwards.
 
 ### Fixed
 

@@ -18,6 +18,10 @@ npm install && npm run build
 php -S 127.0.0.1:8000 -t public
 ```
 
+Both pages also load `assets/tiptap-custom.js`, which shows how an application extends the editor (see
+`docs/customization.md`): a TipTap mark and a manager registered from the entrypoint, and the two matching tools
+added to the default toolbar by `src/Toolbar/PlaygroundToolbarBuilder.php`.
+
 ## Installation notes (what a host application has to do)
 
 - `assets/controllers.json`: declare the four controllers of `@umanit/tiptap-bundle` (Flex does it automatically).

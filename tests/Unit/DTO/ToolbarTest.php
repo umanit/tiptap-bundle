@@ -47,4 +47,32 @@ final class ToolbarTest extends TestCase
     {
         $this->assertSame('bold', (string) new Tool('bold'));
     }
+
+    public function testToolWithoutCommandIsOneOfTheBundle(): void
+    {
+        $this->assertFalse(new Tool('bold')->isCustom());
+    }
+
+    public function testToolWithACommandIsCustom(): void
+    {
+        $tool = new Tool('highlight', command: 'toggleHighlight', title: 'Highlight', args: ['color' => 'yellow']);
+
+        $this->assertTrue($tool->isCustom());
+        $this->assertSame(['color' => 'yellow'], $tool->args);
+    }
+
+    public function testToolWithACommandNeedsATitle(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('needs a title');
+
+        new Tool('highlight', command: 'toggleHighlight');
+    }
+
+    public function testToolNeedsAName(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        new Tool('');
+    }
 }

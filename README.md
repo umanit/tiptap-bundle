@@ -63,6 +63,8 @@ The toolbar, the styles, the colors and the templates are built by services you 
 `ToolbarBuilderInterface`, `StylesSetsBuilderInterface`, `ColorsSetBuilderInterface` or
 `TemplatesSetBuilderInterface` (`src/Builder`): it is picked up by autoconfiguration. The default builders are neutral.
 
+To add a tool to the toolbar, a TipTap extension or a manager of your own, see [customization.md](docs/customization.md).
+
 ### Configuration
 
 ```yaml
@@ -92,6 +94,7 @@ Four console commands take contents written with another editor to TipTap, in th
 
 All of them simulate by default. Other documents:
 
+- [Customizing the editor](docs/customization.md): add a tool, a TipTap extension or a manager from your application.
 - [The round-trip CLI](docs/round-trip-audit.md): the Node script behind the audit, usable on its own.
 - [The migration diff](docs/migration-diff.md): in the editor, warn when a loaded content is rewritten and show the
   difference.
