@@ -177,6 +177,15 @@ A tool without `active` nor resolver has no active state: it is an action, not a
 The entries of the dropdowns of the bundle (a color, a size, a block style) tell when they are active the same way, so
 the color, the size and the style of the selection are highlighted in their menu.
 
+## Attributes on the field
+
+The `attr` given to a `TiptapType` widget (`form_widget(form.body, {attr: {...}})`, or the `attr` option of the field)
+are rendered on the `<textarea>` which holds the content, as for any field: a `data-*` attribute to target it from your
+own Stimulus controller, an `aria-*`, a `class` (added to the ones of the editor), `rows`. A `true` value renders the
+bare attribute, `false` and `null` render nothing; `id` and `name` are the editor's own. On the Twig component, the
+same attributes are the `inputAttributes` prop. The attributes of the root element of the editor (`data-controller`…)
+are not reachable from the form: wrap the field in your own element.
+
 ## Reaching the editor from your code
 
 The editor is exposed on the root element of its controller (the one with `data-controller`), so your own Stimulus

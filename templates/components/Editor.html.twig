@@ -66,9 +66,18 @@
     <div {{ stimulus_target('umanit/tiptap/editor', 'editor') }}></div>
   </div>
 
-  <textarea id="{{ this.id }}"{% if this.name %} name="{{ this.name }}"{% endif %}
-            class="umanit-tiptap__source ut-hidden" rows="15"
-      {{ stimulus_target('umanit/tiptap/editor', 'input') }}>{{ this.content }}</textarea>
+  {# `class` is added to the ones of the editor, `rows` can be overridden, `id` and `name` are the editor's own. #}
+  {% set input_attributes = {rows: 15}|merge(this.inputAttributes) %}
+  {% set input_class = ['umanit-tiptap__source', 'ut-hidden', input_attributes.class|default(null)]
+    |filter((class) => class)
+    |join(' ') %}
+  <textarea id="{{ this.id }}"{% if this.name %} name="{{ this.name }}"{% endif %} class="{{ input_class }}"
+  {% for attribute, value in input_attributes|filter((value, attribute) => attribute not in ['id', 'name', 'class']) %}
+    {%- if value is same as(true) %} {{ attribute|e('html_attr') }}
+    {%- elseif value is not same as(false) and value is not null %} {{ attribute|e('html_attr') }}="{{ value }}"
+    {%- endif %}
+  {% endfor %}
+  {{ stimulus_target('umanit/tiptap/editor', 'input') }}>{{ this.content }}</textarea>
 
   <div class="umanit-tiptap__statusbar">
     <ol class="umanit-tiptap__path" aria-label="{{ 'wysiwyg.path.label'|trans }}"

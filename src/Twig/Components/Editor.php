@@ -26,6 +26,14 @@ final class Editor
     /** Name of the file manager adapter registered on the JS side. */
     public ?string $fileManagerAdapter = null;
 
+    /**
+     * Attributes of the `<textarea>` which holds the content (`data-*`, `aria-*`, `class`, `rows`…), from the `attr` of
+     * a form widget. A `class` is added to the ones of the editor; `id` and `name` are the ones of the editor.
+     *
+     * @var array<string, scalar|\Stringable|null>
+     */
+    public array $inputAttributes = [];
+
     /** Warns when the editor rewrites the content it loads, and shows the difference (to check a migration). */
     public bool $migrationDiff = false;
 

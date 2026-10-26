@@ -242,6 +242,59 @@ final class EditorRenderingTest extends KernelTestCase
         $this->assertStringContainsString('umanit-tiptap__toolbar', $html);
     }
 
+    public function testFormWidgetAttributesLandOnTheTextarea(): void
+    {
+        self::bootKernel();
+        $factory = self::getContainer()->get('test.form.factory');
+        $this->assertInstanceOf(FormFactoryInterface::class, $factory);
+
+        $form = $factory
+            ->createNamed('page', FormType::class)
+            ->add('body', TiptapType::class)
+        ;
+
+        $html = $this->getTwig()->createTemplate(<<<'TWIG'
+            {{ form_widget(form.body, {attr: {
+              'data-app--wysiwyg-target': 'input',
+              'aria-describedby': 'help"x',
+              class: 'app-field',
+              rows: 8,
+              'data-flag': true,
+              'data-off': false,
+              'data-none': null,
+              id: 'ignored',
+              name: 'ignored',
+            }}) }}
+            TWIG)->render(['form' => $form->createView()]);
+
+        preg_match('#<textarea[^>]*>#', $html, $matches);
+        $textarea = $matches[0] ?? '';
+
+        $this->assertStringContainsString('data-app--wysiwyg-target="input"', $textarea);
+        $this->assertStringContainsString('aria-describedby="help&quot;x"', $textarea);
+        $this->assertStringContainsString('class="umanit-tiptap__source ut-hidden app-field"', $textarea);
+        $this->assertStringContainsString('rows="8"', $textarea);
+        $this->assertStringNotContainsString('rows="15"', $textarea);
+        $this->assertMatchesRegularExpression('#\sdata-flag(\s|>)#', $textarea);
+        $this->assertStringNotContainsString('data-off', $textarea);
+        $this->assertStringNotContainsString('data-none', $textarea);
+        $this->assertStringContainsString('id="page_body"', $textarea);
+        $this->assertStringContainsString('name="page[body]"', $textarea);
+        $this->assertStringNotContainsString('ignored', $textarea);
+        // The editor keeps its own target on the textarea
+        $this->assertStringContainsString('data-umanit--tiptap--editor-target="input"', $textarea);
+    }
+
+    public function testTextareaHasTheDefaultsWithoutAttributes(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" name="bar" />')->render();
+
+        preg_match('#<textarea[^>]*>#', $html, $matches);
+
+        $this->assertStringContainsString('class="umanit-tiptap__source ut-hidden"', $matches[0] ?? '');
+        $this->assertStringContainsString('rows="15"', $matches[0] ?? '');
+    }
+
     private function getTwig(): Environment
     {
         self::bootKernel();

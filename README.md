@@ -51,6 +51,13 @@ $builder->add('body', TiptapType::class, [
 Other options: `background_colors_set`, `cell_background_colors_set`, `templates_set`, `file_manager_url`,
 `file_manager_adapter` and `migration_diff`.
 
+The `attr` of the widget land on the `<textarea>` which holds the content (the field a form submits), as with any
+field. A `class` is added to the ones of the editor:
+
+```twig
+{{ form_widget(form.body, {attr: {'data-my-controller-target': 'input'}}) }}
+```
+
 Standalone, in Twig:
 
 ```twig

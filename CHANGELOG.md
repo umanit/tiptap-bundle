@@ -13,6 +13,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   by a builder of tools (`ToolsBuilderInterface`, autoconfigured; `ToolProviderInterface` to pick one by name).
   An application adds its own tools, or replaces one of the bundle by giving it the same name. See
   `docs/customization.md`.
+- `TiptapType`: the `attr` of the widget (`form_widget(form.body, {attr: {...}})`, or the `attr` option) are rendered on
+  the `<textarea>` which holds the content, instead of being ignored. A `class` is added to the ones of the editor,
+  `rows` can be overridden, `id` and `name` stay the editor's own. The Twig component takes them as `inputAttributes`.
 - The editor is exposed on the root element of its controller: `getTipTapEditor(element)` finds it from the root or
   from an element inside, and the `umanit-tiptap:ready` event (`READY_EVENT`) tells when it has been created. No need to
   ask the Stimulus application for the controller anymore.
