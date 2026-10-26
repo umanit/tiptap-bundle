@@ -140,10 +140,12 @@ class AuditCommand extends Command
             $io->newLine(2);
             $this->renderTable($io, $report);
         } else {
-            $output->writeln(json_encode(
-                $report->toArray(),
-                \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR,
-            ));
+            $output->writeln(
+                json_encode(
+                    $report->toArray(),
+                    \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR,
+                ),
+            );
         }
 
         return Command::SUCCESS;
@@ -176,37 +178,45 @@ class AuditCommand extends Command
         $data = $report->toArray();
 
         $io->title('Audit of the contents');
-        $io->text(\sprintf(
-            '%d contents audited, %d with a loss of formatting, %d whose text changes, %d in error.',
-            $data['totals']['values'],
-            $data['totals']['with_loss'],
-            $data['totals']['text_changed'],
-            $data['totals']['errors'],
-        ));
+        $io->text(
+            \sprintf(
+                '%d contents audited, %d with a loss of formatting, %d whose text changes, %d in error.',
+                $data['totals']['values'],
+                $data['totals']['with_loss'],
+                $data['totals']['text_changed'],
+                $data['totals']['errors'],
+            ),
+        );
 
         foreach ($data['sources'] as $name => $source) {
-            $io->section(\sprintf(
-                '%s — %d contents, %d with a loss (%d %%)',
-                $name,
-                $source['total'],
-                $source['with_loss'],
-                $source['total'] > 0 ? (int) round(100 * $source['with_loss'] / $source['total']) : 0,
-            ));
+            $io->section(
+                \sprintf(
+                    '%s — %d contents, %d with a loss (%d %%)',
+                    $name,
+                    $source['total'],
+                    $source['with_loss'],
+                    $source['total'] > 0 ? (int) round(100 * $source['with_loss'] / $source['total']) : 0,
+                ),
+            );
 
             if ($source['text_changed']['count'] > 0) {
-                $io->warning(\sprintf(
-                    '%d contents whose text changes (e.g. %s).',
-                    $source['text_changed']['count'],
-                    implode(', ', $source['text_changed']['examples']),
-                ));
+                $io->warning(
+                    \sprintf(
+                        '%d contents whose text changes (e.g. %s).',
+                        $source['text_changed']['count'],
+                        implode(', ', $source['text_changed']['examples']),
+                    ),
+                );
             }
 
             if ($source['errors'] > 0) {
-                $io->error(\sprintf(
-                    '%d contents the editor could not load (e.g. %s).',
-                    $source['errors'],
-                    implode(' ; ', $source['error_examples']),
-                ));
+                $io->error(
+                    \sprintf(
+                        '%d contents the editor could not load (e.g. %s).',
+                        $source['errors'],
+                        implode(' ; ', $source['error_examples']),
+                    ),
+                );
             }
 
             if ([] === $source['categories']) {
@@ -222,11 +232,14 @@ class AuditCommand extends Command
                         LossStatus::from($category['status'])->getLabel(),
                         $category['label'],
                         $category['values'],
-                        implode(', ', array_map(
-                            static fn(string $signal, int $count): string => \sprintf('%s (%d)', $signal, $count),
-                            array_keys(\array_slice($category['signals'], 0, 4, true)),
-                            \array_slice($category['signals'], 0, 4),
-                        )),
+                        implode(
+                            ', ',
+                            array_map(
+                                static fn(string $signal, int $count): string => \sprintf('%s (%d)', $signal, $count),
+                                array_keys(\array_slice($category['signals'], 0, 4, true)),
+                                \array_slice($category['signals'], 0, 4),
+                            ),
+                        ),
                         implode(', ', $category['examples']),
                     ],
                     $source['categories'],

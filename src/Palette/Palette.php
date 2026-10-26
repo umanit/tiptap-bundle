@@ -10,9 +10,9 @@ namespace Umanit\TiptapBundle\Palette;
 final readonly class Palette
 {
     /**
-     * @param list<PaletteColor>                 $colors   Shared by the text and the background colors
-     * @param list<PaletteSize>                  $sizes
-     * @param array<string, array<string, int>>  $unmapped Values the palette cannot express (a color name, an `em`
+     * @param list<PaletteColor>                $colors    Shared by the text and the background colors
+     * @param list<PaletteSize>                 $sizes
+     * @param array<string, array<string, int>> $unmapped  Values the palette cannot express (a color name, an `em`
      *                                                     size…), by property, with the contents which use them
      */
     public function __construct(

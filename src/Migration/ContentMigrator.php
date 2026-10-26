@@ -14,6 +14,9 @@ use Umanit\TiptapBundle\Audit\Source\ContentSourceRegistry;
 use Umanit\TiptapBundle\Audit\Source\WritableContentSourceInterface;
 use Umanit\TiptapBundle\Migration\Backup\BackupEntry;
 use Umanit\TiptapBundle\Migration\Backup\MigrationBackupInterface;
+use Umanit\TiptapBundle\Rewrite\ContentRewriter;
+use Umanit\TiptapBundle\Rewrite\PlannedChange;
+use Umanit\TiptapBundle\Rewrite\RewritePlan;
 
 /**
  * Rewrites the contents written with another editor as the TipTap editor writes them.
@@ -21,25 +24,26 @@ use Umanit\TiptapBundle\Migration\Backup\MigrationBackupInterface;
  * The converted content is what the schema of the editor produces, that is what the editor would do when the content
  * is opened and saved. A content is rewritten only if that loses neither text nor formatting which has not been
  * accepted; each rewritten content is saved first, so that the migration can be undone.
+ *
+ * @phpstan-import-type ProgressCallback from MigrationPhase
  */
 final readonly class ContentMigrator
 {
+    private ContentRewriter $rewriter;
+
     public function __construct(
         private RoundTripRunnerInterface $runner,
         private LossClassifier $classifier,
         private ContentSourceRegistry $registry,
         private ?MigrationBackupInterface $backup = null,
     ) {
+        $this->rewriter = new ContentRewriter($backup);
     }
 
     /**
-     * @param list<ContentSourceInterface>                                          $sources    The sources which
-     *                                                                                          cannot be written are
-     *                                                                                          reported and left alone
-     * @param (\Closure(MigrationPhase, int<0, max>, int<0, max>|null): void)|null $onProgress Called after each
-     *                                                                                          content analyzed or row
-     *                                                                                          written, with the total
-     *                                                                                          when it is known
+     * @param list<ContentSourceInterface> $sources    The sources which cannot be written are reported and left alone
+     * @param ProgressCallback|null        $onProgress Called after each content analyzed or row written, with the total
+     *                                                 when it is known
      *
      * @throws \RuntimeException If the editor cannot start, or if there is nowhere to save the contents
      */
@@ -50,25 +54,15 @@ final readonly class ContentMigrator
         ?\Closure $onProgress = null,
     ): MigrationReport {
         $report = new MigrationReport($options->maxExamples);
-        /** @var array<string, WritableContentSourceInterface> $writable */
-        $writable = [];
+        [$writable, $readOnly] = $this->rewriter->partition($sources);
 
-        foreach ($sources as $source) {
-            if ($source instanceof WritableContentSourceInterface) {
-                $writable[$source->getName()] = $source;
-            } else {
-                $report->addReadOnlySource($source->getName());
-            }
+        foreach ($readOnly as $name) {
+            $report->addReadOnlySource($name);
         }
 
-        if ($options->apply && !$this->backup?->isReady()) {
-            throw new \RuntimeException('There is nowhere to save the contents before rewriting them.');
-        }
+        $this->rewriter->assertCanSave($options->apply);
 
-        /** @var array<string, array<string, array<string, array{string, string}>>> $planned source => id => path => */
-        $planned = [];
-        /** @var array<string, string> $references Readable reference, by `source|id|path` */
-        $references = [];
+        $plan = new RewritePlan();
 
         $results = $this->runner->run(
             $this->registry->read(array_values($writable), $options->limit),
@@ -97,33 +91,24 @@ final readonly class ContentMigrator
                 $report->add($content->source, MigrationOutcome::Blocked, $reference, $blocking);
                 $this->addDetail($report, $options, $result, MigrationOutcome::Blocked, $reference);
             } else {
-                $planned[$content->source][$content->id][$content->path] = [$content->html, $result->after];
-                $references[$content->source . '|' . $content->id . '|' . $content->path] = $reference;
+                $plan->add(new PlannedChange($content, $result->after, $reference));
             }
         }
 
-        $total = array_sum(array_map(count(...), $planned));
-        $done = 0;
-
-        foreach ($planned as $sourceName => $rows) {
-            foreach ($rows as $id => $changes) {
-                $written = $options->apply
-                    ? $this->applyRow($writable[$sourceName], $migrationId, (string) $id, $changes)
-                    : array_keys($changes);
-
-                foreach (array_keys($changes) as $path) {
-                    $report->add(
-                        $sourceName,
-                        \in_array((string) $path, array_map(strval(...), $written), true)
-                            ? MigrationOutcome::Migrated
-                            : MigrationOutcome::Conflict,
-                        $references[$sourceName . '|' . $id . '|' . $path],
-                    );
-                }
-
-                $onProgress?->__invoke(MigrationPhase::Writing, ++$done, $total);
-            }
-        }
+        $this->rewriter->write(
+            $writable,
+            $plan,
+            $migrationId,
+            $options->apply,
+            static function (PlannedChange $change, bool $written) use ($report): void {
+                $report->add(
+                    $change->content->source,
+                    $written ? MigrationOutcome::Migrated : MigrationOutcome::Conflict,
+                    $change->reference,
+                );
+            },
+            $onProgress,
+        );
 
         if ($options->apply) {
             $report->setMigrationId($migrationId);
@@ -135,8 +120,7 @@ final readonly class ContentMigrator
     /**
      * Puts back the original contents of a migration, except the ones edited since.
      *
-     * @param (\Closure(MigrationPhase, int<0, max>, int<0, max>|null): void)|null $onProgress Called after each
-     *                                                                                          content restored
+     * @param ProgressCallback|null $onProgress Called after each content restored
      *
      * @throws \RuntimeException If there is no backup storage
      */
@@ -195,35 +179,6 @@ final readonly class ContentMigrator
         $backup->markRestored($entry);
 
         return MigrationOutcome::Restored;
-    }
-
-    /**
-     * The contents are saved before they are rewritten: should the process stop in between, the backup of a content
-     * which has not been rewritten is harmless, as a rollback only restores a content which is still the migrated one.
-     *
-     * @param array<string, array{string, string}> $changes
-     *
-     * @return list<string> The paths rewritten
-     */
-    private function applyRow(
-        WritableContentSourceInterface $source,
-        string $migrationId,
-        string $id,
-        array $changes,
-    ): array {
-        foreach ($changes as $path => [$before, $after]) {
-            $this->backup?->record($migrationId, $source->getName(), $id, (string) $path, $before, $after);
-        }
-
-        $written = $source->replace($id, $changes);
-
-        foreach (array_keys($changes) as $path) {
-            if (!\in_array((string) $path, array_map(strval(...), $written), true)) {
-                $this->backup?->forget($migrationId, $source->getName(), $id, (string) $path);
-            }
-        }
-
-        return $written;
     }
 
     private function addDetail(

@@ -20,15 +20,18 @@ final readonly class PaletteRenderer
         $shortName = array_pop($parts);
         $namespace = [] === $parts ? '' : \sprintf("namespace %s;\n\n", implode('\\', $parts));
 
-        $colors = implode("\n            ", array_map(
-            static fn(PaletteColor $color): string => \sprintf(
-                "new Color('%s', '%s'), // %s",
-                ucfirst(str_replace('-', ' ', $color->name)),
-                $color->name,
-                $color->hex,
+        $colors = implode(
+            "\n            ",
+            array_map(
+                static fn(PaletteColor $color): string => \sprintf(
+                    "new Color('%s', '%s'), // %s",
+                    ucfirst(str_replace('-', ' ', $color->name)),
+                    $color->name,
+                    $color->hex,
+                ),
+                $palette->colors,
             ),
-            $palette->colors,
-        ));
+        );
 
         return <<<PHP
             <?php

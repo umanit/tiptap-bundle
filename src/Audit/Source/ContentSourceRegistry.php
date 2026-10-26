@@ -37,31 +37,35 @@ final readonly class ContentSourceRegistry
 
         foreach ($names as $name) {
             if (!isset($all[$name])) {
-                throw new \InvalidArgumentException(\sprintf(
-                    'Unknown content source "%s". Known sources: %s.',
-                    $name,
-                    implode(', ', array_keys($all)),
-                ));
+                throw new \InvalidArgumentException(
+                    \sprintf(
+                        'Unknown content source "%s". Known sources: %s.',
+                        $name,
+                        implode(', ', array_keys($all)),
+                    ),
+                );
             }
         }
 
-        return array_values(array_filter(
-            $all,
-            static function (ContentSourceInterface $source) use ($group, $names): bool {
-                if (null !== $group && $group !== $source->getGroup()) {
-                    return false;
-                }
+        return array_values(
+            array_filter(
+                $all,
+                static function (ContentSourceInterface $source) use ($group, $names): bool {
+                    if (null !== $group && $group !== $source->getGroup()) {
+                        return false;
+                    }
 
-                return [] === $names || \in_array($source->getName(), $names, true);
-            },
-        ));
+                    return [] === $names || \in_array($source->getName(), $names, true);
+                },
+            ),
+        );
     }
 
     /**
      * Reads the contents of the sources one after the other.
      *
      * @param list<ContentSourceInterface> $sources
-     * @param int|null                     $limit   Maximum number of contents read by source
+     * @param int|null                     $limit Maximum number of contents read by source
      *
      * @return \Generator<int, AuditedContent>
      */

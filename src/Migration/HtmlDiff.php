@@ -23,8 +23,10 @@ final readonly class HtmlDiff
         $new = $this->split($after);
 
         if (\count($old) * \count($new) > self::MAX_CELLS) {
-            return [...array_map(static fn(string $line): array => ['-', $line], $old),
-                ...array_map(static fn(string $line): array => ['+', $line], $new)];
+            return [
+                ...array_map(static fn(string $line): array => ['-', $line], $old),
+                ...array_map(static fn(string $line): array => ['+', $line], $new),
+            ];
         }
 
         return $this->crop($this->compare($old, $new), $context);

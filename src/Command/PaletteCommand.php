@@ -159,10 +159,12 @@ class PaletteCommand extends Command
         }
 
         if (self::FORMAT_JSON === $format) {
-            $output->writeln(json_encode(
-                $inventory->toArray() + ['palette' => $palette->toLegacyStyles(), 'unmapped' => $palette->unmapped],
-                \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR,
-            ));
+            $output->writeln(
+                json_encode(
+                    $inventory->toArray() + ['palette' => $palette->toLegacyStyles(), 'unmapped' => $palette->unmapped],
+                    \JSON_PRETTY_PRINT | \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_THROW_ON_ERROR,
+                ),
+            );
 
             return Command::SUCCESS;
         }
@@ -194,11 +196,13 @@ class PaletteCommand extends Command
 
     private function renderPalette(SymfonyStyle $io, Palette $palette): void
     {
-        $io->section(\sprintf(
-            'Proposed palette — %d colors, %d sizes',
-            \count($palette->colors),
-            \count($palette->sizes),
-        ));
+        $io->section(
+            \sprintf(
+                'Proposed palette — %d colors, %d sizes',
+                \count($palette->colors),
+                \count($palette->sizes),
+            ),
+        );
 
         $io->table(
             ['Name', 'Color', 'Contents', 'Grouped colors'],
@@ -226,15 +230,20 @@ class PaletteCommand extends Command
         );
 
         foreach ($palette->unmapped as $property => $values) {
-            $io->warning(\sprintf(
-                'Not in the palette (%s): %s.',
-                self::LABELS[$property] ?? $property,
-                implode(', ', array_map(
-                    static fn(string|int $value, int $count): string => \sprintf('%s (%d)', $value, $count),
-                    array_keys($values),
-                    $values,
-                )),
-            ));
+            $io->warning(
+                \sprintf(
+                    'Not in the palette (%s): %s.',
+                    self::LABELS[$property] ?? $property,
+                    implode(
+                        ', ',
+                        array_map(
+                            static fn(string|int $value, int $count): string => \sprintf('%s (%d)', $value, $count),
+                            array_keys($values),
+                            $values,
+                        ),
+                    ),
+                ),
+            );
         }
     }
 
@@ -265,8 +274,8 @@ class PaletteCommand extends Command
         $legacyStyles = $this->renderer->renderLegacyStyles($palette);
         $files = [
             basename(str_replace('\\', '/', $class)) . '.php' => $builder,
-            'palette.css'                                       => $css,
-            'legacy-styles.json'                                => $legacyStyles,
+            'palette.css'                                     => $css,
+            'legacy-styles.json'                              => $legacyStyles,
         ];
 
         if (!is_dir($directory) && !@mkdir($directory, 0o777, true) && !is_dir($directory)) {

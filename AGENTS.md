@@ -8,7 +8,7 @@ Public (MIT), standalone Symfony bundle: a TipTap editor (Twig components, Stimu
 tooling to audit, clean and migrate contents written with another editor.
 
 - `src/` PHP code (`Umanit\TiptapBundle`): `Builder`, `Provider`, `DTO` (editor configuration), `Form`, `Twig`,
-  `Audit`, `Cleaning`, `Palette`, `Migration`, `Command`, `Doctrine`.
+  `Audit`, `Cleaning`, `Palette`, `Migration`, `Rewrite`, `Command`, `Doctrine`.
 - `assets/` JavaScript package `@umanit/tiptap-bundle` (`src`, `tests`, `bin`, `dist/css`).
 - `templates/`, `translations/` (en, fr), `icons/`, `config/`.
 - `tests/` PHPUnit; `assets/tests/` Vitest.

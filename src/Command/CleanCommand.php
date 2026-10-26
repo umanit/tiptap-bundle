@@ -114,11 +114,13 @@ class CleanCommand extends Command
         $unknown = \array_diff([...$only, ...$skip], $known);
 
         if ([] !== $unknown) {
-            $io->error(\sprintf(
-                'Unknown rule(s): %s. Known rules: %s.',
-                \implode(', ', $unknown),
-                \implode(', ', $known),
-            ));
+            $io->error(
+                \sprintf(
+                    'Unknown rule(s): %s. Known rules: %s.',
+                    \implode(', ', $unknown),
+                    \implode(', ', $known),
+                ),
+            );
 
             return Command::FAILURE;
         }
@@ -162,10 +164,12 @@ class CleanCommand extends Command
     private function renderReport(SymfonyStyle $io, CleaningReport $report): void
     {
         if ([] !== $report->getReadOnlySources()) {
-            $io->warning(\sprintf(
-                'Sources which cannot be written, left alone: %s.',
-                \implode(', ', $report->getReadOnlySources()),
-            ));
+            $io->warning(
+                \sprintf(
+                    'Sources which cannot be written, left alone: %s.',
+                    \implode(', ', $report->getReadOnlySources()),
+                ),
+            );
         }
 
         foreach ($report->getSources() as $source) {
@@ -199,11 +203,13 @@ class CleanCommand extends Command
         }
 
         if (null !== $report->getCleaningId() && 0 < $report->count(CleaningOutcome::Cleaned)) {
-            $io->success(\sprintf(
-                '%d content(s) cleaned. To undo: umanit:tiptap:migrate --rollback=%s --force',
-                $report->count(CleaningOutcome::Cleaned),
-                $report->getCleaningId(),
-            ));
+            $io->success(
+                \sprintf(
+                    '%d content(s) cleaned. To undo: umanit:tiptap:migrate --rollback=%s --force',
+                    $report->count(CleaningOutcome::Cleaned),
+                    $report->getCleaningId(),
+                ),
+            );
         }
     }
 
@@ -212,15 +218,20 @@ class CleanCommand extends Command
         $diff = new HtmlDiff();
 
         foreach ($report->getDetails($source) as $detail) {
-            $io->writeln(\sprintf(
-                '<comment>%s</comment> — %s',
-                OutputFormatter::escape($detail->reference),
-                \implode(', ', \array_map(
-                    static fn(string $rule, int $count): string => $rule . ' ×' . $count,
-                    \array_keys($detail->changes),
-                    $detail->changes,
-                )),
-            ));
+            $io->writeln(
+                \sprintf(
+                    '<comment>%s</comment> — %s',
+                    OutputFormatter::escape($detail->reference),
+                    \implode(
+                        ', ',
+                        \array_map(
+                            static fn(string $rule, int $count): string => $rule . ' ×' . $count,
+                            \array_keys($detail->changes),
+                            $detail->changes,
+                        ),
+                    ),
+                ),
+            );
 
             foreach ($diff->diff($detail->before, $detail->after) as [$marker, $line]) {
                 $text = OutputFormatter::escape($marker . ' ' . $line);

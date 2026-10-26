@@ -70,17 +70,19 @@ final class NodeWorker
         }
 
         if ($this->inFlight > 0 && !$this->process->isRunning()) {
-            throw new \RuntimeException(\sprintf(
-                'The Node process stopped (code %s%s) before handling every content '
-                . '(%d without answer, %d bytes of unread output, input %s, %d answers received): %s',
-                $this->process->getExitCode() ?? '?',
-                $this->process->hasBeenSignaled() ? ', signal ' . $this->process->getTermSignal() : '',
-                $this->inFlight,
-                \strlen($this->buffer),
-                $this->inputClosed ? 'closed' : 'open',
-                $this->answers,
-                \trim($this->process->getErrorOutput()) ?: 'no error message',
-            ));
+            throw new \RuntimeException(
+                \sprintf(
+                    'The Node process stopped (code %s%s) before handling every content '
+                    . '(%d without answer, %d bytes of unread output, input %s, %d answers received): %s',
+                    $this->process->getExitCode() ?? '?',
+                    $this->process->hasBeenSignaled() ? ', signal ' . $this->process->getTermSignal() : '',
+                    $this->inFlight,
+                    \strlen($this->buffer),
+                    $this->inputClosed ? 'closed' : 'open',
+                    $this->answers,
+                    \trim($this->process->getErrorOutput()) ?: 'no error message',
+                ),
+            );
         }
 
         return $results;
