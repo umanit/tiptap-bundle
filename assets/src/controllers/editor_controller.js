@@ -4,6 +4,7 @@ import TipTapEditor from '../editor/tiptap-editor.js';
 import HtmlCleaner from '../editor/html-cleaner.js';
 import HtmlFormatter from '../editor/html-formatter.js';
 import { analyzeContent } from '../editor/migration-diff.js';
+import { renderDiffLists, renderDiffPreviews } from '../editor/diff-viewer.js';
 import { DEFAULT_ADAPTER_NAME } from '../file-manager/default-adapter.js';
 import { createFileManagerAdapter } from '../file-manager/registry.js';
 import { getToolState, parseToolArgs } from '../editor/tool-state.js';
@@ -171,42 +172,10 @@ export default class extends Controller {
     }
 
     const { before, result } = this.#migration;
-    const stylesheets = [...document.querySelectorAll('link[rel="stylesheet"]')]
-      .map((link) => link.cloneNode().outerHTML)
-      .join('');
-    const preview = (html) => `<!doctype html><html><head>${stylesheets}`
-      + '<style>body{margin:0}.umanit-tiptap__content{min-height:0;padding:1rem}</style></head>'
-      + `<body class="umanit-tiptap__content">${html}</body></html>`;
 
-    // The contents are put in the page as text only: they are not to be trusted
-    this.diffSignalsTarget.replaceChildren(...result.lost.map(({ signal, before: was, after: now }) => {
-      const item = document.createElement('li');
-      item.textContent = `${signal} (${was} → ${now})`;
-
-      return item;
-    }));
-
-    const marks = {
-      removed: '-', added: '+', same: ' ', gap: ' ',
-    };
-    this.diffLinesTarget.replaceChildren(...result.lines.map(({ type, line }) => {
-      const item = document.createElement('code');
-      item.className = `umanit-tiptap__diff-line umanit-tiptap__diff-line--${type}`;
-      item.textContent = `${marks[type]} ${line}`;
-
-      return item;
-    }));
-
+    renderDiffLists(this.diffSignalsTarget, this.diffLinesTarget, result);
     this.openModal(this.diffBeforeTarget);
-
-    // A fresh iframe each time, once the dialog is open: one which loaded its `srcdoc` while the closed dialog hid
-    // it stays blank when opened again, whatever is assigned to it afterwards.
-    [[this.diffBeforeTarget, before], [this.diffAfterTarget, result.after]].forEach(([iframe, html]) => {
-      const fresh = iframe.cloneNode(false);
-      fresh.removeAttribute('srcdoc');
-      iframe.replaceWith(fresh);
-      fresh.srcdoc = preview(html);
-    });
+    renderDiffPreviews(this.diffBeforeTarget, this.diffAfterTarget, before, result.after);
   }
 
   openFileManager() {
