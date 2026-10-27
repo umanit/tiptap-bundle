@@ -54,6 +54,34 @@ jobs:
       - run: make vitest
         if: ${{ !cancelled() }}
 
+  lowest:
+    name: PHPUnit (lowest dependencies)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version-file: .php-version
+          extensions: dom, libxml, mbstring, intl
+          tools: composer
+          coverage: none
+
+      - uses: ramsey/composer-install@v3
+        with:
+          dependency-versions: lowest
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - run: corepack enable
+
+      - run: yarn install --immutable
+        working-directory: assets
+
+      - run: make phpunit
+
   doctrine-orm-2:
     name: PHPUnit (Doctrine ORM 2.20)
     runs-on: ubuntu-latest

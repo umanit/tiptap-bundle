@@ -36,6 +36,8 @@
     "doctrine/dbal": "^3.8 || ^4.0",
     "doctrine/doctrine-bundle": "^2.11 || ^3.0",
     "doctrine/orm": "^2.14 || ^3.0",
+    "symfony/doctrine-bridge": "^7.4 || ^8.0",
+    "symfony/error-handler": "^7.4.17 || ^8.0",
     "symfony/process": "^7.4 || ^8.0",
     "umanit/dev-bundle": "^3.2"
   },

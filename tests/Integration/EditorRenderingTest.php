@@ -22,6 +22,19 @@ final class EditorRenderingTest extends KernelTestCase
         return TestKernel::class;
     }
 
+    /**
+     * Older versions of Stimulus Bundle write `{` as `&#x7B;` in an attribute: the same value once parsed, not the same
+     * string.
+     */
+    private static function withoutNumericReferences(string $html): string
+    {
+        return (string) \preg_replace_callback(
+            '/&#x([0-9A-F]+);/i',
+            static fn(array $match): string => \mb_chr((int) \hexdec($match[1])),
+            $html,
+        );
+    }
+
     public function testEditorComponentRendersWithDefaults(): void
     {
         $html = $this->getTwig()->createTemplate(
@@ -109,6 +122,7 @@ final class EditorRenderingTest extends KernelTestCase
     public function testToolsTellWhenTheyAreActive(): void
     {
         $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+        $html = self::withoutNumericReferences($html);
 
         $this->assertStringContainsString(
             'data-umanit--tiptap--editor-active-param="{&quot;name&quot;:&quot;bold&quot;}"',
@@ -129,6 +143,7 @@ final class EditorRenderingTest extends KernelTestCase
     public function testDropdownEntriesTellWhenTheyAreActive(): void
     {
         $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+        $html = self::withoutNumericReferences($html);
 
         // A color, a size and a block style
         $this->assertStringContainsString(
@@ -155,6 +170,7 @@ final class EditorRenderingTest extends KernelTestCase
         $html = $this->getTwig()->createTemplate(
             '<twig:Umanit:Tiptap:Editor id="foo" toolbar="custom" />',
         )->render();
+        $html = self::withoutNumericReferences($html);
 
         $this->assertStringContainsString('data-wysiwyg-tool="highlight"', $html);
         $this->assertStringContainsString(
@@ -219,6 +235,7 @@ final class EditorRenderingTest extends KernelTestCase
         $html = $this->getTwig()->createTemplate(
             '<twig:Umanit:Tiptap:Editor id="foo" fileManagerUrl="/fm" fileManagerAdapter="custom" />',
         )->render();
+        $html = self::withoutNumericReferences($html);
 
         $this->assertStringContainsString('openFileManager', $html);
         $this->assertStringContainsString('/fm', $html);
