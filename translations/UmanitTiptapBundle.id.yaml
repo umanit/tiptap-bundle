@@ -1,0 +1,163 @@
+modal.cancel: Batal
+modal.close: Tutup
+modal.validate: Konfirmasi
+wysiwyg.color.black: Hitam
+wysiwyg.color.blue: Biru
+wysiwyg.bg_color.choose: 'Warna latar'
+wysiwyg.bg_color.reset: 'Atur ulang warna latar'
+wysiwyg.color.choose: 'Pilih warna'
+wysiwyg.color.green: Hijau
+wysiwyg.color.grey: 'Abu-abu'
+wysiwyg.color.grey_dark: 'Abu-abu tua'
+wysiwyg.color.grey_light: 'Abu-abu muda'
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Oranye
+wysiwyg.color.pink: 'Merah muda'
+wysiwyg.color.purple: Ungu
+wysiwyg.color.red: Merah
+wysiwyg.color.reset: 'Atur ulang warna'
+wysiwyg.color.white: Putih
+wysiwyg.color.yellow: Kuning
+wysiwyg.diff.after: 'Sesudah (yang akan disimpan)'
+wysiwyg.diff.banner_lost: 'Konten ini akan kehilangan elemen saat disimpan: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Konten ini akan ditulis ulang saat disimpan, tanpa kehilangan pemformatan apa pun.'
+wysiwyg.diff.before: 'Sebelum (konten asli)'
+wysiwyg.diff.help: 'Baris berawalan "-" berasal dari konten asli, sedangkan baris berawalan "+" adalah hasil olahan editor.'
+wysiwyg.diff.show: 'Tampilkan perbedaan'
+wysiwyg.diff.title: 'Perbedaan dengan konten asli'
+wysiwyg.error.unknown_tool: 'Alat "{tool}" tidak didukung'
+wysiwyg.font_size.choose: 'Ukuran font'
+wysiwyg.font_size.reset: 'Ukuran default'
+wysiwyg.menu.add_row_after: 'Sisipkan baris di bawah'
+wysiwyg.menu.add_row_before: 'Sisipkan baris di atas'
+wysiwyg.menu.cell_properties: 'Properti sel'
+wysiwyg.menu.delete_table: 'Hapus tabel'
+wysiwyg.menu.merge_cells: 'Gabungkan sel'
+wysiwyg.menu.split_cell: 'Pisahkan sel'
+wysiwyg.menu.table_properties: 'Properti tabel'
+wysiwyg.modal.anchor.id: Pengenal
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'Hapus jangkar'
+wysiwyg.modal.anchor.title: Jangkar
+wysiwyg.modal.apply: Terapkan
+wysiwyg.modal.cell.align.bottom: Bawah
+wysiwyg.modal.cell.align.default: Default
+wysiwyg.modal.cell.align.middle: Tengah
+wysiwyg.modal.cell.align.top: Atas
+wysiwyg.modal.cell.bg_color: 'Warna latar'
+wysiwyg.modal.cell.bg_color.none: Default
+wysiwyg.modal.cell.col_width: 'Lebar kolom (px)'
+wysiwyg.modal.cell.col_width_placeholder: Otomatis
+wysiwyg.modal.cell.text_align: 'Perataan horizontal'
+wysiwyg.modal.cell.text_align.center: 'Rata tengah'
+wysiwyg.modal.cell.text_align.justify: 'Rata kiri-kanan'
+wysiwyg.modal.cell.text_align.left: Kiri
+wysiwyg.modal.cell.text_align.right: Kanan
+wysiwyg.modal.cell.title: 'Properti sel'
+wysiwyg.modal.cell.vertical_align: 'Perataan vertikal'
+wysiwyg.modal.image.align: Perataan
+wysiwyg.modal.image.align.center: Tengah
+wysiwyg.modal.image.align.left: Kiri
+wysiwyg.modal.image.align.right: Kanan
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Teks alternatif'
+wysiwyg.modal.image.browse: 'Jelajahi server'
+wysiwyg.modal.image.height: Tinggi
+wysiwyg.modal.image.margin: Spasi
+wysiwyg.modal.image.margin.medium: 'Sedang (10px)'
+wysiwyg.modal.image.margin.none: 'Tidak ada'
+wysiwyg.modal.image.margin.small: 'Kecil (5px)'
+wysiwyg.modal.image.preview: Pratinjau
+wysiwyg.modal.image.title: 'Properti gambar'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Lebar
+wysiwyg.modal.link.anchor_name: 'Nama jangkar'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'Tambahkan rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Target
+wysiwyg.modal.link.target.blank: 'Jendela baru (_blank)'
+wysiwyg.modal.link.target.default: Default
+wysiwyg.modal.link.target.self: 'Jendela yang sama (_self)'
+wysiwyg.modal.link.title: 'Sisipkan tautan'
+wysiwyg.modal.link.type: 'Jenis tautan'
+wysiwyg.modal.link.type.anchor: Jangkar
+wysiwyg.modal.link.type.url: 'URL web'
+wysiwyg.modal.link.url: 'Alamat web (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Perataan tabel'
+wysiwyg.modal.table.align_center: 'Rata tengah'
+wysiwyg.modal.table.align_left: 'Rata kiri'
+wysiwyg.modal.table.align_right: 'Rata kanan'
+wysiwyg.modal.table.appearance: Tampilan
+wysiwyg.modal.table.cols: 'Kolom*'
+wysiwyg.modal.table.css_class: 'Kelas CSS'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Dengan baris header'
+wysiwyg.modal.table.rows: 'Baris*'
+wysiwyg.modal.table.structure: Struktur
+wysiwyg.modal.table.title: 'Properti tabel'
+wysiwyg.modal.table.width: 'Lebar tabel'
+wysiwyg.modal.table.width_auto: Otomatis
+wysiwyg.modal.template.items.demo.desc: 'Templat demo sederhana'
+wysiwyg.modal.template.items.demo.title: 'Templat demo'
+wysiwyg.modal.template.items.table.desc: 'Tabel 2x1'
+wysiwyg.modal.template.items.table.title: 'Tabel terisi sebelumnya'
+wysiwyg.modal.template.replace: 'Ganti konten saat ini'
+wysiwyg.modal.template.select_helper: 'Pilih templat yang akan dibuka di editor'
+wysiwyg.modal.template.title: 'Templat konten'
+wysiwyg.path.label: 'Jalur elemen'
+wysiwyg.placeholder: 'Tulis sesuatu …'
+wysiwyg.resize.label: 'Ubah ukuran area penyuntingan'
+wysiwyg.style.banner_info: 'Banner informasi'
+wysiwyg.style.banner_warning: 'Banner peringatan'
+wysiwyg.style.button: Tombol
+wysiwyg.style.button_label: Gaya
+wysiwyg.style.main_title: 'Gaya blok'
+wysiwyg.style.normal: Normal
+wysiwyg.style.section.banners: Banner
+wysiwyg.style.section.colors: Warna
+wysiwyg.style.section.misc: 'Lain-lain'
+wysiwyg.style.section.tables: Tabel
+wysiwyg.style.table_dotted: 'Tabel titik-titik'
+wysiwyg.style.table_striped: 'Tabel bergaris'
+wysiwyg.toolbar.align_center: 'Rata tengah'
+wysiwyg.toolbar.align_justify: 'Rata kiri-kanan'
+wysiwyg.toolbar.align_left: 'Rata kiri'
+wysiwyg.toolbar.align_right: 'Rata kanan'
+wysiwyg.toolbar.anchor: Jangkar
+wysiwyg.toolbar.blockquote: Kutipan
+wysiwyg.toolbar.bold: Tebal
+wysiwyg.toolbar.bullet_list: 'Daftar berpoin'
+wysiwyg.toolbar.color: Warna
+wysiwyg.toolbar.copy: Salin
+wysiwyg.toolbar.cut: Potong
+wysiwyg.toolbar.h1: 'Judul 1'
+wysiwyg.toolbar.h2: 'Judul 2'
+wysiwyg.toolbar.h3: 'Judul 3'
+wysiwyg.toolbar.image: Gambar
+wysiwyg.toolbar.image_text: Gbr
+wysiwyg.toolbar.indent: 'Tambah indentasi'
+wysiwyg.toolbar.insert_template: 'Sisipkan templat'
+wysiwyg.toolbar.italic: Miring
+wysiwyg.toolbar.link: Tautan
+wysiwyg.toolbar.link_text: Tautan
+wysiwyg.toolbar.list_tight: 'Daftar rapat (tanpa spasi antar item)'
+wysiwyg.toolbar.ordered_list: 'Daftar bernomor'
+wysiwyg.toolbar.outdent: 'Kurangi indentasi'
+wysiwyg.toolbar.paragraph: Paragraf
+wysiwyg.toolbar.paste: Tempel
+wysiwyg.toolbar.redo: Ulangi
+wysiwyg.toolbar.redo_text: Ulangi
+wysiwyg.toolbar.source_mode: 'Mode sumber'
+wysiwyg.toolbar.strike: Coret
+wysiwyg.toolbar.subscript: Subskrip
+wysiwyg.toolbar.superscript: Superskrip
+wysiwyg.toolbar.table_add: 'Tambah tabel'
+wysiwyg.toolbar.table_delete: 'Hapus tabel'
+wysiwyg.toolbar.table_text: Tabel
+wysiwyg.toolbar.underline: 'Garis bawah'
+wysiwyg.toolbar.undo: Urungkan
+wysiwyg.toolbar.undo_text: Urungkan
+wysiwyg.toolbar.unlink: 'Hapus tautan'
+wysiwyg.toolbar.unlink_text: 'Lepas tautan'

@@ -1,0 +1,163 @@
+modal.cancel: Annulla
+modal.close: Chiudi
+modal.validate: Conferma
+wysiwyg.color.black: Nero
+wysiwyg.color.blue: Blu
+wysiwyg.bg_color.choose: 'Colore di sfondo'
+wysiwyg.bg_color.reset: 'Reimposta colore di sfondo'
+wysiwyg.color.choose: 'Scegli un colore'
+wysiwyg.color.green: Verde
+wysiwyg.color.grey: Grigio
+wysiwyg.color.grey_dark: 'Grigio scuro'
+wysiwyg.color.grey_light: 'Grigio chiaro'
+wysiwyg.color.indigo: Indaco
+wysiwyg.color.orange: Arancione
+wysiwyg.color.pink: Rosa
+wysiwyg.color.purple: Viola
+wysiwyg.color.red: Rosso
+wysiwyg.color.reset: 'Reimposta colore'
+wysiwyg.color.white: Bianco
+wysiwyg.color.yellow: Giallo
+wysiwyg.diff.after: 'Dopo (ciò che verrà salvato)'
+wysiwyg.diff.banner_lost: 'Questo contenuto perderà degli elementi al salvataggio: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Questo contenuto verrà riscritto al salvataggio, senza perdere alcuna formattazione.'
+wysiwyg.diff.before: 'Prima (contenuto originale)'
+wysiwyg.diff.help: 'Le righe precedute da "-" provengono dal contenuto originale, quelle precedute da "+" sono ciò che l''editor ne ha ricavato.'
+wysiwyg.diff.show: 'Mostra le differenze'
+wysiwyg.diff.title: 'Differenze rispetto al contenuto originale'
+wysiwyg.error.unknown_tool: 'Strumento "{tool}" non supportato'
+wysiwyg.font_size.choose: 'Dimensione carattere'
+wysiwyg.font_size.reset: 'Dimensione predefinita'
+wysiwyg.menu.add_row_after: 'Aggiungi riga sotto'
+wysiwyg.menu.add_row_before: 'Aggiungi riga sopra'
+wysiwyg.menu.cell_properties: 'Proprietà cella'
+wysiwyg.menu.delete_table: 'Elimina tabella'
+wysiwyg.menu.merge_cells: 'Unisci celle'
+wysiwyg.menu.split_cell: 'Dividi cella'
+wysiwyg.menu.table_properties: 'Proprietà tabella'
+wysiwyg.modal.anchor.id: Identificatore
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'Rimuovi ancora'
+wysiwyg.modal.anchor.title: Ancora
+wysiwyg.modal.apply: Applica
+wysiwyg.modal.cell.align.bottom: 'In basso'
+wysiwyg.modal.cell.align.default: Predefinito
+wysiwyg.modal.cell.align.middle: 'Al centro'
+wysiwyg.modal.cell.align.top: 'In alto'
+wysiwyg.modal.cell.bg_color: 'Colore di sfondo'
+wysiwyg.modal.cell.bg_color.none: Predefinito
+wysiwyg.modal.cell.col_width: 'Larghezza colonna (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automatica
+wysiwyg.modal.cell.text_align: 'Allineamento orizzontale'
+wysiwyg.modal.cell.text_align.center: Centrato
+wysiwyg.modal.cell.text_align.justify: Giustificato
+wysiwyg.modal.cell.text_align.left: Sinistra
+wysiwyg.modal.cell.text_align.right: Destra
+wysiwyg.modal.cell.title: 'Proprietà cella'
+wysiwyg.modal.cell.vertical_align: 'Allineamento verticale'
+wysiwyg.modal.image.align: Allineamento
+wysiwyg.modal.image.align.center: Centro
+wysiwyg.modal.image.align.left: Sinistra
+wysiwyg.modal.image.align.right: Destra
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Testo alternativo'
+wysiwyg.modal.image.browse: 'Sfoglia il server'
+wysiwyg.modal.image.height: Altezza
+wysiwyg.modal.image.margin: Spaziatura
+wysiwyg.modal.image.margin.medium: 'Media (10px)'
+wysiwyg.modal.image.margin.none: Nessuna
+wysiwyg.modal.image.margin.small: 'Piccola (5px)'
+wysiwyg.modal.image.preview: Anteprima
+wysiwyg.modal.image.title: 'Proprietà immagine'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Larghezza
+wysiwyg.modal.link.anchor_name: 'Nome ancora'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'Aggiungi rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Destinazione
+wysiwyg.modal.link.target.blank: 'Nuova finestra (_blank)'
+wysiwyg.modal.link.target.default: Predefinita
+wysiwyg.modal.link.target.self: 'Stessa finestra (_self)'
+wysiwyg.modal.link.title: 'Inserisci collegamento'
+wysiwyg.modal.link.type: 'Tipo di collegamento'
+wysiwyg.modal.link.type.anchor: Ancora
+wysiwyg.modal.link.type.url: 'URL web'
+wysiwyg.modal.link.url: 'Indirizzo web (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Allineamento tabella'
+wysiwyg.modal.table.align_center: Centrata
+wysiwyg.modal.table.align_left: Sinistra
+wysiwyg.modal.table.align_right: Destra
+wysiwyg.modal.table.appearance: Aspetto
+wysiwyg.modal.table.cols: 'Colonne*'
+wysiwyg.modal.table.css_class: 'Classe CSS'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Con riga di intestazione'
+wysiwyg.modal.table.rows: 'Righe*'
+wysiwyg.modal.table.structure: Struttura
+wysiwyg.modal.table.title: 'Proprietà tabella'
+wysiwyg.modal.table.width: 'Larghezza tabella'
+wysiwyg.modal.table.width_auto: Automatica
+wysiwyg.modal.template.items.demo.desc: 'Modello demo semplice'
+wysiwyg.modal.template.items.demo.title: 'Modello demo'
+wysiwyg.modal.template.items.table.desc: 'Una tabella 2x1'
+wysiwyg.modal.template.items.table.title: 'Tabella precompilata'
+wysiwyg.modal.template.replace: 'Sostituisci il contenuto attuale'
+wysiwyg.modal.template.select_helper: 'Seleziona il modello da aprire nell''editor'
+wysiwyg.modal.template.title: 'Modelli di contenuto'
+wysiwyg.path.label: 'Percorso degli elementi'
+wysiwyg.placeholder: 'Scrivi qualcosa …'
+wysiwyg.resize.label: 'Ridimensiona l''area di modifica'
+wysiwyg.style.banner_info: 'Banner informativo'
+wysiwyg.style.banner_warning: 'Banner di avviso'
+wysiwyg.style.button: Pulsante
+wysiwyg.style.button_label: Stili
+wysiwyg.style.main_title: 'Stili di blocco'
+wysiwyg.style.normal: Normale
+wysiwyg.style.section.banners: Banner
+wysiwyg.style.section.colors: Colori
+wysiwyg.style.section.misc: Varie
+wysiwyg.style.section.tables: Tabelle
+wysiwyg.style.table_dotted: 'Tabella a puntini'
+wysiwyg.style.table_striped: 'Tabella a righe alternate'
+wysiwyg.toolbar.align_center: Centra
+wysiwyg.toolbar.align_justify: Giustifica
+wysiwyg.toolbar.align_left: 'Allinea a sinistra'
+wysiwyg.toolbar.align_right: 'Allinea a destra'
+wysiwyg.toolbar.anchor: Ancora
+wysiwyg.toolbar.blockquote: Citazione
+wysiwyg.toolbar.bold: Grassetto
+wysiwyg.toolbar.bullet_list: 'Elenco puntato'
+wysiwyg.toolbar.color: Colore
+wysiwyg.toolbar.copy: Copia
+wysiwyg.toolbar.cut: Taglia
+wysiwyg.toolbar.h1: 'Titolo 1'
+wysiwyg.toolbar.h2: 'Titolo 2'
+wysiwyg.toolbar.h3: 'Titolo 3'
+wysiwyg.toolbar.image: Immagine
+wysiwyg.toolbar.image_text: IMG
+wysiwyg.toolbar.indent: 'Aumenta rientro'
+wysiwyg.toolbar.insert_template: 'Inserisci modello'
+wysiwyg.toolbar.italic: Corsivo
+wysiwyg.toolbar.link: Collegamento
+wysiwyg.toolbar.link_text: Link
+wysiwyg.toolbar.list_tight: 'Elenco compatto (senza spazio tra le voci)'
+wysiwyg.toolbar.ordered_list: 'Elenco numerato'
+wysiwyg.toolbar.outdent: 'Riduci rientro'
+wysiwyg.toolbar.paragraph: Paragrafo
+wysiwyg.toolbar.paste: Incolla
+wysiwyg.toolbar.redo: Ripeti
+wysiwyg.toolbar.redo_text: Ripeti
+wysiwyg.toolbar.source_mode: 'Modalità sorgente'
+wysiwyg.toolbar.strike: Barrato
+wysiwyg.toolbar.subscript: Pedice
+wysiwyg.toolbar.superscript: Apice
+wysiwyg.toolbar.table_add: 'Aggiungi tabella'
+wysiwyg.toolbar.table_delete: 'Elimina tabella'
+wysiwyg.toolbar.table_text: Tabella
+wysiwyg.toolbar.underline: Sottolineato
+wysiwyg.toolbar.undo: Annulla
+wysiwyg.toolbar.undo_text: Annulla
+wysiwyg.toolbar.unlink: 'Rimuovi collegamento'
+wysiwyg.toolbar.unlink_text: 'Rimuovi link'

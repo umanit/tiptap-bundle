@@ -1,0 +1,163 @@
+modal.cancel: Mégse
+modal.close: Bezárás
+modal.validate: Jóváhagyás
+wysiwyg.color.black: Fekete
+wysiwyg.color.blue: Kék
+wysiwyg.bg_color.choose: Háttérszín
+wysiwyg.bg_color.reset: 'Háttérszín visszaállítása'
+wysiwyg.color.choose: 'Szín kiválasztása'
+wysiwyg.color.green: Zöld
+wysiwyg.color.grey: Szürke
+wysiwyg.color.grey_dark: Sötétszürke
+wysiwyg.color.grey_light: Világosszürke
+wysiwyg.color.indigo: Indigó
+wysiwyg.color.orange: Narancssárga
+wysiwyg.color.pink: Rózsaszín
+wysiwyg.color.purple: Lila
+wysiwyg.color.red: Piros
+wysiwyg.color.reset: 'Szín visszaállítása'
+wysiwyg.color.white: Fehér
+wysiwyg.color.yellow: Sárga
+wysiwyg.diff.after: 'Utána (ez lesz mentve)'
+wysiwyg.diff.banner_lost: 'A tartalom elemeket veszít mentéskor: {signals}.'
+wysiwyg.diff.banner_rewritten: 'A tartalom mentéskor újraíródik, a formázás elvesztése nélkül.'
+wysiwyg.diff.before: 'Előtte (eredeti tartalom)'
+wysiwyg.diff.help: 'A "-" előtagú sorok az eredeti tartalomból származnak, a "+" előtagúak pedig azt mutatják, amit a szerkesztő belőle csinált.'
+wysiwyg.diff.show: 'Különbségek megjelenítése'
+wysiwyg.diff.title: 'Eltérések az eredeti tartalomtól'
+wysiwyg.error.unknown_tool: 'A(z) "{tool}" eszköz nem támogatott'
+wysiwyg.font_size.choose: Betűméret
+wysiwyg.font_size.reset: 'Alapértelmezett méret'
+wysiwyg.menu.add_row_after: 'Sor beszúrása alá'
+wysiwyg.menu.add_row_before: 'Sor beszúrása fölé'
+wysiwyg.menu.cell_properties: Cellatulajdonságok
+wysiwyg.menu.delete_table: 'Táblázat törlése'
+wysiwyg.menu.merge_cells: 'Cellák egyesítése'
+wysiwyg.menu.split_cell: 'Cella felosztása'
+wysiwyg.menu.table_properties: 'Táblázat tulajdonságai'
+wysiwyg.modal.anchor.id: Azonosító
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'Horgony eltávolítása'
+wysiwyg.modal.anchor.title: Horgony
+wysiwyg.modal.apply: Alkalmaz
+wysiwyg.modal.cell.align.bottom: Alul
+wysiwyg.modal.cell.align.default: Alapértelmezett
+wysiwyg.modal.cell.align.middle: Középen
+wysiwyg.modal.cell.align.top: Felül
+wysiwyg.modal.cell.bg_color: Háttérszín
+wysiwyg.modal.cell.bg_color.none: Alapértelmezett
+wysiwyg.modal.cell.col_width: 'Oszlopszélesség (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automatikus
+wysiwyg.modal.cell.text_align: 'Vízszintes igazítás'
+wysiwyg.modal.cell.text_align.center: 'Középre igazított'
+wysiwyg.modal.cell.text_align.justify: Sorkizárt
+wysiwyg.modal.cell.text_align.left: 'Balra igazított'
+wysiwyg.modal.cell.text_align.right: 'Jobbra igazított'
+wysiwyg.modal.cell.title: Cellatulajdonságok
+wysiwyg.modal.cell.vertical_align: 'Függőleges igazítás'
+wysiwyg.modal.image.align: Igazítás
+wysiwyg.modal.image.align.center: Középre
+wysiwyg.modal.image.align.left: Balra
+wysiwyg.modal.image.align.right: Jobbra
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Alternatív szöveg'
+wysiwyg.modal.image.browse: 'Tallózás a kiszolgálón'
+wysiwyg.modal.image.height: Magasság
+wysiwyg.modal.image.margin: Térköz
+wysiwyg.modal.image.margin.medium: 'Közepes (10px)'
+wysiwyg.modal.image.margin.none: Nincs
+wysiwyg.modal.image.margin.small: 'Kicsi (5px)'
+wysiwyg.modal.image.preview: Előnézet
+wysiwyg.modal.image.title: Képtulajdonságok
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Szélesség
+wysiwyg.modal.link.anchor_name: 'Horgony neve'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'rel="noopener noreferrer nofollow" hozzáadása'
+wysiwyg.modal.link.target: Cél
+wysiwyg.modal.link.target.blank: 'Új ablak (_blank)'
+wysiwyg.modal.link.target.default: Alapértelmezett
+wysiwyg.modal.link.target.self: 'Ugyanaz az ablak (_self)'
+wysiwyg.modal.link.title: 'Hivatkozás beszúrása'
+wysiwyg.modal.link.type: 'Hivatkozás típusa'
+wysiwyg.modal.link.type.anchor: Horgony
+wysiwyg.modal.link.type.url: Webcím
+wysiwyg.modal.link.url: 'Webcím (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Táblázat igazítása'
+wysiwyg.modal.table.align_center: 'Középre igazított'
+wysiwyg.modal.table.align_left: 'Balra igazított'
+wysiwyg.modal.table.align_right: 'Jobbra igazított'
+wysiwyg.modal.table.appearance: Megjelenés
+wysiwyg.modal.table.cols: 'Oszlopok*'
+wysiwyg.modal.table.css_class: 'CSS osztály'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: Fejlécsorral
+wysiwyg.modal.table.rows: 'Sorok*'
+wysiwyg.modal.table.structure: Felépítés
+wysiwyg.modal.table.title: 'Táblázat tulajdonságai'
+wysiwyg.modal.table.width: 'Táblázat szélessége'
+wysiwyg.modal.table.width_auto: Automatikus
+wysiwyg.modal.template.items.demo.desc: 'Egyszerű bemutató sablon'
+wysiwyg.modal.template.items.demo.title: 'Bemutató sablon'
+wysiwyg.modal.template.items.table.desc: '2x1-es táblázat'
+wysiwyg.modal.template.items.table.title: 'Előre kitöltött táblázat'
+wysiwyg.modal.template.replace: 'Jelenlegi tartalom cseréje'
+wysiwyg.modal.template.select_helper: 'Válassza ki a szerkesztőben megnyitandó sablont'
+wysiwyg.modal.template.title: Tartalomsablonok
+wysiwyg.path.label: 'Elemek elérési útja'
+wysiwyg.placeholder: 'Írjon valamit …'
+wysiwyg.resize.label: 'A szerkesztőterület átméretezése'
+wysiwyg.style.banner_info: 'Információs szalag'
+wysiwyg.style.banner_warning: 'Figyelmeztető szalag'
+wysiwyg.style.button: Gomb
+wysiwyg.style.button_label: Stílusok
+wysiwyg.style.main_title: Blokkstílusok
+wysiwyg.style.normal: Normál
+wysiwyg.style.section.banners: Szalagok
+wysiwyg.style.section.colors: Színek
+wysiwyg.style.section.misc: Egyebek
+wysiwyg.style.section.tables: Táblázatok
+wysiwyg.style.table_dotted: 'Pontozott táblázat'
+wysiwyg.style.table_striped: 'Csíkos táblázat'
+wysiwyg.toolbar.align_center: 'Középre igazítás'
+wysiwyg.toolbar.align_justify: Sorkizárás
+wysiwyg.toolbar.align_left: 'Balra igazítás'
+wysiwyg.toolbar.align_right: 'Jobbra igazítás'
+wysiwyg.toolbar.anchor: Horgony
+wysiwyg.toolbar.blockquote: Idézet
+wysiwyg.toolbar.bold: Félkövér
+wysiwyg.toolbar.bullet_list: Felsorolás
+wysiwyg.toolbar.color: Szín
+wysiwyg.toolbar.copy: Másolás
+wysiwyg.toolbar.cut: Kivágás
+wysiwyg.toolbar.h1: '1. cím'
+wysiwyg.toolbar.h2: '2. cím'
+wysiwyg.toolbar.h3: '3. cím'
+wysiwyg.toolbar.image: Kép
+wysiwyg.toolbar.image_text: Kép
+wysiwyg.toolbar.indent: 'Behúzás növelése'
+wysiwyg.toolbar.insert_template: 'Sablon beszúrása'
+wysiwyg.toolbar.italic: Dőlt
+wysiwyg.toolbar.link: Hivatkozás
+wysiwyg.toolbar.link_text: Link
+wysiwyg.toolbar.list_tight: 'Tömör lista (nincs térköz az elemek között)'
+wysiwyg.toolbar.ordered_list: 'Számozott lista'
+wysiwyg.toolbar.outdent: 'Behúzás csökkentése'
+wysiwyg.toolbar.paragraph: Bekezdés
+wysiwyg.toolbar.paste: Beillesztés
+wysiwyg.toolbar.redo: Újra
+wysiwyg.toolbar.redo_text: Újra
+wysiwyg.toolbar.source_mode: Forrásmód
+wysiwyg.toolbar.strike: Áthúzott
+wysiwyg.toolbar.subscript: 'Alsó index'
+wysiwyg.toolbar.superscript: 'Felső index'
+wysiwyg.toolbar.table_add: 'Táblázat beszúrása'
+wysiwyg.toolbar.table_delete: 'Táblázat törlése'
+wysiwyg.toolbar.table_text: Táblázat
+wysiwyg.toolbar.underline: Aláhúzott
+wysiwyg.toolbar.undo: Visszavonás
+wysiwyg.toolbar.undo_text: Vissza
+wysiwyg.toolbar.unlink: 'Hivatkozás eltávolítása'
+wysiwyg.toolbar.unlink_text: 'Link törlése'

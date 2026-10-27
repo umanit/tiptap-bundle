@@ -1,0 +1,163 @@
+modal.cancel: Откажи
+modal.close: Затвори
+modal.validate: Потврди
+wysiwyg.color.black: Црна
+wysiwyg.color.blue: Плава
+wysiwyg.bg_color.choose: 'Боја позадине'
+wysiwyg.bg_color.reset: 'Поништи боју позадине'
+wysiwyg.color.choose: 'Изаберите боју'
+wysiwyg.color.green: Зелена
+wysiwyg.color.grey: Сива
+wysiwyg.color.grey_dark: Тамносива
+wysiwyg.color.grey_light: Светлосива
+wysiwyg.color.indigo: Индиго
+wysiwyg.color.orange: Наранџаста
+wysiwyg.color.pink: Розе
+wysiwyg.color.purple: Љубичаста
+wysiwyg.color.red: Црвена
+wysiwyg.color.reset: 'Поништи боју'
+wysiwyg.color.white: Бела
+wysiwyg.color.yellow: Жута
+wysiwyg.diff.after: 'После (шта ће бити сачувано)'
+wysiwyg.diff.banner_lost: 'Овај садржај ће приликом чувања изгубити елементе: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Овај садржај ће приликом чувања бити преписан, без губитка форматирања.'
+wysiwyg.diff.before: 'Пре (оригинални садржај)'
+wysiwyg.diff.help: 'Редови са префиксом "-" потичу из оригиналног садржаја, а редови са префиксом "+" су оно што је уређивач направио од њега.'
+wysiwyg.diff.show: 'Прикажи разлике'
+wysiwyg.diff.title: 'Разлике у односу на оригинални садржај'
+wysiwyg.error.unknown_tool: 'Алатка "{tool}" није подржана'
+wysiwyg.font_size.choose: 'Величина фонта'
+wysiwyg.font_size.reset: 'Подразумевана величина'
+wysiwyg.menu.add_row_after: 'Додај ред испод'
+wysiwyg.menu.add_row_before: 'Додај ред изнад'
+wysiwyg.menu.cell_properties: 'Својства ћелије'
+wysiwyg.menu.delete_table: 'Обриши табелу'
+wysiwyg.menu.merge_cells: 'Споји ћелије'
+wysiwyg.menu.split_cell: 'Подели ћелију'
+wysiwyg.menu.table_properties: 'Својства табеле'
+wysiwyg.modal.anchor.id: Идентификатор
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Уклони сидро'
+wysiwyg.modal.anchor.title: Сидро
+wysiwyg.modal.apply: Примени
+wysiwyg.modal.cell.align.bottom: Доле
+wysiwyg.modal.cell.align.default: Подразумевано
+wysiwyg.modal.cell.align.middle: Средина
+wysiwyg.modal.cell.align.top: Горе
+wysiwyg.modal.cell.bg_color: 'Боја позадине'
+wysiwyg.modal.cell.bg_color.none: Подразумевано
+wysiwyg.modal.cell.col_width: 'Ширина колоне (px)'
+wysiwyg.modal.cell.col_width_placeholder: Аутоматски
+wysiwyg.modal.cell.text_align: 'Хоризонтално поравнање'
+wysiwyg.modal.cell.text_align.center: Центрирано
+wysiwyg.modal.cell.text_align.justify: Обострано
+wysiwyg.modal.cell.text_align.left: Лево
+wysiwyg.modal.cell.text_align.right: Десно
+wysiwyg.modal.cell.title: 'Својства ћелије'
+wysiwyg.modal.cell.vertical_align: 'Вертикално поравнање'
+wysiwyg.modal.image.align: Поравнање
+wysiwyg.modal.image.align.center: Центар
+wysiwyg.modal.image.align.left: Лево
+wysiwyg.modal.image.align.right: Десно
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Алтернативни текст'
+wysiwyg.modal.image.browse: 'Претражи сервер'
+wysiwyg.modal.image.height: Висина
+wysiwyg.modal.image.margin: Размак
+wysiwyg.modal.image.margin.medium: 'Средњи (10px)'
+wysiwyg.modal.image.margin.none: Без
+wysiwyg.modal.image.margin.small: 'Мали (5px)'
+wysiwyg.modal.image.preview: Преглед
+wysiwyg.modal.image.title: 'Својства слике'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Ширина
+wysiwyg.modal.link.anchor_name: 'Назив сидра'
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'Додај rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Циљ
+wysiwyg.modal.link.target.blank: 'Нови прозор (_blank)'
+wysiwyg.modal.link.target.default: Подразумевано
+wysiwyg.modal.link.target.self: 'Исти прозор (_self)'
+wysiwyg.modal.link.title: 'Уметни везу'
+wysiwyg.modal.link.type: 'Врста везе'
+wysiwyg.modal.link.type.anchor: Сидро
+wysiwyg.modal.link.type.url: 'Веб адреса'
+wysiwyg.modal.link.url: 'Веб адреса (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Поравнање табеле'
+wysiwyg.modal.table.align_center: Центрирано
+wysiwyg.modal.table.align_left: Лево
+wysiwyg.modal.table.align_right: Десно
+wysiwyg.modal.table.appearance: Изглед
+wysiwyg.modal.table.cols: 'Колоне*'
+wysiwyg.modal.table.css_class: 'CSS класа'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Са заглавним редом'
+wysiwyg.modal.table.rows: 'Редови*'
+wysiwyg.modal.table.structure: Структура
+wysiwyg.modal.table.title: 'Својства табеле'
+wysiwyg.modal.table.width: 'Ширина табеле'
+wysiwyg.modal.table.width_auto: Аутоматски
+wysiwyg.modal.template.items.demo.desc: 'Једноставан демо шаблон'
+wysiwyg.modal.template.items.demo.title: 'Демо шаблон'
+wysiwyg.modal.template.items.table.desc: 'Табела 2x1'
+wysiwyg.modal.template.items.table.title: 'Унапред попуњена табела'
+wysiwyg.modal.template.replace: 'Замени тренутни садржај'
+wysiwyg.modal.template.select_helper: 'Изаберите шаблон који ће се отворити у уређивачу'
+wysiwyg.modal.template.title: 'Шаблони садржаја'
+wysiwyg.path.label: 'Путања елемената'
+wysiwyg.placeholder: 'Напишите нешто …'
+wysiwyg.resize.label: 'Промени величину области за уређивање'
+wysiwyg.style.banner_info: 'Информативни банер'
+wysiwyg.style.banner_warning: 'Банер упозорења'
+wysiwyg.style.button: Дугме
+wysiwyg.style.button_label: Стилови
+wysiwyg.style.main_title: 'Стилови блока'
+wysiwyg.style.normal: Обично
+wysiwyg.style.section.banners: Банери
+wysiwyg.style.section.colors: Боје
+wysiwyg.style.section.misc: Разно
+wysiwyg.style.section.tables: Табеле
+wysiwyg.style.table_dotted: 'Табела са тачкастим линијама'
+wysiwyg.style.table_striped: 'Табела са пругама'
+wysiwyg.toolbar.align_center: Центар
+wysiwyg.toolbar.align_justify: Обострано
+wysiwyg.toolbar.align_left: Лево
+wysiwyg.toolbar.align_right: Десно
+wysiwyg.toolbar.anchor: Сидро
+wysiwyg.toolbar.blockquote: Цитат
+wysiwyg.toolbar.bold: Подебљано
+wysiwyg.toolbar.bullet_list: 'Листа са тачкама'
+wysiwyg.toolbar.color: Боја
+wysiwyg.toolbar.copy: Копирај
+wysiwyg.toolbar.cut: Исеци
+wysiwyg.toolbar.h1: 'Наслов 1'
+wysiwyg.toolbar.h2: 'Наслов 2'
+wysiwyg.toolbar.h3: 'Наслов 3'
+wysiwyg.toolbar.image: Слика
+wysiwyg.toolbar.image_text: 'Сл.'
+wysiwyg.toolbar.indent: 'Повећај увлачење'
+wysiwyg.toolbar.insert_template: 'Уметни шаблон'
+wysiwyg.toolbar.italic: Курзив
+wysiwyg.toolbar.link: Веза
+wysiwyg.toolbar.link_text: Веза
+wysiwyg.toolbar.list_tight: 'Збијена листа (без размака између ставки)'
+wysiwyg.toolbar.ordered_list: 'Нумерисана листа'
+wysiwyg.toolbar.outdent: 'Смањи увлачење'
+wysiwyg.toolbar.paragraph: Пасус
+wysiwyg.toolbar.paste: Налепи
+wysiwyg.toolbar.redo: Понови
+wysiwyg.toolbar.redo_text: Понови
+wysiwyg.toolbar.source_mode: 'Изворни режим'
+wysiwyg.toolbar.strike: Прецртано
+wysiwyg.toolbar.subscript: Индекс
+wysiwyg.toolbar.superscript: Експонент
+wysiwyg.toolbar.table_add: 'Додај табелу'
+wysiwyg.toolbar.table_delete: 'Обриши табелу'
+wysiwyg.toolbar.table_text: Табела
+wysiwyg.toolbar.underline: Подвучено
+wysiwyg.toolbar.undo: Опозови
+wysiwyg.toolbar.undo_text: Опозови
+wysiwyg.toolbar.unlink: 'Уклони везу'
+wysiwyg.toolbar.unlink_text: Уклони

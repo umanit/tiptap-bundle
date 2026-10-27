@@ -1,0 +1,163 @@
+modal.cancel: Ακύρωση
+modal.close: Κλείσιμο
+modal.validate: Επικύρωση
+wysiwyg.color.black: Μαύρο
+wysiwyg.color.blue: Μπλε
+wysiwyg.bg_color.choose: 'Χρώμα φόντου'
+wysiwyg.bg_color.reset: 'Επαναφορά χρώματος φόντου'
+wysiwyg.color.choose: 'Επιλογή χρώματος'
+wysiwyg.color.green: Πράσινο
+wysiwyg.color.grey: Γκρι
+wysiwyg.color.grey_dark: 'Σκούρο γκρι'
+wysiwyg.color.grey_light: 'Ανοιχτό γκρι'
+wysiwyg.color.indigo: Ινδικό
+wysiwyg.color.orange: Πορτοκαλί
+wysiwyg.color.pink: Ροζ
+wysiwyg.color.purple: Μωβ
+wysiwyg.color.red: Κόκκινο
+wysiwyg.color.reset: 'Επαναφορά χρώματος'
+wysiwyg.color.white: Λευκό
+wysiwyg.color.yellow: Κίτρινο
+wysiwyg.diff.after: 'Μετά (τι θα αποθηκευτεί)'
+wysiwyg.diff.banner_lost: 'Αυτό το περιεχόμενο θα χάσει στοιχεία κατά την αποθήκευση: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Αυτό το περιεχόμενο θα ξαναγραφτεί κατά την αποθήκευση, χωρίς απώλεια μορφοποίησης.'
+wysiwyg.diff.before: 'Πριν (αρχικό περιεχόμενο)'
+wysiwyg.diff.help: 'Οι γραμμές με πρόθεμα "-" προέρχονται από το αρχικό περιεχόμενο, ενώ αυτές με πρόθεμα "+" είναι το αποτέλεσμα της επεξεργασίας από τον επεξεργαστή.'
+wysiwyg.diff.show: 'Εμφάνιση των διαφορών'
+wysiwyg.diff.title: 'Διαφορές με το αρχικό περιεχόμενο'
+wysiwyg.error.unknown_tool: 'Το εργαλείο "{tool}" δεν υποστηρίζεται'
+wysiwyg.font_size.choose: 'Μέγεθος γραμματοσειράς'
+wysiwyg.font_size.reset: 'Προεπιλεγμένο μέγεθος'
+wysiwyg.menu.add_row_after: 'Προσθήκη γραμμής από κάτω'
+wysiwyg.menu.add_row_before: 'Προσθήκη γραμμής από πάνω'
+wysiwyg.menu.cell_properties: 'Ιδιότητες κελιού'
+wysiwyg.menu.delete_table: 'Διαγραφή πίνακα'
+wysiwyg.menu.merge_cells: 'Συγχώνευση κελιών'
+wysiwyg.menu.split_cell: 'Διαίρεση κελιού'
+wysiwyg.menu.table_properties: 'Ιδιότητες πίνακα'
+wysiwyg.modal.anchor.id: Αναγνωριστικό
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Αφαίρεση άγκυρας'
+wysiwyg.modal.anchor.title: Άγκυρα
+wysiwyg.modal.apply: Εφαρμογή
+wysiwyg.modal.cell.align.bottom: Κάτω
+wysiwyg.modal.cell.align.default: Προεπιλογή
+wysiwyg.modal.cell.align.middle: Μέση
+wysiwyg.modal.cell.align.top: Πάνω
+wysiwyg.modal.cell.bg_color: 'Χρώμα φόντου'
+wysiwyg.modal.cell.bg_color.none: Προεπιλογή
+wysiwyg.modal.cell.col_width: 'Πλάτος στήλης (px)'
+wysiwyg.modal.cell.col_width_placeholder: Αυτόματο
+wysiwyg.modal.cell.text_align: 'Οριζόντια στοίχιση'
+wysiwyg.modal.cell.text_align.center: 'Στο κέντρο'
+wysiwyg.modal.cell.text_align.justify: 'Πλήρης στοίχιση'
+wysiwyg.modal.cell.text_align.left: Αριστερά
+wysiwyg.modal.cell.text_align.right: Δεξιά
+wysiwyg.modal.cell.title: 'Ιδιότητες κελιού'
+wysiwyg.modal.cell.vertical_align: 'Κάθετη στοίχιση'
+wysiwyg.modal.image.align: Στοίχιση
+wysiwyg.modal.image.align.center: 'Στο κέντρο'
+wysiwyg.modal.image.align.left: Αριστερά
+wysiwyg.modal.image.align.right: Δεξιά
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Εναλλακτικό κείμενο'
+wysiwyg.modal.image.browse: 'Περιήγηση στον διακομιστή'
+wysiwyg.modal.image.height: Ύψος
+wysiwyg.modal.image.margin: Απόσταση
+wysiwyg.modal.image.margin.medium: 'Μεσαία (10px)'
+wysiwyg.modal.image.margin.none: Καμία
+wysiwyg.modal.image.margin.small: 'Μικρή (5px)'
+wysiwyg.modal.image.preview: Προεπισκόπηση
+wysiwyg.modal.image.title: 'Ιδιότητες εικόνας'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Πλάτος
+wysiwyg.modal.link.anchor_name: 'Όνομα άγκυρας'
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'Προσθήκη rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Προορισμός
+wysiwyg.modal.link.target.blank: 'Νέο παράθυρο (_blank)'
+wysiwyg.modal.link.target.default: Προεπιλογή
+wysiwyg.modal.link.target.self: 'Ίδιο παράθυρο (_self)'
+wysiwyg.modal.link.title: 'Εισαγωγή συνδέσμου'
+wysiwyg.modal.link.type: 'Τύπος συνδέσμου'
+wysiwyg.modal.link.type.anchor: Άγκυρα
+wysiwyg.modal.link.type.url: 'Διεύθυνση URL'
+wysiwyg.modal.link.url: 'Διεύθυνση ιστού (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Στοίχιση πίνακα'
+wysiwyg.modal.table.align_center: 'Στο κέντρο'
+wysiwyg.modal.table.align_left: Αριστερά
+wysiwyg.modal.table.align_right: Δεξιά
+wysiwyg.modal.table.appearance: Εμφάνιση
+wysiwyg.modal.table.cols: 'Στήλες*'
+wysiwyg.modal.table.css_class: 'Κλάση CSS'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Με γραμμή κεφαλίδας'
+wysiwyg.modal.table.rows: 'Γραμμές*'
+wysiwyg.modal.table.structure: Δομή
+wysiwyg.modal.table.title: 'Ιδιότητες πίνακα'
+wysiwyg.modal.table.width: 'Πλάτος πίνακα'
+wysiwyg.modal.table.width_auto: Αυτόματο
+wysiwyg.modal.template.items.demo.desc: 'Απλό πρότυπο επίδειξης'
+wysiwyg.modal.template.items.demo.title: 'Πρότυπο επίδειξης'
+wysiwyg.modal.template.items.table.desc: 'Πίνακας 2x1'
+wysiwyg.modal.template.items.table.title: 'Προσυμπληρωμένος πίνακας'
+wysiwyg.modal.template.replace: 'Αντικατάσταση του τρέχοντος περιεχομένου'
+wysiwyg.modal.template.select_helper: 'Επιλέξτε το πρότυπο που θα ανοίξει στον επεξεργαστή'
+wysiwyg.modal.template.title: 'Πρότυπα περιεχομένου'
+wysiwyg.path.label: 'Διαδρομή των στοιχείων'
+wysiwyg.placeholder: 'Γράψτε κάτι …'
+wysiwyg.resize.label: 'Αλλαγή μεγέθους της περιοχής επεξεργασίας'
+wysiwyg.style.banner_info: 'Πλαίσιο πληροφοριών'
+wysiwyg.style.banner_warning: 'Πλαίσιο προειδοποίησης'
+wysiwyg.style.button: Κουμπί
+wysiwyg.style.button_label: Στυλ
+wysiwyg.style.main_title: 'Στυλ μπλοκ'
+wysiwyg.style.normal: Κανονικό
+wysiwyg.style.section.banners: Πλαίσια
+wysiwyg.style.section.colors: Χρώματα
+wysiwyg.style.section.misc: Διάφορα
+wysiwyg.style.section.tables: Πίνακες
+wysiwyg.style.table_dotted: 'Διακεκομμένος πίνακας'
+wysiwyg.style.table_striped: 'Πίνακας με ρίγες'
+wysiwyg.toolbar.align_center: 'Στο κέντρο'
+wysiwyg.toolbar.align_justify: 'Πλήρης στοίχιση'
+wysiwyg.toolbar.align_left: Αριστερά
+wysiwyg.toolbar.align_right: Δεξιά
+wysiwyg.toolbar.anchor: Άγκυρα
+wysiwyg.toolbar.blockquote: Παράθεση
+wysiwyg.toolbar.bold: 'Έντονη γραφή'
+wysiwyg.toolbar.bullet_list: 'Λίστα με κουκκίδες'
+wysiwyg.toolbar.color: Χρώμα
+wysiwyg.toolbar.copy: Αντιγραφή
+wysiwyg.toolbar.cut: Αποκοπή
+wysiwyg.toolbar.h1: 'Επικεφαλίδα 1'
+wysiwyg.toolbar.h2: 'Επικεφαλίδα 2'
+wysiwyg.toolbar.h3: 'Επικεφαλίδα 3'
+wysiwyg.toolbar.image: Εικόνα
+wysiwyg.toolbar.image_text: IMG
+wysiwyg.toolbar.indent: 'Αύξηση εσοχής'
+wysiwyg.toolbar.insert_template: 'Εισαγωγή προτύπου'
+wysiwyg.toolbar.italic: 'Πλάγια γραφή'
+wysiwyg.toolbar.link: Σύνδεσμος
+wysiwyg.toolbar.link_text: Σύνδεσμος
+wysiwyg.toolbar.list_tight: 'Συμπαγής λίστα (χωρίς διάστημα μεταξύ των στοιχείων)'
+wysiwyg.toolbar.ordered_list: 'Αριθμημένη λίστα'
+wysiwyg.toolbar.outdent: 'Μείωση εσοχής'
+wysiwyg.toolbar.paragraph: Παράγραφος
+wysiwyg.toolbar.paste: Επικόλληση
+wysiwyg.toolbar.redo: Επανάληψη
+wysiwyg.toolbar.redo_text: Επανάληψη
+wysiwyg.toolbar.source_mode: 'Λειτουργία πηγαίου κώδικα'
+wysiwyg.toolbar.strike: Διαγράμμιση
+wysiwyg.toolbar.subscript: Δείκτης
+wysiwyg.toolbar.superscript: Εκθέτης
+wysiwyg.toolbar.table_add: 'Προσθήκη πίνακα'
+wysiwyg.toolbar.table_delete: 'Διαγραφή πίνακα'
+wysiwyg.toolbar.table_text: Πίνακας
+wysiwyg.toolbar.underline: Υπογράμμιση
+wysiwyg.toolbar.undo: Αναίρεση
+wysiwyg.toolbar.undo_text: Αναίρεση
+wysiwyg.toolbar.unlink: 'Αφαίρεση συνδέσμου'
+wysiwyg.toolbar.unlink_text: Αποσύνδεση

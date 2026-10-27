@@ -1,0 +1,163 @@
+modal.cancel: Avbryt
+modal.close: Stäng
+modal.validate: Bekräfta
+wysiwyg.color.black: Svart
+wysiwyg.color.blue: Blå
+wysiwyg.bg_color.choose: Bakgrundsfärg
+wysiwyg.bg_color.reset: 'Återställ bakgrundsfärg'
+wysiwyg.color.choose: 'Välj en färg'
+wysiwyg.color.green: Grön
+wysiwyg.color.grey: Grå
+wysiwyg.color.grey_dark: Mörkgrå
+wysiwyg.color.grey_light: Ljusgrå
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Orange
+wysiwyg.color.pink: Rosa
+wysiwyg.color.purple: Lila
+wysiwyg.color.red: Röd
+wysiwyg.color.reset: 'Återställ färg'
+wysiwyg.color.white: Vit
+wysiwyg.color.yellow: Gul
+wysiwyg.diff.after: 'Efter (det som sparas)'
+wysiwyg.diff.banner_lost: 'Innehållet kommer att förlora element när det sparas: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Innehållet kommer att skrivas om när det sparas, utan att någon formatering går förlorad.'
+wysiwyg.diff.before: 'Före (originalinnehåll)'
+wysiwyg.diff.help: 'Rader som börjar med "-" kommer från originalinnehållet, de som börjar med "+" är vad redigeraren gjorde av det.'
+wysiwyg.diff.show: 'Visa skillnaderna'
+wysiwyg.diff.title: 'Skillnader mot originalinnehållet'
+wysiwyg.error.unknown_tool: 'Verktyget "{tool}" stöds inte'
+wysiwyg.font_size.choose: Teckenstorlek
+wysiwyg.font_size.reset: Standardstorlek
+wysiwyg.menu.add_row_after: 'Lägg till rad under'
+wysiwyg.menu.add_row_before: 'Lägg till rad över'
+wysiwyg.menu.cell_properties: Cellegenskaper
+wysiwyg.menu.delete_table: 'Ta bort tabell'
+wysiwyg.menu.merge_cells: 'Slå samman celler'
+wysiwyg.menu.split_cell: 'Dela cell'
+wysiwyg.menu.table_properties: Tabellegenskaper
+wysiwyg.modal.anchor.id: Identifierare
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Ta bort ankare'
+wysiwyg.modal.anchor.title: Ankare
+wysiwyg.modal.apply: Verkställ
+wysiwyg.modal.cell.align.bottom: Nederkant
+wysiwyg.modal.cell.align.default: Standard
+wysiwyg.modal.cell.align.middle: Mitten
+wysiwyg.modal.cell.align.top: Överkant
+wysiwyg.modal.cell.bg_color: Bakgrundsfärg
+wysiwyg.modal.cell.bg_color.none: Standard
+wysiwyg.modal.cell.col_width: 'Kolumnbredd (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automatisk
+wysiwyg.modal.cell.text_align: 'Horisontell justering'
+wysiwyg.modal.cell.text_align.center: Centrerad
+wysiwyg.modal.cell.text_align.justify: Marginaljusterad
+wysiwyg.modal.cell.text_align.left: Vänster
+wysiwyg.modal.cell.text_align.right: Höger
+wysiwyg.modal.cell.title: Cellegenskaper
+wysiwyg.modal.cell.vertical_align: 'Vertikal justering'
+wysiwyg.modal.image.align: Justering
+wysiwyg.modal.image.align.center: Centrerad
+wysiwyg.modal.image.align.left: Vänster
+wysiwyg.modal.image.align.right: Höger
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Alternativ text'
+wysiwyg.modal.image.browse: 'Bläddra på servern'
+wysiwyg.modal.image.height: Höjd
+wysiwyg.modal.image.margin: Avstånd
+wysiwyg.modal.image.margin.medium: 'Medel (10px)'
+wysiwyg.modal.image.margin.none: Ingen
+wysiwyg.modal.image.margin.small: 'Liten (5px)'
+wysiwyg.modal.image.preview: Förhandsvisning
+wysiwyg.modal.image.title: Bildegenskaper
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Bredd
+wysiwyg.modal.link.anchor_name: Ankarnamn
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'Lägg till rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Mål
+wysiwyg.modal.link.target.blank: 'Nytt fönster (_blank)'
+wysiwyg.modal.link.target.default: Standard
+wysiwyg.modal.link.target.self: 'Samma fönster (_self)'
+wysiwyg.modal.link.title: 'Infoga länk'
+wysiwyg.modal.link.type: Länktyp
+wysiwyg.modal.link.type.anchor: Ankare
+wysiwyg.modal.link.type.url: 'Webb-URL'
+wysiwyg.modal.link.url: 'Webbadress (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: Tabelljustering
+wysiwyg.modal.table.align_center: Centrerad
+wysiwyg.modal.table.align_left: Vänster
+wysiwyg.modal.table.align_right: Höger
+wysiwyg.modal.table.appearance: Utseende
+wysiwyg.modal.table.cols: 'Kolumner*'
+wysiwyg.modal.table.css_class: 'CSS-klass'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Med rubrikrad'
+wysiwyg.modal.table.rows: 'Rader*'
+wysiwyg.modal.table.structure: Struktur
+wysiwyg.modal.table.title: Tabellegenskaper
+wysiwyg.modal.table.width: Tabellbredd
+wysiwyg.modal.table.width_auto: Automatisk
+wysiwyg.modal.template.items.demo.desc: 'Enkel demomall'
+wysiwyg.modal.template.items.demo.title: Demomall
+wysiwyg.modal.template.items.table.desc: 'En 2x1-tabell'
+wysiwyg.modal.template.items.table.title: 'Förifylld tabell'
+wysiwyg.modal.template.replace: 'Ersätt nuvarande innehåll'
+wysiwyg.modal.template.select_helper: 'Välj den mall som ska öppnas i redigeraren'
+wysiwyg.modal.template.title: Innehållsmallar
+wysiwyg.path.label: 'Elementens sökväg'
+wysiwyg.placeholder: 'Skriv något …'
+wysiwyg.resize.label: 'Ändra storlek på redigeringsytan'
+wysiwyg.style.banner_info: Informationsbanner
+wysiwyg.style.banner_warning: Varningsbanner
+wysiwyg.style.button: Knapp
+wysiwyg.style.button_label: Stilar
+wysiwyg.style.main_title: Blockstilar
+wysiwyg.style.normal: Normal
+wysiwyg.style.section.banners: Banners
+wysiwyg.style.section.colors: Färger
+wysiwyg.style.section.misc: Övrigt
+wysiwyg.style.section.tables: Tabeller
+wysiwyg.style.table_dotted: 'Prickad tabell'
+wysiwyg.style.table_striped: 'Randig tabell'
+wysiwyg.toolbar.align_center: Centrera
+wysiwyg.toolbar.align_justify: Marginaljustera
+wysiwyg.toolbar.align_left: Vänster
+wysiwyg.toolbar.align_right: Höger
+wysiwyg.toolbar.anchor: Ankare
+wysiwyg.toolbar.blockquote: Citat
+wysiwyg.toolbar.bold: Fet
+wysiwyg.toolbar.bullet_list: Punktlista
+wysiwyg.toolbar.color: Färg
+wysiwyg.toolbar.copy: Kopiera
+wysiwyg.toolbar.cut: 'Klipp ut'
+wysiwyg.toolbar.h1: 'Rubrik 1'
+wysiwyg.toolbar.h2: 'Rubrik 2'
+wysiwyg.toolbar.h3: 'Rubrik 3'
+wysiwyg.toolbar.image: Bild
+wysiwyg.toolbar.image_text: Bild
+wysiwyg.toolbar.indent: 'Öka indrag'
+wysiwyg.toolbar.insert_template: 'Infoga mall'
+wysiwyg.toolbar.italic: Kursiv
+wysiwyg.toolbar.link: Länk
+wysiwyg.toolbar.link_text: Länk
+wysiwyg.toolbar.list_tight: 'Kompakt lista (inget mellanrum mellan objekten)'
+wysiwyg.toolbar.ordered_list: 'Numrerad lista'
+wysiwyg.toolbar.outdent: 'Minska indrag'
+wysiwyg.toolbar.paragraph: Stycke
+wysiwyg.toolbar.paste: 'Klistra in'
+wysiwyg.toolbar.redo: 'Gör om'
+wysiwyg.toolbar.redo_text: 'Gör om'
+wysiwyg.toolbar.source_mode: Källkodsläge
+wysiwyg.toolbar.strike: Genomstruken
+wysiwyg.toolbar.subscript: Nedsänkt
+wysiwyg.toolbar.superscript: Upphöjd
+wysiwyg.toolbar.table_add: 'Lägg till tabell'
+wysiwyg.toolbar.table_delete: 'Ta bort tabell'
+wysiwyg.toolbar.table_text: Tabell
+wysiwyg.toolbar.underline: Understruken
+wysiwyg.toolbar.undo: Ångra
+wysiwyg.toolbar.undo_text: Ångra
+wysiwyg.toolbar.unlink: 'Ta bort länk'
+wysiwyg.toolbar.unlink_text: Avlänka

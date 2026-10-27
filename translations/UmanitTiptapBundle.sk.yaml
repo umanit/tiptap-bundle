@@ -1,0 +1,163 @@
+modal.cancel: Zrušiť
+modal.close: Zavrieť
+modal.validate: Potvrdiť
+wysiwyg.color.black: Čierna
+wysiwyg.color.blue: Modrá
+wysiwyg.bg_color.choose: 'Farba pozadia'
+wysiwyg.bg_color.reset: 'Obnoviť farbu pozadia'
+wysiwyg.color.choose: 'Vybrať farbu'
+wysiwyg.color.green: Zelená
+wysiwyg.color.grey: Sivá
+wysiwyg.color.grey_dark: Tmavosivá
+wysiwyg.color.grey_light: Svetlosivá
+wysiwyg.color.indigo: Indigová
+wysiwyg.color.orange: Oranžová
+wysiwyg.color.pink: Ružová
+wysiwyg.color.purple: Fialová
+wysiwyg.color.red: Červená
+wysiwyg.color.reset: 'Obnoviť farbu'
+wysiwyg.color.white: Biela
+wysiwyg.color.yellow: Žltá
+wysiwyg.diff.after: 'Po (čo sa uloží)'
+wysiwyg.diff.banner_lost: 'Pri uložení tento obsah stratí prvky: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Pri uložení sa tento obsah prepíše bez straty formátovania.'
+wysiwyg.diff.before: 'Pred (pôvodný obsah)'
+wysiwyg.diff.help: 'Riadky s predponou "-" pochádzajú z pôvodného obsahu, riadky s predponou "+" sú to, čo z neho vytvoril editor.'
+wysiwyg.diff.show: 'Zobraziť rozdiely'
+wysiwyg.diff.title: 'Rozdiely oproti pôvodnému obsahu'
+wysiwyg.error.unknown_tool: 'Nástroj "{tool}" nie je podporovaný'
+wysiwyg.font_size.choose: 'Veľkosť písma'
+wysiwyg.font_size.reset: 'Predvolená veľkosť'
+wysiwyg.menu.add_row_after: 'Pridať riadok pod'
+wysiwyg.menu.add_row_before: 'Pridať riadok nad'
+wysiwyg.menu.cell_properties: 'Vlastnosti bunky'
+wysiwyg.menu.delete_table: 'Odstrániť tabuľku'
+wysiwyg.menu.merge_cells: 'Zlúčiť bunky'
+wysiwyg.menu.split_cell: 'Rozdeliť bunku'
+wysiwyg.menu.table_properties: 'Vlastnosti tabuľky'
+wysiwyg.modal.anchor.id: Identifikátor
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Odstrániť kotvu'
+wysiwyg.modal.anchor.title: Kotva
+wysiwyg.modal.apply: Použiť
+wysiwyg.modal.cell.align.bottom: Dole
+wysiwyg.modal.cell.align.default: Predvolené
+wysiwyg.modal.cell.align.middle: 'Na stred'
+wysiwyg.modal.cell.align.top: Hore
+wysiwyg.modal.cell.bg_color: 'Farba pozadia'
+wysiwyg.modal.cell.bg_color.none: Predvolená
+wysiwyg.modal.cell.col_width: 'Šírka stĺpca (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automaticky
+wysiwyg.modal.cell.text_align: 'Vodorovné zarovnanie'
+wysiwyg.modal.cell.text_align.center: 'Na stred'
+wysiwyg.modal.cell.text_align.justify: 'Do bloku'
+wysiwyg.modal.cell.text_align.left: Vľavo
+wysiwyg.modal.cell.text_align.right: Vpravo
+wysiwyg.modal.cell.title: 'Vlastnosti bunky'
+wysiwyg.modal.cell.vertical_align: 'Zvislé zarovnanie'
+wysiwyg.modal.image.align: Zarovnanie
+wysiwyg.modal.image.align.center: 'Na stred'
+wysiwyg.modal.image.align.left: Vľavo
+wysiwyg.modal.image.align.right: Vpravo
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Alternatívny text'
+wysiwyg.modal.image.browse: 'Prehľadávať server'
+wysiwyg.modal.image.height: Výška
+wysiwyg.modal.image.margin: Odsadenie
+wysiwyg.modal.image.margin.medium: 'Stredné (10px)'
+wysiwyg.modal.image.margin.none: Žiadne
+wysiwyg.modal.image.margin.small: 'Malé (5px)'
+wysiwyg.modal.image.preview: Náhľad
+wysiwyg.modal.image.title: 'Vlastnosti obrázka'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Šírka
+wysiwyg.modal.link.anchor_name: 'Názov kotvy'
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'Pridať rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Cieľ
+wysiwyg.modal.link.target.blank: 'Nové okno (_blank)'
+wysiwyg.modal.link.target.default: Predvolené
+wysiwyg.modal.link.target.self: 'To isté okno (_self)'
+wysiwyg.modal.link.title: 'Vložiť odkaz'
+wysiwyg.modal.link.type: 'Typ odkazu'
+wysiwyg.modal.link.type.anchor: Kotva
+wysiwyg.modal.link.type.url: 'Webová adresa'
+wysiwyg.modal.link.url: 'Webová adresa (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Zarovnanie tabuľky'
+wysiwyg.modal.table.align_center: 'Na stred'
+wysiwyg.modal.table.align_left: Vľavo
+wysiwyg.modal.table.align_right: Vpravo
+wysiwyg.modal.table.appearance: Vzhľad
+wysiwyg.modal.table.cols: 'Stĺpce*'
+wysiwyg.modal.table.css_class: 'Trieda CSS'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'S hlavičkovým riadkom'
+wysiwyg.modal.table.rows: 'Riadky*'
+wysiwyg.modal.table.structure: Štruktúra
+wysiwyg.modal.table.title: 'Vlastnosti tabuľky'
+wysiwyg.modal.table.width: 'Šírka tabuľky'
+wysiwyg.modal.table.width_auto: Automaticky
+wysiwyg.modal.template.items.demo.desc: 'Jednoduchá ukážková šablóna'
+wysiwyg.modal.template.items.demo.title: 'Ukážková šablóna'
+wysiwyg.modal.template.items.table.desc: 'Tabuľka 2x1'
+wysiwyg.modal.template.items.table.title: 'Vopred vyplnená tabuľka'
+wysiwyg.modal.template.replace: 'Nahradiť aktuálny obsah'
+wysiwyg.modal.template.select_helper: 'Vyberte šablónu, ktorá sa otvorí v editore'
+wysiwyg.modal.template.title: 'Šablóny obsahu'
+wysiwyg.path.label: 'Cesta prvkov'
+wysiwyg.placeholder: 'Napíšte niečo …'
+wysiwyg.resize.label: 'Zmeniť veľkosť oblasti úprav'
+wysiwyg.style.banner_info: 'Informačný panel'
+wysiwyg.style.banner_warning: 'Varovný panel'
+wysiwyg.style.button: Tlačidlo
+wysiwyg.style.button_label: Štýly
+wysiwyg.style.main_title: 'Štýly blokov'
+wysiwyg.style.normal: Normálne
+wysiwyg.style.section.banners: Panely
+wysiwyg.style.section.colors: Farby
+wysiwyg.style.section.misc: Rôzne
+wysiwyg.style.section.tables: Tabuľky
+wysiwyg.style.table_dotted: 'Bodkovaná tabuľka'
+wysiwyg.style.table_striped: 'Pruhovaná tabuľka'
+wysiwyg.toolbar.align_center: 'Na stred'
+wysiwyg.toolbar.align_justify: 'Do bloku'
+wysiwyg.toolbar.align_left: Vľavo
+wysiwyg.toolbar.align_right: Vpravo
+wysiwyg.toolbar.anchor: Kotva
+wysiwyg.toolbar.blockquote: Citácia
+wysiwyg.toolbar.bold: Tučné
+wysiwyg.toolbar.bullet_list: 'Odrážkový zoznam'
+wysiwyg.toolbar.color: Farba
+wysiwyg.toolbar.copy: Kopírovať
+wysiwyg.toolbar.cut: Vystrihnúť
+wysiwyg.toolbar.h1: 'Nadpis 1'
+wysiwyg.toolbar.h2: 'Nadpis 2'
+wysiwyg.toolbar.h3: 'Nadpis 3'
+wysiwyg.toolbar.image: Obrázok
+wysiwyg.toolbar.image_text: 'Obr.'
+wysiwyg.toolbar.indent: 'Zväčšiť odsadenie'
+wysiwyg.toolbar.insert_template: 'Vložiť šablónu'
+wysiwyg.toolbar.italic: Kurzíva
+wysiwyg.toolbar.link: Odkaz
+wysiwyg.toolbar.link_text: Odkaz
+wysiwyg.toolbar.list_tight: 'Kompaktný zoznam (bez medzier medzi položkami)'
+wysiwyg.toolbar.ordered_list: 'Číslovaný zoznam'
+wysiwyg.toolbar.outdent: 'Zmenšiť odsadenie'
+wysiwyg.toolbar.paragraph: Odsek
+wysiwyg.toolbar.paste: Prilepiť
+wysiwyg.toolbar.redo: Znova
+wysiwyg.toolbar.redo_text: Znova
+wysiwyg.toolbar.source_mode: 'Zdrojový režim'
+wysiwyg.toolbar.strike: Prečiarknuté
+wysiwyg.toolbar.subscript: 'Dolný index'
+wysiwyg.toolbar.superscript: 'Horný index'
+wysiwyg.toolbar.table_add: 'Pridať tabuľku'
+wysiwyg.toolbar.table_delete: 'Odstrániť tabuľku'
+wysiwyg.toolbar.table_text: Tabuľka
+wysiwyg.toolbar.underline: Podčiarknuté
+wysiwyg.toolbar.undo: Späť
+wysiwyg.toolbar.undo_text: Späť
+wysiwyg.toolbar.unlink: 'Odstrániť odkaz'
+wysiwyg.toolbar.unlink_text: 'Zrušiť odkaz'

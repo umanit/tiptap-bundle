@@ -1,0 +1,163 @@
+modal.cancel: 취소
+modal.close: 닫기
+modal.validate: 확인
+wysiwyg.color.black: 검정
+wysiwyg.color.blue: 파랑
+wysiwyg.bg_color.choose: 배경색
+wysiwyg.bg_color.reset: '배경색 초기화'
+wysiwyg.color.choose: '색상 선택'
+wysiwyg.color.green: 초록
+wysiwyg.color.grey: 회색
+wysiwyg.color.grey_dark: '어두운 회색'
+wysiwyg.color.grey_light: '밝은 회색'
+wysiwyg.color.indigo: 남색
+wysiwyg.color.orange: 주황
+wysiwyg.color.pink: 분홍
+wysiwyg.color.purple: 보라
+wysiwyg.color.red: 빨강
+wysiwyg.color.reset: '색상 초기화'
+wysiwyg.color.white: 흰색
+wysiwyg.color.yellow: 노랑
+wysiwyg.diff.after: '변경 후(저장될 내용)'
+wysiwyg.diff.banner_lost: '저장 시 이 콘텐츠에서 다음 요소가 손실됩니다: {signals}.'
+wysiwyg.diff.banner_rewritten: '저장 시 이 콘텐츠가 서식 손실 없이 다시 작성됩니다.'
+wysiwyg.diff.before: '변경 전(원본 콘텐츠)'
+wysiwyg.diff.help: '"-"로 시작하는 줄은 원본 콘텐츠이고, "+"로 시작하는 줄은 편집기가 변환한 결과입니다.'
+wysiwyg.diff.show: '차이점 보기'
+wysiwyg.diff.title: '원본 콘텐츠와의 차이점'
+wysiwyg.error.unknown_tool: '"{tool}" 도구는 지원되지 않습니다'
+wysiwyg.font_size.choose: '글꼴 크기'
+wysiwyg.font_size.reset: '기본 크기'
+wysiwyg.menu.add_row_after: '아래에 행 추가'
+wysiwyg.menu.add_row_before: '위에 행 추가'
+wysiwyg.menu.cell_properties: '셀 속성'
+wysiwyg.menu.delete_table: '표 삭제'
+wysiwyg.menu.merge_cells: '셀 병합'
+wysiwyg.menu.split_cell: '셀 분할'
+wysiwyg.menu.table_properties: '표 속성'
+wysiwyg.modal.anchor.id: 식별자
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: '앵커 제거'
+wysiwyg.modal.anchor.title: 앵커
+wysiwyg.modal.apply: 적용
+wysiwyg.modal.cell.align.bottom: 아래쪽
+wysiwyg.modal.cell.align.default: 기본값
+wysiwyg.modal.cell.align.middle: 가운데
+wysiwyg.modal.cell.align.top: 위쪽
+wysiwyg.modal.cell.bg_color: 배경색
+wysiwyg.modal.cell.bg_color.none: 기본값
+wysiwyg.modal.cell.col_width: '열 너비(px)'
+wysiwyg.modal.cell.col_width_placeholder: 자동
+wysiwyg.modal.cell.text_align: '가로 맞춤'
+wysiwyg.modal.cell.text_align.center: '가운데 맞춤'
+wysiwyg.modal.cell.text_align.justify: '양쪽 맞춤'
+wysiwyg.modal.cell.text_align.left: '왼쪽 맞춤'
+wysiwyg.modal.cell.text_align.right: '오른쪽 맞춤'
+wysiwyg.modal.cell.title: '셀 속성'
+wysiwyg.modal.cell.vertical_align: '세로 맞춤'
+wysiwyg.modal.image.align: 맞춤
+wysiwyg.modal.image.align.center: 가운데
+wysiwyg.modal.image.align.left: 왼쪽
+wysiwyg.modal.image.align.right: 오른쪽
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: '대체 텍스트'
+wysiwyg.modal.image.browse: '서버 찾아보기'
+wysiwyg.modal.image.height: 높이
+wysiwyg.modal.image.margin: 여백
+wysiwyg.modal.image.margin.medium: '중간(10px)'
+wysiwyg.modal.image.margin.none: 없음
+wysiwyg.modal.image.margin.small: '작게(5px)'
+wysiwyg.modal.image.preview: 미리보기
+wysiwyg.modal.image.title: '이미지 속성'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: 너비
+wysiwyg.modal.link.anchor_name: '앵커 이름'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'rel="noopener noreferrer nofollow" 추가'
+wysiwyg.modal.link.target: 대상
+wysiwyg.modal.link.target.blank: '새 창(_blank)'
+wysiwyg.modal.link.target.default: 기본값
+wysiwyg.modal.link.target.self: '현재 창(_self)'
+wysiwyg.modal.link.title: '링크 삽입'
+wysiwyg.modal.link.type: '링크 유형'
+wysiwyg.modal.link.type.anchor: 앵커
+wysiwyg.modal.link.type.url: '웹 URL'
+wysiwyg.modal.link.url: '웹 주소(URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: 확인
+wysiwyg.modal.table.align: '표 맞춤'
+wysiwyg.modal.table.align_center: '가운데 맞춤'
+wysiwyg.modal.table.align_left: '왼쪽 맞춤'
+wysiwyg.modal.table.align_right: '오른쪽 맞춤'
+wysiwyg.modal.table.appearance: 모양
+wysiwyg.modal.table.cols: '열 수*'
+wysiwyg.modal.table.css_class: 'CSS 클래스'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: '머리글 행 포함'
+wysiwyg.modal.table.rows: '행 수*'
+wysiwyg.modal.table.structure: 구조
+wysiwyg.modal.table.title: '표 속성'
+wysiwyg.modal.table.width: '표 너비'
+wysiwyg.modal.table.width_auto: 자동
+wysiwyg.modal.template.items.demo.desc: '간단한 데모 템플릿'
+wysiwyg.modal.template.items.demo.title: '데모 템플릿'
+wysiwyg.modal.template.items.table.desc: '2x1 표'
+wysiwyg.modal.template.items.table.title: '미리 채워진 표'
+wysiwyg.modal.template.replace: '현재 콘텐츠 바꾸기'
+wysiwyg.modal.template.select_helper: '편집기에서 열 템플릿을 선택하세요'
+wysiwyg.modal.template.title: '콘텐츠 템플릿'
+wysiwyg.path.label: '요소 경로'
+wysiwyg.placeholder: '내용을 입력하세요 …'
+wysiwyg.resize.label: '편집 영역 크기 조절'
+wysiwyg.style.banner_info: '정보 배너'
+wysiwyg.style.banner_warning: '경고 배너'
+wysiwyg.style.button: 버튼
+wysiwyg.style.button_label: 스타일
+wysiwyg.style.main_title: '블록 스타일'
+wysiwyg.style.normal: 표준
+wysiwyg.style.section.banners: 배너
+wysiwyg.style.section.colors: 색상
+wysiwyg.style.section.misc: 기타
+wysiwyg.style.section.tables: 표
+wysiwyg.style.table_dotted: '점선 표'
+wysiwyg.style.table_striped: '줄무늬 표'
+wysiwyg.toolbar.align_center: '가운데 맞춤'
+wysiwyg.toolbar.align_justify: '양쪽 맞춤'
+wysiwyg.toolbar.align_left: '왼쪽 맞춤'
+wysiwyg.toolbar.align_right: '오른쪽 맞춤'
+wysiwyg.toolbar.anchor: 앵커
+wysiwyg.toolbar.blockquote: 인용
+wysiwyg.toolbar.bold: 굵게
+wysiwyg.toolbar.bullet_list: '글머리 기호 목록'
+wysiwyg.toolbar.color: 색상
+wysiwyg.toolbar.copy: 복사
+wysiwyg.toolbar.cut: 잘라내기
+wysiwyg.toolbar.h1: '제목 1'
+wysiwyg.toolbar.h2: '제목 2'
+wysiwyg.toolbar.h3: '제목 3'
+wysiwyg.toolbar.image: 이미지
+wysiwyg.toolbar.image_text: 이미지
+wysiwyg.toolbar.indent: '들여쓰기 늘리기'
+wysiwyg.toolbar.insert_template: '템플릿 삽입'
+wysiwyg.toolbar.italic: 기울임꼴
+wysiwyg.toolbar.link: 링크
+wysiwyg.toolbar.link_text: 링크
+wysiwyg.toolbar.list_tight: '간단한 목록(항목 간 간격 없음)'
+wysiwyg.toolbar.ordered_list: '번호 매기기 목록'
+wysiwyg.toolbar.outdent: '들여쓰기 줄이기'
+wysiwyg.toolbar.paragraph: 단락
+wysiwyg.toolbar.paste: 붙여넣기
+wysiwyg.toolbar.redo: '다시 실행'
+wysiwyg.toolbar.redo_text: '다시 실행'
+wysiwyg.toolbar.source_mode: '소스 모드'
+wysiwyg.toolbar.strike: 취소선
+wysiwyg.toolbar.subscript: '아래 첨자'
+wysiwyg.toolbar.superscript: '위 첨자'
+wysiwyg.toolbar.table_add: '표 추가'
+wysiwyg.toolbar.table_delete: '표 삭제'
+wysiwyg.toolbar.table_text: 표
+wysiwyg.toolbar.underline: 밑줄
+wysiwyg.toolbar.undo: '실행 취소'
+wysiwyg.toolbar.undo_text: '실행 취소'
+wysiwyg.toolbar.unlink: '링크 제거'
+wysiwyg.toolbar.unlink_text: '링크 해제'

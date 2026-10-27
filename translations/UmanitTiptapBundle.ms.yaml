@@ -1,0 +1,163 @@
+modal.cancel: Batal
+modal.close: Tutup
+modal.validate: Sahkan
+wysiwyg.color.black: Hitam
+wysiwyg.color.blue: Biru
+wysiwyg.bg_color.choose: 'Warna latar belakang'
+wysiwyg.bg_color.reset: 'Set semula warna latar belakang'
+wysiwyg.color.choose: 'Pilih warna'
+wysiwyg.color.green: Hijau
+wysiwyg.color.grey: Kelabu
+wysiwyg.color.grey_dark: 'Kelabu gelap'
+wysiwyg.color.grey_light: 'Kelabu cerah'
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Oren
+wysiwyg.color.pink: 'Merah jambu'
+wysiwyg.color.purple: Ungu
+wysiwyg.color.red: Merah
+wysiwyg.color.reset: 'Set semula warna'
+wysiwyg.color.white: Putih
+wysiwyg.color.yellow: Kuning
+wysiwyg.diff.after: 'Selepas (yang akan disimpan)'
+wysiwyg.diff.banner_lost: 'Kandungan ini akan kehilangan elemen apabila disimpan: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Kandungan ini akan ditulis semula apabila disimpan, tanpa kehilangan sebarang pemformatan.'
+wysiwyg.diff.before: 'Sebelum (kandungan asal)'
+wysiwyg.diff.help: 'Baris yang diawali dengan "-" datang daripada kandungan asal, manakala baris yang diawali dengan "+" ialah hasil olahan editor.'
+wysiwyg.diff.show: 'Tunjukkan perbezaan'
+wysiwyg.diff.title: 'Perbezaan dengan kandungan asal'
+wysiwyg.error.unknown_tool: 'Alat "{tool}" tidak disokong'
+wysiwyg.font_size.choose: 'Saiz fon'
+wysiwyg.font_size.reset: 'Saiz lalai'
+wysiwyg.menu.add_row_after: 'Tambah baris di bawah'
+wysiwyg.menu.add_row_before: 'Tambah baris di atas'
+wysiwyg.menu.cell_properties: 'Sifat sel'
+wysiwyg.menu.delete_table: 'Padam jadual'
+wysiwyg.menu.merge_cells: 'Gabung sel'
+wysiwyg.menu.split_cell: 'Pisah sel'
+wysiwyg.menu.table_properties: 'Sifat jadual'
+wysiwyg.modal.anchor.id: Pengecam
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'Alih keluar sauh'
+wysiwyg.modal.anchor.title: Sauh
+wysiwyg.modal.apply: Guna
+wysiwyg.modal.cell.align.bottom: Bawah
+wysiwyg.modal.cell.align.default: Lalai
+wysiwyg.modal.cell.align.middle: Tengah
+wysiwyg.modal.cell.align.top: Atas
+wysiwyg.modal.cell.bg_color: 'Warna latar belakang'
+wysiwyg.modal.cell.bg_color.none: Lalai
+wysiwyg.modal.cell.col_width: 'Lebar lajur (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automatik
+wysiwyg.modal.cell.text_align: 'Penjajaran mendatar'
+wysiwyg.modal.cell.text_align.center: Tengah
+wysiwyg.modal.cell.text_align.justify: 'Rata penuh'
+wysiwyg.modal.cell.text_align.left: Kiri
+wysiwyg.modal.cell.text_align.right: Kanan
+wysiwyg.modal.cell.title: 'Sifat sel'
+wysiwyg.modal.cell.vertical_align: 'Penjajaran menegak'
+wysiwyg.modal.image.align: Penjajaran
+wysiwyg.modal.image.align.center: Tengah
+wysiwyg.modal.image.align.left: Kiri
+wysiwyg.modal.image.align.right: Kanan
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Teks alternatif'
+wysiwyg.modal.image.browse: 'Semak imbas pelayan'
+wysiwyg.modal.image.height: Tinggi
+wysiwyg.modal.image.margin: Jarak
+wysiwyg.modal.image.margin.medium: 'Sederhana (10px)'
+wysiwyg.modal.image.margin.none: Tiada
+wysiwyg.modal.image.margin.small: 'Kecil (5px)'
+wysiwyg.modal.image.preview: Pratonton
+wysiwyg.modal.image.title: 'Sifat imej'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Lebar
+wysiwyg.modal.link.anchor_name: 'Nama sauh'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'Tambah rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Sasaran
+wysiwyg.modal.link.target.blank: 'Tetingkap baharu (_blank)'
+wysiwyg.modal.link.target.default: Lalai
+wysiwyg.modal.link.target.self: 'Tetingkap yang sama (_self)'
+wysiwyg.modal.link.title: 'Sisipkan pautan'
+wysiwyg.modal.link.type: 'Jenis pautan'
+wysiwyg.modal.link.type.anchor: Sauh
+wysiwyg.modal.link.type.url: 'URL web'
+wysiwyg.modal.link.url: 'Alamat web (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: 'OK'
+wysiwyg.modal.table.align: 'Penjajaran jadual'
+wysiwyg.modal.table.align_center: Tengah
+wysiwyg.modal.table.align_left: Kiri
+wysiwyg.modal.table.align_right: Kanan
+wysiwyg.modal.table.appearance: Penampilan
+wysiwyg.modal.table.cols: 'Lajur*'
+wysiwyg.modal.table.css_class: 'Kelas CSS'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Dengan baris pengepala'
+wysiwyg.modal.table.rows: 'Baris*'
+wysiwyg.modal.table.structure: Struktur
+wysiwyg.modal.table.title: 'Sifat jadual'
+wysiwyg.modal.table.width: 'Lebar jadual'
+wysiwyg.modal.table.width_auto: Automatik
+wysiwyg.modal.template.items.demo.desc: 'Templat demo ringkas'
+wysiwyg.modal.template.items.demo.title: 'Templat demo'
+wysiwyg.modal.template.items.table.desc: 'Jadual 2x1'
+wysiwyg.modal.template.items.table.title: 'Jadual yang telah diisi'
+wysiwyg.modal.template.replace: 'Gantikan kandungan semasa'
+wysiwyg.modal.template.select_helper: 'Sila pilih templat untuk dibuka dalam editor'
+wysiwyg.modal.template.title: 'Templat kandungan'
+wysiwyg.path.label: 'Laluan elemen'
+wysiwyg.placeholder: 'Tulis sesuatu …'
+wysiwyg.resize.label: 'Ubah saiz kawasan penyuntingan'
+wysiwyg.style.banner_info: 'Sepanduk maklumat'
+wysiwyg.style.banner_warning: 'Sepanduk amaran'
+wysiwyg.style.button: Butang
+wysiwyg.style.button_label: Gaya
+wysiwyg.style.main_title: 'Gaya blok'
+wysiwyg.style.normal: Biasa
+wysiwyg.style.section.banners: Sepanduk
+wysiwyg.style.section.colors: Warna
+wysiwyg.style.section.misc: Pelbagai
+wysiwyg.style.section.tables: Jadual
+wysiwyg.style.table_dotted: 'Jadual bertitik'
+wysiwyg.style.table_striped: 'Jadual berjalur'
+wysiwyg.toolbar.align_center: Tengah
+wysiwyg.toolbar.align_justify: 'Rata penuh'
+wysiwyg.toolbar.align_left: Kiri
+wysiwyg.toolbar.align_right: Kanan
+wysiwyg.toolbar.anchor: Sauh
+wysiwyg.toolbar.blockquote: Petikan
+wysiwyg.toolbar.bold: Tebal
+wysiwyg.toolbar.bullet_list: 'Senarai berpeluru'
+wysiwyg.toolbar.color: Warna
+wysiwyg.toolbar.copy: Salin
+wysiwyg.toolbar.cut: Potong
+wysiwyg.toolbar.h1: 'Tajuk 1'
+wysiwyg.toolbar.h2: 'Tajuk 2'
+wysiwyg.toolbar.h3: 'Tajuk 3'
+wysiwyg.toolbar.image: Imej
+wysiwyg.toolbar.image_text: Imej
+wysiwyg.toolbar.indent: 'Tambah inden'
+wysiwyg.toolbar.insert_template: 'Sisipkan templat'
+wysiwyg.toolbar.italic: Condong
+wysiwyg.toolbar.link: Pautan
+wysiwyg.toolbar.link_text: Pautan
+wysiwyg.toolbar.list_tight: 'Senarai padat (tiada ruang antara item)'
+wysiwyg.toolbar.ordered_list: 'Senarai bernombor'
+wysiwyg.toolbar.outdent: 'Kurangkan inden'
+wysiwyg.toolbar.paragraph: Perenggan
+wysiwyg.toolbar.paste: Tampal
+wysiwyg.toolbar.redo: 'Buat semula'
+wysiwyg.toolbar.redo_text: 'Buat semula'
+wysiwyg.toolbar.source_mode: 'Mod sumber'
+wysiwyg.toolbar.strike: 'Garis tengah'
+wysiwyg.toolbar.subscript: Subskrip
+wysiwyg.toolbar.superscript: Superskrip
+wysiwyg.toolbar.table_add: 'Tambah jadual'
+wysiwyg.toolbar.table_delete: 'Padam jadual'
+wysiwyg.toolbar.table_text: Jadual
+wysiwyg.toolbar.underline: 'Garis bawah'
+wysiwyg.toolbar.undo: 'Buat asal'
+wysiwyg.toolbar.undo_text: 'Buat asal'
+wysiwyg.toolbar.unlink: 'Alih keluar pautan'
+wysiwyg.toolbar.unlink_text: Nyahpaut

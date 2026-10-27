@@ -1,0 +1,163 @@
+modal.cancel: Отмена
+modal.close: Закрыть
+modal.validate: Подтвердить
+wysiwyg.color.black: Чёрный
+wysiwyg.color.blue: Синий
+wysiwyg.bg_color.choose: 'Цвет фона'
+wysiwyg.bg_color.reset: 'Сбросить цвет фона'
+wysiwyg.color.choose: 'Выбрать цвет'
+wysiwyg.color.green: Зелёный
+wysiwyg.color.grey: Серый
+wysiwyg.color.grey_dark: 'Тёмно-серый'
+wysiwyg.color.grey_light: 'Светло-серый'
+wysiwyg.color.indigo: Индиго
+wysiwyg.color.orange: Оранжевый
+wysiwyg.color.pink: Розовый
+wysiwyg.color.purple: Фиолетовый
+wysiwyg.color.red: Красный
+wysiwyg.color.reset: 'Сбросить цвет'
+wysiwyg.color.white: Белый
+wysiwyg.color.yellow: Жёлтый
+wysiwyg.diff.after: 'После (что будет сохранено)'
+wysiwyg.diff.banner_lost: 'При сохранении в содержимом пропадут элементы: {signals}.'
+wysiwyg.diff.banner_rewritten: 'При сохранении содержимое будет переписано без потери форматирования.'
+wysiwyg.diff.before: 'До (исходное содержимое)'
+wysiwyg.diff.help: 'Строки с префиксом "-" относятся к исходному содержимому, строки с префиксом "+" — это то, что получилось в редакторе.'
+wysiwyg.diff.show: 'Показать различия'
+wysiwyg.diff.title: 'Отличия от исходного содержимого'
+wysiwyg.error.unknown_tool: 'Инструмент "{tool}" не поддерживается'
+wysiwyg.font_size.choose: 'Размер шрифта'
+wysiwyg.font_size.reset: 'Размер по умолчанию'
+wysiwyg.menu.add_row_after: 'Добавить строку ниже'
+wysiwyg.menu.add_row_before: 'Добавить строку выше'
+wysiwyg.menu.cell_properties: 'Свойства ячейки'
+wysiwyg.menu.delete_table: 'Удалить таблицу'
+wysiwyg.menu.merge_cells: 'Объединить ячейки'
+wysiwyg.menu.split_cell: 'Разделить ячейку'
+wysiwyg.menu.table_properties: 'Свойства таблицы'
+wysiwyg.modal.anchor.id: Идентификатор
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Удалить якорь'
+wysiwyg.modal.anchor.title: Якорь
+wysiwyg.modal.apply: Применить
+wysiwyg.modal.cell.align.bottom: 'По нижнему краю'
+wysiwyg.modal.cell.align.default: 'По умолчанию'
+wysiwyg.modal.cell.align.middle: 'По центру'
+wysiwyg.modal.cell.align.top: 'По верхнему краю'
+wysiwyg.modal.cell.bg_color: 'Цвет фона'
+wysiwyg.modal.cell.bg_color.none: 'По умолчанию'
+wysiwyg.modal.cell.col_width: 'Ширина столбца (px)'
+wysiwyg.modal.cell.col_width_placeholder: Автоматически
+wysiwyg.modal.cell.text_align: 'Горизонтальное выравнивание'
+wysiwyg.modal.cell.text_align.center: 'По центру'
+wysiwyg.modal.cell.text_align.justify: 'По ширине'
+wysiwyg.modal.cell.text_align.left: 'По левому краю'
+wysiwyg.modal.cell.text_align.right: 'По правому краю'
+wysiwyg.modal.cell.title: 'Свойства ячейки'
+wysiwyg.modal.cell.vertical_align: 'Вертикальное выравнивание'
+wysiwyg.modal.image.align: Выравнивание
+wysiwyg.modal.image.align.center: 'По центру'
+wysiwyg.modal.image.align.left: 'По левому краю'
+wysiwyg.modal.image.align.right: 'По правому краю'
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Альтернативный текст'
+wysiwyg.modal.image.browse: 'Обзор сервера'
+wysiwyg.modal.image.height: Высота
+wysiwyg.modal.image.margin: Отступ
+wysiwyg.modal.image.margin.medium: 'Средний (10px)'
+wysiwyg.modal.image.margin.none: Нет
+wysiwyg.modal.image.margin.small: 'Малый (5px)'
+wysiwyg.modal.image.preview: Предпросмотр
+wysiwyg.modal.image.title: 'Свойства изображения'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Ширина
+wysiwyg.modal.link.anchor_name: 'Имя якоря'
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'Добавить rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Цель
+wysiwyg.modal.link.target.blank: 'Новое окно (_blank)'
+wysiwyg.modal.link.target.default: 'По умолчанию'
+wysiwyg.modal.link.target.self: 'То же окно (_self)'
+wysiwyg.modal.link.title: 'Вставить ссылку'
+wysiwyg.modal.link.type: 'Тип ссылки'
+wysiwyg.modal.link.type.anchor: Якорь
+wysiwyg.modal.link.type.url: 'Веб-адрес'
+wysiwyg.modal.link.url: 'Веб-адрес (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Выравнивание таблицы'
+wysiwyg.modal.table.align_center: 'По центру'
+wysiwyg.modal.table.align_left: 'По левому краю'
+wysiwyg.modal.table.align_right: 'По правому краю'
+wysiwyg.modal.table.appearance: Оформление
+wysiwyg.modal.table.cols: 'Столбцы*'
+wysiwyg.modal.table.css_class: 'Класс CSS'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Строка заголовка'
+wysiwyg.modal.table.rows: 'Строки*'
+wysiwyg.modal.table.structure: Структура
+wysiwyg.modal.table.title: 'Свойства таблицы'
+wysiwyg.modal.table.width: 'Ширина таблицы'
+wysiwyg.modal.table.width_auto: Автоматически
+wysiwyg.modal.template.items.demo.desc: 'Простой демонстрационный шаблон'
+wysiwyg.modal.template.items.demo.title: 'Демонстрационный шаблон'
+wysiwyg.modal.template.items.table.desc: 'Таблица 2x1'
+wysiwyg.modal.template.items.table.title: 'Предзаполненная таблица'
+wysiwyg.modal.template.replace: 'Заменить текущее содержимое'
+wysiwyg.modal.template.select_helper: 'Выберите шаблон для открытия в редакторе'
+wysiwyg.modal.template.title: 'Шаблоны содержимого'
+wysiwyg.path.label: 'Путь к элементам'
+wysiwyg.placeholder: 'Начните писать …'
+wysiwyg.resize.label: 'Изменить размер области редактирования'
+wysiwyg.style.banner_info: 'Информационный блок'
+wysiwyg.style.banner_warning: 'Блок предупреждения'
+wysiwyg.style.button: Кнопка
+wysiwyg.style.button_label: Стили
+wysiwyg.style.main_title: 'Стили блока'
+wysiwyg.style.normal: Обычный
+wysiwyg.style.section.banners: Блоки
+wysiwyg.style.section.colors: Цвета
+wysiwyg.style.section.misc: Прочее
+wysiwyg.style.section.tables: Таблицы
+wysiwyg.style.table_dotted: 'Таблица с пунктирными линиями'
+wysiwyg.style.table_striped: 'Таблица с чередованием строк'
+wysiwyg.toolbar.align_center: 'По центру'
+wysiwyg.toolbar.align_justify: 'По ширине'
+wysiwyg.toolbar.align_left: 'По левому краю'
+wysiwyg.toolbar.align_right: 'По правому краю'
+wysiwyg.toolbar.anchor: Якорь
+wysiwyg.toolbar.blockquote: Цитата
+wysiwyg.toolbar.bold: Полужирный
+wysiwyg.toolbar.bullet_list: 'Маркированный список'
+wysiwyg.toolbar.color: Цвет
+wysiwyg.toolbar.copy: Копировать
+wysiwyg.toolbar.cut: Вырезать
+wysiwyg.toolbar.h1: 'Заголовок 1'
+wysiwyg.toolbar.h2: 'Заголовок 2'
+wysiwyg.toolbar.h3: 'Заголовок 3'
+wysiwyg.toolbar.image: Изображение
+wysiwyg.toolbar.image_text: 'Рис.'
+wysiwyg.toolbar.indent: 'Увеличить отступ'
+wysiwyg.toolbar.insert_template: 'Вставить шаблон'
+wysiwyg.toolbar.italic: Курсив
+wysiwyg.toolbar.link: Ссылка
+wysiwyg.toolbar.link_text: Ссылка
+wysiwyg.toolbar.list_tight: 'Компактный список (без интервалов между элементами)'
+wysiwyg.toolbar.ordered_list: 'Нумерованный список'
+wysiwyg.toolbar.outdent: 'Уменьшить отступ'
+wysiwyg.toolbar.paragraph: Абзац
+wysiwyg.toolbar.paste: Вставить
+wysiwyg.toolbar.redo: Повторить
+wysiwyg.toolbar.redo_text: Повторить
+wysiwyg.toolbar.source_mode: 'Режим исходного кода'
+wysiwyg.toolbar.strike: Зачёркнутый
+wysiwyg.toolbar.subscript: Подстрочный
+wysiwyg.toolbar.superscript: Надстрочный
+wysiwyg.toolbar.table_add: 'Добавить таблицу'
+wysiwyg.toolbar.table_delete: 'Удалить таблицу'
+wysiwyg.toolbar.table_text: Таблица
+wysiwyg.toolbar.underline: Подчёркнутый
+wysiwyg.toolbar.undo: Отменить
+wysiwyg.toolbar.undo_text: Отменить
+wysiwyg.toolbar.unlink: 'Удалить ссылку'
+wysiwyg.toolbar.unlink_text: 'Без ссылки'

@@ -9,6 +9,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- `UmanitTiptapBundle` translations for 33 more locales: bg, cs, da, de, el, es, fi, he, hr, hu, id, it, ja, ka, ko,
+  lo, ms, nl_BE, nl_NL, pl, pt, pt_BR, ro, ru, sk, sl, sr, sv, th, tr, vi, zh, zh_TW.
 - Tools are complete definitions: a `Tool` has a name, a title and a command (or a Twig component), and is listed
   by a builder of tools (`ToolsBuilderInterface`, autoconfigured; `ToolProviderInterface` to pick one by name).
   An application adds its own tools, or replaces one of the bundle by giving it the same name. See

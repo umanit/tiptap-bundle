@@ -1,0 +1,163 @@
+modal.cancel: ביטול
+modal.close: סגירה
+modal.validate: אשר
+wysiwyg.color.black: שחור
+wysiwyg.color.blue: כחול
+wysiwyg.bg_color.choose: 'צבע רקע'
+wysiwyg.bg_color.reset: 'איפוס צבע רקע'
+wysiwyg.color.choose: 'בחירת צבע'
+wysiwyg.color.green: ירוק
+wysiwyg.color.grey: אפור
+wysiwyg.color.grey_dark: 'אפור כהה'
+wysiwyg.color.grey_light: 'אפור בהיר'
+wysiwyg.color.indigo: אינדיגו
+wysiwyg.color.orange: כתום
+wysiwyg.color.pink: ורוד
+wysiwyg.color.purple: סגול
+wysiwyg.color.red: אדום
+wysiwyg.color.reset: 'איפוס צבע'
+wysiwyg.color.white: לבן
+wysiwyg.color.yellow: צהוב
+wysiwyg.diff.after: 'אחרי (מה שיישמר)'
+wysiwyg.diff.banner_lost: 'תוכן זה יאבד רכיבים בעת השמירה: {signals}.'
+wysiwyg.diff.banner_rewritten: 'תוכן זה ייכתב מחדש בעת השמירה, ללא אובדן עיצוב.'
+wysiwyg.diff.before: 'לפני (התוכן המקורי)'
+wysiwyg.diff.help: 'שורות עם הקידומת "-" מגיעות מהתוכן המקורי, ושורות עם הקידומת "+" הן מה שהעורך יצר ממנו.'
+wysiwyg.diff.show: 'הצגת ההבדלים'
+wysiwyg.diff.title: 'הבדלים מהתוכן המקורי'
+wysiwyg.error.unknown_tool: 'הכלי "{tool}" אינו נתמך'
+wysiwyg.font_size.choose: 'גודל גופן'
+wysiwyg.font_size.reset: 'גודל ברירת מחדל'
+wysiwyg.menu.add_row_after: 'הוספת שורה מתחת'
+wysiwyg.menu.add_row_before: 'הוספת שורה מעל'
+wysiwyg.menu.cell_properties: 'מאפייני תא'
+wysiwyg.menu.delete_table: 'מחיקת טבלה'
+wysiwyg.menu.merge_cells: 'מיזוג תאים'
+wysiwyg.menu.split_cell: 'פיצול תא'
+wysiwyg.menu.table_properties: 'מאפייני טבלה'
+wysiwyg.modal.anchor.id: מזהה
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'הסרת עוגן'
+wysiwyg.modal.anchor.title: עוגן
+wysiwyg.modal.apply: החל
+wysiwyg.modal.cell.align.bottom: למטה
+wysiwyg.modal.cell.align.default: 'ברירת מחדל'
+wysiwyg.modal.cell.align.middle: באמצע
+wysiwyg.modal.cell.align.top: למעלה
+wysiwyg.modal.cell.bg_color: 'צבע רקע'
+wysiwyg.modal.cell.bg_color.none: 'ברירת מחדל'
+wysiwyg.modal.cell.col_width: 'רוחב עמודה (px)'
+wysiwyg.modal.cell.col_width_placeholder: אוטומטי
+wysiwyg.modal.cell.text_align: 'יישור אופקי'
+wysiwyg.modal.cell.text_align.center: ממורכז
+wysiwyg.modal.cell.text_align.justify: 'מיושר לשני הצדדים'
+wysiwyg.modal.cell.text_align.left: שמאל
+wysiwyg.modal.cell.text_align.right: ימין
+wysiwyg.modal.cell.title: 'מאפייני תא'
+wysiwyg.modal.cell.vertical_align: 'יישור אנכי'
+wysiwyg.modal.image.align: יישור
+wysiwyg.modal.image.align.center: מרכז
+wysiwyg.modal.image.align.left: שמאל
+wysiwyg.modal.image.align.right: ימין
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'טקסט חלופי'
+wysiwyg.modal.image.browse: 'עיון בשרת'
+wysiwyg.modal.image.height: גובה
+wysiwyg.modal.image.margin: ריווח
+wysiwyg.modal.image.margin.medium: 'בינוני (10px)'
+wysiwyg.modal.image.margin.none: ללא
+wysiwyg.modal.image.margin.small: 'קטן (5px)'
+wysiwyg.modal.image.preview: 'תצוגה מקדימה'
+wysiwyg.modal.image.title: 'מאפייני תמונה'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: רוחב
+wysiwyg.modal.link.anchor_name: 'שם העוגן'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'הוספת rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: יעד
+wysiwyg.modal.link.target.blank: 'חלון חדש (_blank)'
+wysiwyg.modal.link.target.default: 'ברירת מחדל'
+wysiwyg.modal.link.target.self: 'אותו חלון (_self)'
+wysiwyg.modal.link.title: 'הוספת קישור'
+wysiwyg.modal.link.type: 'סוג קישור'
+wysiwyg.modal.link.type.anchor: עוגן
+wysiwyg.modal.link.type.url: 'כתובת אינטרנט'
+wysiwyg.modal.link.url: 'כתובת אינטרנט (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: אישור
+wysiwyg.modal.table.align: 'יישור טבלה'
+wysiwyg.modal.table.align_center: ממורכז
+wysiwyg.modal.table.align_left: שמאל
+wysiwyg.modal.table.align_right: ימין
+wysiwyg.modal.table.appearance: מראה
+wysiwyg.modal.table.cols: 'עמודות*'
+wysiwyg.modal.table.css_class: 'מחלקת CSS'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'עם שורת כותרת'
+wysiwyg.modal.table.rows: 'שורות*'
+wysiwyg.modal.table.structure: מבנה
+wysiwyg.modal.table.title: 'מאפייני טבלה'
+wysiwyg.modal.table.width: 'רוחב הטבלה'
+wysiwyg.modal.table.width_auto: אוטומטי
+wysiwyg.modal.template.items.demo.desc: 'תבנית הדגמה פשוטה'
+wysiwyg.modal.template.items.demo.title: 'תבנית הדגמה'
+wysiwyg.modal.template.items.table.desc: 'טבלה בגודל 2x1'
+wysiwyg.modal.template.items.table.title: 'טבלה ממולאת מראש'
+wysiwyg.modal.template.replace: 'החלפת התוכן הנוכחי'
+wysiwyg.modal.template.select_helper: 'בחרו את התבנית לפתיחה בעורך'
+wysiwyg.modal.template.title: 'תבניות תוכן'
+wysiwyg.path.label: 'נתיב הרכיבים'
+wysiwyg.placeholder: 'כתבו משהו …'
+wysiwyg.resize.label: 'שינוי גודל אזור העריכה'
+wysiwyg.style.banner_info: 'באנר מידע'
+wysiwyg.style.banner_warning: 'באנר אזהרה'
+wysiwyg.style.button: כפתור
+wysiwyg.style.button_label: סגנונות
+wysiwyg.style.main_title: 'סגנונות בלוק'
+wysiwyg.style.normal: רגיל
+wysiwyg.style.section.banners: באנרים
+wysiwyg.style.section.colors: צבעים
+wysiwyg.style.section.misc: שונות
+wysiwyg.style.section.tables: טבלאות
+wysiwyg.style.table_dotted: 'טבלה מנוקדת'
+wysiwyg.style.table_striped: 'טבלה מפוספסת'
+wysiwyg.toolbar.align_center: מרכוז
+wysiwyg.toolbar.align_justify: 'יישור לשני הצדדים'
+wysiwyg.toolbar.align_left: 'יישור לשמאל'
+wysiwyg.toolbar.align_right: 'יישור לימין'
+wysiwyg.toolbar.anchor: עוגן
+wysiwyg.toolbar.blockquote: ציטוט
+wysiwyg.toolbar.bold: מודגש
+wysiwyg.toolbar.bullet_list: 'רשימת תבליטים'
+wysiwyg.toolbar.color: צבע
+wysiwyg.toolbar.copy: העתקה
+wysiwyg.toolbar.cut: גזירה
+wysiwyg.toolbar.h1: 'כותרת 1'
+wysiwyg.toolbar.h2: 'כותרת 2'
+wysiwyg.toolbar.h3: 'כותרת 3'
+wysiwyg.toolbar.image: תמונה
+wysiwyg.toolbar.image_text: תמונה
+wysiwyg.toolbar.indent: 'הגדלת הזחה'
+wysiwyg.toolbar.insert_template: 'הוספת תבנית'
+wysiwyg.toolbar.italic: נטוי
+wysiwyg.toolbar.link: קישור
+wysiwyg.toolbar.link_text: קישור
+wysiwyg.toolbar.list_tight: 'רשימה קומפקטית (ללא רווח בין הפריטים)'
+wysiwyg.toolbar.ordered_list: 'רשימה ממוספרת'
+wysiwyg.toolbar.outdent: 'הקטנת הזחה'
+wysiwyg.toolbar.paragraph: פסקה
+wysiwyg.toolbar.paste: הדבקה
+wysiwyg.toolbar.redo: 'ביצוע חוזר'
+wysiwyg.toolbar.redo_text: חזור
+wysiwyg.toolbar.source_mode: 'מצב מקור'
+wysiwyg.toolbar.strike: 'קו חוצה'
+wysiwyg.toolbar.subscript: 'כתב תחתי'
+wysiwyg.toolbar.superscript: 'כתב עילי'
+wysiwyg.toolbar.table_add: 'הוספת טבלה'
+wysiwyg.toolbar.table_delete: 'מחיקת טבלה'
+wysiwyg.toolbar.table_text: טבלה
+wysiwyg.toolbar.underline: 'קו תחתון'
+wysiwyg.toolbar.undo: 'ביטול פעולה'
+wysiwyg.toolbar.undo_text: בטל
+wysiwyg.toolbar.unlink: 'הסרת קישור'
+wysiwyg.toolbar.unlink_text: 'בטל קישור'

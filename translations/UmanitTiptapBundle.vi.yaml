@@ -1,0 +1,163 @@
+modal.cancel: Hủy
+modal.close: Đóng
+modal.validate: 'Xác nhận'
+wysiwyg.color.black: Đen
+wysiwyg.color.blue: 'Xanh dương'
+wysiwyg.bg_color.choose: 'Màu nền'
+wysiwyg.bg_color.reset: 'Đặt lại màu nền'
+wysiwyg.color.choose: 'Chọn màu'
+wysiwyg.color.green: 'Xanh lá'
+wysiwyg.color.grey: Xám
+wysiwyg.color.grey_dark: 'Xám đậm'
+wysiwyg.color.grey_light: 'Xám nhạt'
+wysiwyg.color.indigo: Chàm
+wysiwyg.color.orange: Cam
+wysiwyg.color.pink: Hồng
+wysiwyg.color.purple: Tím
+wysiwyg.color.red: Đỏ
+wysiwyg.color.reset: 'Đặt lại màu'
+wysiwyg.color.white: Trắng
+wysiwyg.color.yellow: Vàng
+wysiwyg.diff.after: 'Sau (nội dung sẽ được lưu)'
+wysiwyg.diff.banner_lost: 'Nội dung này sẽ mất một số thành phần khi lưu: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Nội dung này sẽ được viết lại khi lưu mà không mất định dạng nào.'
+wysiwyg.diff.before: 'Trước (nội dung gốc)'
+wysiwyg.diff.help: 'Các dòng bắt đầu bằng "-" đến từ nội dung gốc, các dòng bắt đầu bằng "+" là kết quả trình soạn thảo tạo ra từ nội dung đó.'
+wysiwyg.diff.show: 'Hiển thị các khác biệt'
+wysiwyg.diff.title: 'Khác biệt so với nội dung gốc'
+wysiwyg.error.unknown_tool: 'Công cụ "{tool}" không được hỗ trợ'
+wysiwyg.font_size.choose: 'Cỡ chữ'
+wysiwyg.font_size.reset: 'Cỡ mặc định'
+wysiwyg.menu.add_row_after: 'Chèn hàng bên dưới'
+wysiwyg.menu.add_row_before: 'Chèn hàng bên trên'
+wysiwyg.menu.cell_properties: 'Thuộc tính ô'
+wysiwyg.menu.delete_table: 'Xóa bảng'
+wysiwyg.menu.merge_cells: 'Gộp ô'
+wysiwyg.menu.split_cell: 'Tách ô'
+wysiwyg.menu.table_properties: 'Thuộc tính bảng'
+wysiwyg.modal.anchor.id: 'Mã định danh'
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Xóa neo'
+wysiwyg.modal.anchor.title: Neo
+wysiwyg.modal.apply: 'Áp dụng'
+wysiwyg.modal.cell.align.bottom: Dưới
+wysiwyg.modal.cell.align.default: 'Mặc định'
+wysiwyg.modal.cell.align.middle: Giữa
+wysiwyg.modal.cell.align.top: Trên
+wysiwyg.modal.cell.bg_color: 'Màu nền'
+wysiwyg.modal.cell.bg_color.none: 'Mặc định'
+wysiwyg.modal.cell.col_width: 'Chiều rộng cột (px)'
+wysiwyg.modal.cell.col_width_placeholder: 'Tự động'
+wysiwyg.modal.cell.text_align: 'Căn lề ngang'
+wysiwyg.modal.cell.text_align.center: 'Căn giữa'
+wysiwyg.modal.cell.text_align.justify: 'Căn đều'
+wysiwyg.modal.cell.text_align.left: 'Căn trái'
+wysiwyg.modal.cell.text_align.right: 'Căn phải'
+wysiwyg.modal.cell.title: 'Thuộc tính ô'
+wysiwyg.modal.cell.vertical_align: 'Căn lề dọc'
+wysiwyg.modal.image.align: 'Căn lề'
+wysiwyg.modal.image.align.center: Giữa
+wysiwyg.modal.image.align.left: Trái
+wysiwyg.modal.image.align.right: Phải
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Văn bản thay thế'
+wysiwyg.modal.image.browse: 'Duyệt máy chủ'
+wysiwyg.modal.image.height: 'Chiều cao'
+wysiwyg.modal.image.margin: 'Khoảng cách'
+wysiwyg.modal.image.margin.medium: 'Vừa (10px)'
+wysiwyg.modal.image.margin.none: Không
+wysiwyg.modal.image.margin.small: 'Nhỏ (5px)'
+wysiwyg.modal.image.preview: 'Xem trước'
+wysiwyg.modal.image.title: 'Thuộc tính hình ảnh'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: 'Chiều rộng'
+wysiwyg.modal.link.anchor_name: 'Tên neo'
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'Thêm rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Đích
+wysiwyg.modal.link.target.blank: 'Cửa sổ mới (_blank)'
+wysiwyg.modal.link.target.default: 'Mặc định'
+wysiwyg.modal.link.target.self: 'Cùng cửa sổ (_self)'
+wysiwyg.modal.link.title: 'Chèn liên kết'
+wysiwyg.modal.link.type: 'Loại liên kết'
+wysiwyg.modal.link.type.anchor: Neo
+wysiwyg.modal.link.type.url: 'URL web'
+wysiwyg.modal.link.url: 'Địa chỉ web (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Căn lề bảng'
+wysiwyg.modal.table.align_center: 'Căn giữa'
+wysiwyg.modal.table.align_left: 'Căn trái'
+wysiwyg.modal.table.align_right: 'Căn phải'
+wysiwyg.modal.table.appearance: 'Giao diện'
+wysiwyg.modal.table.cols: 'Số cột*'
+wysiwyg.modal.table.css_class: 'Lớp CSS'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Có hàng tiêu đề'
+wysiwyg.modal.table.rows: 'Số hàng*'
+wysiwyg.modal.table.structure: 'Cấu trúc'
+wysiwyg.modal.table.title: 'Thuộc tính bảng'
+wysiwyg.modal.table.width: 'Chiều rộng bảng'
+wysiwyg.modal.table.width_auto: 'Tự động'
+wysiwyg.modal.template.items.demo.desc: 'Mẫu demo đơn giản'
+wysiwyg.modal.template.items.demo.title: 'Mẫu demo'
+wysiwyg.modal.template.items.table.desc: 'Bảng 2x1'
+wysiwyg.modal.template.items.table.title: 'Bảng điền sẵn'
+wysiwyg.modal.template.replace: 'Thay thế nội dung hiện tại'
+wysiwyg.modal.template.select_helper: 'Vui lòng chọn mẫu để mở trong trình soạn thảo'
+wysiwyg.modal.template.title: 'Mẫu nội dung'
+wysiwyg.path.label: 'Đường dẫn các thành phần'
+wysiwyg.placeholder: 'Viết gì đó …'
+wysiwyg.resize.label: 'Đổi kích thước vùng soạn thảo'
+wysiwyg.style.banner_info: 'Banner thông tin'
+wysiwyg.style.banner_warning: 'Banner cảnh báo'
+wysiwyg.style.button: Nút
+wysiwyg.style.button_label: Kiểu
+wysiwyg.style.main_title: 'Kiểu khối'
+wysiwyg.style.normal: 'Bình thường'
+wysiwyg.style.section.banners: Banner
+wysiwyg.style.section.colors: 'Màu sắc'
+wysiwyg.style.section.misc: Khác
+wysiwyg.style.section.tables: Bảng
+wysiwyg.style.table_dotted: 'Bảng chấm'
+wysiwyg.style.table_striped: 'Bảng sọc'
+wysiwyg.toolbar.align_center: 'Căn giữa'
+wysiwyg.toolbar.align_justify: 'Căn đều'
+wysiwyg.toolbar.align_left: 'Căn trái'
+wysiwyg.toolbar.align_right: 'Căn phải'
+wysiwyg.toolbar.anchor: Neo
+wysiwyg.toolbar.blockquote: 'Trích dẫn'
+wysiwyg.toolbar.bold: 'In đậm'
+wysiwyg.toolbar.bullet_list: 'Danh sách dấu đầu dòng'
+wysiwyg.toolbar.color: Màu
+wysiwyg.toolbar.copy: 'Sao chép'
+wysiwyg.toolbar.cut: Cắt
+wysiwyg.toolbar.h1: 'Tiêu đề 1'
+wysiwyg.toolbar.h2: 'Tiêu đề 2'
+wysiwyg.toolbar.h3: 'Tiêu đề 3'
+wysiwyg.toolbar.image: 'Hình ảnh'
+wysiwyg.toolbar.image_text: Ảnh
+wysiwyg.toolbar.indent: 'Tăng thụt lề'
+wysiwyg.toolbar.insert_template: 'Chèn mẫu'
+wysiwyg.toolbar.italic: 'In nghiêng'
+wysiwyg.toolbar.link: 'Liên kết'
+wysiwyg.toolbar.link_text: 'Liên kết'
+wysiwyg.toolbar.list_tight: 'Danh sách gọn (không có khoảng cách giữa các mục)'
+wysiwyg.toolbar.ordered_list: 'Danh sách đánh số'
+wysiwyg.toolbar.outdent: 'Giảm thụt lề'
+wysiwyg.toolbar.paragraph: 'Đoạn văn'
+wysiwyg.toolbar.paste: Dán
+wysiwyg.toolbar.redo: 'Làm lại'
+wysiwyg.toolbar.redo_text: 'Làm lại'
+wysiwyg.toolbar.source_mode: 'Chế độ nguồn'
+wysiwyg.toolbar.strike: 'Gạch ngang'
+wysiwyg.toolbar.subscript: 'Chỉ số dưới'
+wysiwyg.toolbar.superscript: 'Chỉ số trên'
+wysiwyg.toolbar.table_add: 'Thêm bảng'
+wysiwyg.toolbar.table_delete: 'Xóa bảng'
+wysiwyg.toolbar.table_text: Bảng
+wysiwyg.toolbar.underline: 'Gạch chân'
+wysiwyg.toolbar.undo: 'Hoàn tác'
+wysiwyg.toolbar.undo_text: 'Hoàn tác'
+wysiwyg.toolbar.unlink: 'Xóa liên kết'
+wysiwyg.toolbar.unlink_text: 'Bỏ liên kết'

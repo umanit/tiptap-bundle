@@ -1,0 +1,163 @@
+modal.cancel: İptal
+modal.close: Kapat
+modal.validate: Onayla
+wysiwyg.color.black: Siyah
+wysiwyg.color.blue: Mavi
+wysiwyg.bg_color.choose: 'Arka plan rengi'
+wysiwyg.bg_color.reset: 'Arka plan rengini sıfırla'
+wysiwyg.color.choose: 'Renk seçin'
+wysiwyg.color.green: Yeşil
+wysiwyg.color.grey: Gri
+wysiwyg.color.grey_dark: 'Koyu gri'
+wysiwyg.color.grey_light: 'Açık gri'
+wysiwyg.color.indigo: 'Çivit mavisi'
+wysiwyg.color.orange: Turuncu
+wysiwyg.color.pink: Pembe
+wysiwyg.color.purple: Mor
+wysiwyg.color.red: Kırmızı
+wysiwyg.color.reset: 'Rengi sıfırla'
+wysiwyg.color.white: Beyaz
+wysiwyg.color.yellow: Sarı
+wysiwyg.diff.after: 'Sonra (kaydedilecek olan)'
+wysiwyg.diff.banner_lost: 'Bu içerik kaydedildiğinde öğelerini kaybedecek: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Bu içerik kaydedildiğinde hiçbir biçimlendirme kaybı olmadan yeniden yazılacak.'
+wysiwyg.diff.before: 'Önce (özgün içerik)'
+wysiwyg.diff.help: 'Başında "-" bulunan satırlar özgün içerikten, başında "+" bulunan satırlar ise düzenleyicinin ondan ürettiği içerikten gelir.'
+wysiwyg.diff.show: 'Farkları göster'
+wysiwyg.diff.title: 'Özgün içerikle farklar'
+wysiwyg.error.unknown_tool: '"{tool}" aracı desteklenmiyor'
+wysiwyg.font_size.choose: 'Yazı tipi boyutu'
+wysiwyg.font_size.reset: 'Varsayılan boyut'
+wysiwyg.menu.add_row_after: 'Altına satır ekle'
+wysiwyg.menu.add_row_before: 'Üstüne satır ekle'
+wysiwyg.menu.cell_properties: 'Hücre özellikleri'
+wysiwyg.menu.delete_table: 'Tabloyu sil'
+wysiwyg.menu.merge_cells: 'Hücreleri birleştir'
+wysiwyg.menu.split_cell: 'Hücreyi böl'
+wysiwyg.menu.table_properties: 'Tablo özellikleri'
+wysiwyg.modal.anchor.id: Tanımlayıcı
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Yer işaretini kaldır'
+wysiwyg.modal.anchor.title: 'Yer işareti'
+wysiwyg.modal.apply: Uygula
+wysiwyg.modal.cell.align.bottom: Alt
+wysiwyg.modal.cell.align.default: Varsayılan
+wysiwyg.modal.cell.align.middle: Orta
+wysiwyg.modal.cell.align.top: Üst
+wysiwyg.modal.cell.bg_color: 'Arka plan rengi'
+wysiwyg.modal.cell.bg_color.none: Varsayılan
+wysiwyg.modal.cell.col_width: 'Sütun genişliği (px)'
+wysiwyg.modal.cell.col_width_placeholder: Otomatik
+wysiwyg.modal.cell.text_align: 'Yatay hizalama'
+wysiwyg.modal.cell.text_align.center: Ortalı
+wysiwyg.modal.cell.text_align.justify: 'İki yana yaslı'
+wysiwyg.modal.cell.text_align.left: Sol
+wysiwyg.modal.cell.text_align.right: Sağ
+wysiwyg.modal.cell.title: 'Hücre özellikleri'
+wysiwyg.modal.cell.vertical_align: 'Dikey hizalama'
+wysiwyg.modal.image.align: Hizalama
+wysiwyg.modal.image.align.center: Orta
+wysiwyg.modal.image.align.left: Sol
+wysiwyg.modal.image.align.right: Sağ
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Alternatif metin'
+wysiwyg.modal.image.browse: 'Sunucuya göz at'
+wysiwyg.modal.image.height: Yükseklik
+wysiwyg.modal.image.margin: Boşluk
+wysiwyg.modal.image.margin.medium: 'Orta (10px)'
+wysiwyg.modal.image.margin.none: Yok
+wysiwyg.modal.image.margin.small: 'Küçük (5px)'
+wysiwyg.modal.image.preview: Önizleme
+wysiwyg.modal.image.title: 'Resim özellikleri'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Genişlik
+wysiwyg.modal.link.anchor_name: 'Yer işareti adı'
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'rel="noopener noreferrer nofollow" ekle'
+wysiwyg.modal.link.target: Hedef
+wysiwyg.modal.link.target.blank: 'Yeni pencere (_blank)'
+wysiwyg.modal.link.target.default: Varsayılan
+wysiwyg.modal.link.target.self: 'Aynı pencere (_self)'
+wysiwyg.modal.link.title: 'Bağlantı ekle'
+wysiwyg.modal.link.type: 'Bağlantı türü'
+wysiwyg.modal.link.type.anchor: 'Yer işareti'
+wysiwyg.modal.link.type.url: 'Web adresi'
+wysiwyg.modal.link.url: 'Web adresi (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: Tamam
+wysiwyg.modal.table.align: 'Tablo hizalama'
+wysiwyg.modal.table.align_center: Ortalı
+wysiwyg.modal.table.align_left: Sol
+wysiwyg.modal.table.align_right: Sağ
+wysiwyg.modal.table.appearance: Görünüm
+wysiwyg.modal.table.cols: 'Sütunlar*'
+wysiwyg.modal.table.css_class: 'CSS sınıfı'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Başlık satırlı'
+wysiwyg.modal.table.rows: 'Satırlar*'
+wysiwyg.modal.table.structure: Yapı
+wysiwyg.modal.table.title: 'Tablo özellikleri'
+wysiwyg.modal.table.width: 'Tablo genişliği'
+wysiwyg.modal.table.width_auto: Otomatik
+wysiwyg.modal.template.items.demo.desc: 'Basit demo şablonu'
+wysiwyg.modal.template.items.demo.title: 'Demo şablonu'
+wysiwyg.modal.template.items.table.desc: '2x1 tablo'
+wysiwyg.modal.template.items.table.title: 'Önceden doldurulmuş tablo'
+wysiwyg.modal.template.replace: 'Geçerli içeriği değiştir'
+wysiwyg.modal.template.select_helper: 'Düzenleyicide açılacak şablonu seçin'
+wysiwyg.modal.template.title: 'İçerik şablonları'
+wysiwyg.path.label: 'Öğelerin yolu'
+wysiwyg.placeholder: 'Bir şeyler yazın …'
+wysiwyg.resize.label: 'Düzenleme alanını yeniden boyutlandır'
+wysiwyg.style.banner_info: 'Bilgi bandı'
+wysiwyg.style.banner_warning: 'Uyarı bandı'
+wysiwyg.style.button: Düğme
+wysiwyg.style.button_label: Stiller
+wysiwyg.style.main_title: 'Blok stilleri'
+wysiwyg.style.normal: Normal
+wysiwyg.style.section.banners: Bantlar
+wysiwyg.style.section.colors: Renkler
+wysiwyg.style.section.misc: Çeşitli
+wysiwyg.style.section.tables: Tablolar
+wysiwyg.style.table_dotted: 'Noktalı tablo'
+wysiwyg.style.table_striped: 'Çizgili tablo'
+wysiwyg.toolbar.align_center: Ortala
+wysiwyg.toolbar.align_justify: 'İki yana yasla'
+wysiwyg.toolbar.align_left: 'Sola yasla'
+wysiwyg.toolbar.align_right: 'Sağa yasla'
+wysiwyg.toolbar.anchor: 'Yer işareti'
+wysiwyg.toolbar.blockquote: Alıntı
+wysiwyg.toolbar.bold: Kalın
+wysiwyg.toolbar.bullet_list: 'Madde işaretli liste'
+wysiwyg.toolbar.color: Renk
+wysiwyg.toolbar.copy: Kopyala
+wysiwyg.toolbar.cut: Kes
+wysiwyg.toolbar.h1: 'Başlık 1'
+wysiwyg.toolbar.h2: 'Başlık 2'
+wysiwyg.toolbar.h3: 'Başlık 3'
+wysiwyg.toolbar.image: Resim
+wysiwyg.toolbar.image_text: Resim
+wysiwyg.toolbar.indent: 'Girintiyi artır'
+wysiwyg.toolbar.insert_template: 'Şablon ekle'
+wysiwyg.toolbar.italic: İtalik
+wysiwyg.toolbar.link: Bağlantı
+wysiwyg.toolbar.link_text: Bağlantı
+wysiwyg.toolbar.list_tight: 'Sıkı liste (öğeler arasında boşluk yok)'
+wysiwyg.toolbar.ordered_list: 'Numaralı liste'
+wysiwyg.toolbar.outdent: 'Girintiyi azalt'
+wysiwyg.toolbar.paragraph: Paragraf
+wysiwyg.toolbar.paste: Yapıştır
+wysiwyg.toolbar.redo: Yinele
+wysiwyg.toolbar.redo_text: Yinele
+wysiwyg.toolbar.source_mode: 'Kaynak modu'
+wysiwyg.toolbar.strike: 'Üstü çizili'
+wysiwyg.toolbar.subscript: 'Alt simge'
+wysiwyg.toolbar.superscript: 'Üst simge'
+wysiwyg.toolbar.table_add: 'Tablo ekle'
+wysiwyg.toolbar.table_delete: 'Tabloyu sil'
+wysiwyg.toolbar.table_text: Tablo
+wysiwyg.toolbar.underline: 'Altı çizili'
+wysiwyg.toolbar.undo: 'Geri al'
+wysiwyg.toolbar.undo_text: 'Geri al'
+wysiwyg.toolbar.unlink: 'Bağlantıyı kaldır'
+wysiwyg.toolbar.unlink_text: Kaldır

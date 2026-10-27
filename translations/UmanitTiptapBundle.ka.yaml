@@ -1,0 +1,163 @@
+modal.cancel: გაუქმება
+modal.close: დახურვა
+modal.validate: დადასტურება
+wysiwyg.color.black: შავი
+wysiwyg.color.blue: ლურჯი
+wysiwyg.bg_color.choose: 'ფონის ფერი'
+wysiwyg.bg_color.reset: 'ფონის ფერის გადაყენება'
+wysiwyg.color.choose: 'აირჩიეთ ფერი'
+wysiwyg.color.green: მწვანე
+wysiwyg.color.grey: ნაცრისფერი
+wysiwyg.color.grey_dark: 'მუქი ნაცრისფერი'
+wysiwyg.color.grey_light: 'ღია ნაცრისფერი'
+wysiwyg.color.indigo: ინდიგო
+wysiwyg.color.orange: ნარინჯისფერი
+wysiwyg.color.pink: ვარდისფერი
+wysiwyg.color.purple: იისფერი
+wysiwyg.color.red: წითელი
+wysiwyg.color.reset: 'ფერის გადაყენება'
+wysiwyg.color.white: თეთრი
+wysiwyg.color.yellow: ყვითელი
+wysiwyg.diff.after: 'შემდეგ (რა შეინახება)'
+wysiwyg.diff.banner_lost: 'შენახვისას ამ შიგთავსს დაეკარგება ელემენტები: {signals}.'
+wysiwyg.diff.banner_rewritten: 'შენახვისას ეს შიგთავსი გადაიწერება ფორმატირების დაკარგვის გარეშე.'
+wysiwyg.diff.before: 'მანამდე (თავდაპირველი შიგთავსი)'
+wysiwyg.diff.help: '"-"-ით დაწყებული ხაზები თავდაპირველი შიგთავსიდანაა, "+"-ით დაწყებული ხაზები კი რედაქტორის შედეგია.'
+wysiwyg.diff.show: 'განსხვავებების ჩვენება'
+wysiwyg.diff.title: 'განსხვავებები თავდაპირველ შიგთავსთან'
+wysiwyg.error.unknown_tool: 'ხელსაწყო "{tool}" მხარდაჭერილი არ არის'
+wysiwyg.font_size.choose: 'შრიფტის ზომა'
+wysiwyg.font_size.reset: 'ნაგულისხმევი ზომა'
+wysiwyg.menu.add_row_after: 'რიგის დამატება ქვემოთ'
+wysiwyg.menu.add_row_before: 'რიგის დამატება ზემოთ'
+wysiwyg.menu.cell_properties: 'უჯრის თვისებები'
+wysiwyg.menu.delete_table: 'ცხრილის წაშლა'
+wysiwyg.menu.merge_cells: 'უჯრების გაერთიანება'
+wysiwyg.menu.split_cell: 'უჯრის გაყოფა'
+wysiwyg.menu.table_properties: 'ცხრილის თვისებები'
+wysiwyg.modal.anchor.id: იდენტიფიკატორი
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'ღუზის წაშლა'
+wysiwyg.modal.anchor.title: ღუზა
+wysiwyg.modal.apply: გამოყენება
+wysiwyg.modal.cell.align.bottom: ქვემოთ
+wysiwyg.modal.cell.align.default: ნაგულისხმევი
+wysiwyg.modal.cell.align.middle: შუაში
+wysiwyg.modal.cell.align.top: ზემოთ
+wysiwyg.modal.cell.bg_color: 'ფონის ფერი'
+wysiwyg.modal.cell.bg_color.none: ნაგულისხმევი
+wysiwyg.modal.cell.col_width: 'სვეტის სიგანე (px)'
+wysiwyg.modal.cell.col_width_placeholder: ავტომატური
+wysiwyg.modal.cell.text_align: 'ჰორიზონტალური განლაგება'
+wysiwyg.modal.cell.text_align.center: ცენტრში
+wysiwyg.modal.cell.text_align.justify: 'სრულად განსწორებული'
+wysiwyg.modal.cell.text_align.left: მარცხნივ
+wysiwyg.modal.cell.text_align.right: მარჯვნივ
+wysiwyg.modal.cell.title: 'უჯრის თვისებები'
+wysiwyg.modal.cell.vertical_align: 'ვერტიკალური განლაგება'
+wysiwyg.modal.image.align: განლაგება
+wysiwyg.modal.image.align.center: ცენტრში
+wysiwyg.modal.image.align.left: მარცხნივ
+wysiwyg.modal.image.align.right: მარჯვნივ
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'ალტერნატიული ტექსტი'
+wysiwyg.modal.image.browse: 'სერვერზე დათვალიერება'
+wysiwyg.modal.image.height: სიმაღლე
+wysiwyg.modal.image.margin: დაშორება
+wysiwyg.modal.image.margin.medium: 'საშუალო (10px)'
+wysiwyg.modal.image.margin.none: არცერთი
+wysiwyg.modal.image.margin.small: 'მცირე (5px)'
+wysiwyg.modal.image.preview: გადახედვა
+wysiwyg.modal.image.title: 'სურათის თვისებები'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: სიგანე
+wysiwyg.modal.link.anchor_name: 'ღუზის სახელი'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'rel="noopener noreferrer nofollow"-ის დამატება'
+wysiwyg.modal.link.target: სამიზნე
+wysiwyg.modal.link.target.blank: 'ახალი ფანჯარა (_blank)'
+wysiwyg.modal.link.target.default: ნაგულისხმევი
+wysiwyg.modal.link.target.self: 'იგივე ფანჯარა (_self)'
+wysiwyg.modal.link.title: 'ბმულის ჩასმა'
+wysiwyg.modal.link.type: 'ბმულის ტიპი'
+wysiwyg.modal.link.type.anchor: ღუზა
+wysiwyg.modal.link.type.url: 'ვებ URL'
+wysiwyg.modal.link.url: 'ვებ მისამართი (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: 'OK'
+wysiwyg.modal.table.align: 'ცხრილის განლაგება'
+wysiwyg.modal.table.align_center: ცენტრში
+wysiwyg.modal.table.align_left: მარცხნივ
+wysiwyg.modal.table.align_right: მარჯვნივ
+wysiwyg.modal.table.appearance: იერსახე
+wysiwyg.modal.table.cols: 'სვეტები*'
+wysiwyg.modal.table.css_class: 'CSS კლასი'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'სათაურის რიგით'
+wysiwyg.modal.table.rows: 'რიგები*'
+wysiwyg.modal.table.structure: სტრუქტურა
+wysiwyg.modal.table.title: 'ცხრილის თვისებები'
+wysiwyg.modal.table.width: 'ცხრილის სიგანე'
+wysiwyg.modal.table.width_auto: ავტომატური
+wysiwyg.modal.template.items.demo.desc: 'მარტივი დემო შაბლონი'
+wysiwyg.modal.template.items.demo.title: 'დემო შაბლონი'
+wysiwyg.modal.template.items.table.desc: '2x1 ცხრილი'
+wysiwyg.modal.template.items.table.title: 'წინასწარ შევსებული ცხრილი'
+wysiwyg.modal.template.replace: 'მიმდინარე შიგთავსის ჩანაცვლება'
+wysiwyg.modal.template.select_helper: 'აირჩიეთ შაბლონი რედაქტორში გასახსნელად'
+wysiwyg.modal.template.title: 'შიგთავსის შაბლონები'
+wysiwyg.path.label: 'ელემენტების გზა'
+wysiwyg.placeholder: 'დაწერეთ რამე …'
+wysiwyg.resize.label: 'რედაქტირების არეალის ზომის შეცვლა'
+wysiwyg.style.banner_info: 'საინფორმაციო ბანერი'
+wysiwyg.style.banner_warning: 'გამაფრთხილებელი ბანერი'
+wysiwyg.style.button: ღილაკი
+wysiwyg.style.button_label: სტილები
+wysiwyg.style.main_title: 'ბლოკის სტილები'
+wysiwyg.style.normal: ჩვეულებრივი
+wysiwyg.style.section.banners: ბანერები
+wysiwyg.style.section.colors: ფერები
+wysiwyg.style.section.misc: სხვადასხვა
+wysiwyg.style.section.tables: ცხრილები
+wysiwyg.style.table_dotted: 'წერტილოვანი ცხრილი'
+wysiwyg.style.table_striped: 'ზოლებიანი ცხრილი'
+wysiwyg.toolbar.align_center: ცენტრში
+wysiwyg.toolbar.align_justify: 'სრულად განსწორება'
+wysiwyg.toolbar.align_left: მარცხნივ
+wysiwyg.toolbar.align_right: მარჯვნივ
+wysiwyg.toolbar.anchor: ღუზა
+wysiwyg.toolbar.blockquote: ციტატა
+wysiwyg.toolbar.bold: თამამი
+wysiwyg.toolbar.bullet_list: 'მარკირებული სია'
+wysiwyg.toolbar.color: ფერი
+wysiwyg.toolbar.copy: კოპირება
+wysiwyg.toolbar.cut: ამოჭრა
+wysiwyg.toolbar.h1: 'სათაური 1'
+wysiwyg.toolbar.h2: 'სათაური 2'
+wysiwyg.toolbar.h3: 'სათაური 3'
+wysiwyg.toolbar.image: სურათი
+wysiwyg.toolbar.image_text: 'სურ.'
+wysiwyg.toolbar.indent: 'შეწევის გაზრდა'
+wysiwyg.toolbar.insert_template: 'შაბლონის ჩასმა'
+wysiwyg.toolbar.italic: დახრილი
+wysiwyg.toolbar.link: ბმული
+wysiwyg.toolbar.link_text: ბმული
+wysiwyg.toolbar.list_tight: 'კომპაქტური სია (ელემენტებს შორის დაშორების გარეშე)'
+wysiwyg.toolbar.ordered_list: 'დანომრილი სია'
+wysiwyg.toolbar.outdent: 'შეწევის შემცირება'
+wysiwyg.toolbar.paragraph: აბზაცი
+wysiwyg.toolbar.paste: ჩასმა
+wysiwyg.toolbar.redo: გამეორება
+wysiwyg.toolbar.redo_text: გამეორება
+wysiwyg.toolbar.source_mode: 'საწყისი კოდის რეჟიმი'
+wysiwyg.toolbar.strike: გადახაზული
+wysiwyg.toolbar.subscript: 'ქვედა ინდექსი'
+wysiwyg.toolbar.superscript: 'ზედა ინდექსი'
+wysiwyg.toolbar.table_add: 'ცხრილის დამატება'
+wysiwyg.toolbar.table_delete: 'ცხრილის წაშლა'
+wysiwyg.toolbar.table_text: ცხრილი
+wysiwyg.toolbar.underline: ხაზგასმული
+wysiwyg.toolbar.undo: დაბრუნება
+wysiwyg.toolbar.undo_text: დაბრუნება
+wysiwyg.toolbar.unlink: 'ბმულის წაშლა'
+wysiwyg.toolbar.unlink_text: 'ბმულის მოხსნა'

@@ -1,0 +1,163 @@
+modal.cancel: Odustani
+modal.close: Zatvori
+modal.validate: Potvrdi
+wysiwyg.color.black: Crna
+wysiwyg.color.blue: Plava
+wysiwyg.bg_color.choose: 'Boja pozadine'
+wysiwyg.bg_color.reset: 'Poništi boju pozadine'
+wysiwyg.color.choose: 'Odaberi boju'
+wysiwyg.color.green: Zelena
+wysiwyg.color.grey: Siva
+wysiwyg.color.grey_dark: Tamnosiva
+wysiwyg.color.grey_light: Svijetlosiva
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Narančasta
+wysiwyg.color.pink: Roza
+wysiwyg.color.purple: Ljubičasta
+wysiwyg.color.red: Crvena
+wysiwyg.color.reset: 'Poništi boju'
+wysiwyg.color.white: Bijela
+wysiwyg.color.yellow: Žuta
+wysiwyg.diff.after: 'Poslije (što će biti spremljeno)'
+wysiwyg.diff.banner_lost: 'Ovaj sadržaj će izgubiti elemente pri spremanju: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Ovaj sadržaj će biti prepisan pri spremanju, bez gubitka oblikovanja.'
+wysiwyg.diff.before: 'Prije (izvorni sadržaj)'
+wysiwyg.diff.help: 'Retci s prefiksom "-" potječu iz izvornog sadržaja, a retci s prefiksom "+" prikazuju što je uređivač napravio od njega.'
+wysiwyg.diff.show: 'Prikaži razlike'
+wysiwyg.diff.title: 'Razlike u odnosu na izvorni sadržaj'
+wysiwyg.error.unknown_tool: 'Alat "{tool}" nije podržan'
+wysiwyg.font_size.choose: 'Veličina fonta'
+wysiwyg.font_size.reset: 'Zadana veličina'
+wysiwyg.menu.add_row_after: 'Umetni redak ispod'
+wysiwyg.menu.add_row_before: 'Umetni redak iznad'
+wysiwyg.menu.cell_properties: 'Svojstva ćelije'
+wysiwyg.menu.delete_table: 'Izbriši tablicu'
+wysiwyg.menu.merge_cells: 'Spoji ćelije'
+wysiwyg.menu.split_cell: 'Podijeli ćeliju'
+wysiwyg.menu.table_properties: 'Svojstva tablice'
+wysiwyg.modal.anchor.id: Identifikator
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'Ukloni sidro'
+wysiwyg.modal.anchor.title: Sidro
+wysiwyg.modal.apply: Primijeni
+wysiwyg.modal.cell.align.bottom: Dolje
+wysiwyg.modal.cell.align.default: Zadano
+wysiwyg.modal.cell.align.middle: Sredina
+wysiwyg.modal.cell.align.top: Gore
+wysiwyg.modal.cell.bg_color: 'Boja pozadine'
+wysiwyg.modal.cell.bg_color.none: Zadano
+wysiwyg.modal.cell.col_width: 'Širina stupca (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automatski
+wysiwyg.modal.cell.text_align: 'Vodoravno poravnanje'
+wysiwyg.modal.cell.text_align.center: Centrirano
+wysiwyg.modal.cell.text_align.justify: Obostrano
+wysiwyg.modal.cell.text_align.left: Lijevo
+wysiwyg.modal.cell.text_align.right: Desno
+wysiwyg.modal.cell.title: 'Svojstva ćelije'
+wysiwyg.modal.cell.vertical_align: 'Okomito poravnanje'
+wysiwyg.modal.image.align: Poravnanje
+wysiwyg.modal.image.align.center: Sredina
+wysiwyg.modal.image.align.left: Lijevo
+wysiwyg.modal.image.align.right: Desno
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Alternativni tekst'
+wysiwyg.modal.image.browse: 'Pregledaj poslužitelj'
+wysiwyg.modal.image.height: Visina
+wysiwyg.modal.image.margin: Razmak
+wysiwyg.modal.image.margin.medium: 'Srednji (10px)'
+wysiwyg.modal.image.margin.none: Nema
+wysiwyg.modal.image.margin.small: 'Mali (5px)'
+wysiwyg.modal.image.preview: Pretpregled
+wysiwyg.modal.image.title: 'Svojstva slike'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Širina
+wysiwyg.modal.link.anchor_name: 'Naziv sidra'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'Dodaj rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Cilj
+wysiwyg.modal.link.target.blank: 'Novi prozor (_blank)'
+wysiwyg.modal.link.target.default: Zadano
+wysiwyg.modal.link.target.self: 'Isti prozor (_self)'
+wysiwyg.modal.link.title: 'Umetni poveznicu'
+wysiwyg.modal.link.type: 'Vrsta poveznice'
+wysiwyg.modal.link.type.anchor: Sidro
+wysiwyg.modal.link.type.url: 'Web URL'
+wysiwyg.modal.link.url: 'Web adresa (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Poravnanje tablice'
+wysiwyg.modal.table.align_center: Centrirano
+wysiwyg.modal.table.align_left: Lijevo
+wysiwyg.modal.table.align_right: Desno
+wysiwyg.modal.table.appearance: Izgled
+wysiwyg.modal.table.cols: 'Stupci*'
+wysiwyg.modal.table.css_class: 'CSS klasa'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'sa zaglavnim retkom'
+wysiwyg.modal.table.rows: 'Retci*'
+wysiwyg.modal.table.structure: Struktura
+wysiwyg.modal.table.title: 'Svojstva tablice'
+wysiwyg.modal.table.width: 'Širina tablice'
+wysiwyg.modal.table.width_auto: Automatski
+wysiwyg.modal.template.items.demo.desc: 'Jednostavan demo predložak'
+wysiwyg.modal.template.items.demo.title: 'Demo predložak'
+wysiwyg.modal.template.items.table.desc: 'Tablica 2x1'
+wysiwyg.modal.template.items.table.title: 'Unaprijed popunjena tablica'
+wysiwyg.modal.template.replace: 'Zamijeni trenutni sadržaj'
+wysiwyg.modal.template.select_helper: 'Odaberite predložak koji će se otvoriti u uređivaču'
+wysiwyg.modal.template.title: 'Predlošci sadržaja'
+wysiwyg.path.label: 'Putanja elemenata'
+wysiwyg.placeholder: 'Napišite nešto …'
+wysiwyg.resize.label: 'Promijeni veličinu područja za uređivanje'
+wysiwyg.style.banner_info: 'Informativni baner'
+wysiwyg.style.banner_warning: 'Baner upozorenja'
+wysiwyg.style.button: Gumb
+wysiwyg.style.button_label: Stilovi
+wysiwyg.style.main_title: 'Stilovi blokova'
+wysiwyg.style.normal: Normalno
+wysiwyg.style.section.banners: Baneri
+wysiwyg.style.section.colors: Boje
+wysiwyg.style.section.misc: Razno
+wysiwyg.style.section.tables: Tablice
+wysiwyg.style.table_dotted: 'Točkasta tablica'
+wysiwyg.style.table_striped: 'Prugasta tablica'
+wysiwyg.toolbar.align_center: Centriraj
+wysiwyg.toolbar.align_justify: 'Poravnaj obostrano'
+wysiwyg.toolbar.align_left: 'Poravnaj lijevo'
+wysiwyg.toolbar.align_right: 'Poravnaj desno'
+wysiwyg.toolbar.anchor: Sidro
+wysiwyg.toolbar.blockquote: Citat
+wysiwyg.toolbar.bold: Podebljano
+wysiwyg.toolbar.bullet_list: 'Popis s grafičkim oznakama'
+wysiwyg.toolbar.color: Boja
+wysiwyg.toolbar.copy: Kopiraj
+wysiwyg.toolbar.cut: Izreži
+wysiwyg.toolbar.h1: 'Naslov 1'
+wysiwyg.toolbar.h2: 'Naslov 2'
+wysiwyg.toolbar.h3: 'Naslov 3'
+wysiwyg.toolbar.image: Slika
+wysiwyg.toolbar.image_text: Slika
+wysiwyg.toolbar.indent: 'Povećaj uvlaku'
+wysiwyg.toolbar.insert_template: 'Umetni predložak'
+wysiwyg.toolbar.italic: Kurziv
+wysiwyg.toolbar.link: Poveznica
+wysiwyg.toolbar.link_text: Poveznica
+wysiwyg.toolbar.list_tight: 'Kompaktni popis (bez razmaka između stavki)'
+wysiwyg.toolbar.ordered_list: 'Numerirani popis'
+wysiwyg.toolbar.outdent: 'Smanji uvlaku'
+wysiwyg.toolbar.paragraph: Odlomak
+wysiwyg.toolbar.paste: Zalijepi
+wysiwyg.toolbar.redo: Ponovi
+wysiwyg.toolbar.redo_text: Ponovi
+wysiwyg.toolbar.source_mode: 'Izvorni način'
+wysiwyg.toolbar.strike: Precrtano
+wysiwyg.toolbar.subscript: Indeks
+wysiwyg.toolbar.superscript: Eksponent
+wysiwyg.toolbar.table_add: 'Dodaj tablicu'
+wysiwyg.toolbar.table_delete: 'Izbriši tablicu'
+wysiwyg.toolbar.table_text: Tablica
+wysiwyg.toolbar.underline: Podcrtano
+wysiwyg.toolbar.undo: Poništi
+wysiwyg.toolbar.undo_text: Poništi
+wysiwyg.toolbar.unlink: 'Ukloni poveznicu'
+wysiwyg.toolbar.unlink_text: Ukloni

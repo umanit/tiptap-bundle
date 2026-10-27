@@ -1,0 +1,163 @@
+modal.cancel: Annuleren
+modal.close: Sluiten
+modal.validate: Valideren
+wysiwyg.color.black: Zwart
+wysiwyg.color.blue: Blauw
+wysiwyg.bg_color.choose: Achtergrondkleur
+wysiwyg.bg_color.reset: 'Achtergrondkleur herstellen'
+wysiwyg.color.choose: 'Kies een kleur'
+wysiwyg.color.green: Groen
+wysiwyg.color.grey: Grijs
+wysiwyg.color.grey_dark: Donkergrijs
+wysiwyg.color.grey_light: Lichtgrijs
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Oranje
+wysiwyg.color.pink: Roze
+wysiwyg.color.purple: Paars
+wysiwyg.color.red: Rood
+wysiwyg.color.reset: 'Kleur herstellen'
+wysiwyg.color.white: Wit
+wysiwyg.color.yellow: Geel
+wysiwyg.diff.after: 'Na (wat wordt opgeslagen)'
+wysiwyg.diff.banner_lost: 'Deze inhoud verliest elementen bij het opslaan: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Deze inhoud wordt herschreven bij het opslaan, zonder opmaakverlies.'
+wysiwyg.diff.before: 'Voor (originele inhoud)'
+wysiwyg.diff.help: 'Regels die met "-" beginnen komen uit de originele inhoud, regels die met "+" beginnen zijn wat de editor ervan heeft gemaakt.'
+wysiwyg.diff.show: 'Verschillen tonen'
+wysiwyg.diff.title: 'Verschillen met de originele inhoud'
+wysiwyg.error.unknown_tool: 'Hulpmiddel "{tool}" wordt niet ondersteund'
+wysiwyg.font_size.choose: Lettergrootte
+wysiwyg.font_size.reset: Standaardgrootte
+wysiwyg.menu.add_row_after: 'Rij eronder invoegen'
+wysiwyg.menu.add_row_before: 'Rij erboven invoegen'
+wysiwyg.menu.cell_properties: Celeigenschappen
+wysiwyg.menu.delete_table: 'Tabel verwijderen'
+wysiwyg.menu.merge_cells: 'Cellen samenvoegen'
+wysiwyg.menu.split_cell: 'Cel splitsen'
+wysiwyg.menu.table_properties: Tabeleigenschappen
+wysiwyg.modal.anchor.id: Identificatie
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'Anker verwijderen'
+wysiwyg.modal.anchor.title: Anker
+wysiwyg.modal.apply: Toepassen
+wysiwyg.modal.cell.align.bottom: Onder
+wysiwyg.modal.cell.align.default: Standaard
+wysiwyg.modal.cell.align.middle: Midden
+wysiwyg.modal.cell.align.top: Boven
+wysiwyg.modal.cell.bg_color: Achtergrondkleur
+wysiwyg.modal.cell.bg_color.none: Standaard
+wysiwyg.modal.cell.col_width: 'Kolombreedte (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automatisch
+wysiwyg.modal.cell.text_align: 'Horizontale uitlijning'
+wysiwyg.modal.cell.text_align.center: Gecentreerd
+wysiwyg.modal.cell.text_align.justify: Uitgevuld
+wysiwyg.modal.cell.text_align.left: Links
+wysiwyg.modal.cell.text_align.right: Rechts
+wysiwyg.modal.cell.title: Celeigenschappen
+wysiwyg.modal.cell.vertical_align: 'Verticale uitlijning'
+wysiwyg.modal.image.align: Uitlijning
+wysiwyg.modal.image.align.center: Midden
+wysiwyg.modal.image.align.left: Links
+wysiwyg.modal.image.align.right: Rechts
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Alternatieve tekst'
+wysiwyg.modal.image.browse: 'Op server bladeren'
+wysiwyg.modal.image.height: Hoogte
+wysiwyg.modal.image.margin: Marge
+wysiwyg.modal.image.margin.medium: 'Gemiddeld (10px)'
+wysiwyg.modal.image.margin.none: Geen
+wysiwyg.modal.image.margin.small: 'Klein (5px)'
+wysiwyg.modal.image.preview: Voorbeeld
+wysiwyg.modal.image.title: Afbeeldingseigenschappen
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Breedte
+wysiwyg.modal.link.anchor_name: Ankernaam
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'Voeg rel="noopener noreferrer nofollow" toe'
+wysiwyg.modal.link.target: Doel
+wysiwyg.modal.link.target.blank: 'Nieuw venster (_blank)'
+wysiwyg.modal.link.target.default: Standaard
+wysiwyg.modal.link.target.self: 'Hetzelfde venster (_self)'
+wysiwyg.modal.link.title: 'Link invoegen'
+wysiwyg.modal.link.type: Linktype
+wysiwyg.modal.link.type.anchor: Anker
+wysiwyg.modal.link.type.url: 'Web-URL'
+wysiwyg.modal.link.url: 'Webadres (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: Tabeluitlijning
+wysiwyg.modal.table.align_center: Gecentreerd
+wysiwyg.modal.table.align_left: Links
+wysiwyg.modal.table.align_right: Rechts
+wysiwyg.modal.table.appearance: Weergave
+wysiwyg.modal.table.cols: 'Kolommen*'
+wysiwyg.modal.table.css_class: 'CSS-klasse'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Met koprij'
+wysiwyg.modal.table.rows: 'Rijen*'
+wysiwyg.modal.table.structure: Structuur
+wysiwyg.modal.table.title: Tabeleigenschappen
+wysiwyg.modal.table.width: Tabelbreedte
+wysiwyg.modal.table.width_auto: Automatisch
+wysiwyg.modal.template.items.demo.desc: 'Eenvoudig demosjabloon'
+wysiwyg.modal.template.items.demo.title: Demosjabloon
+wysiwyg.modal.template.items.table.desc: 'Een tabel van 2x1'
+wysiwyg.modal.template.items.table.title: 'Vooraf ingevulde tabel'
+wysiwyg.modal.template.replace: 'Huidige inhoud vervangen'
+wysiwyg.modal.template.select_helper: 'Selecteer het sjabloon dat in de editor moet worden geopend'
+wysiwyg.modal.template.title: Inhoudssjablonen
+wysiwyg.path.label: 'Pad van de elementen'
+wysiwyg.placeholder: 'Schrijf iets …'
+wysiwyg.resize.label: 'Het bewerkingsgebied vergroten of verkleinen'
+wysiwyg.style.banner_info: Informatiebanner
+wysiwyg.style.banner_warning: Waarschuwingsbanner
+wysiwyg.style.button: Knop
+wysiwyg.style.button_label: Stijlen
+wysiwyg.style.main_title: Blokstijlen
+wysiwyg.style.normal: Normaal
+wysiwyg.style.section.banners: Banners
+wysiwyg.style.section.colors: Kleuren
+wysiwyg.style.section.misc: Overig
+wysiwyg.style.section.tables: Tabellen
+wysiwyg.style.table_dotted: 'Gestippelde tabel'
+wysiwyg.style.table_striped: 'Gestreepte tabel'
+wysiwyg.toolbar.align_center: Centreren
+wysiwyg.toolbar.align_justify: Uitvullen
+wysiwyg.toolbar.align_left: Links
+wysiwyg.toolbar.align_right: Rechts
+wysiwyg.toolbar.anchor: Anker
+wysiwyg.toolbar.blockquote: Citaat
+wysiwyg.toolbar.bold: Vet
+wysiwyg.toolbar.bullet_list: 'Lijst met opsommingstekens'
+wysiwyg.toolbar.color: Kleur
+wysiwyg.toolbar.copy: Kopiëren
+wysiwyg.toolbar.cut: Knippen
+wysiwyg.toolbar.h1: 'Kop 1'
+wysiwyg.toolbar.h2: 'Kop 2'
+wysiwyg.toolbar.h3: 'Kop 3'
+wysiwyg.toolbar.image: Afbeelding
+wysiwyg.toolbar.image_text: 'Afb.'
+wysiwyg.toolbar.indent: 'Inspringing vergroten'
+wysiwyg.toolbar.insert_template: 'Sjabloon invoegen'
+wysiwyg.toolbar.italic: Cursief
+wysiwyg.toolbar.link: Link
+wysiwyg.toolbar.link_text: Link
+wysiwyg.toolbar.list_tight: 'Compacte lijst (geen ruimte tussen items)'
+wysiwyg.toolbar.ordered_list: 'Genummerde lijst'
+wysiwyg.toolbar.outdent: 'Inspringing verkleinen'
+wysiwyg.toolbar.paragraph: Alinea
+wysiwyg.toolbar.paste: Plakken
+wysiwyg.toolbar.redo: Opnieuw
+wysiwyg.toolbar.redo_text: Opnieuw
+wysiwyg.toolbar.source_mode: Broncode
+wysiwyg.toolbar.strike: Doorhalen
+wysiwyg.toolbar.subscript: Subscript
+wysiwyg.toolbar.superscript: Superscript
+wysiwyg.toolbar.table_add: 'Tabel toevoegen'
+wysiwyg.toolbar.table_delete: 'Tabel verwijderen'
+wysiwyg.toolbar.table_text: Tabel
+wysiwyg.toolbar.underline: Onderstrepen
+wysiwyg.toolbar.undo: 'Ongedaan maken'
+wysiwyg.toolbar.undo_text: Ongedaan
+wysiwyg.toolbar.unlink: 'Link verwijderen'
+wysiwyg.toolbar.unlink_text: Ontlinken

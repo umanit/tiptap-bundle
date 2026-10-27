@@ -1,0 +1,163 @@
+modal.cancel: Annuller
+modal.close: Luk
+modal.validate: Bekræft
+wysiwyg.color.black: Sort
+wysiwyg.color.blue: Blå
+wysiwyg.bg_color.choose: Baggrundsfarve
+wysiwyg.bg_color.reset: 'Nulstil baggrundsfarve'
+wysiwyg.color.choose: 'Vælg en farve'
+wysiwyg.color.green: Grøn
+wysiwyg.color.grey: Grå
+wysiwyg.color.grey_dark: Mørkegrå
+wysiwyg.color.grey_light: Lysegrå
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Orange
+wysiwyg.color.pink: Pink
+wysiwyg.color.purple: Lilla
+wysiwyg.color.red: Rød
+wysiwyg.color.reset: 'Nulstil farve'
+wysiwyg.color.white: Hvid
+wysiwyg.color.yellow: Gul
+wysiwyg.diff.after: 'Efter (det der gemmes)'
+wysiwyg.diff.banner_lost: 'Dette indhold mister elementer, når det gemmes: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Dette indhold bliver omskrevet, når det gemmes, uden at miste nogen formatering.'
+wysiwyg.diff.before: 'Før (oprindeligt indhold)'
+wysiwyg.diff.help: 'Linjer med præfikset "-" stammer fra det oprindelige indhold, linjer med præfikset "+" er det, editoren har gjort ud af det.'
+wysiwyg.diff.show: 'Vis forskellene'
+wysiwyg.diff.title: 'Forskelle i forhold til det oprindelige indhold'
+wysiwyg.error.unknown_tool: 'Værktøjet "{tool}" understøttes ikke'
+wysiwyg.font_size.choose: Skriftstørrelse
+wysiwyg.font_size.reset: Standardstørrelse
+wysiwyg.menu.add_row_after: 'Tilføj række under'
+wysiwyg.menu.add_row_before: 'Tilføj række over'
+wysiwyg.menu.cell_properties: Celleegenskaber
+wysiwyg.menu.delete_table: 'Slet tabel'
+wysiwyg.menu.merge_cells: 'Flet celler'
+wysiwyg.menu.split_cell: 'Opdel celle'
+wysiwyg.menu.table_properties: Tabelegenskaber
+wysiwyg.modal.anchor.id: Identifikator
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Fjern anker'
+wysiwyg.modal.anchor.title: Anker
+wysiwyg.modal.apply: Anvend
+wysiwyg.modal.cell.align.bottom: Nederst
+wysiwyg.modal.cell.align.default: Standard
+wysiwyg.modal.cell.align.middle: Midt
+wysiwyg.modal.cell.align.top: Øverst
+wysiwyg.modal.cell.bg_color: Baggrundsfarve
+wysiwyg.modal.cell.bg_color.none: Standard
+wysiwyg.modal.cell.col_width: 'Kolonnebredde (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automatisk
+wysiwyg.modal.cell.text_align: 'Vandret justering'
+wysiwyg.modal.cell.text_align.center: Centreret
+wysiwyg.modal.cell.text_align.justify: 'Lige margener'
+wysiwyg.modal.cell.text_align.left: Venstre
+wysiwyg.modal.cell.text_align.right: Højre
+wysiwyg.modal.cell.title: Celleegenskaber
+wysiwyg.modal.cell.vertical_align: 'Lodret justering'
+wysiwyg.modal.image.align: Justering
+wysiwyg.modal.image.align.center: Centreret
+wysiwyg.modal.image.align.left: Venstre
+wysiwyg.modal.image.align.right: Højre
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Alternativ tekst'
+wysiwyg.modal.image.browse: 'Gennemse server'
+wysiwyg.modal.image.height: Højde
+wysiwyg.modal.image.margin: Afstand
+wysiwyg.modal.image.margin.medium: 'Mellem (10px)'
+wysiwyg.modal.image.margin.none: Ingen
+wysiwyg.modal.image.margin.small: 'Lille (5px)'
+wysiwyg.modal.image.preview: Forhåndsvisning
+wysiwyg.modal.image.title: Billedegenskaber
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Bredde
+wysiwyg.modal.link.anchor_name: Ankernavn
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'Tilføj rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Mål
+wysiwyg.modal.link.target.blank: 'Nyt vindue (_blank)'
+wysiwyg.modal.link.target.default: Standard
+wysiwyg.modal.link.target.self: 'Samme vindue (_self)'
+wysiwyg.modal.link.title: 'Indsæt link'
+wysiwyg.modal.link.type: Linktype
+wysiwyg.modal.link.type.anchor: Anker
+wysiwyg.modal.link.type.url: Webadresse
+wysiwyg.modal.link.url: 'Webadresse (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: Tabeljustering
+wysiwyg.modal.table.align_center: Centreret
+wysiwyg.modal.table.align_left: Venstre
+wysiwyg.modal.table.align_right: Højre
+wysiwyg.modal.table.appearance: Udseende
+wysiwyg.modal.table.cols: 'Kolonner*'
+wysiwyg.modal.table.css_class: CSS-klasse
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Med overskriftsrække'
+wysiwyg.modal.table.rows: 'Rækker*'
+wysiwyg.modal.table.structure: Struktur
+wysiwyg.modal.table.title: Tabelegenskaber
+wysiwyg.modal.table.width: Tabelbredde
+wysiwyg.modal.table.width_auto: Automatisk
+wysiwyg.modal.template.items.demo.desc: 'Enkel demoskabelon'
+wysiwyg.modal.template.items.demo.title: Demoskabelon
+wysiwyg.modal.template.items.table.desc: 'En 2x1-tabel'
+wysiwyg.modal.template.items.table.title: 'Forudfyldt tabel'
+wysiwyg.modal.template.replace: 'Erstat det nuværende indhold'
+wysiwyg.modal.template.select_helper: 'Vælg den skabelon, der skal åbnes i editoren'
+wysiwyg.modal.template.title: Indholdsskabeloner
+wysiwyg.path.label: 'Elementernes sti'
+wysiwyg.placeholder: 'Skriv noget …'
+wysiwyg.resize.label: 'Tilpas størrelsen på redigeringsområdet'
+wysiwyg.style.banner_info: Informationsbanner
+wysiwyg.style.banner_warning: Advarselsbanner
+wysiwyg.style.button: Knap
+wysiwyg.style.button_label: Typografier
+wysiwyg.style.main_title: Bloktypografier
+wysiwyg.style.normal: Normal
+wysiwyg.style.section.banners: Bannere
+wysiwyg.style.section.colors: Farver
+wysiwyg.style.section.misc: Diverse
+wysiwyg.style.section.tables: Tabeller
+wysiwyg.style.table_dotted: 'Stiplet tabel'
+wysiwyg.style.table_striped: 'Stribet tabel'
+wysiwyg.toolbar.align_center: Centreret
+wysiwyg.toolbar.align_justify: 'Lige margener'
+wysiwyg.toolbar.align_left: Venstre
+wysiwyg.toolbar.align_right: Højre
+wysiwyg.toolbar.anchor: Anker
+wysiwyg.toolbar.blockquote: Citat
+wysiwyg.toolbar.bold: Fed
+wysiwyg.toolbar.bullet_list: Punktliste
+wysiwyg.toolbar.color: Farve
+wysiwyg.toolbar.copy: Kopiér
+wysiwyg.toolbar.cut: Klip
+wysiwyg.toolbar.h1: 'Overskrift 1'
+wysiwyg.toolbar.h2: 'Overskrift 2'
+wysiwyg.toolbar.h3: 'Overskrift 3'
+wysiwyg.toolbar.image: Billede
+wysiwyg.toolbar.image_text: IMG
+wysiwyg.toolbar.indent: 'Forøg indrykning'
+wysiwyg.toolbar.insert_template: 'Indsæt skabelon'
+wysiwyg.toolbar.italic: Kursiv
+wysiwyg.toolbar.link: Link
+wysiwyg.toolbar.link_text: Link
+wysiwyg.toolbar.list_tight: 'Kompakt liste (ingen afstand mellem punkter)'
+wysiwyg.toolbar.ordered_list: 'Nummereret liste'
+wysiwyg.toolbar.outdent: 'Formindsk indrykning'
+wysiwyg.toolbar.paragraph: Afsnit
+wysiwyg.toolbar.paste: 'Sæt ind'
+wysiwyg.toolbar.redo: Gentag
+wysiwyg.toolbar.redo_text: Gentag
+wysiwyg.toolbar.source_mode: Kildetilstand
+wysiwyg.toolbar.strike: Gennemstreget
+wysiwyg.toolbar.subscript: 'Sænket skrift'
+wysiwyg.toolbar.superscript: 'Hævet skrift'
+wysiwyg.toolbar.table_add: 'Tilføj tabel'
+wysiwyg.toolbar.table_delete: 'Slet tabel'
+wysiwyg.toolbar.table_text: Tabel
+wysiwyg.toolbar.underline: Understreget
+wysiwyg.toolbar.undo: Fortryd
+wysiwyg.toolbar.undo_text: Fortryd
+wysiwyg.toolbar.unlink: 'Fjern link'
+wysiwyg.toolbar.unlink_text: 'Fjern link'

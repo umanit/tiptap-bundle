@@ -1,0 +1,163 @@
+modal.cancel: Peruuta
+modal.close: Sulje
+modal.validate: Vahvista
+wysiwyg.color.black: Musta
+wysiwyg.color.blue: Sininen
+wysiwyg.bg_color.choose: Taustaväri
+wysiwyg.bg_color.reset: 'Palauta taustaväri'
+wysiwyg.color.choose: 'Valitse väri'
+wysiwyg.color.green: Vihreä
+wysiwyg.color.grey: Harmaa
+wysiwyg.color.grey_dark: Tummanharmaa
+wysiwyg.color.grey_light: Vaaleanharmaa
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Oranssi
+wysiwyg.color.pink: Vaaleanpunainen
+wysiwyg.color.purple: Violetti
+wysiwyg.color.red: Punainen
+wysiwyg.color.reset: 'Palauta väri'
+wysiwyg.color.white: Valkoinen
+wysiwyg.color.yellow: Keltainen
+wysiwyg.diff.after: 'Jälkeen (tallennettava sisältö)'
+wysiwyg.diff.banner_lost: 'Tämä sisältö menettää elementtejä tallennettaessa: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Tämä sisältö kirjoitetaan uudelleen tallennettaessa menettämättä muotoilua.'
+wysiwyg.diff.before: 'Ennen (alkuperäinen sisältö)'
+wysiwyg.diff.help: 'Rivit, joiden alussa on "-", ovat peräisin alkuperäisestä sisällöstä, ja rivit, joiden alussa on "+", ovat editorin siitä tekemä tulos.'
+wysiwyg.diff.show: 'Näytä erot'
+wysiwyg.diff.title: 'Erot alkuperäiseen sisältöön'
+wysiwyg.error.unknown_tool: 'Työkalua "{tool}" ei tueta'
+wysiwyg.font_size.choose: Fonttikoko
+wysiwyg.font_size.reset: Oletuskoko
+wysiwyg.menu.add_row_after: 'Lisää rivi alle'
+wysiwyg.menu.add_row_before: 'Lisää rivi ylle'
+wysiwyg.menu.cell_properties: 'Solun ominaisuudet'
+wysiwyg.menu.delete_table: 'Poista taulukko'
+wysiwyg.menu.merge_cells: 'Yhdistä solut'
+wysiwyg.menu.split_cell: 'Jaa solu'
+wysiwyg.menu.table_properties: 'Taulukon ominaisuudet'
+wysiwyg.modal.anchor.id: Tunniste
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'Poista ankkuri'
+wysiwyg.modal.anchor.title: Ankkuri
+wysiwyg.modal.apply: Käytä
+wysiwyg.modal.cell.align.bottom: Alas
+wysiwyg.modal.cell.align.default: Oletus
+wysiwyg.modal.cell.align.middle: Keskelle
+wysiwyg.modal.cell.align.top: Ylös
+wysiwyg.modal.cell.bg_color: Taustaväri
+wysiwyg.modal.cell.bg_color.none: Oletus
+wysiwyg.modal.cell.col_width: 'Sarakkeen leveys (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automaattinen
+wysiwyg.modal.cell.text_align: 'Vaakasuuntainen tasaus'
+wysiwyg.modal.cell.text_align.center: Keskitetty
+wysiwyg.modal.cell.text_align.justify: Tasattu
+wysiwyg.modal.cell.text_align.left: Vasen
+wysiwyg.modal.cell.text_align.right: Oikea
+wysiwyg.modal.cell.title: 'Solun ominaisuudet'
+wysiwyg.modal.cell.vertical_align: 'Pystysuuntainen tasaus'
+wysiwyg.modal.image.align: Tasaus
+wysiwyg.modal.image.align.center: Keskitä
+wysiwyg.modal.image.align.left: Vasen
+wysiwyg.modal.image.align.right: Oikea
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Vaihtoehtoinen teksti'
+wysiwyg.modal.image.browse: 'Selaa palvelinta'
+wysiwyg.modal.image.height: Korkeus
+wysiwyg.modal.image.margin: Väli
+wysiwyg.modal.image.margin.medium: 'Keskikokoinen (10px)'
+wysiwyg.modal.image.margin.none: 'Ei mitään'
+wysiwyg.modal.image.margin.small: 'Pieni (5px)'
+wysiwyg.modal.image.preview: Esikatselu
+wysiwyg.modal.image.title: 'Kuvan ominaisuudet'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Leveys
+wysiwyg.modal.link.anchor_name: 'Ankkurin nimi'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'Lisää rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Kohde
+wysiwyg.modal.link.target.blank: 'Uusi ikkuna (_blank)'
+wysiwyg.modal.link.target.default: Oletus
+wysiwyg.modal.link.target.self: 'Sama ikkuna (_self)'
+wysiwyg.modal.link.title: 'Lisää linkki'
+wysiwyg.modal.link.type: 'Linkin tyyppi'
+wysiwyg.modal.link.type.anchor: Ankkuri
+wysiwyg.modal.link.type.url: 'Verkko-osoite'
+wysiwyg.modal.link.url: 'Verkko-osoite (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Taulukon tasaus'
+wysiwyg.modal.table.align_center: Keskitetty
+wysiwyg.modal.table.align_left: Vasen
+wysiwyg.modal.table.align_right: Oikea
+wysiwyg.modal.table.appearance: Ulkoasu
+wysiwyg.modal.table.cols: 'Sarakkeet*'
+wysiwyg.modal.table.css_class: 'CSS-luokka'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: Otsikkorivillä
+wysiwyg.modal.table.rows: 'Rivit*'
+wysiwyg.modal.table.structure: Rakenne
+wysiwyg.modal.table.title: 'Taulukon ominaisuudet'
+wysiwyg.modal.table.width: 'Taulukon leveys'
+wysiwyg.modal.table.width_auto: Automaattinen
+wysiwyg.modal.template.items.demo.desc: 'Yksinkertainen esittelymalli'
+wysiwyg.modal.template.items.demo.title: Esittelymalli
+wysiwyg.modal.template.items.table.desc: '2x1-taulukko'
+wysiwyg.modal.template.items.table.title: 'Esitäytetty taulukko'
+wysiwyg.modal.template.replace: 'Korvaa nykyinen sisältö'
+wysiwyg.modal.template.select_helper: 'Valitse malli, joka avataan editorissa'
+wysiwyg.modal.template.title: Sisältömallit
+wysiwyg.path.label: 'Elementtien polku'
+wysiwyg.placeholder: 'Kirjoita jotain …'
+wysiwyg.resize.label: 'Muuta muokkausalueen kokoa'
+wysiwyg.style.banner_info: Tietopalkki
+wysiwyg.style.banner_warning: Varoituspalkki
+wysiwyg.style.button: Painike
+wysiwyg.style.button_label: Tyylit
+wysiwyg.style.main_title: Lohkotyylit
+wysiwyg.style.normal: Normaali
+wysiwyg.style.section.banners: Palkit
+wysiwyg.style.section.colors: Värit
+wysiwyg.style.section.misc: Muut
+wysiwyg.style.section.tables: Taulukot
+wysiwyg.style.table_dotted: Pisteviivataulukko
+wysiwyg.style.table_striped: 'Raidallinen taulukko'
+wysiwyg.toolbar.align_center: Keskitä
+wysiwyg.toolbar.align_justify: 'Tasaa molemmat reunat'
+wysiwyg.toolbar.align_left: 'Tasaa vasemmalle'
+wysiwyg.toolbar.align_right: 'Tasaa oikealle'
+wysiwyg.toolbar.anchor: Ankkuri
+wysiwyg.toolbar.blockquote: Lainaus
+wysiwyg.toolbar.bold: Lihavointi
+wysiwyg.toolbar.bullet_list: Luettelomerkit
+wysiwyg.toolbar.color: Väri
+wysiwyg.toolbar.copy: Kopioi
+wysiwyg.toolbar.cut: Leikkaa
+wysiwyg.toolbar.h1: 'Otsikko 1'
+wysiwyg.toolbar.h2: 'Otsikko 2'
+wysiwyg.toolbar.h3: 'Otsikko 3'
+wysiwyg.toolbar.image: Kuva
+wysiwyg.toolbar.image_text: Kuva
+wysiwyg.toolbar.indent: 'Suurenna sisennystä'
+wysiwyg.toolbar.insert_template: 'Lisää malli'
+wysiwyg.toolbar.italic: Kursivointi
+wysiwyg.toolbar.link: Linkki
+wysiwyg.toolbar.link_text: Linkki
+wysiwyg.toolbar.list_tight: 'Tiivis luettelo (ei väliä kohteiden välillä)'
+wysiwyg.toolbar.ordered_list: 'Numeroitu luettelo'
+wysiwyg.toolbar.outdent: 'Pienennä sisennystä'
+wysiwyg.toolbar.paragraph: Kappale
+wysiwyg.toolbar.paste: Liitä
+wysiwyg.toolbar.redo: 'Tee uudelleen'
+wysiwyg.toolbar.redo_text: Uudelleen
+wysiwyg.toolbar.source_mode: Lähdetila
+wysiwyg.toolbar.strike: Yliviivaus
+wysiwyg.toolbar.subscript: Alaindeksi
+wysiwyg.toolbar.superscript: Yläindeksi
+wysiwyg.toolbar.table_add: 'Lisää taulukko'
+wysiwyg.toolbar.table_delete: 'Poista taulukko'
+wysiwyg.toolbar.table_text: Taulukko
+wysiwyg.toolbar.underline: Alleviivaus
+wysiwyg.toolbar.undo: Kumoa
+wysiwyg.toolbar.undo_text: Kumoa
+wysiwyg.toolbar.unlink: 'Poista linkki'
+wysiwyg.toolbar.unlink_text: 'Poista linkki'

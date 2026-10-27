@@ -1,0 +1,163 @@
+modal.cancel: Abbrechen
+modal.close: Schließen
+modal.validate: Bestätigen
+wysiwyg.color.black: Schwarz
+wysiwyg.color.blue: Blau
+wysiwyg.bg_color.choose: Hintergrundfarbe
+wysiwyg.bg_color.reset: 'Hintergrundfarbe zurücksetzen'
+wysiwyg.color.choose: 'Farbe auswählen'
+wysiwyg.color.green: Grün
+wysiwyg.color.grey: Grau
+wysiwyg.color.grey_dark: Dunkelgrau
+wysiwyg.color.grey_light: Hellgrau
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Orange
+wysiwyg.color.pink: Pink
+wysiwyg.color.purple: Violett
+wysiwyg.color.red: Rot
+wysiwyg.color.reset: 'Farbe zurücksetzen'
+wysiwyg.color.white: Weiß
+wysiwyg.color.yellow: Gelb
+wysiwyg.diff.after: 'Nachher (was gespeichert wird)'
+wysiwyg.diff.banner_lost: 'Beim Speichern gehen in diesem Inhalt Elemente verloren: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Dieser Inhalt wird beim Speichern umgeschrieben, ohne dass Formatierungen verloren gehen.'
+wysiwyg.diff.before: 'Vorher (Originalinhalt)'
+wysiwyg.diff.help: 'Zeilen mit dem Präfix "-" stammen aus dem Originalinhalt, Zeilen mit dem Präfix "+" sind das, was der Editor daraus gemacht hat.'
+wysiwyg.diff.show: 'Unterschiede anzeigen'
+wysiwyg.diff.title: 'Unterschiede zum Originalinhalt'
+wysiwyg.error.unknown_tool: 'Das Werkzeug "{tool}" wird nicht unterstützt'
+wysiwyg.font_size.choose: Schriftgröße
+wysiwyg.font_size.reset: Standardgröße
+wysiwyg.menu.add_row_after: 'Zeile darunter einfügen'
+wysiwyg.menu.add_row_before: 'Zeile darüber einfügen'
+wysiwyg.menu.cell_properties: Zelleneigenschaften
+wysiwyg.menu.delete_table: 'Tabelle löschen'
+wysiwyg.menu.merge_cells: 'Zellen verbinden'
+wysiwyg.menu.split_cell: 'Zelle teilen'
+wysiwyg.menu.table_properties: Tabelleneigenschaften
+wysiwyg.modal.anchor.id: Kennung
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Anker entfernen'
+wysiwyg.modal.anchor.title: Anker
+wysiwyg.modal.apply: Übernehmen
+wysiwyg.modal.cell.align.bottom: Unten
+wysiwyg.modal.cell.align.default: Standard
+wysiwyg.modal.cell.align.middle: Mitte
+wysiwyg.modal.cell.align.top: Oben
+wysiwyg.modal.cell.bg_color: Hintergrundfarbe
+wysiwyg.modal.cell.bg_color.none: Standard
+wysiwyg.modal.cell.col_width: 'Spaltenbreite (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automatisch
+wysiwyg.modal.cell.text_align: 'Horizontale Ausrichtung'
+wysiwyg.modal.cell.text_align.center: Zentriert
+wysiwyg.modal.cell.text_align.justify: Blocksatz
+wysiwyg.modal.cell.text_align.left: Linksbündig
+wysiwyg.modal.cell.text_align.right: Rechtsbündig
+wysiwyg.modal.cell.title: Zelleneigenschaften
+wysiwyg.modal.cell.vertical_align: 'Vertikale Ausrichtung'
+wysiwyg.modal.image.align: Ausrichtung
+wysiwyg.modal.image.align.center: Zentriert
+wysiwyg.modal.image.align.left: Links
+wysiwyg.modal.image.align.right: Rechts
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: Alternativtext
+wysiwyg.modal.image.browse: 'Server durchsuchen'
+wysiwyg.modal.image.height: Höhe
+wysiwyg.modal.image.margin: Abstand
+wysiwyg.modal.image.margin.medium: 'Mittel (10px)'
+wysiwyg.modal.image.margin.none: Keiner
+wysiwyg.modal.image.margin.small: 'Klein (5px)'
+wysiwyg.modal.image.preview: Vorschau
+wysiwyg.modal.image.title: Bildeigenschaften
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Breite
+wysiwyg.modal.link.anchor_name: Ankername
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'rel="noopener noreferrer nofollow" hinzufügen'
+wysiwyg.modal.link.target: Ziel
+wysiwyg.modal.link.target.blank: 'Neues Fenster (_blank)'
+wysiwyg.modal.link.target.default: Standard
+wysiwyg.modal.link.target.self: 'Gleiches Fenster (_self)'
+wysiwyg.modal.link.title: 'Link einfügen'
+wysiwyg.modal.link.type: Linktyp
+wysiwyg.modal.link.type.anchor: Anker
+wysiwyg.modal.link.type.url: Web-URL
+wysiwyg.modal.link.url: 'Webadresse (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: Tabellenausrichtung
+wysiwyg.modal.table.align_center: Zentriert
+wysiwyg.modal.table.align_left: Linksbündig
+wysiwyg.modal.table.align_right: Rechtsbündig
+wysiwyg.modal.table.appearance: Darstellung
+wysiwyg.modal.table.cols: 'Spalten*'
+wysiwyg.modal.table.css_class: CSS-Klasse
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Mit Kopfzeile'
+wysiwyg.modal.table.rows: 'Zeilen*'
+wysiwyg.modal.table.structure: Struktur
+wysiwyg.modal.table.title: Tabelleneigenschaften
+wysiwyg.modal.table.width: Tabellenbreite
+wysiwyg.modal.table.width_auto: Automatisch
+wysiwyg.modal.template.items.demo.desc: 'Einfache Demovorlage'
+wysiwyg.modal.template.items.demo.title: Demovorlage
+wysiwyg.modal.template.items.table.desc: 'Eine 2x1-Tabelle'
+wysiwyg.modal.template.items.table.title: 'Vorausgefüllte Tabelle'
+wysiwyg.modal.template.replace: 'Aktuellen Inhalt ersetzen'
+wysiwyg.modal.template.select_helper: 'Bitte wählen Sie die Vorlage aus, die im Editor geöffnet werden soll'
+wysiwyg.modal.template.title: Inhaltsvorlagen
+wysiwyg.path.label: 'Pfad der Elemente'
+wysiwyg.placeholder: 'Schreiben Sie etwas …'
+wysiwyg.resize.label: 'Bearbeitungsbereich in der Größe ändern'
+wysiwyg.style.banner_info: Infobanner
+wysiwyg.style.banner_warning: Warnbanner
+wysiwyg.style.button: Schaltfläche
+wysiwyg.style.button_label: Formate
+wysiwyg.style.main_title: Blockformate
+wysiwyg.style.normal: Normal
+wysiwyg.style.section.banners: Banner
+wysiwyg.style.section.colors: Farben
+wysiwyg.style.section.misc: Sonstiges
+wysiwyg.style.section.tables: Tabellen
+wysiwyg.style.table_dotted: 'Gepunktete Tabelle'
+wysiwyg.style.table_striped: 'Gestreifte Tabelle'
+wysiwyg.toolbar.align_center: Zentriert
+wysiwyg.toolbar.align_justify: Blocksatz
+wysiwyg.toolbar.align_left: Linksbündig
+wysiwyg.toolbar.align_right: Rechtsbündig
+wysiwyg.toolbar.anchor: Anker
+wysiwyg.toolbar.blockquote: Zitat
+wysiwyg.toolbar.bold: Fett
+wysiwyg.toolbar.bullet_list: Aufzählung
+wysiwyg.toolbar.color: Farbe
+wysiwyg.toolbar.copy: Kopieren
+wysiwyg.toolbar.cut: Ausschneiden
+wysiwyg.toolbar.h1: 'Überschrift 1'
+wysiwyg.toolbar.h2: 'Überschrift 2'
+wysiwyg.toolbar.h3: 'Überschrift 3'
+wysiwyg.toolbar.image: Bild
+wysiwyg.toolbar.image_text: IMG
+wysiwyg.toolbar.indent: 'Einzug vergrößern'
+wysiwyg.toolbar.insert_template: 'Vorlage einfügen'
+wysiwyg.toolbar.italic: Kursiv
+wysiwyg.toolbar.link: Link
+wysiwyg.toolbar.link_text: Link
+wysiwyg.toolbar.list_tight: 'Kompakte Liste (kein Abstand zwischen den Einträgen)'
+wysiwyg.toolbar.ordered_list: 'Nummerierte Liste'
+wysiwyg.toolbar.outdent: 'Einzug verkleinern'
+wysiwyg.toolbar.paragraph: Absatz
+wysiwyg.toolbar.paste: Einfügen
+wysiwyg.toolbar.redo: Wiederholen
+wysiwyg.toolbar.redo_text: Wiederholen
+wysiwyg.toolbar.source_mode: Quelltextmodus
+wysiwyg.toolbar.strike: Durchgestrichen
+wysiwyg.toolbar.subscript: Tiefgestellt
+wysiwyg.toolbar.superscript: Hochgestellt
+wysiwyg.toolbar.table_add: 'Tabelle hinzufügen'
+wysiwyg.toolbar.table_delete: 'Tabelle löschen'
+wysiwyg.toolbar.table_text: Tabelle
+wysiwyg.toolbar.underline: Unterstrichen
+wysiwyg.toolbar.undo: Rückgängig
+wysiwyg.toolbar.undo_text: Rückgängig
+wysiwyg.toolbar.unlink: 'Link entfernen'
+wysiwyg.toolbar.unlink_text: 'Link lösen'

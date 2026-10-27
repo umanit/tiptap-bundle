@@ -1,0 +1,163 @@
+modal.cancel: Anulează
+modal.close: Închide
+modal.validate: Validează
+wysiwyg.color.black: Negru
+wysiwyg.color.blue: Albastru
+wysiwyg.bg_color.choose: 'Culoare de fundal'
+wysiwyg.bg_color.reset: 'Resetează culoarea de fundal'
+wysiwyg.color.choose: 'Alege o culoare'
+wysiwyg.color.green: Verde
+wysiwyg.color.grey: Gri
+wysiwyg.color.grey_dark: 'Gri închis'
+wysiwyg.color.grey_light: 'Gri deschis'
+wysiwyg.color.indigo: Indigo
+wysiwyg.color.orange: Portocaliu
+wysiwyg.color.pink: Roz
+wysiwyg.color.purple: Mov
+wysiwyg.color.red: Roșu
+wysiwyg.color.reset: 'Resetează culoarea'
+wysiwyg.color.white: Alb
+wysiwyg.color.yellow: Galben
+wysiwyg.diff.after: 'După (ce va fi salvat)'
+wysiwyg.diff.banner_lost: 'Acest conținut va pierde elemente la salvare: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Acest conținut va fi rescris la salvare, fără pierderea formatării.'
+wysiwyg.diff.before: 'Înainte (conținut original)'
+wysiwyg.diff.help: 'Liniile precedate de "-" provin din conținutul original, cele precedate de "+" reprezintă ce a făcut editorul din el.'
+wysiwyg.diff.show: 'Afișează diferențele'
+wysiwyg.diff.title: 'Diferențe față de conținutul original'
+wysiwyg.error.unknown_tool: 'Instrumentul "{tool}" nu este acceptat'
+wysiwyg.font_size.choose: 'Dimensiunea fontului'
+wysiwyg.font_size.reset: 'Dimensiune implicită'
+wysiwyg.menu.add_row_after: 'Inserează rând dedesubt'
+wysiwyg.menu.add_row_before: 'Inserează rând deasupra'
+wysiwyg.menu.cell_properties: 'Proprietățile celulei'
+wysiwyg.menu.delete_table: 'Șterge tabelul'
+wysiwyg.menu.merge_cells: 'Îmbină celulele'
+wysiwyg.menu.split_cell: 'Împarte celula'
+wysiwyg.menu.table_properties: 'Proprietățile tabelului'
+wysiwyg.modal.anchor.id: Identificator
+wysiwyg.modal.anchor.id_placeholder: 'anchor-name'
+wysiwyg.modal.anchor.remove: 'Elimină ancora'
+wysiwyg.modal.anchor.title: Ancoră
+wysiwyg.modal.apply: Aplică
+wysiwyg.modal.cell.align.bottom: Jos
+wysiwyg.modal.cell.align.default: Implicit
+wysiwyg.modal.cell.align.middle: 'La mijloc'
+wysiwyg.modal.cell.align.top: Sus
+wysiwyg.modal.cell.bg_color: 'Culoare de fundal'
+wysiwyg.modal.cell.bg_color.none: Implicită
+wysiwyg.modal.cell.col_width: 'Lățimea coloanei (px)'
+wysiwyg.modal.cell.col_width_placeholder: Automată
+wysiwyg.modal.cell.text_align: 'Aliniere orizontală'
+wysiwyg.modal.cell.text_align.center: Centrat
+wysiwyg.modal.cell.text_align.justify: Justificat
+wysiwyg.modal.cell.text_align.left: Stânga
+wysiwyg.modal.cell.text_align.right: Dreapta
+wysiwyg.modal.cell.title: 'Proprietățile celulei'
+wysiwyg.modal.cell.vertical_align: 'Aliniere verticală'
+wysiwyg.modal.image.align: Aliniere
+wysiwyg.modal.image.align.center: Centru
+wysiwyg.modal.image.align.left: Stânga
+wysiwyg.modal.image.align.right: Dreapta
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Text alternativ'
+wysiwyg.modal.image.browse: 'Răsfoiește serverul'
+wysiwyg.modal.image.height: Înălțime
+wysiwyg.modal.image.margin: Spațiere
+wysiwyg.modal.image.margin.medium: 'Medie (10px)'
+wysiwyg.modal.image.margin.none: Fără
+wysiwyg.modal.image.margin.small: 'Mică (5px)'
+wysiwyg.modal.image.preview: Previzualizare
+wysiwyg.modal.image.title: 'Proprietățile imaginii'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Lățime
+wysiwyg.modal.link.anchor_name: 'Numele ancorei'
+wysiwyg.modal.link.anchor_placeholder: 'my-anchor'
+wysiwyg.modal.link.rel: 'Adaugă rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Țintă
+wysiwyg.modal.link.target.blank: 'Fereastră nouă (_blank)'
+wysiwyg.modal.link.target.default: Implicit
+wysiwyg.modal.link.target.self: 'Aceeași fereastră (_self)'
+wysiwyg.modal.link.title: 'Inserează link'
+wysiwyg.modal.link.type: 'Tipul linkului'
+wysiwyg.modal.link.type.anchor: Ancoră
+wysiwyg.modal.link.type.url: 'URL web'
+wysiwyg.modal.link.url: 'Adresă web (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Alinierea tabelului'
+wysiwyg.modal.table.align_center: Centrat
+wysiwyg.modal.table.align_left: Stânga
+wysiwyg.modal.table.align_right: Dreapta
+wysiwyg.modal.table.appearance: Aspect
+wysiwyg.modal.table.cols: 'Coloane*'
+wysiwyg.modal.table.css_class: 'Clasă CSS'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'Cu rând de antet'
+wysiwyg.modal.table.rows: 'Rânduri*'
+wysiwyg.modal.table.structure: Structură
+wysiwyg.modal.table.title: 'Proprietățile tabelului'
+wysiwyg.modal.table.width: 'Lățimea tabelului'
+wysiwyg.modal.table.width_auto: Automată
+wysiwyg.modal.template.items.demo.desc: 'Șablon demonstrativ simplu'
+wysiwyg.modal.template.items.demo.title: 'Șablon demonstrativ'
+wysiwyg.modal.template.items.table.desc: 'Un tabel 2x1'
+wysiwyg.modal.template.items.table.title: 'Tabel precompletat'
+wysiwyg.modal.template.replace: 'Înlocuiește conținutul curent'
+wysiwyg.modal.template.select_helper: 'Selectați șablonul de deschis în editor'
+wysiwyg.modal.template.title: 'Șabloane de conținut'
+wysiwyg.path.label: 'Calea elementelor'
+wysiwyg.placeholder: 'Scrieți ceva …'
+wysiwyg.resize.label: 'Redimensionează zona de editare'
+wysiwyg.style.banner_info: 'Banner informativ'
+wysiwyg.style.banner_warning: 'Banner de avertizare'
+wysiwyg.style.button: Buton
+wysiwyg.style.button_label: Stiluri
+wysiwyg.style.main_title: 'Stiluri de bloc'
+wysiwyg.style.normal: Normal
+wysiwyg.style.section.banners: Bannere
+wysiwyg.style.section.colors: Culori
+wysiwyg.style.section.misc: Diverse
+wysiwyg.style.section.tables: Tabele
+wysiwyg.style.table_dotted: 'Tabel punctat'
+wysiwyg.style.table_striped: 'Tabel cu dungi'
+wysiwyg.toolbar.align_center: Centrează
+wysiwyg.toolbar.align_justify: Justifică
+wysiwyg.toolbar.align_left: Stânga
+wysiwyg.toolbar.align_right: Dreapta
+wysiwyg.toolbar.anchor: Ancoră
+wysiwyg.toolbar.blockquote: Citat
+wysiwyg.toolbar.bold: Aldin
+wysiwyg.toolbar.bullet_list: 'Listă cu marcatori'
+wysiwyg.toolbar.color: Culoare
+wysiwyg.toolbar.copy: Copiază
+wysiwyg.toolbar.cut: Taie
+wysiwyg.toolbar.h1: 'Titlu 1'
+wysiwyg.toolbar.h2: 'Titlu 2'
+wysiwyg.toolbar.h3: 'Titlu 3'
+wysiwyg.toolbar.image: Imagine
+wysiwyg.toolbar.image_text: IMG
+wysiwyg.toolbar.indent: 'Mărește indentarea'
+wysiwyg.toolbar.insert_template: 'Inserează șablon'
+wysiwyg.toolbar.italic: Cursiv
+wysiwyg.toolbar.link: Link
+wysiwyg.toolbar.link_text: Link
+wysiwyg.toolbar.list_tight: 'Listă compactă (fără spațiu între elemente)'
+wysiwyg.toolbar.ordered_list: 'Listă numerotată'
+wysiwyg.toolbar.outdent: 'Micșorează indentarea'
+wysiwyg.toolbar.paragraph: Paragraf
+wysiwyg.toolbar.paste: Lipește
+wysiwyg.toolbar.redo: Refă
+wysiwyg.toolbar.redo_text: Refă
+wysiwyg.toolbar.source_mode: 'Mod sursă'
+wysiwyg.toolbar.strike: Tăiat
+wysiwyg.toolbar.subscript: Indice
+wysiwyg.toolbar.superscript: Exponent
+wysiwyg.toolbar.table_add: 'Adaugă tabel'
+wysiwyg.toolbar.table_delete: 'Șterge tabelul'
+wysiwyg.toolbar.table_text: Tabel
+wysiwyg.toolbar.underline: Subliniat
+wysiwyg.toolbar.undo: Anulează
+wysiwyg.toolbar.undo_text: Anulează
+wysiwyg.toolbar.unlink: 'Elimină linkul'
+wysiwyg.toolbar.unlink_text: 'Elimină link'

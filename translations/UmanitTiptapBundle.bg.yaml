@@ -1,0 +1,163 @@
+modal.cancel: Отказ
+modal.close: Затваряне
+modal.validate: Потвърждаване
+wysiwyg.color.black: Черен
+wysiwyg.color.blue: Син
+wysiwyg.bg_color.choose: 'Цвят на фона'
+wysiwyg.bg_color.reset: 'Нулиране на цвета на фона'
+wysiwyg.color.choose: 'Избор на цвят'
+wysiwyg.color.green: Зелен
+wysiwyg.color.grey: Сив
+wysiwyg.color.grey_dark: Тъмносив
+wysiwyg.color.grey_light: Светлосив
+wysiwyg.color.indigo: Индиго
+wysiwyg.color.orange: Оранжев
+wysiwyg.color.pink: Розов
+wysiwyg.color.purple: Лилав
+wysiwyg.color.red: Червен
+wysiwyg.color.reset: 'Нулиране на цвета'
+wysiwyg.color.white: Бял
+wysiwyg.color.yellow: Жълт
+wysiwyg.diff.after: 'След (какво ще бъде запазено)'
+wysiwyg.diff.banner_lost: 'Това съдържание ще загуби елементи при запазване: {signals}.'
+wysiwyg.diff.banner_rewritten: 'Това съдържание ще бъде пренаписано при запазване, без загуба на форматиране.'
+wysiwyg.diff.before: 'Преди (оригинално съдържание)'
+wysiwyg.diff.help: 'Редовете с представка "-" идват от оригиналното съдържание, а тези с представка "+" са това, което редакторът е направил от него.'
+wysiwyg.diff.show: 'Показване на разликите'
+wysiwyg.diff.title: 'Разлики спрямо оригиналното съдържание'
+wysiwyg.error.unknown_tool: 'Инструментът "{tool}" не се поддържа'
+wysiwyg.font_size.choose: 'Размер на шрифта'
+wysiwyg.font_size.reset: 'Размер по подразбиране'
+wysiwyg.menu.add_row_after: 'Добавяне на ред отдолу'
+wysiwyg.menu.add_row_before: 'Добавяне на ред отгоре'
+wysiwyg.menu.cell_properties: 'Свойства на клетката'
+wysiwyg.menu.delete_table: 'Изтриване на таблицата'
+wysiwyg.menu.merge_cells: 'Сливане на клетки'
+wysiwyg.menu.split_cell: 'Разделяне на клетка'
+wysiwyg.menu.table_properties: 'Свойства на таблицата'
+wysiwyg.modal.anchor.id: Идентификатор
+wysiwyg.modal.anchor.id_placeholder: anchor-name
+wysiwyg.modal.anchor.remove: 'Премахване на котвата'
+wysiwyg.modal.anchor.title: Котва
+wysiwyg.modal.apply: Прилагане
+wysiwyg.modal.cell.align.bottom: Долу
+wysiwyg.modal.cell.align.default: 'По подразбиране'
+wysiwyg.modal.cell.align.middle: 'По средата'
+wysiwyg.modal.cell.align.top: Горе
+wysiwyg.modal.cell.bg_color: 'Цвят на фона'
+wysiwyg.modal.cell.bg_color.none: 'По подразбиране'
+wysiwyg.modal.cell.col_width: 'Ширина на колоната (px)'
+wysiwyg.modal.cell.col_width_placeholder: Автоматично
+wysiwyg.modal.cell.text_align: 'Хоризонтално подравняване'
+wysiwyg.modal.cell.text_align.center: 'По центъра'
+wysiwyg.modal.cell.text_align.justify: Двустранно
+wysiwyg.modal.cell.text_align.left: Отляво
+wysiwyg.modal.cell.text_align.right: Отдясно
+wysiwyg.modal.cell.title: 'Свойства на клетката'
+wysiwyg.modal.cell.vertical_align: 'Вертикално подравняване'
+wysiwyg.modal.image.align: Подравняване
+wysiwyg.modal.image.align.center: 'По центъра'
+wysiwyg.modal.image.align.left: Отляво
+wysiwyg.modal.image.align.right: Отдясно
+wysiwyg.modal.image.align.undefined: '<undefined>'
+wysiwyg.modal.image.alt: 'Алтернативен текст'
+wysiwyg.modal.image.browse: 'Преглед на сървъра'
+wysiwyg.modal.image.height: Височина
+wysiwyg.modal.image.margin: Отстояние
+wysiwyg.modal.image.margin.medium: 'Средно (10px)'
+wysiwyg.modal.image.margin.none: Без
+wysiwyg.modal.image.margin.small: 'Малко (5px)'
+wysiwyg.modal.image.preview: Преглед
+wysiwyg.modal.image.title: 'Свойства на изображението'
+wysiwyg.modal.image.url: 'URL*'
+wysiwyg.modal.image.width: Ширина
+wysiwyg.modal.link.anchor_name: 'Име на котвата'
+wysiwyg.modal.link.anchor_placeholder: my-anchor
+wysiwyg.modal.link.rel: 'Добавяне на rel="noopener noreferrer nofollow"'
+wysiwyg.modal.link.target: Цел
+wysiwyg.modal.link.target.blank: 'Нов прозорец (_blank)'
+wysiwyg.modal.link.target.default: 'По подразбиране'
+wysiwyg.modal.link.target.self: 'Същия прозорец (_self)'
+wysiwyg.modal.link.title: 'Вмъкване на връзка'
+wysiwyg.modal.link.type: 'Тип на връзката'
+wysiwyg.modal.link.type.anchor: Котва
+wysiwyg.modal.link.type.url: 'Уеб адрес'
+wysiwyg.modal.link.url: 'Уеб адрес (URL)'
+wysiwyg.modal.link.url_placeholder: 'https://example.com'
+wysiwyg.modal.ok: OK
+wysiwyg.modal.table.align: 'Подравняване на таблицата'
+wysiwyg.modal.table.align_center: 'По центъра'
+wysiwyg.modal.table.align_left: Отляво
+wysiwyg.modal.table.align_right: Отдясно
+wysiwyg.modal.table.appearance: 'Външен вид'
+wysiwyg.modal.table.cols: 'Колони*'
+wysiwyg.modal.table.css_class: 'CSS клас'
+wysiwyg.modal.table.css_placeholder: 'table table-striped...'
+wysiwyg.modal.table.header_row: 'С ред за заглавие'
+wysiwyg.modal.table.rows: 'Редове*'
+wysiwyg.modal.table.structure: Структура
+wysiwyg.modal.table.title: 'Свойства на таблицата'
+wysiwyg.modal.table.width: 'Ширина на таблицата'
+wysiwyg.modal.table.width_auto: Автоматично
+wysiwyg.modal.template.items.demo.desc: 'Прост демонстрационен шаблон'
+wysiwyg.modal.template.items.demo.title: 'Демонстрационен шаблон'
+wysiwyg.modal.template.items.table.desc: 'Таблица 2x1'
+wysiwyg.modal.template.items.table.title: 'Предварително попълнена таблица'
+wysiwyg.modal.template.replace: 'Замяна на текущото съдържание'
+wysiwyg.modal.template.select_helper: 'Моля, изберете шаблона, който да се отвори в редактора'
+wysiwyg.modal.template.title: 'Шаблони за съдържание'
+wysiwyg.path.label: 'Път на елементите'
+wysiwyg.placeholder: 'Напишете нещо …'
+wysiwyg.resize.label: 'Преоразмеряване на областта за редактиране'
+wysiwyg.style.banner_info: 'Информационен банер'
+wysiwyg.style.banner_warning: 'Банер с предупреждение'
+wysiwyg.style.button: Бутон
+wysiwyg.style.button_label: Стилове
+wysiwyg.style.main_title: 'Стилове на блокове'
+wysiwyg.style.normal: Нормален
+wysiwyg.style.section.banners: Банери
+wysiwyg.style.section.colors: Цветове
+wysiwyg.style.section.misc: Разни
+wysiwyg.style.section.tables: Таблици
+wysiwyg.style.table_dotted: 'Таблица с точкови линии'
+wysiwyg.style.table_striped: 'Таблица с ивици'
+wysiwyg.toolbar.align_center: 'По центъра'
+wysiwyg.toolbar.align_justify: Двустранно
+wysiwyg.toolbar.align_left: Отляво
+wysiwyg.toolbar.align_right: Отдясно
+wysiwyg.toolbar.anchor: Котва
+wysiwyg.toolbar.blockquote: Цитат
+wysiwyg.toolbar.bold: Получер
+wysiwyg.toolbar.bullet_list: 'Списък с водачи'
+wysiwyg.toolbar.color: Цвят
+wysiwyg.toolbar.copy: Копиране
+wysiwyg.toolbar.cut: Изрязване
+wysiwyg.toolbar.h1: 'Заглавие 1'
+wysiwyg.toolbar.h2: 'Заглавие 2'
+wysiwyg.toolbar.h3: 'Заглавие 3'
+wysiwyg.toolbar.image: Изображение
+wysiwyg.toolbar.image_text: IMG
+wysiwyg.toolbar.indent: 'Увеличаване на отстъпа'
+wysiwyg.toolbar.insert_template: 'Вмъкване на шаблон'
+wysiwyg.toolbar.italic: Курсив
+wysiwyg.toolbar.link: Връзка
+wysiwyg.toolbar.link_text: Връзка
+wysiwyg.toolbar.list_tight: 'Компактен списък (без разстояние между елементите)'
+wysiwyg.toolbar.ordered_list: 'Номериран списък'
+wysiwyg.toolbar.outdent: 'Намаляване на отстъпа'
+wysiwyg.toolbar.paragraph: Абзац
+wysiwyg.toolbar.paste: Поставяне
+wysiwyg.toolbar.redo: Повторение
+wysiwyg.toolbar.redo_text: Повторение
+wysiwyg.toolbar.source_mode: 'Режим на изходния код'
+wysiwyg.toolbar.strike: Зачертан
+wysiwyg.toolbar.subscript: 'Долен индекс'
+wysiwyg.toolbar.superscript: 'Горен индекс'
+wysiwyg.toolbar.table_add: 'Добавяне на таблица'
+wysiwyg.toolbar.table_delete: 'Изтриване на таблицата'
+wysiwyg.toolbar.table_text: Таблица
+wysiwyg.toolbar.underline: Подчертан
+wysiwyg.toolbar.undo: Отмяна
+wysiwyg.toolbar.undo_text: Отмяна
+wysiwyg.toolbar.unlink: 'Премахване на връзката'
+wysiwyg.toolbar.unlink_text: 'Без връзка'
