@@ -8,7 +8,6 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\MariaDBPlatform;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
 use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
-use Doctrine\DBAL\Platforms\SQLitePlatform;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
@@ -25,7 +24,12 @@ final class PlatformSqlTest extends TestCase
     public static function platforms(): iterable
     {
         yield 'postgresql' => [new PostgreSQLPlatform(), 'CAST(c AS TEXT)', 'c = :p'];
-        yield 'sqlite' => [new SQLitePlatform(), 'CAST(c AS TEXT)', 'c = :p'];
+        // DBAL 3 spells it `SqlitePlatform`, DBAL 4 `SQLitePlatform`, and the autoloader follows the case of the file
+        $sqlite = \class_exists('Doctrine\\DBAL\\Platforms\\SQLitePlatform')
+            ? 'Doctrine\\DBAL\\Platforms\\SQLitePlatform'
+            : 'Doctrine\\DBAL\\Platforms\\SqlitePlatform';
+
+        yield 'sqlite' => [new $sqlite(), 'CAST(c AS TEXT)', 'c = :p'];
         yield 'mysql' => [new MySQLPlatform(), 'CAST(c AS CHAR)', 'BINARY c = :p'];
         yield 'mariadb' => [new MariaDBPlatform(), 'CAST(c AS CHAR)', 'BINARY c = :p'];
     }

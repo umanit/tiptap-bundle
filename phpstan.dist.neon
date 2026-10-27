@@ -18,3 +18,9 @@ parameters:
         -
             identifier: return.deprecatedInterface
             path: tests/Fixtures/TestKernel.php
+        # Supports both ORM 2.20 and ORM 3, which differ on the setup and on native lazy objects
+        -
+            identifier: function.alreadyNarrowedType
+            paths:
+                - tests/Fixtures/Doctrine/SqliteDatabase.php
+                - tests/Fixtures/DoctrineTestKernel.php

@@ -19,8 +19,15 @@ final class SqliteDatabase
 {
     public static function create(bool $withBackupTable = false): Connection
     {
-        $config = ORMSetup::createAttributeMetadataConfig([__DIR__ . '/../../../src/Doctrine/Entity']);
-        $config->enableNativeLazyObjects(true);
+        $paths = [__DIR__ . '/../../../src/Doctrine/Entity'];
+        // ORM 2 names it differently, and has no native lazy objects (ORM 3.4 and later)
+        $config = method_exists(ORMSetup::class, 'createAttributeMetadataConfig')
+            ? ORMSetup::createAttributeMetadataConfig($paths)
+            : ORMSetup::createAttributeMetadataConfiguration($paths);
+
+        if (method_exists($config, 'enableNativeLazyObjects')) {
+            $config->enableNativeLazyObjects(true);
+        }
         $connection = DriverManager::getConnection(['driver' => 'pdo_sqlite', 'memory' => true], $config);
 
         if ($withBackupTable) {

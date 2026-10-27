@@ -54,6 +54,35 @@ jobs:
       - run: make vitest
         if: ${{ !cancelled() }}
 
+  doctrine-orm-2:
+    name: PHPUnit (Doctrine ORM 2.20)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version-file: .php-version
+          extensions: dom, libxml, mbstring, intl
+          tools: composer
+          coverage: none
+
+      # The dev dependencies resolve to ORM 3 by default
+      - run: composer require --dev --no-update 'doctrine/orm:2.20.*' 'doctrine/dbal:^3.8' 'doctrine/doctrine-bundle:^2.11'
+
+      - run: composer update --no-interaction --no-progress
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - run: corepack enable
+
+      - run: yarn install --immutable
+        working-directory: assets
+
+      - run: make phpunit
+
   playground:
     name: Playground (AssetMapper and Encore)
     runs-on: ubuntu-latest
