@@ -18,7 +18,7 @@ class DoctrineTestKernel extends TestKernel
 
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir() . '/umanit_tiptap_tests/doctrine_cache';
+        return $this->getTestsDir() . '/doctrine_cache';
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void

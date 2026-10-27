@@ -46,12 +46,21 @@ class TestKernel extends Kernel
 
     public function getCacheDir(): string
     {
-        return sys_get_temp_dir() . '/umanit_tiptap_tests/cache';
+        return $this->getTestsDir() . '/cache';
     }
 
     public function getLogDir(): string
     {
-        return sys_get_temp_dir() . '/umanit_tiptap_tests/log';
+        return $this->getTestsDir() . '/log';
+    }
+
+    /**
+     * Specific to this checkout: the compiled container holds absolute paths, so another copy of the bundle on the
+     * same machine must not reuse it.
+     */
+    protected function getTestsDir(): string
+    {
+        return sys_get_temp_dir() . '/umanit_tiptap_tests/' . md5(__DIR__);
     }
 
     protected function configureContainer(ContainerBuilder $container, LoaderInterface $loader): void
