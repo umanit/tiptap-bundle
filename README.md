@@ -30,9 +30,10 @@ Flex does for you. With Webpack Encore, reference the package from your `package
 "@umanit/tiptap-bundle": "file:vendor/umanit/tiptap-bundle/assets"
 ```
 
-npm links a `file:` directory without installing what it depends on, so add the dependencies of the package as well
-(their versions are in the `dependencies` of [assets/package.json](assets/package.json)), or the build fails with
-`Module not found`:
+TipTap and the other libraries the package relies on are its `peerDependencies`
+([assets/package.json](assets/package.json)): Symfony Flex adds them to your `package.json` next to that link, then
+`npm install` fetches them. Without Flex, add them yourself, because npm links a `file:` directory without installing
+what it depends on and the build fails with `Module not found`:
 
 ```shell
 npm install --save-dev @intevation/tiptap-extension-office-paste @tiptap/core @tiptap/extension-image \
