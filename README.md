@@ -32,8 +32,9 @@ add it yourself:
 ```
 
 With AssetMapper the bundle exposes its sources by itself, but `@tiptap/pm` has no root export, so its sub-paths must be
-required explicitly. The [playground](playground/README.md) is a working application for both pipelines and lists the
-exact steps.
+required explicitly. Flex does not fill the importmap for you: resolving the dependencies of TipTap currently fails
+(jsDelivr writes a version range already encoded, which AssetMapper encodes a second time). The
+[playground](playground/README.md) is a working application for both pipelines and lists the exact steps.
 
 ## Usage
 

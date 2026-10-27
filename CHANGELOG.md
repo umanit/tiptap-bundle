@@ -124,7 +124,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - Symfony Flex ignored the JavaScript package, for lack of the `symfony-ux` keyword in `composer.json`: it now adds the
-  reference to the package in `package.json`, and the controllers in `assets/controllers.json`.
+  reference to the package in `package.json`, and the controllers in `assets/controllers.json`. The
+  importmap of an AssetMapper application stays to be filled by hand (see the README).
 - `symfony/console` is a declared requirement: the commands rely on it (`#[AsCommand(help: …)]` needs 7.3 or later),
   but it was only pulled in indirectly and could resolve to an older version.
 - Changing the alignment of a paragraph or a heading which came from existing content replaced the class only in
