@@ -12,6 +12,11 @@ use Dom\HTMLDocument;
  * It works on the DOM, applies its rules one after the other and checks that the text of the content is the same
  * afterwards: a content for which that would not be true is left as it is. A content on which no rule finds anything
  * is returned untouched, byte for byte, so cleaning twice is the same as cleaning once.
+ *
+ * Its JavaScript twin is `assets/src/editor/html-cleaner.js`, which repairs what is pasted into the editor. They
+ * overlap on the classes of Word (`WordClassesRule`, replayed on both sides from
+ * `tests/Fixtures/Cleaning/word-classes-cases.json`) and must not drift there: the header of that file says what each
+ * side does on its own.
  */
 final readonly class HtmlCleaner
 {
