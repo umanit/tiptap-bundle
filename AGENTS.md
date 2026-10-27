@@ -23,6 +23,8 @@ tooling to audit, clean and migrate contents written with another editor.
 - **Public repository**: nothing about any private codebase, product or customer in code, tests, docs, comments, commits
   or the changelog.
 - **English everywhere**: code, comments, docs, commit messages (Conventional Commits, e.g. `feat(editor): …`).
+- **Commit messages**: keep the subject within 80 characters; wrap the body lines (the GrumPHP hook rejects lines over
+  100 characters).
 - **Native PHP classes**: never `use` them, reference them with a leading backslash (`\Exception`,
   `\DateTimeImmutable`).
 - Namespaces: PHP `Umanit\TiptapBundle`, Twig `Umanit:Tiptap:…`, translation domain `UmanitTiptapBundle`.
