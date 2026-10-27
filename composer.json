@@ -9,6 +9,7 @@
     "wysiwyg",
     "editor",
     "stimulus",
+    "symfony-ux",
     "twig-component"
   ],
   "license": "MIT",

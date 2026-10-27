@@ -24,21 +24,11 @@ composer require umanit/tiptap-bundle
 
 The JavaScript package `@umanit/tiptap-bundle` ships in the `assets/` directory of the Composer package. Its four
 Stimulus controllers (`editor`, `dropdown`, `image`, `modal`) are declared in `assets/controllers.json`, which Symfony
-Flex does for you. With Webpack Encore, reference the package from your `package.json`:
+Flex does for you, as well as the reference to the package in your `package.json` with Webpack Encore. Without Flex,
+add it yourself:
 
 ```json
 "@umanit/tiptap-bundle": "file:vendor/umanit/tiptap-bundle/assets"
-```
-
-TipTap and the other libraries the package relies on are its `peerDependencies`
-([assets/package.json](assets/package.json)): Symfony Flex adds them to your `package.json` next to that link, then
-`npm install` fetches them. Without Flex, add them yourself, because npm links a `file:` directory without installing
-what it depends on and the build fails with `Module not found`:
-
-```shell
-npm install --save-dev @intevation/tiptap-extension-office-paste @tiptap/core @tiptap/extension-image \
-    @tiptap/extension-list @tiptap/extension-placeholder @tiptap/extension-subscript @tiptap/extension-superscript \
-    @tiptap/extension-table @tiptap/extension-text-align @tiptap/extensions @tiptap/pm @tiptap/starter-kit
 ```
 
 With AssetMapper the bundle exposes its sources by itself, but `@tiptap/pm` has no root export, so its sub-paths must be

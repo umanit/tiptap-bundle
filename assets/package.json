@@ -74,8 +74,7 @@
     "build:email-css": "node bin/build-email-css.js",
     "test": "vitest run"
   },
-  "peerDependencies": {
-    "@hotwired/stimulus": "^3.0.0",
+  "dependencies": {
     "@intevation/tiptap-extension-office-paste": "^0.1.2",
     "@tiptap/core": "^3.13.0",
     "@tiptap/extension-image": "^3.13.0",
@@ -87,7 +86,10 @@
     "@tiptap/extension-text-align": "^3.13.0",
     "@tiptap/extensions": "^3.13.0",
     "@tiptap/pm": "^3.13.0",
-    "@tiptap/starter-kit": "^3.13.0",
+    "@tiptap/starter-kit": "^3.13.0"
+  },
+  "peerDependencies": {
+    "@hotwired/stimulus": "^3.0.0",
     "jsdom": "^30.1.3"
   },
   "peerDependenciesMeta": {
@@ -101,18 +103,6 @@
     "@eslint/eslintrc": "^3.3.5",
     "@eslint/js": "^9.39.4",
     "@hotwired/stimulus": "^3.2.2",
-    "@intevation/tiptap-extension-office-paste": "^0.1.2",
-    "@tiptap/core": "^3.13.0",
-    "@tiptap/extension-image": "^3.13.0",
-    "@tiptap/extension-list": "^3.13.0",
-    "@tiptap/extension-placeholder": "^3.13.0",
-    "@tiptap/extension-subscript": "^3.13.0",
-    "@tiptap/extension-superscript": "^3.13.0",
-    "@tiptap/extension-table": "^3.13.0",
-    "@tiptap/extension-text-align": "^3.13.0",
-    "@tiptap/extensions": "^3.13.0",
-    "@tiptap/pm": "^3.13.0",
-    "@tiptap/starter-kit": "^3.13.0",
     "@umanit/eslint-config": "^1.0.3",
     "eslint": "^9.39.4",
     "eslint-config-airbnb-base": "^15.0.0",

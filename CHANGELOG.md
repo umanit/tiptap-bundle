@@ -111,9 +111,6 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
-- The JavaScript package declares TipTap and its other libraries as `peerDependencies` instead of `dependencies`,
-  as the Symfony UX packages do: Symfony Flex adds them to the `package.json` of the application. Without Flex, install
-  them yourself (see the README).
 - The toolbar builders pick their tools by name (`$tools->getTool('bold')`) instead of creating them: a name which no
   builder of tools lists is an error when the toolbar is built. `DefaultToolbarBuilder` takes a `ToolProviderInterface`.
 - The tools of the bundle are listed in PHP (`DefaultToolsBuilder`) and rendered by `Toolbar.html.twig`, which
@@ -126,6 +123,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
+- Symfony Flex ignored the JavaScript package, for lack of the `symfony-ux` keyword in `composer.json`: it now adds the
+  reference to the package in `package.json`, and the controllers in `assets/controllers.json`.
 - `symfony/console` is a declared requirement: the commands rely on it (`#[AsCommand(help: …)]` needs 7.3 or later),
   but it was only pulled in indirectly and could resolve to an older version.
 - Changing the alignment of a paragraph or a heading which came from existing content replaced the class only in

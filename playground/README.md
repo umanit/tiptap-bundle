@@ -37,9 +37,9 @@ by `src/Toolbar/PlaygroundToolsBuilder.php` and added to the default toolbar by
 
   and map `@symfony/stimulus-bundle` and `@umanit/tiptap-bundle` (see `importmap.php`).
 - Encore: `"@umanit/tiptap-bundle": "file:vendor/umanit/tiptap-bundle/assets"` in `package.json`, **and** the
-  `peerDependencies` of that package (`@tiptap/*`, `@intevation/tiptap-extension-office-paste`). Symfony Flex adds them
-  to a real application; the playground has no Flex, and npm links a `file:` directory without installing what it
-  depends on, so the build fails with "Module not found" otherwise.
+  `dependencies` of that package (`@tiptap/*`, `@intevation/tiptap-extension-office-paste`). In a real application
+  `vendor/` lies inside the project and npm installs them; here the bundle is a symlink to the parent directory, outside
+  the project, so npm does not and the build fails with "Module not found" otherwise.
 - Dev checkout caveat: `npm install` here follows the `file:` symlink and can alter `../assets/node_modules`
   (the bundle's own Yarn install). If `make eslint` breaks afterwards, run `rm -rf assets/node_modules && yarn install`
   in `assets/`. A real installation (copy under `vendor/`) is not affected.
