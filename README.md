@@ -30,6 +30,16 @@ Flex does for you. With Webpack Encore, reference the package from your `package
 "@umanit/tiptap-bundle": "file:vendor/umanit/tiptap-bundle/assets"
 ```
 
+npm links a `file:` directory without installing what it depends on, so add the dependencies of the package as well
+(their versions are in the `dependencies` of [assets/package.json](assets/package.json)), or the build fails with
+`Module not found`:
+
+```shell
+npm install --save-dev @intevation/tiptap-extension-office-paste @tiptap/core @tiptap/extension-image \
+    @tiptap/extension-list @tiptap/extension-placeholder @tiptap/extension-subscript @tiptap/extension-superscript \
+    @tiptap/extension-table @tiptap/extension-text-align @tiptap/extensions @tiptap/pm @tiptap/starter-kit
+```
+
 With AssetMapper the bundle exposes its sources by itself, but `@tiptap/pm` has no root export, so its sub-paths must be
 required explicitly. The [playground](playground/README.md) is a working application for both pipelines and lists the
 exact steps.
