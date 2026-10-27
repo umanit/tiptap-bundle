@@ -83,6 +83,10 @@ class TestKernel extends Kernel
         $container->register(FixtureContentSourceProvider::class)->setAutoconfigured(true);
         $container->register(BrandLossRule::class)->setAutoconfigured(true);
         $container->setAlias('test.form.factory', 'form.factory')->setPublic(true);
+        $container->loadFromExtension('twig_component', [
+            'defaults'                     => [],
+            'anonymous_template_directory' => 'components',
+        ]);
         $container->loadFromExtension('twig', ['default_path' => __DIR__ . '/templates']);
     }
 }
