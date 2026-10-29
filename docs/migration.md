@@ -110,9 +110,13 @@ For anything else (files, an API…), implement `WritableContentSourceInterface`
 The contents are saved before they are rewritten, through `MigrationBackupInterface`. When the application uses
 Doctrine, the bundle provides one which stores them in the table `umanit_tiptap_migration_backup`.
 
-**That table is created by a Doctrine migration**, like any other: it is mapped by the bundle (when the ORM is
-installed), so `doctrine:migrations:diff` writes the migration, and `doctrine:schema:validate` does not mistake it for a
-stray table. `umanit:tiptap:migrate --force` refuses to start until it exists.
+**That table is created by a Doctrine migration**, which the bundle carries: when `doctrine/doctrine-migrations-bundle`
+is installed, its directory is added to `doctrine_migrations.migrations_paths` by itself, so `doctrine:migrations:migrate`
+creates the table with the migrations of the application (check with `doctrine:migrations:status`). An application which
+had already created the table with its own migration is not affected: the one of the bundle skips itself when the table
+exists. The table is also mapped (when the ORM is installed), so `doctrine:schema:validate` does not mistake it for a
+stray table, and `doctrine:migrations:diff` run on an up-to-date database has nothing to add.
+`umanit:tiptap:migrate --force` refuses to start until the table exists.
 
 The table grows with every migration (and every `umanit:tiptap:clean --force`, which saves its contents the same way).
 Once the result is accepted, delete what a migration saved:

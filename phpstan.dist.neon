@@ -14,6 +14,10 @@ parameters:
         - src/
         - tests/
     ignoreErrors:
+        # Supports DBAL 3.8 to 4.x: the editors replacing these methods only exist since DBAL 4.5
+        -
+            identifier: method.deprecated
+            path: src/Doctrine/Migrations/Version20261029000000.php
         # Supports both Symfony 7.4 (HttpKernel BundleInterface) and 8.x (where it is deprecated)
         -
             identifier: return.deprecatedInterface

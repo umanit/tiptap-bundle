@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Umanit\TiptapBundle\Tests\Fixtures;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
@@ -36,6 +37,7 @@ class TestKernel extends Kernel
 
         if ($this->withDoctrine) {
             yield new DoctrineBundle();
+            yield new DoctrineMigrationsBundle();
         }
     }
 

@@ -7,6 +7,7 @@ namespace Umanit\TiptapBundle\DependencyInjection\Feature;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Umanit\TiptapBundle\Doctrine\ContentColumnProviderInterface;
+use Umanit\TiptapBundle\Doctrine\Migrations\Version20261029000000;
 use Umanit\TiptapBundle\Doctrine\OrmMapping;
 use Umanit\TiptapBundle\Doctrine\Storage\ColumnStorageInterface;
 
@@ -33,6 +34,15 @@ final readonly class DoctrineFeature implements FeatureInterface
         // The table where the migration saves the contents it rewrites is mapped, so that Doctrine knows about it
         if ($usesDoctrine && OrmMapping::isAvailable() && AuditFeature::isAvailable()) {
             $configurator->extension('doctrine', ['orm' => ['mappings' => OrmMapping::getMappings()]]);
+        }
+
+        // ... and its migration is registered next to the ones of the application, which only has to run them
+        if ($usesDoctrine && $container->hasExtension('doctrine_migrations') && AuditFeature::isAvailable()) {
+            $migration = new \ReflectionClass(Version20261029000000::class);
+
+            $configurator->extension('doctrine_migrations', [
+                'migrations_paths' => [$migration->getNamespaceName() => \dirname((string) $migration->getFileName())],
+            ]);
         }
     }
 

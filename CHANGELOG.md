@@ -9,6 +9,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- The bundle carries the Doctrine migration which creates the table of the migration backup, and registers it in
+  `doctrine_migrations.migrations_paths` itself when `doctrine/doctrine-migrations-bundle` is installed: run
+  `doctrine:migrations:migrate`, no migration to generate. It skips itself if the table already exists.
 - `TiptapType` honours the `disabled` option of Symfony forms: the editor is displayed greyed out and unusable (read-only
   content, inert toolbar and status bar, disabled `<textarea>` so nothing is submitted). The Twig component takes a
   `disabled` prop, and the Stimulus controller a `disabled` value that can be toggled at runtime.

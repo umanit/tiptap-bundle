@@ -4,15 +4,19 @@ declare(strict_types=1);
 
 namespace Umanit\TiptapBundle\Tests\Integration;
 
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\DependencyFactory;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Tools\SchemaTool;
 use PHPUnit\Framework\Attributes\CoversNothing;
+use Psr\Log\NullLogger;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Symfony\Component\HttpKernel\KernelInterface;
+use Umanit\TiptapBundle\Doctrine\Migrations\Version20261029000000;
 use Umanit\TiptapBundle\Tests\Fixtures\DoctrineTestKernel;
 use Umanit\TiptapBundle\Tests\Fixtures\TestKernel;
 
@@ -58,6 +62,29 @@ final class DoctrineWiringTest extends KernelTestCase
         // The table has not been created by a migration yet
         $this->assertSame(Command::FAILURE, $tester->execute(['--force' => true]));
         $this->assertStringContainsString('table does not exist yet', $tester->getDisplay());
+    }
+
+    public function testTheBundleRegistersItsMigrationAndItBuildsTheMappedTable(): void
+    {
+        $factory = self::getContainer()->get('doctrine.migrations.dependency_factory');
+        $this->assertInstanceOf(DependencyFactory::class, $factory);
+        $this->assertArrayHasKey(
+            'Umanit\\TiptapBundle\\Doctrine\\Migrations',
+            $factory->getConfiguration()->getMigrationDirectories(),
+        );
+
+        $entityManager = $this->entityManager();
+        $connection = $entityManager->getConnection();
+        $migration = new Version20261029000000($connection, new NullLogger());
+
+        $migrated = new Schema();
+        $migration->up($migrated);
+
+        $mapped = new SchemaTool($entityManager)->getSchemaFromMetadata($this->metadataOf($entityManager));
+
+        $diff = $connection->createSchemaManager()->createComparator()->compareSchemas($mapped, $migrated);
+
+        $this->assertTrue($diff->isEmpty(), 'The migration creates the table the way the mapping describes it.');
     }
 
     public function testWithTheTableTheHistoryIsAvailable(): void

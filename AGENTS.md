@@ -27,6 +27,9 @@ tooling to audit, clean and migrate contents written with another editor.
   100 characters).
 - **Native PHP classes**: never `use` them, reference them with a leading backslash (`\Exception`,
   `\DateTimeImmutable`).
+- **Doctrine migrations** (`src/Doctrine/Migrations`, registered by the bundle itself): write them with the `Schema` API
+  (`$schema->createTable()`…), never with raw SQL, so they run on every platform and DBAL version supported (3.8+).
+  Skip them when the change is already applied (`skipIf`), as the applications may have created it themselves.
 - Namespaces: PHP `Umanit\TiptapBundle`, Twig `Umanit:Tiptap:…`, translation domain `UmanitTiptapBundle`.
 - Native CSS only (custom properties, nesting): no SCSS, no Bootstrap.
 - Keep `docs/` and `README.md` in line with any change of behavior, option or command.
