@@ -37,6 +37,9 @@ final class Editor
     /** Warns when the editor rewrites the content it loads, and shows the difference (to check a migration). */
     public bool $migrationDiff = false;
 
+    /** Shows the editor greyed out and unusable; the content is not submitted (like any disabled form field). */
+    public bool $disabled = false;
+
     public function __construct(
         private readonly ToolbarProviderInterface $toolbarProvider,
     ) {

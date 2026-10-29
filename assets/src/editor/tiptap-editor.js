@@ -128,6 +128,13 @@ export default class TipTapEditor {
     return 'function' === typeof this.#editor.commands[command];
   }
 
+  /**
+   * @param {boolean} editable
+   */
+  setEditable(editable) {
+    this.#editor.setEditable(editable);
+  }
+
   destroy() {
     Object.values(this.#managers).forEach((manager) => manager.destroy?.(this.#editor));
     this.#editor.destroy();

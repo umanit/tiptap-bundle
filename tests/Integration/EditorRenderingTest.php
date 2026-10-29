@@ -312,6 +312,47 @@ final class EditorRenderingTest extends KernelTestCase
         $this->assertStringContainsString('rows="15"', $matches[0] ?? '');
     }
 
+    public function testEditorIsEnabledByDefault(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" name="bar" />')->render();
+
+        preg_match('#<textarea[^>]*>#', $html, $matches);
+
+        $this->assertStringNotContainsString('umanit-tiptap--disabled', $html);
+        $this->assertStringNotContainsString('disabled-value', $html);
+        $this->assertDoesNotMatchRegularExpression('#\sdisabled(\s|>)#', $matches[0] ?? '');
+    }
+
+    public function testDisabledEditorIsFlaggedAndItsTextareaIsDisabled(): void
+    {
+        $html = $this->getTwig()->createTemplate(
+            '<twig:Umanit:Tiptap:Editor id="foo" name="bar" :disabled="true" />',
+        )->render();
+
+        preg_match('#<textarea[^>]*>#', $html, $matches);
+
+        $this->assertStringContainsString('umanit-tiptap--disabled', $html);
+        $this->assertStringContainsString('disabled-value="true"', $html);
+        $this->assertMatchesRegularExpression('#\sdisabled(\s|>)#', $matches[0] ?? '');
+    }
+
+    public function testDisabledFormFieldDisablesTheEditor(): void
+    {
+        self::bootKernel();
+        $factory = self::getContainer()->get('test.form.factory');
+        $this->assertInstanceOf(FormFactoryInterface::class, $factory);
+
+        $form = $factory
+            ->createNamed('page', FormType::class)
+            ->add('body', TiptapType::class, ['disabled' => true])
+        ;
+
+        $html = $this->getTwig()->render('form.html.twig', ['form' => $form->createView()]);
+
+        $this->assertStringContainsString('umanit-tiptap--disabled', $html);
+        $this->assertStringContainsString('disabled-value="true"', $html);
+    }
+
     private function getTwig(): Environment
     {
         self::bootKernel();

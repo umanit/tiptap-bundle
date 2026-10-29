@@ -51,7 +51,8 @@ $builder->add('body', TiptapType::class, [
 ```
 
 Other options: `background_colors_set`, `cell_background_colors_set`, `templates_set`, `file_manager_url`,
-`file_manager_adapter` and `migration_diff`.
+`file_manager_adapter`, `migration_diff` and the standard `disabled`, which shows the editor greyed out and unusable
+(the content is then not submitted, as with any disabled field).
 
 The `attr` of the widget land on the `<textarea>` which holds the content (the field a form submits), as with any field.
 A `class` is added to the ones of the editor:

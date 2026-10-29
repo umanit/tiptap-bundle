@@ -10,6 +10,9 @@
     }),
   }) %}
 {% endif %}
+{% if this.disabled %}
+  {% set controller_values = controller_values|merge({disabled: true}) %}
+{% endif %}
 {% if this.hasFileManager %}
   {% set controller_values = controller_values|merge({fileManagerUrl: this.fileManagerUrl}) %}
 {% endif %}
@@ -17,7 +20,7 @@
   {% set controller_values = controller_values|merge({fileManagerAdapter: this.fileManagerAdapter}) %}
 {% endif %}
 
-<div class="umanit-tiptap" {{ stimulus_controller('umanit/tiptap/editor', controller_values) }} {{ attributes }}>
+<div class="umanit-tiptap{% if this.disabled %} umanit-tiptap--disabled{% endif %}" {{ stimulus_controller('umanit/tiptap/editor', controller_values) }} {{ attributes }}>
   {# The modals contain forms, which must not be parsed inside a host form (nested forms are dropped by the HTML
      parser and truncate the host form). The controller inserts them once connected, through the DOM API. #}
   <template {{ stimulus_target('umanit/tiptap/editor', 'modals') }}>
@@ -67,7 +70,7 @@
   </div>
 
   {# `class` is added to the ones of the editor, `rows` can be overridden, `id` and `name` are the editor's own. #}
-  {% set input_attributes = {rows: 15}|merge(this.inputAttributes) %}
+  {% set input_attributes = {rows: 15}|merge(this.inputAttributes)|merge(this.disabled ? {disabled: true} : {}) %}
   {% set input_class = ['umanit-tiptap__source', 'ut-hidden', input_attributes.class|default(null)]
     |filter((class) => class)
     |join(' ') %}

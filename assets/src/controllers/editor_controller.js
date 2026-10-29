@@ -30,6 +30,7 @@ export default class extends Controller {
     translations: Object,
     fileManagerUrl: String,
     migrationDiff: Boolean,
+    disabled: Boolean,
     fileManagerAdapter: {
       type: String,
       default: DEFAULT_ADAPTER_NAME,
@@ -97,6 +98,8 @@ export default class extends Controller {
       throw new Error('Cannot instantiate the TipTap editor', { cause: err });
     }
 
+    this.#applyDisabled();
+
     this.element[EDITOR_PROPERTY] = this.#wysiwygEditor;
     this.element.dispatchEvent(
       new CustomEvent(READY_EVENT, { bubbles: true, detail: { editor: this.#wysiwygEditor } }),
@@ -111,6 +114,10 @@ export default class extends Controller {
     delete this.element[EDITOR_PROPERTY];
     this.#abortController.abort();
     this.#wysiwygEditor?.destroy();
+  }
+
+  disabledValueChanged() {
+    this.#applyDisabled();
   }
 
   run(event) {
@@ -231,7 +238,11 @@ export default class extends Controller {
 
     this.editorTarget.addEventListener(
       'contextmenu',
-      (event) => this.#wysiwygEditor.handleContextMenu(event),
+      (event) => {
+        if (!this.disabledValue) {
+          this.#wysiwygEditor.handleContextMenu(event);
+        }
+      },
       { signal },
     );
 
@@ -307,6 +318,28 @@ export default class extends Controller {
    */
   #setAreaHeight(height) {
     this.element.style.setProperty('--umanit-tiptap-height', `${Math.max(MIN_HEIGHT, Math.round(height))}px`);
+  }
+
+  /**
+   * A disabled editor is displayed but cannot be used: the content is read-only, the toolbar and the status bar are
+   * inert, and the textarea is disabled so that nothing is submitted, as with any disabled form field.
+   */
+  #applyDisabled() {
+    if (!this.#wysiwygEditor) {
+      return;
+    }
+
+    const disabled = this.disabledValue;
+
+    this.#wysiwygEditor.setEditable(!disabled);
+    this.inputTarget.disabled = disabled;
+    this.element.classList.toggle('umanit-tiptap--disabled', disabled);
+
+    if (this.hasToolbarTarget) {
+      this.toolbarTarget.inert = disabled;
+    }
+
+    this.element.querySelector('.umanit-tiptap__statusbar')?.toggleAttribute('inert', disabled);
   }
 
   #updatePath() {

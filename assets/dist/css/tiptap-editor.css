@@ -91,6 +91,22 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
+/* Disabled: displayed, but unusable */
+.umanit-tiptap--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+
+  .umanit-tiptap__toolbar,
+  .umanit-tiptap__statusbar {
+    pointer-events: none;
+  }
+
+  .umanit-tiptap__surface,
+  .umanit-tiptap__source {
+    background: var(--umanit-tiptap-border-color);
+  }
+}
+
 /* Status bar: path of the elements around the cursor, resize handle */
 .umanit-tiptap__statusbar {
   display: flex;

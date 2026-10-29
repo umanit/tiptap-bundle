@@ -9,6 +9,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- `TiptapType` honours the `disabled` option of Symfony forms: the editor is displayed greyed out and unusable (read-only
+  content, inert toolbar and status bar, disabled `<textarea>` so nothing is submitted). The Twig component takes a
+  `disabled` prop, and the Stimulus controller a `disabled` value that can be toggled at runtime.
 - `UmanitTiptapBundle` translations for 33 more locales: bg, cs, da, de, el, es, fi, he, hr, hu, id, it, ja, ka, ko,
   lo, ms, nl_BE, nl_NL, pl, pt, pt_BR, ro, ru, sk, sl, sr, sv, th, tr, vi, zh, zh_TW.
 - Tools are complete definitions: a `Tool` has a name, a title and a command (or a Twig component), and is listed

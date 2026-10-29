@@ -111,6 +111,46 @@ describe('editor controller', () => {
     expect(root.style.getPropertyValue('--umanit-tiptap-height')).toBe('120px');
   });
 
+  it('makes the editor unusable when disabled, and usable again when enabled', async () => {
+    await mount(markup);
+
+    const root = document.querySelector('[data-controller]');
+    const textarea = document.querySelector('textarea');
+    const toolbar = document.querySelector('[data-umanit--tiptap--editor-target="toolbar"]');
+    const { editor } = document.querySelector('.ProseMirror');
+
+    expect(editor.isEditable).toBe(true);
+
+    root.setAttribute('data-umanit--tiptap--editor-disabled-value', 'true');
+    await new Promise((resolve) => {
+      setTimeout(resolve, 20);
+    });
+
+    expect(editor.isEditable).toBe(false);
+    expect(textarea.disabled).toBe(true);
+    expect(toolbar.inert).toBe(true);
+    expect(root.classList.contains('umanit-tiptap--disabled')).toBe(true);
+    expect(new FormData(document.getElementById('host')).has('body')).toBe(false);
+
+    root.removeAttribute('data-umanit--tiptap--editor-disabled-value');
+    await new Promise((resolve) => {
+      setTimeout(resolve, 20);
+    });
+
+    expect(editor.isEditable).toBe(true);
+    expect(textarea.disabled).toBe(false);
+    expect(toolbar.inert).toBe(false);
+  });
+
+  it('starts disabled from the markup', async () => {
+    const attribute = 'data-umanit--tiptap--editor-disabled-value="true"';
+
+    await mount(markup.replace('translations-value="{}"', `translations-value="{}" ${attribute}`));
+
+    expect(document.querySelector('.ProseMirror').editor.isEditable).toBe(false);
+    expect(document.querySelector('textarea').disabled).toBe(true);
+  });
+
   it('marks the tools which are active at the cursor, from their active state', async () => {
     const button = (command, active = null, args = null) => `<button data-wysiwyg-tool="x"
       data-umanit--tiptap--editor-command-param="${command}"
