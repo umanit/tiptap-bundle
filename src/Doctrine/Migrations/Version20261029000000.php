@@ -27,7 +27,9 @@ final class Version20261029000000 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // An application which created the table with its own migration (`doctrine:migrations:diff`) keeps it
-        $this->skipIf($schema->hasTable(BackupRecord::TABLE), 'The table ' . BackupRecord::TABLE . ' already exists.');
+        if ($schema->hasTable(BackupRecord::TABLE)) {
+            return;
+        }
 
         $table = $schema->createTable(BackupRecord::TABLE);
         $table->addColumn('id', Types::STRING, ['length' => 32]);
