@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: 'กึ่งกลาง'
 wysiwyg.modal.table.align_left: 'ซ้าย'
 wysiwyg.modal.table.align_right: ขวา
 wysiwyg.modal.table.appearance: 'รูปลักษณ์'
+wysiwyg.modal.table.caption: คำอธิบาย
 wysiwyg.modal.table.cols: 'คอลัมน์*'
 wysiwyg.modal.table.css_class: 'คลาส CSS'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

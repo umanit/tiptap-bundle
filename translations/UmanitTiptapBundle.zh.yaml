@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: 居中
 wysiwyg.modal.table.align_left: 左对齐
 wysiwyg.modal.table.align_right: 右对齐
 wysiwyg.modal.table.appearance: 外观
+wysiwyg.modal.table.caption: 标题
 wysiwyg.modal.table.cols: '列数*'
 wysiwyg.modal.table.css_class: 'CSS 类'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

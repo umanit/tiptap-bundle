@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: Centrat
 wysiwyg.modal.table.align_left: Stânga
 wysiwyg.modal.table.align_right: Dreapta
 wysiwyg.modal.table.appearance: Aspect
+wysiwyg.modal.table.caption: Legendă
 wysiwyg.modal.table.cols: 'Coloane*'
 wysiwyg.modal.table.css_class: 'Clasă CSS'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

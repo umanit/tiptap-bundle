@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: ცენტრში
 wysiwyg.modal.table.align_left: მარცხნივ
 wysiwyg.modal.table.align_right: მარჯვნივ
 wysiwyg.modal.table.appearance: იერსახე
+wysiwyg.modal.table.caption: წარწერა
 wysiwyg.modal.table.cols: 'სვეტები*'
 wysiwyg.modal.table.css_class: 'CSS კლასი'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

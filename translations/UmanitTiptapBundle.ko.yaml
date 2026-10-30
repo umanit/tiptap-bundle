@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: '가운데 맞춤'
 wysiwyg.modal.table.align_left: '왼쪽 맞춤'
 wysiwyg.modal.table.align_right: '오른쪽 맞춤'
 wysiwyg.modal.table.appearance: 모양
+wysiwyg.modal.table.caption: 캡션
 wysiwyg.modal.table.cols: '열 수*'
 wysiwyg.modal.table.css_class: 'CSS 클래스'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: 'Na sredini'
 wysiwyg.modal.table.align_left: Levo
 wysiwyg.modal.table.align_right: Desno
 wysiwyg.modal.table.appearance: Videz
+wysiwyg.modal.table.caption: Napis
 wysiwyg.modal.table.cols: 'Stolpci*'
 wysiwyg.modal.table.css_class: 'Razred CSS'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

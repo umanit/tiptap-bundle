@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: 'Στο κέντρο'
 wysiwyg.modal.table.align_left: Αριστερά
 wysiwyg.modal.table.align_right: Δεξιά
 wysiwyg.modal.table.appearance: Εμφάνιση
+wysiwyg.modal.table.caption: Λεζάντα
 wysiwyg.modal.table.cols: 'Στήλες*'
 wysiwyg.modal.table.css_class: 'Κλάση CSS'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

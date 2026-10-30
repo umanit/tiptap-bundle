@@ -79,6 +79,7 @@ export default class TableManager extends AbstractManager {
       tableWidth,
       tableAlign,
       cssClass,
+      caption: attrs.caption || '',
     });
 
     this.openModal();
@@ -293,6 +294,6 @@ export default class TableManager extends AbstractManager {
   #buildTableAttributes(data) {
     const classes = [data.tableWidth, data.tableAlign, data.cssClass].filter(Boolean).join(' ');
 
-    return { class: classes || null };
+    return { class: classes || null, caption: data.caption?.trim() || null };
   }
 }

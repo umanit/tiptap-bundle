@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: Центрирано
 wysiwyg.modal.table.align_left: Лево
 wysiwyg.modal.table.align_right: Десно
 wysiwyg.modal.table.appearance: Изглед
+wysiwyg.modal.table.caption: Натпис
 wysiwyg.modal.table.cols: 'Колоне*'
 wysiwyg.modal.table.css_class: 'CSS класа'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

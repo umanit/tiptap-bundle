@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: Centreret
 wysiwyg.modal.table.align_left: Venstre
 wysiwyg.modal.table.align_right: Højre
 wysiwyg.modal.table.appearance: Udseende
+wysiwyg.modal.table.caption: Billedtekst
 wysiwyg.modal.table.cols: 'Kolonner*'
 wysiwyg.modal.table.css_class: CSS-klasse
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

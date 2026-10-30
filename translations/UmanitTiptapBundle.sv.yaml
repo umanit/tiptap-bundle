@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: Centrerad
 wysiwyg.modal.table.align_left: Vänster
 wysiwyg.modal.table.align_right: Höger
 wysiwyg.modal.table.appearance: Utseende
+wysiwyg.modal.table.caption: Bildtext
 wysiwyg.modal.table.cols: 'Kolumner*'
 wysiwyg.modal.table.css_class: 'CSS-klass'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

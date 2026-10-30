@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: 'Na střed'
 wysiwyg.modal.table.align_left: Vlevo
 wysiwyg.modal.table.align_right: Vpravo
 wysiwyg.modal.table.appearance: Vzhled
+wysiwyg.modal.table.caption: Popisek
 wysiwyg.modal.table.cols: 'Sloupce*'
 wysiwyg.modal.table.css_class: 'Třída CSS'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

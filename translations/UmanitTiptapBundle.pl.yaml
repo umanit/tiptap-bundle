@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: 'Do środka'
 wysiwyg.modal.table.align_left: 'Do lewej'
 wysiwyg.modal.table.align_right: 'Do prawej'
 wysiwyg.modal.table.appearance: Wygląd
+wysiwyg.modal.table.caption: Podpis
 wysiwyg.modal.table.cols: 'Kolumny*'
 wysiwyg.modal.table.css_class: 'Klasa CSS'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

@@ -158,6 +158,36 @@ describe('content schema', () => {
     expect(html).not.toContain('style=');
   });
 
+  it('keeps the caption of a table, and does not turn it into a row', () => {
+    const html = roundTrip('<table><caption>Sales 2026</caption><colgroup><col width="120"></colgroup><tbody><tr>'
+      + '<td>a</td></tr></tbody></table>');
+
+    expect(html).toContain('<table><caption>Sales 2026</caption><colgroup><col width="120"></colgroup><tbody>');
+    expect(html.match(/<tr>/g)).toHaveLength(1);
+  });
+
+  it('creates a table with a caption from its form, and edits it', () => {
+    const tableForm = document.createElement('form');
+    tableForm.innerHTML = '<input name="rows" value="1"><input name="cols" value="1"><input name="caption">'
+      + '<input name="cssClass"><select name="tableWidth"><option value=""></option></select>'
+      + '<select name="tableAlign"><option value=""></option></select>';
+    document.body.append(tableForm);
+    create('<p></p>', { tableForm });
+
+    tableForm.elements.caption.value = '  Sales  ';
+    editor.runCommand('table.confirmAdd');
+    expect(editor.getHTML()).toContain('<table><caption>Sales</caption>');
+    expect(document.querySelector('.ProseMirror table > caption').textContent).toBe('Sales');
+
+    editor.runCommand('table.openEditModal');
+    expect(tableForm.elements.caption.value).toBe('Sales');
+
+    tableForm.elements.caption.value = '';
+    editor.runCommand('table.confirmAdd');
+    expect(editor.getHTML()).not.toContain('caption');
+    expect(document.querySelector('.ProseMirror table > caption')).toBeNull();
+  });
+
   it('redraws the table when its class changes', () => {
     create('<table><tbody><tr><td>a</td></tr></tbody></table>');
     editor.getEditor().chain().setTextSelection(3).updateAttributes('table', { class: 'ut-w-50' })

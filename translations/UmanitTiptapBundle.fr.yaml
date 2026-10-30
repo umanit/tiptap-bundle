@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: Centré
 wysiwyg.modal.table.align_left: Gauche
 wysiwyg.modal.table.align_right: Droite
 wysiwyg.modal.table.appearance: Apparence
+wysiwyg.modal.table.caption: Légende
 wysiwyg.modal.table.cols: 'Colonnes*'
 wysiwyg.modal.table.css_class: 'Classe CSS'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

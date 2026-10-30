@@ -21,6 +21,12 @@ function columnWidths(node) {
   return widths.some(Boolean) ? widths : [];
 }
 
+// The caption is a plain text, kept as an attribute of the table: <caption> must be the first child of <table>,
+// which the single content hole of the table (<tbody>) could not hold as an editable node.
+function renderCaption(node) {
+  return node.attrs.caption ? [['caption', node.attrs.caption]] : [];
+}
+
 function renderColgroup(node) {
   const widths = columnWidths(node);
 
@@ -41,6 +47,7 @@ class TableView {
       }
     });
     this.contentDOM = this.dom.appendChild(document.createElement('tbody'));
+    this.#syncCaption();
     this.#syncColgroup();
   }
 
@@ -55,6 +62,7 @@ class TableView {
     }
 
     this.node = node;
+    this.#syncCaption();
     this.#syncColgroup();
 
     return true;
@@ -62,6 +70,17 @@ class TableView {
 
   ignoreMutation(mutation) {
     return !this.contentDOM.contains(mutation.target);
+  }
+
+  #syncCaption() {
+    this.dom.querySelector(':scope > caption')?.remove();
+
+    const [caption] = renderCaption(this.node);
+    if (caption) {
+      const element = document.createElement('caption');
+      element.textContent = caption[1];
+      this.dom.prepend(element);
+    }
   }
 
   #syncColgroup() {
@@ -110,9 +129,16 @@ export const CustomTable = Table.extend({
     return [
       'table',
       mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
+      ...renderCaption(node),
       ...renderColgroup(node),
       ['tbody', 0],
     ];
+  },
+
+  // The <caption> is read as an attribute (see renderCaption), and ignored as content: its text would otherwise be
+  // wrapped in a row of the table.
+  parseHTML() {
+    return [...(this.parent?.() ?? []), { tag: 'caption', ignore: true }];
   },
 
   addAttributes() {
@@ -122,6 +148,11 @@ export const CustomTable = Table.extend({
         default: null,
         parseHTML: tableClass,
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
+      },
+      caption: {
+        default: null,
+        parseHTML: (element) => element.querySelector(':scope > caption')?.textContent.trim() || null,
+        renderHTML: () => ({}),
       },
     };
   },

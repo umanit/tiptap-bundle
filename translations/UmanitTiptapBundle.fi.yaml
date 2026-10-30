@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: Keskitetty
 wysiwyg.modal.table.align_left: Vasen
 wysiwyg.modal.table.align_right: Oikea
 wysiwyg.modal.table.appearance: Ulkoasu
+wysiwyg.modal.table.caption: Otsikko
 wysiwyg.modal.table.cols: 'Sarakkeet*'
 wysiwyg.modal.table.css_class: 'CSS-luokka'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'

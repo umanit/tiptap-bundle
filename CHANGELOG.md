@@ -9,6 +9,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
+- Tables: a caption can be given in the table properties, when creating a table or afterwards. It is written as a
+  `<caption>` (plain text) and read back from one, so the audit no longer reports it as lost.
 - The bundle carries the Doctrine migration which creates the table of the migration backup, and registers it in
   `doctrine_migrations.migrations_paths` itself when `doctrine/doctrine-migrations-bundle` is installed: run
   `doctrine:migrations:migrate`, no migration to generate. It skips itself if the table already exists.

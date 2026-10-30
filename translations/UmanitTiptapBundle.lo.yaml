@@ -90,6 +90,7 @@ wysiwyg.modal.table.align_center: ກາງ
 wysiwyg.modal.table.align_left: 'ຊ້າຍ'
 wysiwyg.modal.table.align_right: ຂວາ
 wysiwyg.modal.table.appearance: 'ຮູບລັກສະນະ'
+wysiwyg.modal.table.caption: ຄຳອະທິບາຍ
 wysiwyg.modal.table.cols: 'ຖັນ*'
 wysiwyg.modal.table.css_class: 'CSS Class'
 wysiwyg.modal.table.css_placeholder: 'table table-striped...'
