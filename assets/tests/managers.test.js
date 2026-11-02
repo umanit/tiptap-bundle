@@ -184,7 +184,7 @@ describe('image manager', () => {
 
     tiptap.runCommand('image.confirm');
 
-    expect(tiptap.getHTML()).toBe('<p></p>');
+    expect(tiptap.getHTML()).toBe('');
   });
 
   it('fills the url from the file manager', () => {

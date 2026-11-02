@@ -109,7 +109,7 @@
       "response": {
         "ref": 4,
         "html": "",
-        "after": "<p></p>",
+        "after": "",
         "textChanged": false,
         "lost": [ ],
         "inlineStyles": {

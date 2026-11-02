@@ -471,6 +471,12 @@ describe('content schema', () => {
       expect(editor.getHTML()).toContain('<li><p>One</p><ul><li><p>Two</p></li><li><p>Three</p></li></ul></li>');
     });
 
+    it('returns an empty string for an empty document', () => {
+      expect(create('').getHTML()).toBe('');
+      expect(create('<p></p>').getHTML()).toBe('');
+      expect(create('<p>a</p>').getHTML()).toBe('<p>a</p>');
+    });
+
     it('does nothing outside a list', () => {
       create('<p>Text</p>');
 

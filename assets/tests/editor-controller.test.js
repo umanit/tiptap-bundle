@@ -286,7 +286,7 @@ describe('editor controller', () => {
 
     document.querySelector('[data-controller]').dispatchEvent(new CustomEvent('umanit-tiptap:set-content'));
 
-    expect(document.querySelector('textarea').value).toBe('<p></p>');
+    expect(document.querySelector('textarea').value).toBe('');
   });
 
   describe('migration diff', () => {

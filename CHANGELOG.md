@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Fixed
+
+- An editor submitted with no content sends an empty string instead of `<p></p>`.
+
 ### Added
 
 - Tables: a caption can be given in the table properties, when creating a table or afterwards. It is written as a

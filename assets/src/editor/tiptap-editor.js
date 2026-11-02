@@ -87,10 +87,16 @@ export default class TipTapEditor {
   }
 
   /**
+   * An empty document is an empty string, not a lone `<p></p>`.
+   *
    * @returns {string}
    */
   getHTML() {
-    return this.#editor.getHTML();
+    const { doc } = this.#editor.state;
+    const first = doc.firstChild;
+    const isBlank = doc.childCount === 1 && first.type.name === 'paragraph' && first.content.size === 0;
+
+    return isBlank ? '' : this.#editor.getHTML();
   }
 
   /**

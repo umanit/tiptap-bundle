@@ -74,8 +74,8 @@ export default class extends Controller {
         editorProps: {
           transformPastedHTML: (html) => HtmlCleaner.normalizeWordHtml(html),
         },
-        onUpdate: ({ editor }) => {
-          this.inputTarget.value = editor.getHTML();
+        onUpdate: () => {
+          this.inputTarget.value = this.#wysiwygEditor.getHTML();
           this.#updateToolbarState();
           this.#updatePath();
         },
