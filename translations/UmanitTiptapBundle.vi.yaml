@@ -1,5 +1,6 @@
 modal.cancel: Hủy
 modal.close: Đóng
+modal.required_fields: 'Các trường có dấu hoa thị (*) là bắt buộc.'
 modal.validate: 'Xác nhận'
 wysiwyg.color.black: Đen
 wysiwyg.color.blue: 'Xanh dương'

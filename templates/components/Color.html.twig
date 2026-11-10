@@ -1,9 +1,10 @@
 {% trans_default_domain 'UmanitTiptapBundle' %}
 
-<div class="umanit-tiptap__color-wrapper umanit-tiptap__dropdown" title="{{ this.title|trans }}"
+<div class="umanit-tiptap__color-wrapper umanit-tiptap__dropdown"
     {{ stimulus_controller('umanit/tiptap/dropdown') }} {{ attributes }}>
-  <button type="button" class="umanit-tiptap__btn"
-      {{ stimulus_action('umanit/tiptap/dropdown', 'toggle') }} aria-expanded="false">
+  <button type="button" class="umanit-tiptap__btn" title="{{ this.title|trans }}" aria-label="{{ this.title|trans }}"
+      {{ stimulus_target('umanit/tiptap/dropdown', 'button')|stimulus_action('umanit/tiptap/dropdown', 'toggle') }}
+      aria-expanded="false">
     <twig:ux:icon name="{{ this.icon }}" width="{{ this.iconSize }}" height="{{ this.iconSize }}" />
   </button>
 
@@ -12,14 +13,16 @@
       {% for color in this.colors %}
         {% set color_class = this.colorClass(color) %}
         <twig:Umanit:Tiptap:CommandTool
-            :hideLabel="false" title="{{ color.label|trans }}" class="umanit-tiptap__color-swatch {{ color_class }}"
+            :hideLabel="false" title="{{ color.label|trans }}" aria-label="{{ color.label|trans }}"
+            class="umanit-tiptap__color-swatch {{ color_class }}"
             command="{{ this.command }}" args="{{ color_class }}" label="{{ this.btnLabel }}"
             :active="{spanClass: color_class}" />
       {% endfor %}
 
       <twig:Umanit:Tiptap:CommandTool
           :hideLabel="false" class="umanit-tiptap__color-swatch umanit-tiptap__color-swatch--reset"
-          title="{{ 'wysiwyg.color.reset'|trans }}" command="{{ this.resetCommand }}" label="✕" />
+          title="{{ 'wysiwyg.color.reset'|trans }}" aria-label="{{ 'wysiwyg.color.reset'|trans }}"
+          command="{{ this.resetCommand }}" label="✕" />
     </div>
   </div>
 </div>

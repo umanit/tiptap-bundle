@@ -12,21 +12,23 @@
         </label>
       </div>
 
-      <p class="umanit-tiptap__hint">{{ 'wysiwyg.modal.template.select_helper'|trans }}</p>
+      <fieldset class="umanit-tiptap__fieldset">
+        <legend class="umanit-tiptap__hint">{{ 'wysiwyg.modal.template.select_helper'|trans }}</legend>
 
-      <div class="umanit-tiptap__list">
-        {% for template in this.templates %}
-          <label class="umanit-tiptap__list-item">
-            <input type="radio" class="ut-visually-hidden" name="template" value="{{ template.content }}">
-            <span class="ut-flex ut-w-full ut-justify-between">
-              <span class="umanit-tiptap__list-item-title">{{ template.name|trans }}</span>
-            </span>
-            {% if template.description is not null %}
-              <small class="umanit-tiptap__muted">{{ template.description|trans }}</small>
-            {% endif %}
-          </label>
-        {% endfor %}
-      </div>
+        <div class="umanit-tiptap__list">
+          {% for template in this.templates %}
+            <label class="umanit-tiptap__list-item">
+              <input type="radio" class="ut-visually-hidden" name="template" value="{{ template.content }}">
+              <span class="ut-flex ut-w-full ut-justify-between">
+                <span class="umanit-tiptap__list-item-title">{{ template.name|trans }}</span>
+              </span>
+              {% if template.description is not null %}
+                <small class="umanit-tiptap__muted">{{ template.description|trans }}</small>
+              {% endif %}
+            </label>
+          {% endfor %}
+        </div>
+      </fieldset>
     </form>
   {% endblock %}
 

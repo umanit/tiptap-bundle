@@ -1,5 +1,6 @@
 modal.cancel: გაუქმება
 modal.close: დახურვა
+modal.required_fields: 'ვარსკვლავით (*) მონიშნული ველები სავალდებულოა.'
 modal.validate: დადასტურება
 wysiwyg.color.black: შავი
 wysiwyg.color.blue: ლურჯი

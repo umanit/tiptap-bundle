@@ -91,7 +91,8 @@ umanit_tiptap:
 
 Native CSS, no preprocessor: `tiptap-editor.css` (the editor UI), `tiptap-content.css` (the content, to load where it is
 displayed) and `tiptap-email.css` (inlined styles for emails), in `assets/dist/css`. The PurgeCSS safelist is exposed as
-`@umanit/tiptap-bundle/purgecss-safelist`.
+`@umanit/tiptap-bundle/purgecss-safelist`. The editor UI is themed through its `--umanit-tiptap-*` custom properties
+(see [the accessibility notes](docs/customization.md#accessibility) before changing its colors).
 
 ## Migrating existing contents
 

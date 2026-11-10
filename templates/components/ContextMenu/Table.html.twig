@@ -40,19 +40,19 @@
   }],
 ] %}
 
-<ul class="umanit-tiptap__context-menu ut-hidden" {{ stimulus_target('umanit/tiptap/editor', 'contextMenu') }}>
+<ul class="umanit-tiptap__context-menu ut-hidden" role="menu" {{ stimulus_target('umanit/tiptap/editor', 'contextMenu') }}>
   {% for group in table_actions %}
     {% for action in group %}
-      <li>
+      <li role="none">
         <twig:Umanit:Tiptap:CommandTool
-            :hideLabel="false" title="{{ action.label }}" {{ ...action }}
+            :hideLabel="false" title="{{ action.label }}" {{ ...action }} role="menuitem" tabindex="-1"
             class="umanit-tiptap__context-menu-item {{ action.class|default('') }}" />
       </li>
     {% endfor %}
 
     {% if not loop.last %}
-      <li>
-        <hr class="umanit-tiptap__dropdown-divider">
+      <li role="separator">
+        <hr class="umanit-tiptap__dropdown-divider" aria-hidden="true">
       </li>
     {% endif %}
   {% endfor %}

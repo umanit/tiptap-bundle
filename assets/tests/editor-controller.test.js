@@ -172,8 +172,42 @@ describe('editor controller', () => {
     document.querySelector('.ProseMirror').editor.commands.setTextSelection(2);
 
     const active = [...document.querySelectorAll('[data-wysiwyg-tool]')].map((el) => el.classList.contains('active'));
+    const pressed = [...document.querySelectorAll('[data-wysiwyg-tool]')].map((el) => el.getAttribute('aria-pressed'));
 
     expect(active).toEqual([true, false, true, false, false]);
+    expect(pressed).toEqual(['true', 'false', 'true', 'false', null]);
+  });
+
+  it('names the editing area after the labels of the textarea', async () => {
+    await mount(`<label for="body">Body</label>${markup.replace('<textarea name="body"', '<textarea id="body" name="body"')}`);
+
+    const area = document.querySelector('.ProseMirror');
+
+    expect(document.querySelector('label').id).toBe('body-label');
+    expect(area.getAttribute('aria-labelledby')).toBe('body-label');
+    expect(area.getAttribute('role')).toBe('textbox');
+    expect(area.getAttribute('aria-multiline')).toBe('true');
+  });
+
+  it('names the editing area as the textarea is named, when it is', async () => {
+    await mount(`<span id="title">Title</span>${markup
+      .replace('<textarea name="body"', '<textarea name="body" aria-labelledby="title" aria-describedby="help"')}`);
+
+    const area = document.querySelector('.ProseMirror');
+
+    expect(area.getAttribute('aria-labelledby')).toBe('title');
+    expect(area.getAttribute('aria-describedby')).toBe('help');
+  });
+
+  it('tells the keyboard shortcut of the context menu, when the editor has one', async () => {
+    await mount(markup);
+    expect(document.querySelector('.ProseMirror').hasAttribute('aria-keyshortcuts')).toBe(false);
+
+    application.stop();
+    const toolbar = '<div data-umanit--tiptap--editor-target="toolbar"></div>';
+
+    await mount(markup.replace(toolbar, `${toolbar}<ul data-umanit--tiptap--editor-target="contextMenu"></ul>`));
+    expect(document.querySelector('.ProseMirror').getAttribute('aria-keyshortcuts')).toBe('Shift+F10');
   });
 
   it('marks the entries of the dropdowns which tell when they are active', async () => {

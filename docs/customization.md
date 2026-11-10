@@ -186,6 +186,23 @@ bare attribute, `false` and `null` render nothing; `id` and `name` are the edito
 same attributes are the `inputAttributes` prop. The attributes of the root element of the editor (`data-controller`…)
 are not reachable from the form: wrap the field in your own element.
 
+## Accessibility
+
+The editing area stands for the `<textarea>`: it is a multiline text box (`role="textbox"`, `aria-multiline`) named as
+the textarea is. Its `aria-labelledby` (or else its `aria-label`) is copied to the editing area, or else its `<label>`
+elements are: give the field a label (`form_row()`), or an `aria-labelledby` through `attr` when it is rendered on its
+own. Its `aria-describedby` is copied as well. The source view is the textarea itself, named the same way.
+
+The context menu of a table opens with a right click, and from the keyboard with `Shift+F10` or the Menu key when the
+cursor is in a table, as does a context menu asked by a screen reader (VoiceOver's `VO+Shift+M`…) to the editing area.
+The editing area announces the shortcut (`aria-keyshortcuts`). The menu is a `role="menu"`: the arrows, `Home` and
+`End` move through its entries, `Escape` and `Tab` close it and give the focus back to the cursor.
+
+The buttons of the toolbar which toggle a state (bold, a color, a style…) tell it with `aria-pressed`, the dropdowns
+with `aria-expanded`. The colors of the UI keep a contrast of 4.5:1 for the texts and 3:1 for the states; when theming
+it, keep them: `--umanit-tiptap-active-bg` and `--umanit-tiptap-active-color` (an active tool, the primary color and
+white by default), `--umanit-tiptap-success` (the confirmation buttons, white text).
+
 ## Reaching the editor from your code
 
 The editor is exposed on the root element of its controller (the one with `data-controller`), so your own Stimulus

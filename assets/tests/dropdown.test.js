@@ -29,4 +29,29 @@ describe('dropdown controller', () => {
     expect(second.hasAttribute('data-open')).toBe(true);
     expect(first.hasAttribute('data-open')).toBe(false);
   });
+
+  it('tells on its button whether it is open, and gives it the focus back on Escape', async () => {
+    document.body.innerHTML = `
+      <div data-controller="dropdown">
+        <button type="button" data-dropdown-target="button" data-action="dropdown#toggle"
+          aria-expanded="false"></button>
+        <ul><li><button type="button" id="entry"></button></li></ul>
+      </div>`;
+    application = Application.start();
+    application.register('dropdown', DropdownController);
+    await new Promise((resolve) => {
+      setTimeout(resolve, 20);
+    });
+
+    const button = document.querySelector('[data-dropdown-target="button"]');
+
+    button.click();
+    expect(button.getAttribute('aria-expanded')).toBe('true');
+
+    document.getElementById('entry').focus();
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+
+    expect(button.getAttribute('aria-expanded')).toBe('false');
+    expect(document.activeElement).toBe(button);
+  });
 });

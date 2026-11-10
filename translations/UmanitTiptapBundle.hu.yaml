@@ -1,5 +1,6 @@
 modal.cancel: Mégse
 modal.close: Bezárás
+modal.required_fields: 'A csillaggal (*) jelölt mezők kitöltése kötelező.'
 modal.validate: Jóváhagyás
 wysiwyg.color.black: Fekete
 wysiwyg.color.blue: Kék

@@ -1,5 +1,6 @@
 modal.cancel: Odustani
 modal.close: Zatvori
+modal.required_fields: 'Polja označena zvjezdicom (*) su obavezna.'
 modal.validate: Potvrdi
 wysiwyg.color.black: Crna
 wysiwyg.color.blue: Plava

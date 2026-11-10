@@ -1,5 +1,6 @@
 modal.cancel: 'ยกเลิก'
 modal.close: 'ปิด'
+modal.required_fields: 'ช่องที่มีเครื่องหมายดอกจัน (*) จำเป็นต้องกรอก'
 modal.validate: 'ยืนยัน'
 wysiwyg.color.black: ดำ
 wysiwyg.color.blue: 'น้ำเงิน'

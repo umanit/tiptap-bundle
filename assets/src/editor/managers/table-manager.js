@@ -4,6 +4,10 @@ import AbstractManager from './abstract-manager.js';
 // Classes of a cell which the cell form manages: any other one is left as it is
 const CELL_FORM_CLASS = /^(ut-bg-.+|ut-align-.+|ut-text-(left|center|right|justify))$/;
 const TABLE_ALIGN_CLASSES = ['ut-table-center', 'ut-table-right'];
+// Keys moving the focus through the entries of the context menu, to the next one (+1), the previous one (-1)…
+const MENU_MOVES = {
+  ArrowDown: 1, ArrowUp: -1, Home: -Infinity, End: Infinity,
+};
 
 export default class TableManager extends AbstractManager {
   /** @type {HTMLFormElement|null} */
@@ -14,6 +18,9 @@ export default class TableManager extends AbstractManager {
 
   /** @type {boolean} */
   #isEditing = false;
+
+  /** @type {AbortController} */
+  #abortController = new AbortController();
 
   /**
    * @param {import('@tiptap/core').Editor} editor
@@ -28,22 +35,63 @@ export default class TableManager extends AbstractManager {
 
     this.#cellFormElement = cellForm;
     this.#contextMenuElement = contextMenu;
+
+    const { signal } = this.#abortController;
+
+    this.#contextMenuElement?.addEventListener('keydown', (event) => this.#navigateContextMenu(event), { signal });
+    // The browser menu stays closed over the one of the table (the Menu key fires it on the focused entry)
+    this.#contextMenuElement?.addEventListener('contextmenu', (event) => event.preventDefault(), { signal });
+  }
+
+  destroy() {
+    this.#abortController.abort();
   }
 
   handleContextMenu(event) {
-    const target = event.target.closest('td, th');
-
-    if (target) {
+    if (event.target.closest('td, th')) {
       event.preventDefault();
       this.#showContextMenu(event.clientX, event.clientY);
-    } else {
-      this.hideContextMenu();
+
+      return;
     }
+
+    // A context menu asked from the keyboard (a screen reader command, a Menu key left to the browser) targets the
+    // focused editing area, not a cell: it opens under the cursor when the cursor is in a table.
+    if (event.target === this._editor.view.dom && this.showContextMenuAtSelection()) {
+      event.preventDefault();
+
+      return;
+    }
+
+    this.hideContextMenu();
+  }
+
+  /**
+   * Opens the context menu from the keyboard, under the cursor, when it is in a table.
+   *
+   * @returns {boolean} Whether the menu opened
+   */
+  showContextMenuAtSelection() {
+    if (!this.#contextMenuElement || !this._editor.isActive('table')) {
+      return false;
+    }
+
+    const { left, bottom } = this._editor.view.coordsAtPos(this._editor.state.selection.from);
+
+    this.#showContextMenu(left, bottom);
+    this.#menuItems()[0]?.focus();
+
+    return true;
   }
 
   hideContextMenu() {
     if (!this.#contextMenuElement) {
       return;
+    }
+
+    // The focus would be lost in the hidden menu: it goes back to the cursor in the table
+    if (this.#contextMenuElement.contains(document.activeElement)) {
+      this._editor.commands.focus();
     }
 
     this.#contextMenuElement.classList.add('ut-hidden');
@@ -192,6 +240,45 @@ export default class TableManager extends AbstractManager {
     this._formElement?.querySelectorAll('[data-table-structure]').forEach((el) => {
       el.classList.toggle('ut-hidden', !visible);
     });
+  }
+
+  /**
+   * @returns {HTMLElement[]}
+   */
+  #menuItems() {
+    return [...this.#contextMenuElement.querySelectorAll('[role="menuitem"]')];
+  }
+
+  /**
+   * The arrows, Home and End move through the entries; Escape and Tab close the menu.
+   *
+   * @param {KeyboardEvent} event
+   */
+  #navigateContextMenu(event) {
+    if (event.key === 'Escape' || event.key === 'Tab') {
+      event.preventDefault();
+      this.hideContextMenu();
+
+      return;
+    }
+
+    const move = MENU_MOVES[event.key];
+
+    if (undefined === move) {
+      return;
+    }
+
+    event.preventDefault();
+
+    const items = this.#menuItems();
+    const current = items.indexOf(document.activeElement);
+    // From outside the entries, down goes to the first one and up to the last one
+    const from = current === -1 && move < 0 ? 0 : current;
+    const next = Number.isFinite(move)
+      ? (from + move + items.length) % items.length
+      : Math.min(Math.max(move, 0), items.length - 1);
+
+    items[next]?.focus();
   }
 
   #showContextMenu(x, y) {

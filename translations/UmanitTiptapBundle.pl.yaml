@@ -1,5 +1,6 @@
 modal.cancel: Anuluj
 modal.close: Zamknij
+modal.required_fields: 'Pola oznaczone gwiazdką (*) są wymagane.'
 modal.validate: Zatwierdź
 wysiwyg.color.black: Czarny
 wysiwyg.color.blue: Niebieski

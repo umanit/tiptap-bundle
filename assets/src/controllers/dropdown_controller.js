@@ -5,6 +5,8 @@ import { Controller } from '@hotwired/stimulus';
 const OPEN_EVENT = 'umanit-tiptap:dropdown-open';
 
 export default class extends Controller {
+  static targets = ['button'];
+
   #onOutsideClick = (event) => {
     if (!this.element.contains(event.target)) {
       this.close();
@@ -18,8 +20,17 @@ export default class extends Controller {
   };
 
   #onKeydown = (event) => {
-    if (event.key === 'Escape') {
-      this.close();
+    if (event.key !== 'Escape') {
+      return;
+    }
+
+    // The focus goes back to the button, unless it was elsewhere (it would be lost in the closed menu)
+    const hadFocus = this.element.contains(document.activeElement);
+
+    this.close();
+
+    if (hadFocus && this.hasButtonTarget) {
+      this.buttonTarget.focus();
     }
   };
 
@@ -63,6 +74,7 @@ export default class extends Controller {
   open() {
     document.dispatchEvent(new CustomEvent(OPEN_EVENT, { detail: { dropdown: this.element } }));
     this.element.setAttribute('data-open', '');
+    this.#setExpanded(true);
     document.addEventListener(OPEN_EVENT, this.#onOtherOpen);
     document.addEventListener('click', this.#onOutsideClick);
     document.addEventListener('keydown', this.#onKeydown);
@@ -70,8 +82,20 @@ export default class extends Controller {
 
   close() {
     this.element.removeAttribute('data-open');
+    this.#setExpanded(false);
     document.removeEventListener(OPEN_EVENT, this.#onOtherOpen);
     document.removeEventListener('click', this.#onOutsideClick);
     document.removeEventListener('keydown', this.#onKeydown);
+  }
+
+  /**
+   * Assistive technologies read the state of the menu from its button.
+   *
+   * @param {boolean} expanded
+   */
+  #setExpanded(expanded) {
+    if (this.hasButtonTarget) {
+      this.buttonTarget.setAttribute('aria-expanded', String(expanded));
+    }
   }
 }

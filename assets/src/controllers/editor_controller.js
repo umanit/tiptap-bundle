@@ -72,6 +72,7 @@ export default class extends Controller {
         element: this.editorTarget,
         content: this.inputTarget.value || null,
         editorProps: {
+          attributes: this.#editingAreaAttributes(),
           transformPastedHTML: (html) => HtmlCleaner.normalizeWordHtml(html),
         },
         onUpdate: () => {
@@ -246,6 +247,19 @@ export default class extends Controller {
       { signal },
     );
 
+    // The context menu of a table, which a right click opens, is opened from the keyboard as well
+    this.editorTarget.addEventListener(
+      'keydown',
+      (event) => {
+        const opensMenu = event.key === 'ContextMenu' || (event.key === 'F10' && event.shiftKey);
+
+        if (opensMenu && !this.disabledValue && this.#wysiwygEditor.showContextMenuAtSelection()) {
+          event.preventDefault();
+        }
+      },
+      { signal },
+    );
+
     this.element.addEventListener(
       SET_CONTENT_EVENT,
       (event) => this.#setContent(event.detail?.content ?? ''),
@@ -265,6 +279,42 @@ export default class extends Controller {
         this.#wysiwygEditor?.hideContextMenu();
       }
     }, { signal });
+  }
+
+  /**
+   * The editing area stands for the textarea: it is a multiline text box named as the textarea is, by its own
+   * `aria-labelledby` / `aria-label` or else by its labels, which are given an id when they have none.
+   *
+   * @returns {Object<string, string>}
+   */
+  #editingAreaAttributes() {
+    const input = this.inputTarget;
+    const attributes = { role: 'textbox', 'aria-multiline': 'true' };
+    const labelledBy = input.getAttribute('aria-labelledby')
+      || [...(input.labels ?? [])].map((label, index) => {
+        if (!label.id) {
+          label.setAttribute('id', `${input.id || 'umanit-tiptap'}-label${index > 0 ? `-${index}` : ''}`);
+        }
+
+        return label.id;
+      }).join(' ');
+
+    if (labelledBy) {
+      attributes['aria-labelledby'] = labelledBy;
+    } else if (input.hasAttribute('aria-label')) {
+      attributes['aria-label'] = input.getAttribute('aria-label');
+    }
+
+    if (input.hasAttribute('aria-describedby')) {
+      attributes['aria-describedby'] = input.getAttribute('aria-describedby');
+    }
+
+    // Tells assistive technologies how to open the context menu of a table from the keyboard
+    if (this.hasContextMenuTarget) {
+      attributes['aria-keyshortcuts'] = 'Shift+F10';
+    }
+
+    return attributes;
   }
 
   /**
@@ -372,6 +422,8 @@ export default class extends Controller {
 
       if (null !== active) {
         button.classList.toggle('active', active);
+        // The state is told otherwise than by a color
+        button.setAttribute('aria-pressed', String(active));
       }
     });
   }

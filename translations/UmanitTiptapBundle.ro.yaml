@@ -1,5 +1,6 @@
 modal.cancel: Anulează
 modal.close: Închide
+modal.required_fields: 'Câmpurile marcate cu un asterisc (*) sunt obligatorii.'
 modal.validate: Validează
 wysiwyg.color.black: Negru
 wysiwyg.color.blue: Albastru
