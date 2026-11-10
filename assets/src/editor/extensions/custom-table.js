@@ -208,6 +208,26 @@ function cellClass(element, legacyStyles) {
   return classes.join(' ') || null;
 }
 
+const SCOPES = ['row', 'col', 'rowgroup', 'colgroup'];
+
+// The attributes which tie the data cells to their headers (`scope`, `id` and `headers`), which an accessible table of
+// data needs, are kept as they are. `scope` only takes its own values.
+function headerAttribute(name, values = null) {
+  return {
+    default: null,
+    parseHTML: (element) => {
+      const value = element.getAttribute(name)?.trim();
+
+      if (!value) {
+        return null;
+      }
+
+      return values ? (values.find((allowed) => allowed === value.toLowerCase()) ?? null) : value;
+    },
+    renderHTML: (attributes) => (attributes[name] ? { [name]: attributes[name] } : {}),
+  };
+}
+
 function withoutInlineStyles(parentAttrs, legacyStyles) {
   const attrs = { ...parentAttrs };
   // colwidth renders as style="width:Xpx; min-width:Ypx" — neutralize it for CSP compliance
@@ -238,6 +258,7 @@ export const CustomTableCell = TableCell.extend({
         parseHTML: (element) => cellClass(element, this.options.legacyStyles),
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
       },
+      headers: headerAttribute('headers'),
     };
   },
 });
@@ -255,6 +276,9 @@ export const CustomTableHeader = TableHeader.extend({
         parseHTML: (element) => cellClass(element, this.options.legacyStyles),
         renderHTML: (attributes) => (attributes.class ? { class: attributes.class } : {}),
       },
+      id: headerAttribute('id'),
+      scope: headerAttribute('scope', SCOPES),
+      headers: headerAttribute('headers'),
     };
   },
 });

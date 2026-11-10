@@ -158,6 +158,24 @@ describe('content schema', () => {
     expect(html).not.toContain('style=');
   });
 
+  it('keeps the attributes which tie the cells of a table to their headers', () => {
+    const html = roundTrip('<table><tbody>'
+      + '<tr><th id="year" scope="col">Year</th><th id="sales" scope="COL" headers="year">Sales</th></tr>'
+      + '<tr><th scope="row">2026</th><td headers="year sales">12</td></tr>'
+      + '</tbody></table>');
+
+    expect(html).toContain('<th id="year" scope="col"');
+    expect(html).toContain('<th id="sales" scope="col" headers="year"');
+    expect(html).toContain('<th scope="row"');
+    expect(html).toContain('<td headers="year sales"');
+  });
+
+  it('drops a scope which is not one of its values', () => {
+    const html = roundTrip('<table><tbody><tr><th scope="everything">Year</th></tr></tbody></table>');
+
+    expect(html).not.toContain('scope=');
+  });
+
   it('keeps the caption of a table, and does not turn it into a row', () => {
     const html = roundTrip('<table><caption>Sales 2026</caption><colgroup><col width="120"></colgroup><tbody><tr>'
       + '<td>a</td></tr></tbody></table>');
