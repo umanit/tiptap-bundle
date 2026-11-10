@@ -31,6 +31,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
     translation). The templates are a `<fieldset>` whose `<legend>` is the hint above them, and the template which
     has the keyboard focus is outlined, apart from the selected one.
   - The entries of the table context menu show the keyboard focus.
+  - The cells of a table keep the attributes which tie them to their headers: `scope`, `id` and `headers` on the
+    header cells, `headers` on the data cells. They were dropped, which broke the accessibility of a table of data
+    (and was reported by the audit as a loss).
 
 ### Added
 
