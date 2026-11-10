@@ -1,5 +1,6 @@
 modal.cancel: 'ຍົກເລີກ'
 modal.close: 'ປິດ'
+modal.required_fields: 'ຊ່ອງທີ່ໝາຍດ້ວຍເຄື່ອງໝາຍດາວ (*) ແມ່ນຈຳເປັນຕ້ອງປ້ອນ.'
 modal.validate: 'ຢືນຢັນ'
 wysiwyg.color.black: 'ສີດຳ'
 wysiwyg.color.blue: 'ສີຟ້າ'

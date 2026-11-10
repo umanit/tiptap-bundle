@@ -1,5 +1,6 @@
 modal.cancel: Batal
 modal.close: Tutup
+modal.required_fields: 'Kolom yang ditandai dengan tanda bintang (*) wajib diisi.'
 modal.validate: Konfirmasi
 wysiwyg.color.black: Hitam
 wysiwyg.color.blue: Biru

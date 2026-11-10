@@ -253,3 +253,107 @@ describe('anchor manager', () => {
     expect(tiptap.getHTML()).toBe('<p>Hello</p>');
   });
 });
+
+describe('table manager', () => {
+  const table = '<table><tbody><tr><td><p>A</p></td><td><p>B</p></td></tr></tbody></table><p>After</p>';
+
+  const contextMenu = () => {
+    const menu = document.createElement('ul');
+    menu.className = 'ut-hidden';
+    menu.innerHTML = ['first', 'second', 'third']
+      .map((id) => `<li role="none"><button type="button" role="menuitem" tabindex="-1" id="${id}"></button></li>`)
+      .join('');
+    document.body.appendChild(menu);
+
+    return menu;
+  };
+
+  const press = (key, options = {}) => document.activeElement.dispatchEvent(
+    new KeyboardEvent('keydown', { key, bubbles: true, ...options }),
+  );
+
+  it('opens the context menu from the keyboard, in a table only, and browses it with the arrows', async () => {
+    const menu = contextMenu();
+
+    create({ contextMenu: menu }, table);
+
+    const editor = tiptap.getEditor();
+
+    vi.spyOn(editor.view, 'coordsAtPos').mockReturnValue({
+      left: 10, right: 10, top: 20, bottom: 30,
+    });
+
+    editor.commands.setTextSelection(editor.state.doc.content.size - 2);
+    expect(tiptap.showContextMenuAtSelection()).toBe(false);
+    expect(menu.classList.contains('ut-hidden')).toBe(true);
+
+    editor.commands.setTextSelection(4);
+    expect(tiptap.showContextMenuAtSelection()).toBe(true);
+    expect(menu.classList.contains('ut-hidden')).toBe(false);
+    expect(menu.style.top).toBe('30px');
+    expect(document.activeElement.id).toBe('first');
+
+    press('ArrowDown');
+    expect(document.activeElement.id).toBe('second');
+    press('End');
+    expect(document.activeElement.id).toBe('third');
+    press('ArrowDown');
+    expect(document.activeElement.id).toBe('first');
+    press('ArrowUp');
+    expect(document.activeElement.id).toBe('third');
+    press('Home');
+    expect(document.activeElement.id).toBe('first');
+
+    // jsdom cannot focus a contenteditable: the focus is seen given back to the view
+    const focus = vi.spyOn(editor.view, 'focus');
+
+    press('Escape');
+    // TipTap focuses the view on the next frame
+    await new Promise((resolve) => {
+      requestAnimationFrame(resolve);
+    });
+
+    expect(menu.classList.contains('ut-hidden')).toBe(true);
+    expect(focus).toHaveBeenCalled();
+  });
+
+  it('opens the context menu under the cursor when the keyboard asks it of the editing area', () => {
+    const menu = contextMenu();
+
+    create({ contextMenu: menu }, table);
+
+    const editor = tiptap.getEditor();
+    const ask = () => {
+      const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true });
+
+      editor.view.dom.dispatchEvent(event);
+      tiptap.handleContextMenu(event);
+
+      return event;
+    };
+
+    vi.spyOn(editor.view, 'coordsAtPos').mockReturnValue({
+      left: 10, right: 10, top: 20, bottom: 30,
+    });
+
+    editor.commands.setTextSelection(editor.state.doc.content.size - 2);
+    expect(ask().defaultPrevented).toBe(false);
+    expect(menu.classList.contains('ut-hidden')).toBe(true);
+
+    editor.commands.setTextSelection(4);
+    expect(ask().defaultPrevented).toBe(true);
+    expect(menu.classList.contains('ut-hidden')).toBe(false);
+    expect(document.activeElement.id).toBe('first');
+  });
+
+  it('keeps the browser menu closed over its own', () => {
+    const menu = contextMenu();
+
+    create({ contextMenu: menu }, table);
+
+    const event = new MouseEvent('contextmenu', { bubbles: true, cancelable: true });
+
+    menu.querySelector('button').dispatchEvent(event);
+    expect(event.defaultPrevented).toBe(true);
+  });
+});

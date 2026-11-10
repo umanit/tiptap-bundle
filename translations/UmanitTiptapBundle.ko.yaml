@@ -1,5 +1,6 @@
 modal.cancel: 취소
 modal.close: 닫기
+modal.required_fields: '별표(*)가 표시된 항목은 필수입니다.'
 modal.validate: 확인
 wysiwyg.color.black: 검정
 wysiwyg.color.blue: 파랑

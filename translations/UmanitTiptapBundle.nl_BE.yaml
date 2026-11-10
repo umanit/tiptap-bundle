@@ -1,5 +1,6 @@
 modal.cancel: Annuleren
 modal.close: Sluiten
+modal.required_fields: 'Velden met een sterretje (*) zijn verplicht.'
 modal.validate: Valideren
 wysiwyg.color.black: Zwart
 wysiwyg.color.blue: Blauw

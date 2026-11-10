@@ -6,15 +6,18 @@
   {% block content %}
     <form {{ stimulus_target('umanit/tiptap/editor', 'tableForm') }}>
       <div data-table-structure>
+        <p class="umanit-tiptap__hint">{{ 'modal.required_fields'|trans }}</p>
         <h6 class="umanit-tiptap__section-title">{{ 'wysiwyg.modal.table.structure'|trans }}</h6>
         <div class="umanit-tiptap__row">
           <div>
-            <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.rows'|trans }}</label>
-            <input type="number" class="umanit-tiptap__input" name="rows" value="3" min="1" required>
+            <label class="umanit-tiptap__label" for="tableRowsInput-{{ id }}">{{ 'wysiwyg.modal.table.rows'|trans }}</label>
+            <input type="number" class="umanit-tiptap__input" id="tableRowsInput-{{ id }}" name="rows" value="3" min="1"
+                   required>
           </div>
           <div>
-            <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.cols'|trans }}</label>
-            <input type="number" class="umanit-tiptap__input" name="cols" value="2" min="1" required>
+            <label class="umanit-tiptap__label" for="tableColsInput-{{ id }}">{{ 'wysiwyg.modal.table.cols'|trans }}</label>
+            <input type="number" class="umanit-tiptap__input" id="tableColsInput-{{ id }}" name="cols" value="2" min="1"
+                   required>
           </div>
         </div>
       </div>
@@ -22,8 +25,8 @@
       <h6 class="umanit-tiptap__section-title">{{ 'wysiwyg.modal.table.appearance'|trans }}</h6>
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.width'|trans }}</label>
-          <select class="umanit-tiptap__select" name="tableWidth">
+          <label class="umanit-tiptap__label" for="tableWidthInput-{{ id }}">{{ 'wysiwyg.modal.table.width'|trans }}</label>
+          <select class="umanit-tiptap__select" id="tableWidthInput-{{ id }}" name="tableWidth">
             <option value="">{{ 'wysiwyg.modal.table.width_auto'|trans }}</option>
             <option value="ut-w-25">25%</option>
             <option value="ut-w-50">50%</option>
@@ -32,8 +35,8 @@
           </select>
         </div>
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.align'|trans }}</label>
-          <select class="umanit-tiptap__select" name="tableAlign">
+          <label class="umanit-tiptap__label" for="tableAlignInput-{{ id }}">{{ 'wysiwyg.modal.table.align'|trans }}</label>
+          <select class="umanit-tiptap__select" id="tableAlignInput-{{ id }}" name="tableAlign">
             <option value="">{{ 'wysiwyg.modal.table.align_left'|trans }}</option>
             <option value="ut-table-center">{{ 'wysiwyg.modal.table.align_center'|trans }}</option>
             <option value="ut-table-right">{{ 'wysiwyg.modal.table.align_right'|trans }}</option>
@@ -43,22 +46,27 @@
 
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.caption'|trans }}</label>
-          <input type="text" class="umanit-tiptap__input" name="caption">
+          <label class="umanit-tiptap__label" for="tableCaptionInput-{{ id }}">
+            {{ 'wysiwyg.modal.table.caption'|trans }}
+          </label>
+          <input type="text" class="umanit-tiptap__input" id="tableCaptionInput-{{ id }}" name="caption">
         </div>
       </div>
 
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.table.css_class'|trans }}</label>
-          <input type="text" class="umanit-tiptap__input" name="cssClass"
+          <label class="umanit-tiptap__label" for="tableCssClassInput-{{ id }}">
+            {{ 'wysiwyg.modal.table.css_class'|trans }}
+          </label>
+          <input type="text" class="umanit-tiptap__input" id="tableCssClassInput-{{ id }}" name="cssClass"
                  placeholder="{{ 'wysiwyg.modal.table.css_placeholder'|trans }}">
         </div>
       </div>
 
       <div class="umanit-tiptap__field" data-table-structure>
-        <input type="checkbox" class="umanit-tiptap__check-input" name="withHeader" value="1" checked>
-        <label class="umanit-tiptap__check-label">
+        <input type="checkbox" class="umanit-tiptap__check-input" id="tableHeaderCheck-{{ id }}" name="withHeader"
+               value="1" checked>
+        <label class="umanit-tiptap__check-label" for="tableHeaderCheck-{{ id }}">
           {{ 'wysiwyg.modal.table.header_row'|trans }}
         </label>
       </div>
@@ -88,8 +96,10 @@
     <form {{ stimulus_target('umanit/tiptap/editor', 'cellForm') }}>
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.text_align'|trans }}</label>
-          <select class="umanit-tiptap__select" name="textAlign">
+          <label class="umanit-tiptap__label" for="cellTextAlignInput-{{ id }}">
+            {{ 'wysiwyg.modal.cell.text_align'|trans }}
+          </label>
+          <select class="umanit-tiptap__select" id="cellTextAlignInput-{{ id }}" name="textAlign">
             <option value="">{{ 'wysiwyg.modal.cell.align.default'|trans }}</option>
             <option value="ut-text-left">{{ 'wysiwyg.modal.cell.text_align.left'|trans }}</option>
             <option value="ut-text-center">{{ 'wysiwyg.modal.cell.text_align.center'|trans }}</option>
@@ -98,8 +108,10 @@
           </select>
         </div>
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.vertical_align'|trans }}</label>
-          <select class="umanit-tiptap__select" name="verticalAlign">
+          <label class="umanit-tiptap__label" for="cellVerticalAlignInput-{{ id }}">
+            {{ 'wysiwyg.modal.cell.vertical_align'|trans }}
+          </label>
+          <select class="umanit-tiptap__select" id="cellVerticalAlignInput-{{ id }}" name="verticalAlign">
             <option value="">{{ 'wysiwyg.modal.cell.align.default'|trans }}</option>
             <option value="ut-align-top">{{ 'wysiwyg.modal.cell.align.top'|trans }}</option>
             <option value="ut-align-middle">{{ 'wysiwyg.modal.cell.align.middle'|trans }}</option>
@@ -109,19 +121,23 @@
       </div>
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.bg_color'|trans }}</label>
-          <div class="umanit-tiptap__bg-color-grid" role="group">
+          {# Not a <label>: it names the group of the colors, not one field #}
+          <span class="umanit-tiptap__label" id="cellBgColorLabel-{{ id }}">{{ 'wysiwyg.modal.cell.bg_color'|trans }}</span>
+          <div class="umanit-tiptap__bg-color-grid" role="radiogroup" aria-labelledby="cellBgColorLabel-{{ id }}">
             {% for color in computed.cellBackgroundColors %}
               <label class="umanit-tiptap__bg-color-option" title="{{ color.label|trans }}">
-                <input type="radio" name="bgColor" value="{{ color.asBackgroundColorClass }}" class="ut-visually-hidden">
+                <input type="radio" name="bgColor" value="{{ color.asBackgroundColorClass }}" class="ut-visually-hidden"
+                       aria-label="{{ color.label|trans }}">
                 <span class="umanit-tiptap__bg-color-swatch {{ color.asBackgroundColorClass }}"></span>
               </label>
             {% endfor %}
           </div>
         </div>
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.cell.col_width'|trans }}</label>
-          <input type="number" class="umanit-tiptap__input" name="colWidth" min="1" step="1"
+          <label class="umanit-tiptap__label" for="cellColWidthInput-{{ id }}">
+            {{ 'wysiwyg.modal.cell.col_width'|trans }}
+          </label>
+          <input type="number" class="umanit-tiptap__input" id="cellColWidthInput-{{ id }}" name="colWidth" min="1" step="1"
                  placeholder="{{ 'wysiwyg.modal.cell.col_width_placeholder'|trans }}">
         </div>
       </div>

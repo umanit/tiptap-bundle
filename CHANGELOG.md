@@ -10,6 +10,27 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ### Fixed
 
 - An editor submitted with no content sends an empty string instead of `<p></p>`.
+- Accessibility (RGAA / WCAG 2.1 AA):
+  - The editing area is a multiline text box named after the `<textarea>`: its `aria-labelledby` / `aria-label`, or
+    else its `<label>` elements (given an id when they have none). Its `aria-describedby` is copied as well.
+  - The context menu of a table opens from the keyboard too (`Shift+F10`, Menu key, or a screen reader command which
+    fires a context menu on the editing area) when the cursor is in a table, and the editing area announces the
+    shortcut (`aria-keyshortcuts`). It is a `role="menu"` browsed with the arrows, `Home` and `End`; `Escape` and
+    `Tab` close it and give the focus back to the editor.
+  - The button of a dropdown (styles, colors, text size) tells whether it is open (`aria-expanded`); `Escape` gives it
+    the focus back. The color and text size buttons are named on the button itself, not on their wrapper, and each
+    color of a palette is named after the color instead of its "A".
+  - The toggle tools tell their state with `aria-pressed`. An active tool, or an active entry of a dropdown, is
+    filled with the primary color, its icon or text in white, instead of a light tint which was not contrasted
+    enough: new `--umanit-tiptap-active-bg` and `--umanit-tiptap-active-color` custom properties.
+  - The confirmation buttons of the modals are a darker green (`--umanit-tiptap-success` no longer follows the
+    `--ut-color-green` of the contents palette), and the filled buttons darken on hover instead of fading.
+  - Every field of the modals (table, cell, link) is tied to its `<label>`; the background colors of a cell are a
+    `radiogroup` named by its label, each color named after itself; the image preview is no longer a `<label>`.
+  - The table and image modals explain the asterisk of their required fields (new `modal.required_fields`
+    translation). The templates are a `<fieldset>` whose `<legend>` is the hint above them, and the template which
+    has the keyboard focus is outlined, apart from the selected one.
+  - The entries of the table context menu show the keyboard focus.
 
 ### Added
 

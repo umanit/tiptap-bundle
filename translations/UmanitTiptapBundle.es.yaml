@@ -1,5 +1,6 @@
 modal.cancel: Cancelar
 modal.close: Cerrar
+modal.required_fields: 'Los campos marcados con un asterisco (*) son obligatorios.'
 modal.validate: Validar
 wysiwyg.color.black: Negro
 wysiwyg.color.blue: Azul

@@ -1,5 +1,6 @@
 modal.cancel: Annuller
 modal.close: Luk
+modal.required_fields: 'Felter markeret med en stjerne (*) er obligatoriske.'
 modal.validate: Bekræft
 wysiwyg.color.black: Sort
 wysiwyg.color.blue: Blå

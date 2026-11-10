@@ -1,5 +1,6 @@
 modal.cancel: Batal
 modal.close: Tutup
+modal.required_fields: 'Medan yang bertanda asterisk (*) adalah wajib.'
 modal.validate: Sahkan
 wysiwyg.color.black: Hitam
 wysiwyg.color.blue: Biru

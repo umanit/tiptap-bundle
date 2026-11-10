@@ -1,5 +1,6 @@
 modal.cancel: Отказ
 modal.close: Затваряне
+modal.required_fields: 'Полетата, отбелязани със звездичка (*), са задължителни.'
 modal.validate: Потвърждаване
 wysiwyg.color.black: Черен
 wysiwyg.color.blue: Син

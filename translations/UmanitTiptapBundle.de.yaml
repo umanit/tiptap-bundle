@@ -1,5 +1,6 @@
 modal.cancel: Abbrechen
 modal.close: Schließen
+modal.required_fields: 'Mit einem Sternchen (*) gekennzeichnete Felder sind Pflichtfelder.'
 modal.validate: Bestätigen
 wysiwyg.color.black: Schwarz
 wysiwyg.color.blue: Blau

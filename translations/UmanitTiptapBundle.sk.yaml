@@ -1,5 +1,6 @@
 modal.cancel: Zrušiť
 modal.close: Zavrieť
+modal.required_fields: 'Polia označené hviezdičkou (*) sú povinné.'
 modal.validate: Potvrdiť
 wysiwyg.color.black: Čierna
 wysiwyg.color.blue: Modrá

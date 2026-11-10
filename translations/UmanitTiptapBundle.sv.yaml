@@ -1,5 +1,6 @@
 modal.cancel: Avbryt
 modal.close: Stäng
+modal.required_fields: 'Fält markerade med en asterisk (*) är obligatoriska.'
 modal.validate: Bekräfta
 wysiwyg.color.black: Svart
 wysiwyg.color.blue: Blå

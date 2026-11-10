@@ -1,5 +1,6 @@
 modal.cancel: Отмена
 modal.close: Закрыть
+modal.required_fields: 'Поля, отмеченные звёздочкой (*), обязательны для заполнения.'
 modal.validate: Подтвердить
 wysiwyg.color.black: Чёрный
 wysiwyg.color.blue: Синий

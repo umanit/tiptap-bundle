@@ -1,5 +1,6 @@
 modal.cancel: 取消
 modal.close: 關閉
+modal.required_fields: '標有星號 (*) 的欄位為必填。'
 modal.validate: 確認
 wysiwyg.color.black: 黑色
 wysiwyg.color.blue: 藍色

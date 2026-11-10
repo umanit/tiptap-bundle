@@ -1,5 +1,6 @@
 modal.cancel: Ακύρωση
 modal.close: Κλείσιμο
+modal.required_fields: 'Τα πεδία με αστερίσκο (*) είναι υποχρεωτικά.'
 modal.validate: Επικύρωση
 wysiwyg.color.black: Μαύρο
 wysiwyg.color.blue: Μπλε

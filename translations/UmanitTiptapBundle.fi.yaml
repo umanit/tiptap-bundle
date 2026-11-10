@@ -1,5 +1,6 @@
 modal.cancel: Peruuta
 modal.close: Sulje
+modal.required_fields: 'Tähdellä (*) merkityt kentät ovat pakollisia.'
 modal.validate: Vahvista
 wysiwyg.color.black: Musta
 wysiwyg.color.blue: Sininen

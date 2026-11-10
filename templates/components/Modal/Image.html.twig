@@ -6,6 +6,7 @@
   {% block content %}
     <form {{ stimulus_controller('umanit/tiptap/image')|stimulus_target('umanit/tiptap/editor', 'imageForm')
     |stimulus_action('umanit/tiptap/image', 'reset', 'tiptap:image:inserted@window') }}>
+      <p class="umanit-tiptap__hint">{{ 'modal.required_fields'|trans }}</p>
       <div class="umanit-tiptap__field">
         <label for="imageUrlInput-{{ id }}" class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.url'|trans }}</label>
         <div class="umanit-tiptap__input-group">
@@ -58,7 +59,7 @@
           </div>
         </div>
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.preview'|trans }}</label>
+          <span class="umanit-tiptap__label">{{ 'wysiwyg.modal.image.preview'|trans }}</span>
           <div class="umanit-tiptap__preview">
             <img src="" alt="" class="ut-hidden" {{ stimulus_target('umanit/tiptap/image', 'previewImage') }} />
             <p>

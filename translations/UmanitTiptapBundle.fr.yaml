@@ -1,5 +1,6 @@
 modal.cancel: Annuler
 modal.close: Fermer
+modal.required_fields: 'Les champs marqués d’un astérisque (*) sont obligatoires.'
 modal.validate: Valider
 wysiwyg.bg_color.choose: 'Couleur de fond'
 wysiwyg.bg_color.reset: 'Réinitialiser la couleur de fond'

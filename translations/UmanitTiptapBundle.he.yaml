@@ -1,5 +1,6 @@
 modal.cancel: ביטול
 modal.close: סגירה
+modal.required_fields: 'שדות המסומנים בכוכבית (*) הם שדות חובה.'
 modal.validate: אשר
 wysiwyg.color.black: שחור
 wysiwyg.color.blue: כחול

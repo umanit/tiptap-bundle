@@ -200,6 +200,13 @@ export default class TipTapEditor {
     this.#managers.table?.handleContextMenu(event);
   }
 
+  /**
+   * @returns {boolean} Whether the context menu opened, the cursor being in a table
+   */
+  showContextMenuAtSelection() {
+    return this.#managers.table?.showContextMenuAtSelection() ?? false;
+  }
+
   hideContextMenu() {
     this.#managers.table?.hideContextMenu();
   }

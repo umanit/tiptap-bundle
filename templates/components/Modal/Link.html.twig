@@ -7,15 +7,15 @@
     <form {{ stimulus_target('umanit/tiptap/editor', 'linkForm') }}>
       <div class="umanit-tiptap__row">
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.link.type'|trans }}</label>
-          <select class="umanit-tiptap__select" name="type" {{ stimulus_action('umanit/tiptap/editor', 'run', 'change', {command: 'link.toggleType'}) }}>
+          <label class="umanit-tiptap__label" for="linkTypeInput-{{ id }}">{{ 'wysiwyg.modal.link.type'|trans }}</label>
+          <select class="umanit-tiptap__select" id="linkTypeInput-{{ id }}" name="type" {{ stimulus_action('umanit/tiptap/editor', 'run', 'change', {command: 'link.toggleType'}) }}>
             <option value="url">{{ 'wysiwyg.modal.link.type.url'|trans }}</option>
             <option value="anchor">{{ 'wysiwyg.modal.link.type.anchor'|trans }}</option>
           </select>
         </div>
         <div>
-          <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.link.target'|trans }}</label>
-          <select class="umanit-tiptap__select" name="target">
+          <label class="umanit-tiptap__label" for="linkTargetInput-{{ id }}">{{ 'wysiwyg.modal.link.target'|trans }}</label>
+          <select class="umanit-tiptap__select" id="linkTargetInput-{{ id }}" name="target">
             <option value="">{{ 'wysiwyg.modal.link.target.default'|trans }}</option>
             <option value="_blank">{{ 'wysiwyg.modal.link.target.blank'|trans }}</option>
             <option value="_self">{{ 'wysiwyg.modal.link.target.self'|trans }}</option>
@@ -24,16 +24,18 @@
       </div>
 
       <div class="umanit-tiptap__field" {{ stimulus_target('umanit/tiptap/editor', 'linkUrlGroup') }}>
-        <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.link.url'|trans }}</label>
-        <input type="url" class="umanit-tiptap__input" name="url"
+        <label class="umanit-tiptap__label" for="linkUrlInput-{{ id }}">{{ 'wysiwyg.modal.link.url'|trans }}</label>
+        <input type="url" class="umanit-tiptap__input" id="linkUrlInput-{{ id }}" name="url"
                placeholder="{{ 'wysiwyg.modal.link.url_placeholder'|trans }}">
       </div>
 
       <div class="umanit-tiptap__field ut-hidden" {{ stimulus_target('umanit/tiptap/editor', 'linkAnchorGroup') }}>
-        <label class="umanit-tiptap__label">{{ 'wysiwyg.modal.link.anchor_name'|trans }}</label>
+        <label class="umanit-tiptap__label" for="linkAnchorInput-{{ id }}">
+          {{ 'wysiwyg.modal.link.anchor_name'|trans }}
+        </label>
         <div class="umanit-tiptap__input-group">
           <span class="umanit-tiptap__input-addon">#</span>
-          <input type="text" class="umanit-tiptap__input" name="anchor"
+          <input type="text" class="umanit-tiptap__input" id="linkAnchorInput-{{ id }}" name="anchor"
                  placeholder="{{ 'wysiwyg.modal.link.anchor_placeholder'|trans }}">
         </div>
       </div>

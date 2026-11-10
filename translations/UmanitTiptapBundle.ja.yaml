@@ -1,5 +1,6 @@
 modal.cancel: キャンセル
 modal.close: 閉じる
+modal.required_fields: 'アスタリスク（*）の付いた項目は必須です。'
 modal.validate: 確定
 wysiwyg.color.black: 黒
 wysiwyg.color.blue: 青

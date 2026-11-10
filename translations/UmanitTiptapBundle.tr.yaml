@@ -1,5 +1,6 @@
 modal.cancel: İptal
 modal.close: Kapat
+modal.required_fields: 'Yıldız (*) ile işaretlenmiş alanların doldurulması zorunludur.'
 modal.validate: Onayla
 wysiwyg.color.black: Siyah
 wysiwyg.color.blue: Mavi
