@@ -346,6 +346,39 @@ describe('table manager', () => {
     expect(document.activeElement.id).toBe('first');
   });
 
+  it('closes the context menu with Tab, and gives the focus back to the editor', async () => {
+    const menu = contextMenu();
+
+    create({ contextMenu: menu }, table);
+
+    const editor = tiptap.getEditor();
+
+    vi.spyOn(editor.view, 'coordsAtPos').mockReturnValue({
+      left: 10, right: 10, top: 20, bottom: 30,
+    });
+    editor.commands.setTextSelection(4);
+    expect(tiptap.showContextMenuAtSelection()).toBe(true);
+
+    const focus = vi.spyOn(editor.view, 'focus');
+    const event = new KeyboardEvent('keydown', { key: 'Tab', bubbles: true, cancelable: true });
+
+    document.activeElement.dispatchEvent(event);
+    await new Promise((resolve) => {
+      requestAnimationFrame(resolve);
+    });
+
+    expect(event.defaultPrevented).toBe(true);
+    expect(menu.classList.contains('ut-hidden')).toBe(true);
+    expect(focus).toHaveBeenCalled();
+  });
+
+  it('does not open the context menu from the keyboard without a menu', () => {
+    create({}, table);
+
+    tiptap.getEditor().commands.setTextSelection(4);
+    expect(tiptap.showContextMenuAtSelection()).toBe(false);
+  });
+
   it('keeps the browser menu closed over its own', () => {
     const menu = contextMenu();
 

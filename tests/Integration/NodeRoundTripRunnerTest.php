@@ -67,6 +67,25 @@ final class NodeRoundTripRunnerTest extends TestCase
         $this->assertSame([], $results[0]->lost);
     }
 
+    public function testTheAttributesWhichTieTheCellsToTheirHeadersAreNotLost(): void
+    {
+        $html = '<table><tbody>'
+            . '<tr><th id="year" scope="col">Year</th><th id="sales" scope="col" headers="year">Sales</th></tr>'
+            . '<tr><th scope="row">2026</th><td headers="year sales">12</td></tr>'
+            . '</tbody></table>';
+
+        $results = iterator_to_array($this->runner()->run($this->contents([$html]), 1), false);
+
+        $after = $results[0]->after;
+
+        $this->assertSame([], $results[0]->lost);
+        $this->assertFalse($results[0]->textChanged);
+        $this->assertNotNull($after);
+        $this->assertStringContainsString('<th id="year" scope="col"', $after);
+        $this->assertStringContainsString('<th scope="row"', $after);
+        $this->assertStringContainsString('<td headers="year sales"', $after);
+    }
+
     public function testMissingLegacyStylesFileIsReported(): void
     {
         $this->expectException(\RuntimeException::class);
