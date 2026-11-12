@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { Application } from '@hotwired/stimulus';
 import EditorController from '../src/controllers/editor_controller.js';
 import { READY_EVENT, getTipTapEditor, registerToolState } from '../src/index.js';
@@ -197,6 +197,78 @@ describe('editor controller', () => {
 
     expect(area.getAttribute('aria-labelledby')).toBe('title');
     expect(area.getAttribute('aria-describedby')).toBe('help');
+  });
+
+  it('gives the editing area no name of its own when the textarea has none', async () => {
+    await mount(markup);
+
+    const area = document.querySelector('.ProseMirror');
+
+    expect(area.getAttribute('role')).toBe('textbox');
+    expect(area.hasAttribute('aria-labelledby')).toBe(false);
+    expect(area.hasAttribute('aria-label')).toBe(false);
+    expect(area.hasAttribute('aria-describedby')).toBe(false);
+  });
+
+  it('names the editing area after the aria-label of the textarea', async () => {
+    await mount(markup.replace('<textarea name="body"', '<textarea name="body" aria-label="Content"'));
+
+    expect(document.querySelector('.ProseMirror').getAttribute('aria-label')).toBe('Content');
+  });
+
+  it('names the editing area after all the labels of the textarea, keeping their ids', async () => {
+    await mount(`<label for="body">One</label><label for="body" id="second">Two</label><label for="body">Three</label>${
+      markup.replace('<textarea name="body"', '<textarea id="body" name="body"')}`);
+
+    const [first, second, third] = document.querySelectorAll('label');
+
+    expect(first.id).toBe('body-label');
+    expect(second.id).toBe('second');
+    expect(third.id).toBe('body-label-2');
+    expect(document.querySelector('.ProseMirror').getAttribute('aria-labelledby'))
+      .toBe('body-label second body-label-2');
+  });
+
+  it('opens the context menu from the keyboard in a table, unless the editor is disabled', async () => {
+    const table = '<table><tbody><tr><td><p>A</p></td></tr></tbody></table><p>After</p>';
+    const withMenu = (disabled) => markup
+      .replace('<p>Hello</p>', table)
+      .replace(
+        'data-umanit--tiptap--editor-translations-value="{}"',
+        `data-umanit--tiptap--editor-translations-value="{}"${disabled ? ' data-umanit--tiptap--editor-disabled-value="true"' : ''}`,
+      )
+      .replace(
+        '<div data-umanit--tiptap--editor-target="toolbar"></div>',
+        '<div data-umanit--tiptap--editor-target="toolbar"></div>'
+        + '<ul class="ut-hidden" data-umanit--tiptap--editor-target="contextMenu">'
+        + '<li role="none"><button type="button" role="menuitem" tabindex="-1"></button></li></ul>',
+      );
+    const press = (init) => {
+      const event = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, ...init });
+
+      document.querySelector('[data-umanit--tiptap--editor-target="editor"]').dispatchEvent(event);
+
+      return event;
+    };
+    const menu = () => document.querySelector('[data-umanit--tiptap--editor-target="contextMenu"]');
+
+    await mount(withMenu(true));
+    document.querySelector('.ProseMirror').editor.commands.setTextSelection(4);
+    expect(press({ key: 'F10', shiftKey: true }).defaultPrevented).toBe(false);
+    expect(press({ key: 'ContextMenu' }).defaultPrevented).toBe(false);
+    expect(menu().classList.contains('ut-hidden')).toBe(true);
+
+    application.stop();
+    resetRegistry();
+    await mount(withMenu(false));
+    // jsdom has no layout
+    vi.spyOn(document.querySelector('.ProseMirror').editor.view, 'coordsAtPos').mockReturnValue({
+      left: 10, right: 10, top: 20, bottom: 30,
+    });
+    document.querySelector('.ProseMirror').editor.commands.setTextSelection(4);
+    expect(press({ key: 'F10' }).defaultPrevented).toBe(false);
+    expect(press({ key: 'F10', shiftKey: true }).defaultPrevented).toBe(true);
+    expect(menu().classList.contains('ut-hidden')).toBe(false);
   });
 
   it('tells the keyboard shortcut of the context menu, when the editor has one', async () => {

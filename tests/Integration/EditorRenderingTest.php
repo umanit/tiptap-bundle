@@ -119,6 +119,92 @@ final class EditorRenderingTest extends KernelTestCase
         $this->assertStringContainsString('umanit-tiptap__btn--source" title="Source Mode"', $html);
     }
 
+    public function testEveryLabelOfTheModalsIsTiedToAField(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        preg_match_all('/\sid="([^"]+)"/', $html, $ids);
+        preg_match_all('/<label\b[^>]*\sfor="([^"]+)"/', $html, $targets);
+
+        $this->assertNotEmpty($targets[1]);
+
+        foreach ($targets[1] as $target) {
+            $this->assertContains($target, $ids[1], \sprintf('No field has the id "%s"', $target));
+        }
+
+        // The fields of the table, cell and link modals are named after their label
+        foreach (['tableRowsInput', 'tableCaptionInput', 'cellTextAlignInput', 'linkUrlInput'] as $field) {
+            $this->assertMatchesRegularExpression('/for="' . $field . '-[^"]+"/', $html, $field);
+        }
+    }
+
+    public function testTwoEditorsOfAPageDoNotShareAnId(): void
+    {
+        $html = $this->getTwig()->createTemplate(
+            '<twig:Umanit:Tiptap:Editor id="foo" /><twig:Umanit:Tiptap:Editor id="bar" />',
+        )->render();
+
+        preg_match_all('/\sid="([^"]+)"/', $html, $ids);
+
+        $this->assertSame([], array_keys(array_filter(
+            array_count_values($ids[1]),
+            static fn(int $count): bool => $count > 1,
+        )));
+        $this->assertStringContainsString('id="tableRowsInput-tableConfigModal-foo"', $html);
+        $this->assertStringContainsString('id="tableRowsInput-tableConfigModal-bar"', $html);
+    }
+
+    public function testDropdownsAndTheirButtonsAreAccessible(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        // A dropdown (styles, colors, font size) tells its state on its own button, which is named
+        $this->assertGreaterThanOrEqual(4, substr_count($html, 'aria-expanded="false"'));
+        $this->assertSame(
+            substr_count($html, 'data-umanit--tiptap--dropdown-target="button"'),
+            substr_count($html, 'aria-expanded="false"'),
+        );
+        $this->assertMatchesRegularExpression(
+            '#<button[^>]*class="umanit-tiptap__btn"[^>]*title="Choose a Color"[^>]*aria-label="Choose a Color"#',
+            $html,
+        );
+        $this->assertMatchesRegularExpression('#<button[^>]*title="Font size"[^>]*aria-label="Font size"#', $html);
+        // The wrapper no longer carries the title
+        $this->assertDoesNotMatchRegularExpression(
+            '#<div class="umanit-tiptap__color-wrapper umanit-tiptap__dropdown"[^>]*title=#',
+            $html,
+        );
+    }
+
+    public function testTableContextMenuIsAMenu(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        $this->assertMatchesRegularExpression('#<ul[^>]*role="menu"#', $html);
+        $this->assertStringContainsString('role="menuitem"', $html);
+        $this->assertStringContainsString('tabindex="-1"', $html);
+        $this->assertStringContainsString('data-umanit--tiptap--editor-target="contextMenu"', $html);
+    }
+
+    public function testTemplatesAreAFieldsetWhoseLegendIsTheHint(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        $this->assertMatchesRegularExpression(
+            '#<fieldset[^>]*>\s*<legend[^>]*umanit-tiptap__hint[^>]*>[^<]+</legend>#',
+            $html,
+        );
+        $this->assertStringNotContainsString('<p class="umanit-tiptap__hint">wysiwyg', $html);
+    }
+
+    public function testRequiredFieldsOfTheModalsAreExplained(): void
+    {
+        $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();
+
+        // The table and the image modals
+        $this->assertSame(2, substr_count($html, 'Fields marked with an asterisk (*) are required.'));
+    }
+
     public function testToolsTellWhenTheyAreActive(): void
     {
         $html = $this->getTwig()->createTemplate('<twig:Umanit:Tiptap:Editor id="foo" />')->render();

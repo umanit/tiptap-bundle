@@ -170,6 +170,20 @@ describe('content schema', () => {
     expect(html).toContain('<td headers="year sales"');
   });
 
+  it('keeps the id of a header which has no scope, and the headers of several cells', () => {
+    const html = roundTrip('<table><tbody><tr><th id="a">A</th><td headers=" a  b ">1</td></tr></tbody></table>');
+
+    expect(html).toContain('<th id="a"');
+    expect(html).not.toContain('scope=');
+    expect(html).toContain('<td headers="a  b"');
+  });
+
+  it('does not add the attributes which tie the cells to their headers to a plain table', () => {
+    const html = roundTrip('<table><tbody><tr><th>A</th><td>1</td></tr></tbody></table>');
+
+    expect(html).not.toMatch(/\s(scope|id|headers)=/);
+  });
+
   it('drops a scope which is not one of its values', () => {
     const html = roundTrip('<table><tbody><tr><th scope="everything">Year</th></tr></tbody></table>');
 

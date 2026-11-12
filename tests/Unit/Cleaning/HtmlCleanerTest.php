@@ -92,6 +92,20 @@ final class HtmlCleanerTest extends TestCase
             ['table-layout'],
         ];
 
+        yield 'the attributes which tie the cells to their headers are not layout' => [
+            '<table class="MsoTableGrid" width="500" border="1"><tbody>'
+            . '<tr><th id="year" scope="col" width="100" valign="top">Year</th>'
+            . '<th id="sales" scope="col" headers="year" style="width:80px;border:none;">Sales</th></tr>'
+            . '<tr><th scope="row" height="20">2026</th><td headers="year sales" bgcolor="#fff">12</td></tr>'
+            . '</tbody></table>',
+            '<table><tbody>'
+            . '<tr><th id="year" scope="col" width="100">Year</th>'
+            . '<th id="sales" scope="col" headers="year" style="width:80px;">Sales</th></tr>'
+            . '<tr><th scope="row">2026</th><td headers="year sales">12</td></tr>'
+            . '</tbody></table>',
+            ['word-classes', 'table-layout'],
+        ];
+
         yield 'a table centered or aligned to the right keeps its alignment, a left one loses it' => [
             '<table align="center" width="50%"><tbody><tr><td>a</td></tr></tbody></table>'
             . '<table align="RIGHT"><tbody><tr><td>b</td></tr></tbody></table>'
@@ -179,6 +193,19 @@ final class HtmlCleanerTest extends TestCase
 
         $this->assertFalse($twice->isChanged());
         $this->assertSame($once->html, $twice->html);
+    }
+
+    public function testAnAccessibleTableComesBackUntouched(): void
+    {
+        $html = '<table><caption>Sales</caption><tbody>'
+            . '<tr><th id="year" scope="col">Year</th><th id="sales" scope="col" headers="year">Sales</th></tr>'
+            . '<tr><th scope="row">2026</th><td headers="year sales">12</td></tr>'
+            . '</tbody></table>';
+
+        $result = $this->cleaner()->clean($html);
+
+        $this->assertFalse($result->isChanged());
+        $this->assertSame($html, $result->html);
     }
 
     public function testAContentWithNothingToCleanComesBackUntouched(): void
