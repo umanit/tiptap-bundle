@@ -372,7 +372,9 @@ export default class extends Controller {
 
   /**
    * A disabled editor is displayed but cannot be used: the content is read-only, the toolbar and the status bar are
-   * inert, and the textarea is disabled so that nothing is submitted, as with any disabled form field.
+   * inert, and the textarea is disabled so that nothing is submitted, as with any disabled form field. The editing area
+   * stays readable and scrollable: like a read-only field, it is reached from the keyboard and tells assistive
+   * technologies that it is read-only, so that its content and description are read.
    */
   #applyDisabled() {
     if (!this.#wysiwygEditor) {
@@ -380,8 +382,19 @@ export default class extends Controller {
     }
 
     const disabled = this.disabledValue;
+    const editingArea = this.#wysiwygEditor.getEditor().view.dom;
 
     this.#wysiwygEditor.setEditable(!disabled);
+
+    // `contenteditable="false"` takes the text box out of the tab order and is not announced as such: it stays
+    // focusable, which also lets the keyboard scroll it, and says it is read-only
+    if (disabled) {
+      editingArea.setAttribute('aria-readonly', 'true');
+      editingArea.setAttribute('tabindex', '0');
+    } else {
+      editingArea.removeAttribute('aria-readonly');
+      editingArea.removeAttribute('tabindex');
+    }
     this.inputTarget.disabled = disabled;
     this.element.classList.toggle('umanit-tiptap--disabled', disabled);
 

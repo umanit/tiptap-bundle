@@ -127,6 +127,8 @@ describe('editor controller', () => {
     });
 
     expect(editor.isEditable).toBe(false);
+    expect(editor.view.dom.getAttribute('aria-readonly')).toBe('true');
+    expect(editor.view.dom.tabIndex).toBe(0);
     expect(textarea.disabled).toBe(true);
     expect(toolbar.inert).toBe(true);
     expect(root.classList.contains('umanit-tiptap--disabled')).toBe(true);
@@ -138,6 +140,8 @@ describe('editor controller', () => {
     });
 
     expect(editor.isEditable).toBe(true);
+    expect(editor.view.dom.hasAttribute('aria-readonly')).toBe(false);
+    expect(editor.view.dom.hasAttribute('tabindex')).toBe(false);
     expect(textarea.disabled).toBe(false);
     expect(toolbar.inert).toBe(false);
   });
@@ -148,7 +152,27 @@ describe('editor controller', () => {
     await mount(markup.replace('translations-value="{}"', `translations-value="{}" ${attribute}`));
 
     expect(document.querySelector('.ProseMirror').editor.isEditable).toBe(false);
+    expect(document.querySelector('.ProseMirror').getAttribute('aria-readonly')).toBe('true');
     expect(document.querySelector('textarea').disabled).toBe(true);
+  });
+
+  it('keeps a disabled editing area focusable and read-only when its content changes', async () => {
+    const attribute = 'data-umanit--tiptap--editor-disabled-value="true"';
+
+    await mount(markup.replace('translations-value="{}"', `translations-value="{}" ${attribute}`));
+
+    const editingArea = document.querySelector('.ProseMirror');
+
+    // ProseMirror rewrites the attributes it manages on each update: those of the read-only state must survive it
+    editingArea.editor.commands.setContent('<p>Updated</p>');
+
+    expect(editingArea.tabIndex).toBe(0);
+    expect(editingArea.getAttribute('aria-readonly')).toBe('true');
+    expect(editingArea.getAttribute('contenteditable')).toBe('false');
+
+    editingArea.focus();
+
+    expect(document.activeElement).toBe(editingArea);
   });
 
   it('marks the tools which are active at the cursor, from their active state', async () => {
