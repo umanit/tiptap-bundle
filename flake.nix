@@ -2,11 +2,8 @@
   description = "tiptap-bundle dev shell (PHP 8.4)";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    php-dev-shell = {
-      url = "github:DjLeChuck/php-dev-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    php-dev-shell.url = "github:DjLeChuck/php-dev-shell";
+    nixpkgs.follows = "php-dev-shell/nixpkgs";
   };
 
   outputs =
