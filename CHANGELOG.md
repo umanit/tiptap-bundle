@@ -13,6 +13,9 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Accessibility (RGAA / WCAG 2.1 AA):
   - The editing area is a multiline text box named after the `<textarea>`: its `aria-labelledby` / `aria-label`, or
     else its `<label>` elements (given an id when they have none). Its `aria-describedby` is copied as well.
+  - A disabled editor keeps its editing area in the tab order, as a read-only field, and tells assistive technologies
+    that it is read-only (`aria-readonly`), which `contenteditable="false"` alone does not: its content and its
+    description are read, and the keyboard scrolls it. The focus is drawn around the area, which shows no caret.
   - The context menu of a table opens from the keyboard too (`Shift+F10`, Menu key, or a screen reader command which
     fires a context menu on the editing area) when the cursor is in a table, and the editing area announces the
     shortcut (`aria-keyshortcuts`). It is a `role="menu"` browsed with the arrows, `Home` and `End`; `Escape` and

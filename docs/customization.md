@@ -193,6 +193,10 @@ the textarea is. Its `aria-labelledby` (or else its `aria-label`) is copied to t
 elements are: give the field a label (`form_row()`), or an `aria-labelledby` through `attr` when it is rendered on its
 own. Its `aria-describedby` is copied as well. The source view is the textarea itself, named the same way.
 
+A disabled editor (the `disabled` option) stays readable: its editing area remains in the tab order, as a read-only
+field does, and tells it is read-only (`aria-readonly`), so that a screen reader reads its content and its description,
+and the keyboard scrolls it. As it shows no caret, the focus is drawn around it.
+
 The context menu of a table opens with a right click, and from the keyboard with `Shift+F10` or the Menu key when the
 cursor is in a table, as does a context menu asked by a screen reader (VoiceOver's `VO+Shift+M`…) to the editing area.
 The editing area announces the shortcut (`aria-keyshortcuts`). The menu is a `role="menu"`: the arrows, `Home` and

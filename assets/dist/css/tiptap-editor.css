@@ -107,6 +107,12 @@
   .umanit-tiptap__source {
     background: var(--umanit-tiptap-border-color);
   }
+
+  /* Read-only, the editing area shows no caret: the keyboard focus is drawn around the visible part of it */
+  .umanit-tiptap__surface:has(.umanit-tiptap__content:focus-visible) {
+    outline: 2px solid var(--umanit-tiptap-primary);
+    outline-offset: -2px;
+  }
 }
 
 /* Status bar: path of the elements around the cursor, resize handle */
