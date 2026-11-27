@@ -95,8 +95,15 @@
 
 /* Disabled: displayed, but unusable */
 .umanit-tiptap--disabled {
-  opacity: 0.6;
   cursor: not-allowed;
+
+  /* The parts are faded one by one rather than the whole editor, so that the focus outline keeps its full contrast */
+  .umanit-tiptap__toolbar,
+  .umanit-tiptap__statusbar,
+  .umanit-tiptap__surface > *,
+  .umanit-tiptap__source {
+    opacity: 0.6;
+  }
 
   .umanit-tiptap__toolbar,
   .umanit-tiptap__statusbar {
@@ -106,6 +113,11 @@
   .umanit-tiptap__surface,
   .umanit-tiptap__source {
     background: var(--umanit-tiptap-border-color);
+  }
+
+  /* A read-only area is not a place to type: the default cursor, not the one of the whole disabled editor */
+  .umanit-tiptap__surface {
+    cursor: default;
   }
 
   /* Read-only, the editing area shows no caret: the keyboard focus is drawn around the visible part of it */
